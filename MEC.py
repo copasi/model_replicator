@@ -18,13 +18,13 @@ if '../..' not in sys.path:
 from basico import *
 #import numpy as np
 import time
-from datetime import date
+from datetime import date, datetime
 import re
 #import matplotlib.pyplot as plt
 #%matplotlib inline
 
 # DEFAULT GRID SIZE
-gridr = 3
+gridr = 2
 gridc = 1
 
 # check if arguments were passed to size the grid
@@ -33,20 +33,29 @@ n = len(sys.argv)
 # make sure there is at least one argument (.cps file)
 if( n < 2 ):
     # invalid number of arguments
-    print("\nUsage: MEC.py filename rows colums\n")
+    print("\nUsage: MEC.py filename [rows [colums]]\n")
     exit()
 
 seedmodelfile = sys.argv[1]
 
 if( n>=3 ):
-    # we got two arguments, set rows and columns
+    # we got two arguments, set rows
     try:
         gridr = int(sys.argv[2])
+        # if the number is non-positive raise exception
+        if( gridr<1): raise
+    except:
+        print("\nInvalid arguments, must be a positive integer.\n")
+        exit()
+
+if( n>=4 ):
+    # we got three arguments, set columns
+    try:
         gridc = int(sys.argv[3])
         # if the numbers are non-positive raise exception
-        if( gridr<1) or (gridc<1): raise
+        if( gridc<1 ): raise
     except:
-        print("\nInvalid arguments, rows and columns must be positive integers.\n")
+        print("\nInvalid arguments, must be a positive integer.\n")
         exit()
 
 # get the base of the filename
@@ -56,38 +65,81 @@ base,ext = os.path.splitext(seedmodelfile)
 nmodels= gridr*gridc
 
 if(nmodels==1):
-	print("\nNothing to do, 1x1 grid is the same as the original!\n")
-	exit()
+    print("\nNothing to do, one copy is the same as the original!\n")
+    exit()
 
+# strings to add to comments and titles, etc
 if(gridr==1):
 	fsuff = f"_{gridc}"
-	desc = f"a set of {nmodels} replicas of "
+	desc = f"a set of {nmodels} replicas"
 else:
 	if(gridc==1):
 		fsuff = f"_{gridr}"
-		desc = f"a set of {nmodels} replicas of "
+		desc = f"a set of {nmodels} replicas"
 	else:
 		fsuff = f"_{gridr}x{gridc}"
-		desc = f"a set of {nmodels} ({gridr}x{gridc}) replicas of "
+		desc = f"a set of {nmodels} ({gridr}x{gridc}) replicas"
 
 # create filename for new model
 newfilename = f"{base}{fsuff}.cps"
 
-print(f"\ncreating a model with {desc}{seedmodelfile}\nsaving as {newfilename}\n")
-
 # load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
+# print some information about the model
+print(f"\nProcessing {seedmodelfile}")
+print_model(seedmodel)
+print(f"creating new model {newfilename} with {desc}\n")
 
+# create the new model name
 seedname = get_model_name(model=seedmodel)
+newname = f"{desc} of {seedname}"
 
-newname = f"{desc}{seedname}"
+# edit the notes
+nnotes = get_notes(model=seedmodel)
+# check if notes are empty
+if not nnotes:
+    nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with MEC to produce {desc} of {seedmodelfile}</p></body>"
+else:
+    # check if the notes are in HTML
+    index = nnotes.find('</body>')
+    if( index == -1 ):
+        # not HTML, so add a simple string
+        nnotes = nnotes + f"\n\nProcessed with MEC to produce {desc} of {seedmodelfile}"
+    else:
+        # add info at the end of the body section
+        nend = nnotes[index:]
+        nnotes = nnotes[:index] + f"<hr/><p>Processed with MEC to produce {desc} of {seedmodelfile}</p>" + nend
 
-newmodel = new_model(name=newname)
+# get original model units
+munits = get_model_units(model=seedmodel)
 
-notes = get_notes(model=seedmodel)
+# create the new model
+newmodel = new_model(name=newname,
+                     notes=nnotes,
+                     quantity_unit=munits['quantity_unit'],
+                     time_unit=munits['time_unit'],
+                     volume_unit=munits['volume_unit'],
+                     area_unit=munits['area_unit'],
+                     length_unit=munits['length_unit'])
 
+# transfer the annotations
+miriam = get_miriam_annotation(model=seedmodel)
+if 'created' in miriam:
+    set_miriam_annotation(model=newmodel, created=miriam['created'], replace=True)
+if 'creators' in miriam:
+    set_miriam_annotation(model=newmodel, creators=miriam['creators'], replace=True)
+if 'references' in miriam:
+    set_miriam_annotation(model=newmodel, references=miriam['references'], replace=True)
+if 'description' in miriam:
+    set_miriam_annotation(model=newmodel, description=miriam['description'], replace=True)
+# add one modification now
+if 'modifications' in miriam:
+    miriam['modifications'].append(datetime.now())
+    set_miriam_annotation(model=newmodel, modifications=miriam['modifications'], replace=True)
+else:
+    modf = []
+    modf.append(datetime.now())
+    set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
+
+# save the new model
 save_model(filename=newfilename, model=newmodel)
-
-# Comments for the whole model
-notes_footer=f'<hr/><p>Processed with MEC to produce {desc}{seedmodelfile}</p>'
-
