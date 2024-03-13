@@ -17,6 +17,7 @@ if '../..' not in sys.path:
 
 from basico import *
 #import numpy as np
+import pandas as pd
 import time
 from datetime import date, datetime
 import re
@@ -85,10 +86,6 @@ newfilename = f"{base}{fsuff}.cps"
 
 # load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
-# print some information about the model
-print(f"\nProcessing {seedmodelfile}")
-print_model(seedmodel)
-print(f"creating new model {newfilename} with {desc}\n")
 
 # create the new model name
 seedname = get_model_name(model=seedmodel)
@@ -112,6 +109,9 @@ else:
 
 # get original model units
 munits = get_model_units(model=seedmodel)
+
+# print some information about the model
+print(f"\nProcessing {seedmodelfile}")
 
 # create the new model
 newmodel = new_model(name=newname,
@@ -140,6 +140,115 @@ else:
     modf = []
     modf.append(datetime.now())
     set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
+
+#Get the global quantities
+mparams = get_parameters(model=seedmodel, exact=True)
+#print(mparams)
+seednparams = mparams.shape[0]
+
+# count subsets (fixed, assignment, ode)
+pfixed = (mparams['type']=='fixed').sum()
+passg = (mparams['type']=='assignment').sum()
+pode = (mparams['type']=='ode').sum()
+
+print(f"# Global quantities:\t{seednparams}\n # Fixed:\t{pfixed}\t# Assignments:\t{passg}\t# ODE:\t{pode}")
+
+#Get the compartments
+mcomps = get_compartments(model=seedmodel, exact=True)
+#print(mcomps)
+seedncomps = mcomps.shape[0]
+
+# count subsets (fixed, assignment, ode)
+cfixed = (mcomps['type']=='fixed').sum()
+cassg = (mcomps['type']=='assignment').sum()
+code = (mcomps['type']=='ode').sum()
+
+print(f"# Compartments:\t{seedncomps}\n # Fixed:\t{cfixed}\t# Assignments:\t{cassg}\t# ODE:\t{code}")
+
+#Get the species
+mspecs = get_species(model=seedmodel, exact=True)
+#print(mspecs)
+seednspecs = mspecs.shape[0]
+
+# count subsets (fixed, assignment, ode)
+sreact = (mspecs['type']=='reactions').sum()
+sfixed = (mspecs['type']=='fixed').sum()
+sassg = (mspecs['type']=='assignment').sum()
+sode = (mspecs['type']=='ode').sum()
+
+print(f"# Species:\t{seednspecs}\n #Reactions:\t{sreact}\t# Fixed:\t{sfixed}\t# Assignments:\t{sassg}\t# ODE:\t{sode}")
+
+# loop over all replicates
+i = 0
+for r in range(gridr):
+    for c in range(gridc):
+        if(gridr==1 or gridc==1):
+            apdx = f"_{i+1}"
+        else:
+            apdx = f"_{r+1},{c+1}"
+
+        # PARAMETERS
+        for p in mparams.index:
+            nname = p + apdx
+            u = mparams.loc[p].at['unit']
+            ex = mparams.loc[p].at['expression']
+            ie = mparams.loc[p].at['initial_expression']
+            if(mparams.loc[p].at['type']=='fixed'):
+                if(ie):
+                    add_parameter(model=newmodel, name=nname, status='fixed', initial_expression=ie, unit=u )
+                else:
+                    iv = mparams.loc[p].at['initial_value']
+                    add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=u )
+            else:  # ode and assignment
+                if(ie):
+                    add_parameter(model=newmodel, name=nname, status=mparams.loc[p].at['type'], expression=ex, initial_expression=ie, unit=u )
+                else:
+                    iv = mparams.loc[p].at['initial_value']
+                    add_parameter(model=newmodel, name=nname, status=mparams.loc[p].at['type'], expression=ex, initial_value=iv, unit=u )
+
+        # COMPARTMENTS
+        for p in mcomps.index:
+            nname = p + apdx
+            u = mcomps.loc[p].at['unit']
+            ex = mcomps.loc[p].at['expression']
+            iv = mcomps.loc[p].at['initial_size']
+            ie = mcomps.loc[p].at['initial_expression']
+            dim = mcomps.loc[p].at['dimensionality']
+            if(mcomps.loc[p].at['type']=='fixed'):
+                if(ie):
+                    add_compartment(model=newmodel, name=nname, status='fixed', initial_expression=ie, unit=u, dimiensionality=dim )
+                else:
+                    iv = mcomps.loc[p].at['initial_size']
+                    add_compartment(model=newmodel, name=nname, status='fixed', initial_size=iv, unit=u, dimiensionality=dim )
+            else:  # ode and assignment
+                if(ie):
+                    add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], expression=ex, initial_expression=ie, unit=u, dimiensionality=dim )
+                else:
+                    iv = mcomps.loc[p].at['initial_value']
+                    add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], expression=ex, initial_size=iv, unit=u, dimiensionality=dim )
+        # SPECIES
+        for p in mspecs.index:
+            nname = p + apdx
+            cp = mspecs.loc[p].at['compartment'] + apdx
+            u = mspecs.loc[p].at['unit']
+            ex = mspecs.loc[p].at['expression']
+            ie = mspecs.loc[p].at['initial_expression']
+            if(mspecs.loc[p].at['type']=='fixed' or mspecs.loc[p].at['type']=='reactions'):
+                if(ie):
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_expression=ie, unit=u)
+                else:
+                    ic = mspecs.loc[p].at['initial_concentration']
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=ic, unit=u )
+            else:  # ode and assignment
+                if(ie):
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], expression=ex, initial_expression=ie, unit=u)
+                else:
+                    ic = mspecs.loc[p].at['initial_concentration']
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], expression=ex, initial_concentration=ic, unit=u)
+        i += 1
+
+
+print(f"creating new model {newfilename} with {desc} of {seedmodelfile}\n")
 
 # save the new model
 save_model(filename=newfilename, model=newmodel)
