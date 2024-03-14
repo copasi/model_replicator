@@ -156,59 +156,6 @@ newfilename = f"{base}{fsuff}.cps"
 # load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 
-# create the new model name
-seedname = get_model_name(model=seedmodel)
-newname = f"{desc} of {seedname}"
-
-# edit the notes
-nnotes = get_notes(model=seedmodel)
-# check if notes are empty
-if not nnotes:
-    nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with MEC to produce {desc} of {seedmodelfile}</p></body>"
-else:
-    # check if the notes are in HTML
-    index = nnotes.find('</body>')
-    if( index == -1 ):
-        # not HTML, so add a simple string
-        nnotes = nnotes + f"\n\nProcessed with MEC to produce {desc} of {seedmodelfile}"
-    else:
-        # add info at the end of the body section
-        nend = nnotes[index:]
-        nnotes = nnotes[:index] + f"<hr/><p>Processed with MEC to produce {desc} of {seedmodelfile}</p>" + nend
-
-# get original model units
-munits = get_model_units(model=seedmodel)
-
-# print some information about the model
-print(f"\nProcessing {seedmodelfile}")
-
-# create the new model
-newmodel = new_model(name=newname,
-                     notes=nnotes,
-                     quantity_unit=munits['quantity_unit'],
-                     time_unit=munits['time_unit'],
-                     volume_unit=munits['volume_unit'],
-                     area_unit=munits['area_unit'],
-                     length_unit=munits['length_unit'])
-
-# transfer the annotations
-miriam = get_miriam_annotation(model=seedmodel)
-if 'created' in miriam:
-    set_miriam_annotation(model=newmodel, created=miriam['created'], replace=True)
-if 'creators' in miriam:
-    set_miriam_annotation(model=newmodel, creators=miriam['creators'], replace=True)
-if 'references' in miriam:
-    set_miriam_annotation(model=newmodel, references=miriam['references'], replace=True)
-if 'description' in miriam:
-    set_miriam_annotation(model=newmodel, description=miriam['description'], replace=True)
-# add one modification now
-if 'modifications' in miriam:
-    miriam['modifications'].append(datetime.now())
-    set_miriam_annotation(model=newmodel, modifications=miriam['modifications'], replace=True)
-else:
-    modf = []
-    modf.append(datetime.now())
-    set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
 
 #Get the global quantities
 mparams = get_parameters(model=seedmodel, exact=True)
@@ -271,15 +218,70 @@ else:
 
 print(f"# Reactions:\t{seednreacts}\n")
 
+# create the new model name
+seedname = get_model_name(model=seedmodel)
+newname = f"{desc} of {seedname}"
+
+# edit the notes
+nnotes = get_notes(model=seedmodel)
+# check if notes are empty
+if not nnotes:
+    nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with MEC to produce {desc} of {seedmodelfile}</p></body>"
+else:
+    # check if the notes are in HTML
+    index = nnotes.find('</body>')
+    if( index == -1 ):
+        # not HTML, so add a simple string
+        nnotes = nnotes + f"\n\nProcessed with MEC to produce {desc} of {seedmodelfile}"
+    else:
+        # add info at the end of the body section
+        nend = nnotes[index:]
+        nnotes = nnotes[:index] + f"<hr/><p>Processed with MEC to produce {desc} of {seedmodelfile}</p>" + nend
+
+# get original model units
+munits = get_model_units(model=seedmodel)
+
+# print some information about the model
+print(f"\nProcessing {seedmodelfile}")
+
+# create the new model
+newmodel = new_model(name=newname,
+                     notes=nnotes,
+                     quantity_unit=munits['quantity_unit'],
+                     time_unit=munits['time_unit'],
+                     volume_unit=munits['volume_unit'],
+                     area_unit=munits['area_unit'],
+                     length_unit=munits['length_unit'])
+
+# transfer the annotations
+miriam = get_miriam_annotation(model=seedmodel)
+if 'created' in miriam:
+    set_miriam_annotation(model=newmodel, created=miriam['created'], replace=True)
+if 'creators' in miriam:
+    set_miriam_annotation(model=newmodel, creators=miriam['creators'], replace=True)
+if 'references' in miriam:
+    set_miriam_annotation(model=newmodel, references=miriam['references'], replace=True)
+if 'description' in miriam:
+    set_miriam_annotation(model=newmodel, description=miriam['description'], replace=True)
+# add one modification now
+if 'modifications' in miriam:
+    miriam['modifications'].append(datetime.now())
+    set_miriam_annotation(model=newmodel, modifications=miriam['modifications'], replace=True)
+else:
+    modf = []
+    modf.append(datetime.now())
+    set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
+
 ############
 #  MAIN LOOP
 #
 # the loop does this for each new replicate model:
 #    1) create parameters, compartments, species and reactions without expressions
 #    2) set expressions for compartments and species
-#    3) create events
-#    4) parameter sets?
-#    5) element annotations?
+#    3) fix all reaction mappings  TO DO
+#    4) create events TO DO
+#    5) parameter sets? TO DO
+#    6) element annotations? TO DO
 ############
 
 # we use "_i" as suffix if the arrangement is only a set
@@ -318,7 +320,6 @@ for r in range(gridr):
                 scheme = mreacts.loc[p].at['scheme']
                 tok = scheme.split(';')
                 tok2 = [sub.split() for sub in tok]
-                #print(tok2)
                 # build the reaction string
                 rs = ""
                 for t in tok2[0]:
@@ -330,13 +331,12 @@ for r in range(gridr):
                     rs = rs[:len(rs)-1] + "; "
                     for t in tok2[1]:
                         rs = rs + t + apdx + " "
-                #print(rs)
                 add_reaction(model=newmodel, name=nname, scheme=rs )
 
         # SECOND set expressions and initial_expressions
 
         # PARAMETERS
-        if( seednparams>0 ):
+        if( seednparams > 0 ):
             for p in mparams.index:
                 nname = p + apdx
                 if( mparams.loc[p].at['initial_expression'] ):
@@ -372,9 +372,6 @@ for r in range(gridr):
                     ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
                     print(ex)
                     set_species(model=newmodel, name=nname, exact=True, expression=ex )
-
-
-
         i += 1
 
 
