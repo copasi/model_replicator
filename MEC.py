@@ -45,16 +45,16 @@ def fix_expression(expression, suff):
         for el in vars:
             y=False
             #check that the variable exists
-            if( el in mparams.index ):
+            if( (seednparams>0) and (el in mparams.index) ):
                 y=True
             else:
-                if(el in mcomps.index ):
+                if( (seedncomps>0) and (el in mcomps.index) ):
                     y=True
                 else:
-                    if( el in mspecs.index ):
+                    if( (seednspecs>0) and (el in mspecs.index) ):
                         y=True
                     else:
-                        if(el in mreacts.index):
+                        if( (seednreacts>0) and (el in mreacts.index) ):
                             y=True
             if(y):
                 elnew = el + suff
@@ -65,16 +65,16 @@ def fix_expression(expression, suff):
         for el in vars:
             y=False
             #check that the variable exists
-            if( el in mparams.index ):
+            if( (seednparams>0) and (el in mparams.index) ):
                 y=True
             else:
-                if(el in mcomps.index ):
+                if( (seedncomps>0) and (el in mcomps.index) ):
                     y=True
                 else:
-                    if( el in mspecs.index ):
+                    if( (seednspecs>0) and (el in mspecs.index) ):
                         y=True
                     else:
-                        if( el in mreacts.index ):
+                        if( (seednreacts>0) and (el in mreacts.index) ):
                             y=True
             if(y):
                 elnew = el + suff
@@ -86,16 +86,16 @@ def fix_expression(expression, suff):
         for el in vars:
             y=False
             #check that the variable exists
-            if( el in mparams.index ):
+            if( (seednparams>0) and (el in mparams.index) ):
                 y=True
             else:
-                if(el in mcomps.index ):
+                if( (seedncomps>0) and (el in mcomps.index) ):
                     y=True
                 else:
-                    if( el in mspecs.index ):
+                    if( (seednspecs>0) and (el in mspecs.index) ):
                         y=True
                     else:
-                        if( el in mreacts.index ):
+                        if( (seednreacts>0) and (el in mreacts.index) ):
                             y=True
             if(y):
                 elnew = el + suff
@@ -247,10 +247,10 @@ print(f"# Compartments:\t{seedncomps}\n # Fixed:\t{cfixed}\t# Assignments:\t{cas
 mspecs = get_species(model=seedmodel, exact=True)
 if( mspecs is None):
     seednspecs = 0
-    sreact = (mspecs['type']=='reactions').sum()
-    sfixed = (mspecs['type']=='fixed').sum()
-    sassg = (mspecs['type']=='assignment').sum()
-    sode = (mspecs['type']=='ode').sum()
+    sreact = 0
+    sfixed = 0
+    sassg = 0
+    sode = 0
 else:
     seednspecs = mspecs.shape[0]
     # count subsets (fixed, assignment, ode)
@@ -299,7 +299,7 @@ for r in range(gridr):
         if( seednparams>0 ):
             for p in mparams.index:
                 nname = p + apdx
-                add_parameter(model=newmodel, name=nname, status= mparams.loc[p].at['type'], initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
+                add_parameter(model=newmodel, name=nname, status='fixed', initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
         # COMPARTMENTS
         if( seedncomps > 0):
             for p in mcomps.index:
@@ -339,25 +339,39 @@ for r in range(gridr):
         if( seednparams>0 ):
             for p in mparams.index:
                 nname = p + apdx
-                ex = mparams.loc[p].at['expression']
-                ie = mparams.loc[p].at['initial_expression']
                 if( mparams.loc[p].at['initial_expression'] ):
                     ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
                     set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
                 if( mparams.loc[p].at['type']=='assignment' or mparams.loc[p].at['type']=='ode'):
+                    print( mparams.loc[p].at['expression'] )
                     ex = fix_expression(mparams.loc[p].at['expression'], apdx)
-                    set_parameters(model=newmodel, name=nname, exact=True, expression=ex )
+                    print(ex)
+                    set_parameters(model=newmodel, name=nname, exact=True, status=mparams.loc[p].at['type'], expression=ex )
         # COMPARTMENTS
         if( seedncomps > 0):
             for p in mcomps.index:
                 nname = p + apdx
-                #add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
+                if( mcomps.loc[p].at['initial_expression'] ):
+                    ie = fix_expression(mcomps.loc[p].at['initial_expression'], apdx)
+                    set_compartment(model=newmodel, name=nname, exact=True, initial_expression=ie )
+                if( mcomps.loc[p].at['type']=='assignment' or mcomps.loc[p].at['type']=='ode'):
+                    print( mcomps.loc[p].at['expression'] )
+                    ex = fix_expression(mcomps.loc[p].at['expression'], apdx)
+                    print(ex)
+                    set_compartment(model=newmodel, name=nname, exact=True, expression=ex )
         # SPECIES
         if( seednspecs > 0):
             for p in mspecs.index:
                 nname = p + apdx
                 cp = mspecs.loc[p].at['compartment'] + apdx
-                #add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+                if( mspecs.loc[p].at['initial_expression'] ):
+                    ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx)
+                    set_species(model=newmodel, name=nname, exact=True, initial_expression=ie )
+                if( mspecs.loc[p].at['type']=='assignment' or mspecs.loc[p].at['type']=='ode'):
+                    print( mspecs.loc[p].at['expression'] )
+                    ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
+                    print(ex)
+                    set_species(model=newmodel, name=nname, exact=True, expression=ex )
 
 
 
