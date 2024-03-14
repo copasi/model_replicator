@@ -24,6 +24,10 @@ import re
 #import matplotlib.pyplot as plt
 #%matplotlib inline
 
+###
+# AUXILIARY FUNCTIONS
+###
+
 # function to test if string has a number, it's amazing this is not native to python...
 def is_float(string):
     try:
@@ -31,6 +35,10 @@ def is_float(string):
         return True
     except ValueError:
         return False
+
+# function to change expression fixing all references to element names with the appropriate suffix
+def fix_expression(expression, suff):
+    return expression
 
 # DEFAULT GRID SIZE
 gridr = 2
@@ -206,11 +214,25 @@ if( mspecs is None):
     seednreacts = 0
 else:
     seednreacts = mreacts.shape[0]
-    print(mreacts)
+    #print(mreacts)
 
 print(f"# Reactions:\t{seednreacts}\n")
 
-# loop over all replicates
+############
+#  MAIN LOOP
+#
+# the loop does this for each new replicate model:
+#    1) create parameters, compartments and species without expressions
+#    2) set expressions for compartments and species
+#    3) create reactions
+#    4) create events
+#    5) parameter sets?
+#    6) element annotations?
+############
+
+# we use "_i" as label if the arrangement is only a set
+# of models, but use "_r,c" as label if they are a grid
+
 i = 0
 for r in range(gridr):
     for c in range(gridc):
@@ -219,68 +241,48 @@ for r in range(gridr):
         else:
             apdx = f"_{r+1},{c+1}"
 
+        # FIRST create all elements without expressions
+
         # PARAMETERS
         if( seednparams>0 ):
             for p in mparams.index:
                 nname = p + apdx
-                u = mparams.loc[p].at['unit']
-                ex = mparams.loc[p].at['expression']
-                ie = mparams.loc[p].at['initial_expression']
-                if(mparams.loc[p].at['type']=='fixed'):
-                    if(ie):
-                        add_parameter(model=newmodel, name=nname, status='fixed', initial_expression=ie, unit=u )
-                    else:
-                        iv = mparams.loc[p].at['initial_value']
-                        add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=u )
-                else:  # ode and assignment
-                    if(ie):
-                        add_parameter(model=newmodel, name=nname, status=mparams.loc[p].at['type'], expression=ex, initial_expression=ie, unit=u )
-                    else:
-                        iv = mparams.loc[p].at['initial_value']
-                        add_parameter(model=newmodel, name=nname, status=mparams.loc[p].at['type'], expression=ex, initial_value=iv, unit=u )
-
+                add_parameter(model=newmodel, name=nname, status= mparams.loc[p].at['type'], initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
         # COMPARTMENTS
         if( seedncomps > 0):
             for p in mcomps.index:
                 nname = p + apdx
-                u = mcomps.loc[p].at['unit']
-                ex = mcomps.loc[p].at['expression']
-                iv = mcomps.loc[p].at['initial_size']
-                ie = mcomps.loc[p].at['initial_expression']
-                dim = mcomps.loc[p].at['dimensionality']
-                if(mcomps.loc[p].at['type']=='fixed'):
-                    if(ie):
-                        add_compartment(model=newmodel, name=nname, status='fixed', initial_expression=ie, unit=u, dimiensionality=dim )
-                    else:
-                        iv = mcomps.loc[p].at['initial_size']
-                        add_compartment(model=newmodel, name=nname, status='fixed', initial_size=iv, unit=u, dimiensionality=dim )
-                else:  # ode and assignment
-                    if(ie):
-                        add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], expression=ex, initial_expression=ie, unit=u, dimiensionality=dim )
-                    else:
-                        iv = mcomps.loc[p].at['initial_value']
-                        add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], expression=ex, initial_size=iv, unit=u, dimiensionality=dim )
-
+                add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
         # SPECIES
-        for p in mspecs.index:
-            nname = p + apdx
-            cp = mspecs.loc[p].at['compartment'] + apdx
-            u = mspecs.loc[p].at['unit']
-            ex = mspecs.loc[p].at['expression']
-            ie = mspecs.loc[p].at['initial_expression']
-            # fixed and reactions
-            if(mspecs.loc[p].at['type']=='fixed' or mspecs.loc[p].at['type']=='reactions'):
-                if(ie):
-                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_expression=ie, unit=u)
-                else:
-                    ic = mspecs.loc[p].at['initial_concentration']
-                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=ic, unit=u )
-            else:  # ode and assignment
-                if(ie):
-                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], expression=ex, initial_expression=ie, unit=u)
-                else:
-                    ic = mspecs.loc[p].at['initial_concentration']
-                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], expression=ex, initial_concentration=ic, unit=u)
+        if( seednspecs > 0):
+            for p in mspecs.index:
+                nname = p + apdx
+                cp = mspecs.loc[p].at['compartment'] + apdx
+                add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+
+        # SECOND set expressions and initial_expressions
+
+        # PARAMETERS
+        if( seednparams>0 ):
+            for p in mparams.index:
+                nname = p + apdx
+                ex = mparams.loc[p].at['expression']
+                ie = mparams.loc[p].at['initial_expression']
+                if( mparams.loc[p].at['initial_expression'] ):
+                    ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
+                    set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
+        # COMPARTMENTS
+        if( seedncomps > 0):
+            for p in mcomps.index:
+                nname = p + apdx
+                #add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
+        # SPECIES
+        if( seednspecs > 0):
+            for p in mspecs.index:
+                nname = p + apdx
+                cp = mspecs.loc[p].at['compartment'] + apdx
+                #add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+
 
         # REACTIONS
         if( seednreacts > 0):
@@ -289,7 +291,7 @@ for r in range(gridr):
                 scheme = mreacts.loc[p].at['scheme']
                 tok = scheme.split(';')
                 tok2 = [sub.split() for sub in tok]
-                print(tok2)
+                #print(tok2)
                 # build the reaction string
                 rs = ""
                 for t in tok2[0]:
@@ -301,7 +303,8 @@ for r in range(gridr):
                     rs = rs[:len(rs)-1] + "; "
                     for t in tok2[1]:
                         rs = rs + t + apdx + " "
-                print(rs)
+                #print(rs)
+                add_reaction(model=newmodel, name=nname, scheme=rs )
 
         i += 1
 
