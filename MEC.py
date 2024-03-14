@@ -39,6 +39,68 @@ def is_float(string):
 
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(expression, suff):
+    # find object names inside []
+    vars = re.findall(r'\[(.+?)\]', expression )
+    if( vars ):
+        for el in vars:
+            y=False
+            #check that the variable exists
+            if( el in mparams.index ):
+                y=True
+            else:
+                if(el in mcomps.index ):
+                    y=True
+                else:
+                    if( el in mspecs.index ):
+                        y=True
+                    else:
+                        if(el in mreacts.index):
+                            y=True
+            if(y):
+                elnew = el + suff
+                expression = re.sub(f'\[{el}\]', f'[{elnew}]', expression )
+    # find object names inside ()
+    vars = re.findall(r'\((.+?)\)', expression )
+    if( vars ):
+        for el in vars:
+            y=False
+            #check that the variable exists
+            if( el in mparams.index ):
+                y=True
+            else:
+                if(el in mcomps.index ):
+                    y=True
+                else:
+                    if( el in mspecs.index ):
+                        y=True
+                    else:
+                        if( el in mreacts.index ):
+                            y=True
+            if(y):
+                elnew = el + suff
+                expression = re.sub(f'\({el}\)', f'({elnew})', expression )
+    # find object names like R1.Rate, I2.InitialParticleNumber, etc.
+    vars = re.findall(r'([^\s\]\)]+?)\.\w', expression )
+    if( vars ):
+        print(vars)
+        for el in vars:
+            y=False
+            #check that the variable exists
+            if( el in mparams.index ):
+                y=True
+            else:
+                if(el in mcomps.index ):
+                    y=True
+                else:
+                    if( el in mspecs.index ):
+                        y=True
+                    else:
+                        if( el in mreacts.index ):
+                            y=True
+            if(y):
+                elnew = el + suff
+                expression = re.sub(f'{el}\\.(\\w)', f'{elnew}.\\1', expression )
+                print(expression)
     return expression
 
 # function to check that value is positive, helper for argparse
@@ -70,7 +132,7 @@ gridc = args.columns
 base,ext = os.path.splitext(seedmodelfile)
 
 # sanity check
-nmodels= gridr*gridc
+nmodels = gridr*gridc
 
 if(nmodels==1):
     print("usage: MEC.py [-h] filename rows [columns]]\n\nNothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be > 1.\n")
@@ -213,12 +275,11 @@ print(f"# Reactions:\t{seednreacts}\n")
 #  MAIN LOOP
 #
 # the loop does this for each new replicate model:
-#    1) create parameters, compartments and species without expressions
+#    1) create parameters, compartments, species and reactions without expressions
 #    2) set expressions for compartments and species
-#    3) create reactions
-#    4) create events
-#    5) parameter sets?
-#    6) element annotations?
+#    3) create events
+#    4) parameter sets?
+#    5) element annotations?
 ############
 
 # we use "_i" as suffix if the arrangement is only a set
@@ -250,31 +311,6 @@ for r in range(gridr):
                 nname = p + apdx
                 cp = mspecs.loc[p].at['compartment'] + apdx
                 add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
-
-        # SECOND set expressions and initial_expressions
-
-        # PARAMETERS
-        if( seednparams>0 ):
-            for p in mparams.index:
-                nname = p + apdx
-                ex = mparams.loc[p].at['expression']
-                ie = mparams.loc[p].at['initial_expression']
-                if( mparams.loc[p].at['initial_expression'] ):
-                    ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
-                    set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
-        # COMPARTMENTS
-        if( seedncomps > 0):
-            for p in mcomps.index:
-                nname = p + apdx
-                #add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
-        # SPECIES
-        if( seednspecs > 0):
-            for p in mspecs.index:
-                nname = p + apdx
-                cp = mspecs.loc[p].at['compartment'] + apdx
-                #add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
-
-
         # REACTIONS
         if( seednreacts > 0):
             for p in mreacts.index:
@@ -296,6 +332,34 @@ for r in range(gridr):
                         rs = rs + t + apdx + " "
                 #print(rs)
                 add_reaction(model=newmodel, name=nname, scheme=rs )
+
+        # SECOND set expressions and initial_expressions
+
+        # PARAMETERS
+        if( seednparams>0 ):
+            for p in mparams.index:
+                nname = p + apdx
+                ex = mparams.loc[p].at['expression']
+                ie = mparams.loc[p].at['initial_expression']
+                if( mparams.loc[p].at['initial_expression'] ):
+                    ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
+                    set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
+                if( mparams.loc[p].at['type']=='assignment' or mparams.loc[p].at['type']=='ode'):
+                    ex = fix_expression(mparams.loc[p].at['expression'], apdx)
+                    set_parameters(model=newmodel, name=nname, exact=True, expression=ex )
+        # COMPARTMENTS
+        if( seedncomps > 0):
+            for p in mcomps.index:
+                nname = p + apdx
+                #add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
+        # SPECIES
+        if( seednspecs > 0):
+            for p in mspecs.index:
+                nname = p + apdx
+                cp = mspecs.loc[p].at['compartment'] + apdx
+                #add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+
+
 
         i += 1
 
