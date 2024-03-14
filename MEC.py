@@ -11,6 +11,7 @@
 # this code is released under the MIT license
 
 import os
+import argparse
 import sys
 if '../..' not in sys.path:
     sys.path.append('../..')
@@ -40,40 +41,30 @@ def is_float(string):
 def fix_expression(expression, suff):
     return expression
 
-# DEFAULT GRID SIZE
-gridr = 2
-gridc = 1
+# function to check that value is positive, helper for argparse
+def check_positive(value):
+    ivalue = int(value)
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
+    return ivalue
 
-# check if arguments were passed to size the grid
-n = len(sys.argv)
+# parsing the command line
+parser = argparse.ArgumentParser(
+                    prog='MEC.py',
+                    description='Convert one COPASI model into a set of similar models.')
+# arguments
+parser.add_argument('filename', help='original model file')
+parser.add_argument('rows', type=check_positive, default=2,
+                    help='total number of units or number of rows of a rectangular grid')
+parser.add_argument('columns', nargs='?', type=check_positive, default=1,
+                    help='number of columns of rectangular a grid')
 
-# make sure there is at least one argument (.cps file)
-if( n < 2 ):
-    # invalid number of arguments
-    print("\nUsage: MEC.py filename [rows [colums]]\n")
-    exit()
+# Parse the arguments
+args = parser.parse_args()
 
-seedmodelfile = sys.argv[1]
-
-if( n>=3 ):
-    # we got two arguments, set rows
-    try:
-        gridr = int(sys.argv[2])
-        # if the number is non-positive raise exception
-        if( gridr<1): raise
-    except:
-        print("\nInvalid arguments, must be a positive integer.\n")
-        exit()
-
-if( n>=4 ):
-    # we got three arguments, set columns
-    try:
-        gridc = int(sys.argv[3])
-        # if the numbers are non-positive raise exception
-        if( gridc<1 ): raise
-    except:
-        print("\nInvalid arguments, must be a positive integer.\n")
-        exit()
+seedmodelfile = args.filename
+gridr = args.rows
+gridc = args.columns
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
@@ -82,7 +73,7 @@ base,ext = os.path.splitext(seedmodelfile)
 nmodels= gridr*gridc
 
 if(nmodels==1):
-    print("\nNothing to do, one copy is the same as the original!\n")
+    print("usage: MEC.py [-h] filename rows [columns]]\n\nNothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be > 1.\n")
     exit()
 
 # strings to add to comments and titles, etc
@@ -230,8 +221,8 @@ print(f"# Reactions:\t{seednreacts}\n")
 #    6) element annotations?
 ############
 
-# we use "_i" as label if the arrangement is only a set
-# of models, but use "_r,c" as label if they are a grid
+# we use "_i" as suffix if the arrangement is only a set
+# of models, but use "_r,c" as suffix if they are a grid
 
 i = 0
 for r in range(gridr):
@@ -313,3 +304,5 @@ print(f"creating new model {newfilename} with {desc} of {seedmodelfile}\n")
 
 # save the new model
 save_model(filename=newfilename, model=newmodel)
+
+
