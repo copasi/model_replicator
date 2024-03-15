@@ -209,7 +209,9 @@ else:
 
 print(f"# Species:\t{seednspecs}\n #Reactions:\t{sreact}\t# Fixed:\t{sfixed}\t# Assignments:\t{sassg}\t# ODE:\t{sode}")
 
+# get the reactions
 mreacts = get_reactions(model=seedmodel, exact=True)
+print( mreacts)
 if( mspecs is None):
     seednreacts = 0
 else:
@@ -331,7 +333,13 @@ for r in range(gridr):
                     rs = rs[:len(rs)-1] + "; "
                     for t in tok2[1]:
                         rs = rs + t + apdx + " "
-                add_reaction(model=newmodel, name=nname, scheme=rs )
+                # fix the parameter mappings
+                mapp = mreacts.loc[p].at['mapping'].copy()
+                for key in mapp:
+                    if( isinstance(mapp[key], str) ):
+                        mapp[key] = mapp[key] + apdx
+                    print(key, mapp[key])
+                add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
         # SECOND set expressions and initial_expressions
 
@@ -368,9 +376,7 @@ for r in range(gridr):
                     ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx)
                     set_species(model=newmodel, name=nname, exact=True, initial_expression=ie )
                 if( mspecs.loc[p].at['type']=='assignment' or mspecs.loc[p].at['type']=='ode'):
-                    print( mspecs.loc[p].at['expression'] )
                     ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
-                    print(ex)
                     set_species(model=newmodel, name=nname, exact=True, expression=ex )
         i += 1
 
