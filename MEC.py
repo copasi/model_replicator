@@ -369,10 +369,25 @@ for r in range(gridr):
                     set_species(model=newmodel, name=nname, exact=True, expression=ex )
 
         # FOURTH set events
-        timeonlyevents = 0
+        timeonlyevents = []
         if( seednevents > 0):
             for p in mevents.index:
-                # we need to skip events for which the trigger is only time dependent
+                # fix the trigger expression
+                tr = fix_expression(mevents.loc[p].at['trigger'], apdx)
+                print(mevents.loc[p].at['trigger'])
+                print(tr)
+                # we skip events with trigger only time-dependent or without any element
+                if(tr != mevents.loc[p].at['trigger']):
+                    # (we use the field sbml_id to mark whether this needs to be processed later)
+                    mevents.loc[p].at['sbml_id'] = False
+                    # process the targets and expressions
+                else:
+                    # the trigger does not involve any model element other than time
+                    # mark it to be processed later (we use the field sbml_id just not to have to grow the dataframe...)
+                    mevents.loc[p].at['sbml_id'] = True
+                    # add it to the list!
+                    timeonlyevents.append(p)
+
                 # those will be dealt with in a separate loop and will not be duplicated
                 # but mark them so we don't have to traverse the dataframe again
 
@@ -380,6 +395,8 @@ for r in range(gridr):
 
         i += 1
 
+print(timeonlyevents)
+print(len(timeonlyevents))
 # let's go over the events again to process those that are only time dependent
 #if( timeonlyevents > 0 ):
     # loop over the time-only dependent events
