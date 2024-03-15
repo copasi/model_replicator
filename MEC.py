@@ -37,67 +37,46 @@ def is_float(string):
     except ValueError:
         return False
 
+# function to check if a string is an element in the model
+def is_element(candidate):
+    y=False
+    if( (seednparams>0) and (candidate in mparams.index) ):
+        y=True
+    else:
+        if( (seedncomps>0) and (candidate in mcomps.index) ):
+            y=True
+        else:
+            if( (seednspecs>0) and (candidate in mspecs.index) ):
+                y=True
+            else:
+                if( (seednreacts>0) and (candidate in mreacts.index) ):
+                    y=True
+    return y
+
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(expression, suff):
     # find object names inside []
     vars = re.findall(r'\[(.+?)\]', expression )
     if( vars ):
         for el in vars:
-            y=False
             #check that the variable exists
-            if( (seednparams>0) and (el in mparams.index) ):
-                y=True
-            else:
-                if( (seedncomps>0) and (el in mcomps.index) ):
-                    y=True
-                else:
-                    if( (seednspecs>0) and (el in mspecs.index) ):
-                        y=True
-                    else:
-                        if( (seednreacts>0) and (el in mreacts.index) ):
-                            y=True
-            if(y):
+            if( is_element(el) ):
                 elnew = el + suff
                 expression = re.sub(f'\[{el}\]', f'[{elnew}]', expression )
     # find object names inside ()
     vars = re.findall(r'\((.+?)\)', expression )
     if( vars ):
         for el in vars:
-            y=False
             #check that the variable exists
-            if( (seednparams>0) and (el in mparams.index) ):
-                y=True
-            else:
-                if( (seedncomps>0) and (el in mcomps.index) ):
-                    y=True
-                else:
-                    if( (seednspecs>0) and (el in mspecs.index) ):
-                        y=True
-                    else:
-                        if( (seednreacts>0) and (el in mreacts.index) ):
-                            y=True
-            if(y):
+            if( is_element(el) ):
                 elnew = el + suff
                 expression = re.sub(f'\({el}\)', f'({elnew})', expression )
     # find object names like R1.Rate, I2.InitialParticleNumber, etc.
     vars = re.findall(r'([^\s\]\)]+?)\.\w', expression )
     if( vars ):
-        print(vars)
         for el in vars:
-            y=False
             #check that the variable exists
-            if( (seednparams>0) and (el in mparams.index) ):
-                y=True
-            else:
-                if( (seedncomps>0) and (el in mcomps.index) ):
-                    y=True
-                else:
-                    if( (seednspecs>0) and (el in mspecs.index) ):
-                        y=True
-                    else:
-                        if( (seednreacts>0) and (el in mreacts.index) ):
-                            y=True
-            if(y):
+            if( is_element(el) ):
                 elnew = el + suff
                 expression = re.sub(f'{el}\\.(\\w)', f'{elnew}.\\1', expression )
                 print(expression)
@@ -156,6 +135,8 @@ newfilename = f"{base}{fsuff}.cps"
 # load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 
+# print some information about the model
+print(f"\nProcessing {seedmodelfile}")
 
 #Get the global quantities
 mparams = get_parameters(model=seedmodel, exact=True)
@@ -211,7 +192,6 @@ print(f"# Species:\t{seednspecs}\n #Reactions:\t{sreact}\t# Fixed:\t{sfixed}\t# 
 
 # get the reactions
 mreacts = get_reactions(model=seedmodel, exact=True)
-print( mreacts)
 if( mspecs is None):
     seednreacts = 0
 else:
@@ -242,9 +222,6 @@ else:
 
 # get original model units
 munits = get_model_units(model=seedmodel)
-
-# print some information about the model
-print(f"\nProcessing {seedmodelfile}")
 
 # create the new model
 newmodel = new_model(name=newname,
@@ -278,9 +255,9 @@ else:
 #  MAIN LOOP
 #
 # the loop does this for each new replicate model:
-#    1) create parameters, compartments, species and reactions without expressions
-#    2) set expressions for compartments and species
-#    3) fix all reaction mappings  TO DO
+#    1) create parameters, compartments, species without expressions
+#    2) create reactions (and fix mappings)
+#    3) set expressions for compartments and species
 #    4) create events TO DO
 #    5) parameter sets? TO DO
 #    6) element annotations? TO DO
@@ -338,7 +315,6 @@ for r in range(gridr):
                 for key in mapp:
                     if( isinstance(mapp[key], str) ):
                         mapp[key] = mapp[key] + apdx
-                    print(key, mapp[key])
                 add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
         # SECOND set expressions and initial_expressions
