@@ -136,7 +136,7 @@ newfilename = f"{base}{fsuff}.cps"
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 
 # print some information about the model
-print(f"\nProcessing {seedmodelfile}")
+print(f"Processing {seedmodelfile}")
 
 #Get the global quantities
 mparams = get_parameters(model=seedmodel, exact=True)
@@ -311,11 +311,11 @@ for r in range(gridr):
                     for t in tok2[1]:
                         rs = rs + t + apdx + " "
                 # fix the parameter mappings
-                mapp = mreacts.loc[p].at['mapping'].copy()
+                mapp = mreacts.loc[p].at['mapping']
                 for key in mapp:
                     if( isinstance(mapp[key], str) ):
-                        mapp[key] = mapp[key] + apdx
-                add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
+                        mp = mapp[key] + apdx
+                add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mp, function=mreacts.loc[p].at['function'] )
 
         # SECOND set expressions and initial_expressions
 
