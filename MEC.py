@@ -311,11 +311,14 @@ for r in range(gridr):
                     for t in tok2[1]:
                         rs = rs + t + apdx + " "
                 # fix the parameter mappings
-                mapp = mreacts.loc[p].at['mapping']
+                mapp = mreacts.loc[p].at['mapping'].copy()
                 for key in mapp:
                     if( isinstance(mapp[key], str) ):
-                        mp = mapp[key] + apdx
-                add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mp, function=mreacts.loc[p].at['function'] )
+                        mapp[key] = mapp[key] + apdx
+                    else:
+                        if( isinstance(mapp[key], list ) ):
+                            mapp[key] = [k2 + apdx for k2 in mapp[key]]
+                add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
         # SECOND set expressions and initial_expressions
 
