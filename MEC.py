@@ -79,7 +79,6 @@ def fix_expression(expression, suff):
             if( is_element(el) ):
                 elnew = el + suff
                 expression = re.sub(f'{el}\\.(\\w)', f'{elnew}.\\1', expression )
-                print(expression)
     return expression
 
 # function to check that value is positive, helper for argparse
@@ -292,6 +291,9 @@ for r in range(gridr):
                 nname = p + apdx
                 cp = mspecs.loc[p].at['compartment'] + apdx
                 add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+
+        # SECOND set reactions and their mappings
+
         # REACTIONS
         if( seednreacts > 0):
             for p in mreacts.index:
@@ -320,7 +322,7 @@ for r in range(gridr):
                             mapp[key] = [k2 + apdx for k2 in mapp[key]]
                 add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
-        # SECOND set expressions and initial_expressions
+        # THIRD set expressions and initial_expressions
 
         # PARAMETERS
         if( seednparams > 0 ):
@@ -330,9 +332,7 @@ for r in range(gridr):
                     ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
                     set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
                 if( mparams.loc[p].at['type']=='assignment' or mparams.loc[p].at['type']=='ode'):
-                    print( mparams.loc[p].at['expression'] )
                     ex = fix_expression(mparams.loc[p].at['expression'], apdx)
-                    print(ex)
                     set_parameters(model=newmodel, name=nname, exact=True, status=mparams.loc[p].at['type'], expression=ex )
         # COMPARTMENTS
         if( seedncomps > 0):
@@ -342,9 +342,7 @@ for r in range(gridr):
                     ie = fix_expression(mcomps.loc[p].at['initial_expression'], apdx)
                     set_compartment(model=newmodel, name=nname, exact=True, initial_expression=ie )
                 if( mcomps.loc[p].at['type']=='assignment' or mcomps.loc[p].at['type']=='ode'):
-                    print( mcomps.loc[p].at['expression'] )
                     ex = fix_expression(mcomps.loc[p].at['expression'], apdx)
-                    print(ex)
                     set_compartment(model=newmodel, name=nname, exact=True, expression=ex )
         # SPECIES
         if( seednspecs > 0):
