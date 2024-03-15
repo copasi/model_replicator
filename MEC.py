@@ -88,6 +88,8 @@ def check_positive(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
+
+
 # parsing the command line
 parser = argparse.ArgumentParser(
                     prog='MEC.py',
@@ -98,6 +100,7 @@ parser.add_argument('rows', type=check_positive, default=2,
                     help='total number of units or number of rows of a rectangular grid')
 parser.add_argument('columns', nargs='?', type=check_positive, default=1,
                     help='number of columns of rectangular a grid')
+parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -113,7 +116,7 @@ base,ext = os.path.splitext(seedmodelfile)
 nmodels = gridr*gridc
 
 if(nmodels==1):
-    print("usage: MEC.py [-h] filename rows [columns]]\n\nNothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be > 1.\n")
+    print("\nNothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be larger than 1.\n")
     exit()
 
 # strings to add to comments and titles, etc
@@ -135,7 +138,8 @@ newfilename = f"{base}{fsuff}.cps"
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 
 # print some information about the model
-print(f"Processing {seedmodelfile}")
+if( not args.quiet ):
+    print(f"Processing {seedmodelfile}")
 
 #Get the global quantities
 mparams = get_parameters(model=seedmodel, exact=True)
@@ -151,8 +155,6 @@ else:
     passg = (mparams['type']=='assignment').sum()
     pode = (mparams['type']=='ode').sum()
 
-print(f"# Global quantities:\t{seednparams}\n # Fixed:\t{pfixed}\t# Assignments:\t{passg}\t# ODE:\t{pode}")
-
 #Get the compartments
 mcomps = get_compartments(model=seedmodel, exact=True)
 if( mcomps is None):
@@ -167,8 +169,6 @@ else:
     cassg = (mcomps['type']=='assignment').sum()
     code = (mcomps['type']=='ode').sum()
     #print(mcomps)
-
-print(f"# Compartments:\t{seedncomps}\n # Fixed:\t{cfixed}\t# Assignments:\t{cassg}\t# ODE:\t{code}")
 
 #Get the species
 mspecs = get_species(model=seedmodel, exact=True)
@@ -187,17 +187,28 @@ else:
     sode = (mspecs['type']=='ode').sum()
     #print(mspecs)
 
-print(f"# Species:\t{seednspecs}\n #Reactions:\t{sreact}\t# Fixed:\t{sfixed}\t# Assignments:\t{sassg}\t# ODE:\t{sode}")
-
 # get the reactions
 mreacts = get_reactions(model=seedmodel, exact=True)
 if( mspecs is None):
     seednreacts = 0
 else:
     seednreacts = mreacts.shape[0]
-    #print(mreacts)
 
-print(f"# Reactions:\t{seednreacts}\n")
+# get the events
+mevents = get_events(model=seedmodel, exact=True)
+if( mevents is None):
+    seednevents = 0
+else:
+    seednevents = mevents.shape[0]
+    print(mevents)
+
+# print summary of model elements
+if( not args.quiet ):
+    print(f"Reactions:         {seednreacts}")
+    print(f"Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})")
+    print(f"Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})")
+    print(f"Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
+    print(f"Events:            {seednevents}")
 
 # create the new model name
 seedname = get_model_name(model=seedmodel)
@@ -260,6 +271,7 @@ else:
 #    4) create events TO DO
 #    5) parameter sets? TO DO
 #    6) element annotations? TO DO
+#    7) copy task settings
 ############
 
 # we use "_i" as suffix if the arrangement is only a set
@@ -355,12 +367,31 @@ for r in range(gridr):
                 if( mspecs.loc[p].at['type']=='assignment' or mspecs.loc[p].at['type']=='ode'):
                     ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
                     set_species(model=newmodel, name=nname, exact=True, expression=ex )
+
+        # FOURTH set events
+        timeonlyevents = 0
+        if( seednevents > 0):
+            for p in mevents.index:
+                # we need to skip events for which the trigger is only time dependent
+                # those will be dealt with in a separate loop and will not be duplicated
+                # but mark them so we don't have to traverse the dataframe again
+
+        # EVENTS
+
         i += 1
 
+# let's go over the events again to process those that are only time dependent
+#if( timeonlyevents > 0 ):
+    # loop over the time-only dependent events
+        # now loop over all replicates to duplicate the targets
+#        i = 0
+#        for r in range(gridr):
+#            for c in range(gridc):
 
-print(f"creating new model {newfilename} with {desc} of {seedmodelfile}\n")
 
 # save the new model
 save_model(filename=newfilename, model=newmodel)
+if( not args.quiet ):
+    print(f"created new model {newfilename} with {desc} of {seedmodelfile}\n")
 
 
