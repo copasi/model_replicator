@@ -208,7 +208,7 @@ if( not args.quiet ):
     print(f"Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})")
     print(f"Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})")
     print(f"Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
-    print(f"Events:            {seednevents}")
+    # we print the events later to be able to show how many are only time dependent
 
 # create the new model name
 seedname = get_model_name(model=seedmodel)
@@ -374,17 +374,18 @@ for r in range(gridr):
             for p in mevents.index:
                 # fix the trigger expression
                 tr = fix_expression(mevents.loc[p].at['trigger'], apdx)
-                print(mevents.loc[p].at['trigger'])
-                print(tr)
-                # we skip events with trigger only time-dependent or without any element
+                # we skip events that have no elements in the trigger (time-dependent only)
                 if(tr != mevents.loc[p].at['trigger']):
-                    # (we use the field sbml_id to mark whether this needs to be processed later)
-                    mevents.loc[p].at['sbml_id'] = False
+                    # fix name
+                    nm = p + apdx
                     # process the targets and expressions
+                    assg = []
+                    for a in mevents.loc[p].at['assignments']:
+                        assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
+                    # add the event
+                    add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx), priority=fix_expression(mevents.loc[p].at['priority'],apdx), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
                 else:
                     # the trigger does not involve any model element other than time
-                    # mark it to be processed later (we use the field sbml_id just not to have to grow the dataframe...)
-                    mevents.loc[p].at['sbml_id'] = True
                     # add it to the list!
                     timeonlyevents.append(p)
 
@@ -395,15 +396,44 @@ for r in range(gridr):
 
         i += 1
 
-print(timeonlyevents)
-print(len(timeonlyevents))
+# only time-dependent events
+etd=len(timeonlyevents)
+entd = seednevents - etd
+# now we can print out how many events there are...
+if( not args.quiet ):
+    print(f"Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})")
+
 # let's go over the events again to process those that are only time dependent
-#if( timeonlyevents > 0 ):
+if( etd > 0 ):
     # loop over the time-only dependent events
-        # now loop over all replicates to duplicate the targets
-#        i = 0
-#        for r in range(gridr):
-#            for c in range(gridc):
+    for p in timeonlyevents:
+        print(f"processing event: {p}")
+        print(len(mevents.loc[p].at['assignments']))
+        # if the delay or priority expressions contain elements we use model_1
+        if(gridr==1 or gridc==1):
+            apdx = "_1"
+        else:
+            apdx = "_1,1"
+        dl = fix_expression(mevents.loc[p].at['delay'],apdx)
+        pr = fix_expression(mevents.loc[p].at['priority'],apdx)
+        # process the targets and expressions
+        print(mevents.loc[p].at['assignments'])
+        assg = []
+        for a in mevents.loc[p].at['assignments']:
+            # now loop over all replicates to duplicate the targets
+            i = 0
+            for r in range(gridr):
+                for c in range(gridc):
+                    if(gridr==1 or gridc==1):
+                        apdx = f"_{i+1}"
+                    else:
+                        apdx = f"_{r+1},{c+1}"
+                    # add the assignment
+                    assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
+                    i = i + 1
+        print(assg)
+        # add the event
+        add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
 
 # save the new model
