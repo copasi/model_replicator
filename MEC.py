@@ -12,6 +12,7 @@
 
 import os
 import argparse
+import shlex
 import sys
 if '../..' not in sys.path:
     sys.path.append('../..')
@@ -64,7 +65,17 @@ def fix_expression(expression, suff):
                 elnew = el + suff
                 expression = re.sub(f'\[{el}\]', f'[{elnew}]', expression )
     # find object names inside ()
+    # TODO: this fails to parse elements called "R1 (backwards)"
     vars = re.findall(r'\((.+?)\)', expression )
+    if( vars ):
+        for el in vars:
+            #check that the variable exists
+            if( is_element(el) ):
+                elnew = el + suff
+                expression = re.sub(f'\({el}\)', f'({elnew})', expression )
+    # find object names inside () special case of ( something(else) )
+    # TODO: this fails to parse elements called "R1 (backwards)"
+    vars = re.findall(r'\((.*\(.*\).*?)\)', expression )
     if( vars ):
         for el in vars:
             #check that the variable exists
@@ -116,7 +127,7 @@ base,ext = os.path.splitext(seedmodelfile)
 nmodels = gridr*gridc
 
 if(nmodels==1):
-    print("\nNothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be larger than 1.\n")
+    print("Nothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be larger than 1.\n")
     exit()
 
 # strings to add to comments and titles, etc
@@ -136,6 +147,10 @@ newfilename = f"{base}{fsuff}.cps"
 
 # load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
+
+if( seedmodel is None):
+    print(f"File {seedmodelfile} failed to load.\n")
+    exit()
 
 # print some information about the model
 if( not args.quiet ):
@@ -189,7 +204,8 @@ else:
 
 # get the reactions
 mreacts = get_reactions(model=seedmodel, exact=True)
-if( mspecs is None):
+#print(mreacts)
+if( mreacts is None):
     seednreacts = 0
 else:
     seednreacts = mreacts.shape[0]
@@ -200,14 +216,13 @@ if( mevents is None):
     seednevents = 0
 else:
     seednevents = mevents.shape[0]
-    print(mevents)
 
 # print summary of model elements
 if( not args.quiet ):
-    print(f"Reactions:         {seednreacts}")
-    print(f"Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})")
-    print(f"Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})")
-    print(f"Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
+    print(f"  Reactions:         {seednreacts}")
+    print(f"  Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})")
+    print(f"  Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})")
+    print(f"  Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
     # we print the events later to be able to show how many are only time dependent
 
 # create the new model name
@@ -268,10 +283,10 @@ else:
 #    1) create parameters, compartments, species without expressions
 #    2) create reactions (and fix mappings)
 #    3) set expressions for compartments and species
-#    4) create events TO DO
+#    4) create events
 #    5) parameter sets? TO DO
 #    6) element annotations? TO DO
-#    7) copy task settings
+#    7) copy task settings TO DO
 ############
 
 # we use "_i" as suffix if the arrangement is only a set
@@ -312,26 +327,49 @@ for r in range(gridr):
                 nname = p + apdx
                 scheme = mreacts.loc[p].at['scheme']
                 tok = scheme.split(';')
-                tok2 = [sub.split() for sub in tok]
+                #tok2 = [sub.split() for sub in tok]
+                tok2 = [shlex.split(sub, posix=False) for sub in tok]
                 # build the reaction string
                 rs = ""
                 for t in tok2[0]:
                     if( (t == '=') or (t == '->') or (t == '+') or is_float(t) or (t=="*")):
-                           rs = rs + t + " "
+                        rs = rs + t + " "
                     else:
-                        rs = rs + t + apdx + " "
+                        if re.match(r'\".+\"', t):
+                            t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+                            rs = rs + t + " "
+                        else:
+                            rs = rs + t + apdx + " "
                 if( len(tok2) > 1 ):
+                    # deal with the modifiers
                     rs = rs[:len(rs)-1] + "; "
                     for t in tok2[1]:
-                        rs = rs + t + apdx + " "
+                        if re.match(r'\".+\"', t):
+                            t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+                            rs = rs + t + " "
+                        else:
+                            rs = rs + t + apdx + " "
                 # fix the parameter mappings
                 mapp = mreacts.loc[p].at['mapping'].copy()
                 for key in mapp:
                     if( isinstance(mapp[key], str) ):
-                        mapp[key] = mapp[key] + apdx
+                        t = mapp[key]
+                        if re.match(r'\".+\"', t):
+                            t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+                        else:
+                            t = t + apdx
+                        mapp[key] = t
                     else:
                         if( isinstance(mapp[key], list ) ):
-                            mapp[key] = [k2 + apdx for k2 in mapp[key]]
+                            nmk = []
+                            for k2 in mapp[key]:
+                                if re.match(r'\".+\"', k2):
+                                    k2 = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', k2 )
+                                else:
+                                    k2 = k2 + apdx
+                                nmk.append(k2)
+                            mapp[key] = nmk
+                            #mapp[key] = [k2 + apdx for k2 in mapp[key]]
                 add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
         # THIRD set expressions and initial_expressions
@@ -401,14 +439,12 @@ etd=len(timeonlyevents)
 entd = seednevents - etd
 # now we can print out how many events there are...
 if( not args.quiet ):
-    print(f"Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})")
+    print(f"  Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})")
 
 # let's go over the events again to process those that are only time dependent
 if( etd > 0 ):
     # loop over the time-only dependent events
     for p in timeonlyevents:
-        print(f"processing event: {p}")
-        print(len(mevents.loc[p].at['assignments']))
         # if the delay or priority expressions contain elements we use model_1
         if(gridr==1 or gridc==1):
             apdx = "_1"
@@ -416,8 +452,14 @@ if( etd > 0 ):
             apdx = "_1,1"
         dl = fix_expression(mevents.loc[p].at['delay'],apdx)
         pr = fix_expression(mevents.loc[p].at['priority'],apdx)
+        print(mevents.loc[p].at['priority'])
+        print(pr)
+        if( not args.quiet ):
+            if( dl != mevents.loc[p].at['delay'] ):
+                print(f"Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of element {apdx}")
+            if( pr != mevents.loc[p].at['priority'] ):
+                print(f"Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of element {apdx}")
         # process the targets and expressions
-        print(mevents.loc[p].at['assignments'])
         assg = []
         for a in mevents.loc[p].at['assignments']:
             # now loop over all replicates to duplicate the targets
@@ -431,7 +473,6 @@ if( etd > 0 ):
                     # add the assignment
                     assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
                     i = i + 1
-        print(assg)
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
