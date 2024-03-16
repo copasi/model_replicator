@@ -65,7 +65,6 @@ def fix_expression(expression, suff):
                 elnew = el + suff
                 expression = re.sub(f'\[{el}\]', f'[{elnew}]', expression )
     # find object names inside ()
-    # TODO: this fails to parse elements called "R1 (backwards)"
     vars = re.findall(r'\((.+?)\)', expression )
     if( vars ):
         for el in vars:
@@ -74,14 +73,16 @@ def fix_expression(expression, suff):
                 elnew = el + suff
                 expression = re.sub(f'\({el}\)', f'({elnew})', expression )
     # find object names inside () special case of ( something(else) )
-    # TODO: this fails to parse elements called "R1 (backwards)"
     vars = re.findall(r'\((.*\(.*\).*?)\)', expression )
     if( vars ):
         for el in vars:
+            print(f' el: {el}')
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
-                expression = re.sub(f'\({el}\)', f'({elnew})', expression )
+                el = re.sub(r'\(', r'\\(', el)
+                el = re.sub(r'\)', r'\\)', el)
+                expression = re.sub(el,elnew, expression )
     # find object names like R1.Rate, I2.InitialParticleNumber, etc.
     vars = re.findall(r'([^\s\]\)]+?)\.\w', expression )
     if( vars ):
