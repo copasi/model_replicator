@@ -128,27 +128,30 @@ base,ext = os.path.splitext(seedmodelfile)
 nmodels = gridr*gridc
 
 if(nmodels==1):
-    print("Nothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be larger than 1.\n")
+    print("Error: Nothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be larger than 1.\n")
     exit()
 
 # strings to add to comments and titles, etc
 if(gridr==1):
-	fsuff = f"_{gridc}"
-	desc = f"a set of {nmodels} replicas"
+    fsuff = f"_{gridc}"
+    desc = f"a set of {nmodels} replicas"
+    apdx1 = '_1'
 else:
-	if(gridc==1):
-		fsuff = f"_{gridr}"
-		desc = f"a set of {nmodels} replicas"
-	else:
-		fsuff = f"_{gridr}x{gridc}"
-		desc = f"a set of {nmodels} ({gridr}x{gridc}) replicas"
+    if(gridc==1):
+        fsuff = f"_{gridr}"
+        desc = f"a set of {nmodels} replicas"
+        apdx1 = '_1'
+    else:
+        fsuff = f"_{gridr}x{gridc}"
+        desc = f"a set of {nmodels} ({gridr}x{gridc}) replicas"
+        apdx1 = '_1,1'
+
 
 # create filename for new model
 newfilename = f"{base}{fsuff}.cps"
 
 # load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
-
 if( seedmodel is None):
     print(f"File {seedmodelfile} failed to load.\n")
     exit()
@@ -226,6 +229,10 @@ if( not args.quiet ):
     print(f"  Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
     # we print the events later to be able to show how many are only time dependent
 
+# scan items
+# we need to retrieve then now before we create a new model due to a bug in COPASI/BasiCO (not sure which)
+scanitems = get_scan_items(model=seedmodel)
+
 # create the new model name
 seedname = get_model_name(model=seedmodel)
 newname = f"{desc} of {seedname}"
@@ -257,6 +264,11 @@ newmodel = new_model(name=newname,
                      volume_unit=munits['volume_unit'],
                      area_unit=munits['area_unit'],
                      length_unit=munits['length_unit'])
+
+# TODO: this does not currently work!
+# set the intial time
+it= get_value('Time', model=seedmodel)
+set_value('Time', 6.0, True)
 
 # transfer the annotations
 miriam = get_miriam_annotation(model=seedmodel)
@@ -425,17 +437,12 @@ for r in range(gridr):
                     add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx), priority=fix_expression(mevents.loc[p].at['priority'],apdx), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
                 else:
                     # the trigger does not involve any model element other than time
-                    # add it to the list!
+                    # add it to the list to be dealt with later
                     timeonlyevents.append(p)
-
-                # those will be dealt with in a separate loop and will not be duplicated
-                # but mark them so we don't have to traverse the dataframe again
-
-        # EVENTS
 
         i += 1
 
-# only time-dependent events
+# let's deal with events that are only time-dependent
 etd=len(timeonlyevents)
 entd = seednevents - etd
 # now we can print out how many events there are...
@@ -447,19 +454,15 @@ if( etd > 0 ):
     # loop over the time-only dependent events
     for p in timeonlyevents:
         # if the delay or priority expressions contain elements we use model_1
-        if(gridr==1 or gridc==1):
-            apdx = "_1"
-        else:
-            apdx = "_1,1"
-        dl = fix_expression(mevents.loc[p].at['delay'],apdx)
-        pr = fix_expression(mevents.loc[p].at['priority'],apdx)
+        dl = fix_expression(mevents.loc[p].at['delay'],apdx1)
+        pr = fix_expression(mevents.loc[p].at['priority'],apdx1)
         print(mevents.loc[p].at['priority'])
         print(pr)
         if( not args.quiet ):
             if( dl != mevents.loc[p].at['delay'] ):
-                print(f"Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of element {apdx}")
+                print(f"Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of element {apdx1}")
             if( pr != mevents.loc[p].at['priority'] ):
-                print(f"Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of element {apdx}")
+                print(f"Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of element {apdx1}")
         # process the targets and expressions
         assg = []
         for a in mevents.loc[p].at['assignments']:
@@ -477,6 +480,77 @@ if( etd > 0 ):
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
+# FIFTH Let's try to keep tasks as close to the original as possible
+
+# time course
+tc = get_task_settings('Time-Course', basic_only=False, model=seedmodel)
+set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method']},model=newmodel)
+
+# steady state
+ss = get_task_settings('Steady-State', basic_only=False, model=seedmodel)
+set_task_settings('Steady-State', {'scheduled': ss['scheduled'], 'update_model': ss['update_model'], 'problem': ss['problem'], 'method': ss['method']},model=newmodel)
+
+# MCA
+mca = get_task_settings('Metabolic Control Analysis', basic_only=False, model=seedmodel)
+set_task_settings('Metabolic Control Analysis', {'scheduled': mca['scheduled'], 'update_model': mca['update_model'], 'problem': mca['problem'], 'method': mca['method']},model=newmodel)
+
+# Lyapunov Exponents
+le = get_task_settings('Lyapunov Exponents', basic_only=False, model=seedmodel)
+set_task_settings('Lyapunov Exponents', {'scheduled': le['scheduled'], 'update_model': le['update_model'], 'problem': le['problem'], 'method': le['method']},model=newmodel)
+
+# Time Scale Separation Analysis
+tsa = get_task_settings('Time Scale Separation Analysis', basic_only=False, model=seedmodel)
+set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled'], 'update_model': tsa['update_model'], 'problem': tsa['problem'], 'method': tsa['method']},model=newmodel)
+
+# Cross section
+# TODO: BasiCO is not returning the variable; will need to set it here too, when the bug is fixed
+cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
+set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
+
+# Linear Noise Approximation
+lna = get_task_settings('Linear Noise Approximation', basic_only=False, model=seedmodel)
+set_task_settings('Linear Noise Approximation', {'scheduled': lna['scheduled'], 'update_model': lna['update_model'], 'problem': lna['problem'], 'method': lna['method']},model=newmodel)
+
+# Sensitivities
+# TODO: BasiCO is not returning the effect and causes; will need to set them here too, when the bug is fixed
+sen = get_task_settings('Sensitivities', basic_only=False, model=seedmodel)
+set_task_settings('Sensitivities', {'scheduled': sen['scheduled'], 'update_model': sen['update_model'], 'problem': sen['problem'], 'method': sen['method']},model=newmodel)
+
+# Parameter scan
+ps = get_task_settings('Scan', basic_only=False, model=seedmodel)
+set_task_settings('Scan', {'scheduled': ps['scheduled'], 'update_model': ps['update_model'], 'problem': ps['problem'], 'method': ps['method']},model=newmodel)
+
+# we got the scanitmes way earlier due to a bug in COPASI/BasiCO ...
+# when there are scan or random sampling items, we convert them to be those of the first unit
+srw = False
+for sit in scanitems:
+    if( sit['type']=='parameter_set' ):
+        print(f'Warning: a scan of parameter sets exists in the original model but was not included in the new model.')
+    else:
+        if( sit['type']=='scan' ):
+            newit = fix_expression(sit['item'], apdx1)
+            srw = True
+            add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], use_values=sit['use_values'], values=sit['values'] )
+        else:
+            if( sit['type']=='random' ):
+                newit = fix_expression(sit['item'], apdx1)
+                srw = True
+                add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], distribution=sit['distribution'])
+            else:
+                if( sit['type']=='repeat' ):
+                    add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'])
+                else:
+                    tp = sit['type']
+                    print(f'Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
+if( srw ): print('Warning: in Parameter scan task the scanned or sampled items are now converted to those of the first unit only.')
+
+#TODO: Parameter estimation
+#TODO: Optimization
+# consider not including these; when decided leave a comment stating why; consider printing warnings
+
+#TODO: Time Course Sensitivities
+
+## what to do with reports?
 
 # save the new model
 save_model(filename=newfilename, model=newmodel)
