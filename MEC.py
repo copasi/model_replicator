@@ -25,9 +25,8 @@ import re
 #import matplotlib.pyplot as plt
 #%matplotlib inline
 
-###
-# AUXILIARY FUNCTIONS
-###
+#######################
+# AUXILIARY FUNCTIONS #
 
 # function to test if string has a number, it's amazing this is not native to python...
 def is_float(string):
@@ -138,6 +137,7 @@ parser.add_argument('rows', type=check_positive, default=2,
 parser.add_argument('columns', nargs='?', type=check_positive, default=1,
                     help='number of columns of rectangular a grid')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
+parser.add_argument('--ignore-tasks', action='store_true', help='do not copy any task settings')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -517,82 +517,84 @@ if( etd > 0 ):
 # 10. set task parameters
 #####
 
-# time course
-tc = get_task_settings('Time-Course', basic_only=False, model=seedmodel)
-set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method']},model=newmodel)
+if( not args.ignore_tasks):
+    # time course
+    tc = get_task_settings('Time-Course', basic_only=False, model=seedmodel)
+    set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method']},model=newmodel)
 
-# steady state
-ss = get_task_settings('Steady-State', basic_only=False, model=seedmodel)
-set_task_settings('Steady-State', {'scheduled': ss['scheduled'], 'update_model': ss['update_model'], 'problem': ss['problem'], 'method': ss['method']},model=newmodel)
+    # steady state
+    ss = get_task_settings('Steady-State', basic_only=False, model=seedmodel)
+    set_task_settings('Steady-State', {'scheduled': ss['scheduled'], 'update_model': ss['update_model'], 'problem': ss['problem'], 'method': ss['method']},model=newmodel)
 
-# MCA
-mca = get_task_settings('Metabolic Control Analysis', basic_only=False, model=seedmodel)
-set_task_settings('Metabolic Control Analysis', {'scheduled': mca['scheduled'], 'update_model': mca['update_model'], 'problem': mca['problem'], 'method': mca['method']},model=newmodel)
+    # MCA
+    mca = get_task_settings('Metabolic Control Analysis', basic_only=False, model=seedmodel)
+    set_task_settings('Metabolic Control Analysis', {'scheduled': mca['scheduled'], 'update_model': mca['update_model'], 'problem': mca['problem'], 'method': mca['method']},model=newmodel)
 
-# Lyapunov Exponents
-le = get_task_settings('Lyapunov Exponents', basic_only=False, model=seedmodel)
-set_task_settings('Lyapunov Exponents', {'scheduled': le['scheduled'], 'update_model': le['update_model'], 'problem': le['problem'], 'method': le['method']},model=newmodel)
+    # Lyapunov Exponents
+    le = get_task_settings('Lyapunov Exponents', basic_only=False, model=seedmodel)
+    set_task_settings('Lyapunov Exponents', {'scheduled': le['scheduled'], 'update_model': le['update_model'], 'problem': le['problem'], 'method': le['method']},model=newmodel)
 
-# Time Scale Separation Analysis
-tsa = get_task_settings('Time Scale Separation Analysis', basic_only=False, model=seedmodel)
-set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled'], 'update_model': tsa['update_model'], 'problem': tsa['problem'], 'method': tsa['method']},model=newmodel)
+    # Time Scale Separation Analysis
+    tsa = get_task_settings('Time Scale Separation Analysis', basic_only=False, model=seedmodel)
+    set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled'], 'update_model': tsa['update_model'], 'problem': tsa['problem'], 'method': tsa['method']},model=newmodel)
 
-# Cross section
-cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
-if( cs['problem']['SingleVariable'] != ''):
-    newv = fix_expression(cs['problem']['SingleVariable'], apdx1)
-    print(f'Warning: the cross section task was updated to use {newv} as variable.')
-    cs['problem']['SingleVariable'] = newv
-    set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
+    # Cross section
+    cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
+    if( cs['problem']['SingleVariable'] != ''):
+        newv = fix_expression(cs['problem']['SingleVariable'], apdx1)
+        print(f'Warning: the cross section task was updated to use {newv} as variable.')
+        cs['problem']['SingleVariable'] = newv
+        set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
 
-# Linear Noise Approximation
-lna = get_task_settings('Linear Noise Approximation', basic_only=False, model=seedmodel)
-set_task_settings('Linear Noise Approximation', {'scheduled': lna['scheduled'], 'update_model': lna['update_model'], 'problem': lna['problem'], 'method': lna['method']},model=newmodel)
+    # Linear Noise Approximation
+    lna = get_task_settings('Linear Noise Approximation', basic_only=False, model=seedmodel)
+    set_task_settings('Linear Noise Approximation', {'scheduled': lna['scheduled'], 'update_model': lna['update_model'], 'problem': lna['problem'], 'method': lna['method']},model=newmodel)
 
-# Sensitivities
-sen = get_sensitivity_settings(model=seedmodel)
-seff = fix_expression(sen['effect'],apdx1)
-scau = fix_expression(sen['cause'],apdx1)
-ssec = fix_expression(sen['secondary_cause'],apdx1)
-if( (seff != sen['effect']) or (scau != sen['cause']) or (ssec != sen['secondary_cause']) ):
-    print(f'Warning: sensitivies task is now using items of unit {apdx1}")')
-    sen['effect'] = seff
-    sen['cause'] = scau
-    sen['secondary_cause'] = ssec
-set_sensitivity_settings(sen, model=newmodel)
+    # Sensitivities
+    sen = get_sensitivity_settings(model=seedmodel)
+    seff = fix_expression(sen['effect'],apdx1)
+    scau = fix_expression(sen['cause'],apdx1)
+    ssec = fix_expression(sen['secondary_cause'],apdx1)
+    if( (seff != sen['effect']) or (scau != sen['cause']) or (ssec != sen['secondary_cause']) ):
+        print(f'Warning: sensitivies task is now using items of unit {apdx1}")')
+        sen['effect'] = seff
+        sen['cause'] = scau
+        sen['secondary_cause'] = ssec
+    set_sensitivity_settings(sen, model=newmodel)
 
-# Parameter scan
-ps = get_task_settings('Scan', basic_only=False, model=seedmodel)
-set_task_settings('Scan', {'scheduled': ps['scheduled'], 'update_model': ps['update_model'], 'problem': ps['problem'], 'method': ps['method']},model=newmodel)
+    # Parameter scan
+    ps = get_task_settings('Scan', basic_only=False, model=seedmodel)
+    set_task_settings('Scan', {'scheduled': ps['scheduled'], 'update_model': ps['update_model'], 'problem': ps['problem'], 'method': ps['method']},model=newmodel)
 
-# we got the scanitems way earlier due to a bug in COPASI/BasiCO ...
-# when there are scan or random sampling items, we convert them to be those of the first unit
-srw = False
-for sit in scanitems:
-    if( sit['type']=='parameter_set' ):
-        print(f'Warning: a scan of parameter sets exists in the original model but was not included in the new model.')
-    else:
-        if( sit['type']=='scan' ):
-            newit = fix_expression(sit['item'], apdx1)
-            srw = True
-            add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], use_values=sit['use_values'], values=sit['values'] )
+    # we got the scanitems way earlier due to a bug in COPASI/BasiCO ...
+    # when there are scan or random sampling items, we convert them to be those of the first unit
+    srw = False
+    for sit in scanitems:
+        if( sit['type']=='parameter_set' ):
+            print(f'Warning: a scan of parameter sets exists in the original model but was not included in the new model.')
         else:
-            if( sit['type']=='random' ):
+            if( sit['type']=='scan' ):
                 newit = fix_expression(sit['item'], apdx1)
                 srw = True
-                add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], distribution=sit['distribution'])
+                add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], use_values=sit['use_values'], values=sit['values'] )
             else:
-                if( sit['type']=='repeat' ):
-                    add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'])
+                if( sit['type']=='random' ):
+                    newit = fix_expression(sit['item'], apdx1)
+                    srw = True
+                    add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], distribution=sit['distribution'])
                 else:
-                    tp = sit['type']
-                    print(f'Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
-if( srw ): print('Warning: in Parameter scan task the scanned or sampled items are now converted to those of the first unit only.')
+                    if( sit['type']=='repeat' ):
+                        add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'])
+                    else:
+                        tp = sit['type']
+                        print(f'Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
+    if( srw ): print('Warning: in Parameter scan task the scanned or sampled items are now converted to those of the first unit only.')
 
-#TODO: Optimization
-#TODO: Parameter estimation
-# consider not including these; when decided leave a comment stating why; consider printing warnings
-#TODO: Time Course Sensitivities
+    #TODO: Optimization
+    #TODO: Parameter estimation
+    # consider not including these; when decided leave a comment stating why; consider printing warnings
+    #TODO: Time Course Sensitivities
+
 
 #TODO: what to do with reports?
 #TODO: to do with plots?
