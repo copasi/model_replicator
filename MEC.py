@@ -481,7 +481,6 @@ if( etd > 0 ):
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
 # FIFTH Let's try to keep tasks as close to the original as possible
-
 # time course
 tc = get_task_settings('Time-Course', basic_only=False, model=seedmodel)
 set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method']},model=newmodel)
@@ -505,7 +504,9 @@ set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled
 # Cross section
 # TODO: BasiCO is not returning the variable; will need to set it here too, when the bug is fixed
 cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
-set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
+#print(cs['problem']['SingleVariable'])
+if( cs['problem']['SingleVariable'] is not None):
+    set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
 
 # Linear Noise Approximation
 lna = get_task_settings('Linear Noise Approximation', basic_only=False, model=seedmodel)
