@@ -56,26 +56,30 @@ def is_element(candidate):
 
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(expression, suff):
+    # find model name inside a CN
+    mname = re.findall(r'^CN=Root,Model=(.+?),', expression )
+    if( mname ):
+        expression = re.sub(r'^CN=Root,Model=(.+?),', f'CN=Root,Model={newname},', expression )
     # find object names inside []
-    vars = re.findall(r'\[(.+?)\]', expression )
-    if( vars ):
-        for el in vars:
+    evars = re.findall(r'\[(.+?)\]', expression )
+    if( evars ):
+        for el in evars:
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
                 expression = re.sub(f'\[{el}\]', f'[{elnew}]', expression )
     # find object names inside ()
-    vars = re.findall(r'\((.+?)\)', expression )
-    if( vars ):
-        for el in vars:
+    evars = re.findall(r'\((.+?)\)', expression )
+    if( evars ):
+        for el in evars:
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
                 expression = re.sub(f'\({el}\)', f'({elnew})', expression )
     # find object names inside () special case of ( something(else) )
-    vars = re.findall(r'\((.*\(.*\).*?)\)', expression )
-    if( vars ):
-        for el in vars:
+    evars = re.findall(r'\((.*\(.*\).*?)\)', expression )
+    if( evars ):
+        for el in evars:
             print(f' el: {el}')
             #check that the variable exists
             if( is_element(el) ):
@@ -84,9 +88,9 @@ def fix_expression(expression, suff):
                 el = re.sub(r'\)', r'\\)', el)
                 expression = re.sub(el,elnew, expression )
     # find object names like R1.Rate, I2.InitialParticleNumber, etc.
-    vars = re.findall(r'([^\s\]\)]+?)\.\w', expression )
-    if( vars ):
-        for el in vars:
+    evars = re.findall(r'([^\s\]\)]+?)\.\w', expression )
+    if( evars ):
+        for el in evars:
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
@@ -100,9 +104,31 @@ def check_positive(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
+############################
+# MAIN PROGRAM STARTS HERE #
 
+############
+# Strategy:
+#  1. parse command line and deal with options
+#  2. read original model,
+#  3. copy notes, annotations, and units
+#  4. create new model
+#  MAIN LOOP, iterating over each model element:
+#    5. create parameters, compartments, species without expressions
+#    6. create reactions (and fix mappings)
+#    7. set expressions for compartments and species
+#    8. create events that depende on variable
+#  9. loop over remaining events that don't depend on variables
+#  10. copy task settings
+#  11. save model
+#  TODO: what to do with parameter sets?
+#  TODO: what to do with element annotations?
+############
 
-# parsing the command line
+#####
+#  1. parsing the command line
+#####
+
 parser = argparse.ArgumentParser(
                     prog='MEC.py',
                     description='Convert one COPASI model into a set of similar models.')
@@ -146,11 +172,10 @@ else:
         desc = f"a set of {nmodels} ({gridr}x{gridc}) replicas"
         apdx1 = '_1,1'
 
+#####
+#  2. read the original model
+#####
 
-# create filename for new model
-newfilename = f"{base}{fsuff}.cps"
-
-# load the original model
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 if( seedmodel is None):
     print(f"File {seedmodelfile} failed to load.\n")
@@ -229,13 +254,15 @@ if( not args.quiet ):
     print(f"  Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
     # we print the events later to be able to show how many are only time dependent
 
-# scan items
+# read scan items
 # we need to retrieve then now before we create a new model due to a bug in COPASI/BasiCO (not sure which)
 scanitems = get_scan_items(model=seedmodel)
 
-# create the new model name
+#####
+#  3. copy notes, annotations, and units
+#####
+
 seedname = get_model_name(model=seedmodel)
-newname = f"{desc} of {seedname}"
 
 # edit the notes
 nnotes = get_notes(model=seedmodel)
@@ -256,6 +283,16 @@ else:
 # get original model units
 munits = get_model_units(model=seedmodel)
 
+#####
+#  4. create new model
+#####
+
+# create filename for new model
+newfilename = f"{base}{fsuff}.cps"
+
+# create the new model name
+newname = f"{desc} of {seedname}"
+
 # create the new model
 newmodel = new_model(name=newname,
                      notes=nnotes,
@@ -265,7 +302,6 @@ newmodel = new_model(name=newname,
                      area_unit=munits['area_unit'],
                      length_unit=munits['length_unit'])
 
-# TODO: this does not currently work!
 # set the intial time
 it= get_value('Time', model=seedmodel)
 set_value('Time', 6.0, True)
@@ -289,22 +325,12 @@ else:
     modf.append(datetime.now())
     set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
 
-############
+#####
 #  MAIN LOOP
-#
-# the loop does this for each new replicate model:
-#    1) create parameters, compartments, species without expressions
-#    2) create reactions (and fix mappings)
-#    3) set expressions for compartments and species
-#    4) create events
-#    5) parameter sets? TO DO
-#    6) element annotations? TO DO
-#    7) copy task settings TO DO
-############
+#####
 
 # we use "_i" as suffix if the arrangement is only a set
 # of models, but use "_r,c" as suffix if they are a grid
-
 i = 0
 for r in range(gridr):
     for c in range(gridc):
@@ -313,26 +339,27 @@ for r in range(gridr):
         else:
             apdx = f"_{r+1},{c+1}"
 
-        # FIRST create all elements without expressions
-
+#####
+#  5. create parameters, compartments and species
+#####
         # PARAMETERS
         if( seednparams>0 ):
             for p in mparams.index:
                 nname = p + apdx
                 add_parameter(model=newmodel, name=nname, status='fixed', initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
-        # COMPARTMENTS
         if( seedncomps > 0):
             for p in mcomps.index:
                 nname = p + apdx
                 add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
-        # SPECIES
         if( seednspecs > 0):
             for p in mspecs.index:
                 nname = p + apdx
                 cp = mspecs.loc[p].at['compartment'] + apdx
                 add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
 
-        # SECOND set reactions and their mappings
+#####
+#  6. create reactions
+#####
 
         # REACTIONS
         if( seednreacts > 0):
@@ -385,7 +412,9 @@ for r in range(gridr):
                             #mapp[key] = [k2 + apdx for k2 in mapp[key]]
                 add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
-        # THIRD set expressions and initial_expressions
+#####
+#  7. set expressions and initial_expressions
+#####
 
         # PARAMETERS
         if( seednparams > 0 ):
@@ -419,7 +448,11 @@ for r in range(gridr):
                     ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
                     set_species(model=newmodel, name=nname, exact=True, expression=ex )
 
-        # FOURTH set events
+#####
+#  8. create events
+#####
+
+        # EVENTS
         timeonlyevents = []
         if( seednevents > 0):
             for p in mevents.index:
@@ -442,7 +475,10 @@ for r in range(gridr):
 
         i += 1
 
-# let's deal with events that are only time-dependent
+#####
+#  9. create events not dependent on variables
+#####
+
 etd=len(timeonlyevents)
 entd = seednevents - etd
 # now we can print out how many events there are...
@@ -456,13 +492,11 @@ if( etd > 0 ):
         # if the delay or priority expressions contain elements we use model_1
         dl = fix_expression(mevents.loc[p].at['delay'],apdx1)
         pr = fix_expression(mevents.loc[p].at['priority'],apdx1)
-        print(mevents.loc[p].at['priority'])
-        print(pr)
         if( not args.quiet ):
             if( dl != mevents.loc[p].at['delay'] ):
-                print(f"Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of element {apdx1}")
+                print(f"Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of unit {apdx1}")
             if( pr != mevents.loc[p].at['priority'] ):
-                print(f"Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of element {apdx1}")
+                print(f"Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of unit {apdx1}")
         # process the targets and expressions
         assg = []
         for a in mevents.loc[p].at['assignments']:
@@ -480,7 +514,10 @@ if( etd > 0 ):
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
-# FIFTH Let's try to keep tasks as close to the original as possible
+#####
+# 10. set task parameters
+#####
+
 # time course
 tc = get_task_settings('Time-Course', basic_only=False, model=seedmodel)
 set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method']},model=newmodel)
@@ -502,10 +539,11 @@ tsa = get_task_settings('Time Scale Separation Analysis', basic_only=False, mode
 set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled'], 'update_model': tsa['update_model'], 'problem': tsa['problem'], 'method': tsa['method']},model=newmodel)
 
 # Cross section
-# TODO: BasiCO is not returning the variable; will need to set it here too, when the bug is fixed
 cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
-#print(cs['problem']['SingleVariable'])
-if( cs['problem']['SingleVariable'] is not None):
+if( cs['problem']['SingleVariable'] != ''):
+    newv = fix_expression(cs['problem']['SingleVariable'], apdx1)
+    print(f'Warning: the cross section task was updated to use {newv} as variable.')
+    cs['problem']['SingleVariable'] = newv
     set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
 
 # Linear Noise Approximation
@@ -513,15 +551,22 @@ lna = get_task_settings('Linear Noise Approximation', basic_only=False, model=se
 set_task_settings('Linear Noise Approximation', {'scheduled': lna['scheduled'], 'update_model': lna['update_model'], 'problem': lna['problem'], 'method': lna['method']},model=newmodel)
 
 # Sensitivities
-# TODO: BasiCO is not returning the effect and causes; will need to set them here too, when the bug is fixed
-sen = get_task_settings('Sensitivities', basic_only=False, model=seedmodel)
-set_task_settings('Sensitivities', {'scheduled': sen['scheduled'], 'update_model': sen['update_model'], 'problem': sen['problem'], 'method': sen['method']},model=newmodel)
+sen = get_sensitivity_settings(model=seedmodel)
+seff = fix_expression(sen['effect'],apdx1)
+scau = fix_expression(sen['cause'],apdx1)
+ssec = fix_expression(sen['secondary_cause'],apdx1)
+if( (seff != sen['effect']) or (scau != sen['cause']) or (ssec != sen['secondary_cause']) ):
+    print(f'Warning: sensitivies task is now using items of unit {apdx1}")')
+    sen['effect'] = seff
+    sen['cause'] = scau
+    sen['secondary_cause'] = ssec
+set_sensitivity_settings(sen, model=newmodel)
 
 # Parameter scan
 ps = get_task_settings('Scan', basic_only=False, model=seedmodel)
 set_task_settings('Scan', {'scheduled': ps['scheduled'], 'update_model': ps['update_model'], 'problem': ps['problem'], 'method': ps['method']},model=newmodel)
 
-# we got the scanitmes way earlier due to a bug in COPASI/BasiCO ...
+# we got the scanitems way earlier due to a bug in COPASI/BasiCO ...
 # when there are scan or random sampling items, we convert them to be those of the first unit
 srw = False
 for sit in scanitems:
@@ -545,13 +590,17 @@ for sit in scanitems:
                     print(f'Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
 if( srw ): print('Warning: in Parameter scan task the scanned or sampled items are now converted to those of the first unit only.')
 
-#TODO: Parameter estimation
 #TODO: Optimization
+#TODO: Parameter estimation
 # consider not including these; when decided leave a comment stating why; consider printing warnings
-
 #TODO: Time Course Sensitivities
 
-## what to do with reports?
+#TODO: what to do with reports?
+#TODO: to do with plots?
+
+#####
+# 11. save model
+#####
 
 # save the new model
 save_model(filename=newfilename, model=newmodel)
