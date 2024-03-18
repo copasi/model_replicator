@@ -18,7 +18,6 @@ if '../..' not in sys.path:
     sys.path.append('../..')
 
 from basico import *
-import numpy as np
 import pandas as pd
 import time
 from datetime import date, datetime
