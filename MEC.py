@@ -598,11 +598,12 @@ if( not args.ignore_tasks):
     if( srw ): print('Warning: in Parameter scan task the scanned or sampled items were converted to those of the first unit only.')
 
     # Optimization
-    # we translate the objective function to the first element
+    # we translate the objective function and parameters to the first unit
     nopt = get_opt_settings(model=seedmodel)
     if( nopt['expression'] ):
         nopt['expression'] = fix_expression(nopt['expression'], apdx1)
         set_opt_settings(nopt,newmodel)
+        # deal with paramters
         ops = get_opt_parameters(model=seedmodel)
         for p in ops.index:
             # rename the CN
@@ -611,6 +612,15 @@ if( not args.ignore_tasks):
             newp = fix_expression(p,apdx1)
             ops.rename(index={p: newp}, inplace=True)
         set_opt_parameters(ops, model=newmodel)
+        cst = get_opt_constraints(model=seedmodel)
+        # deal with constraints
+        for p in cst.index:
+            # rename the CN
+            cst.loc[p, 'cn'] = fix_expression(cst.loc[p].at['cn'] ,apdx1)
+            # rename the index
+            newp = fix_expression(p,apdx1)
+            cst.rename(index={p: newp}, inplace=True)
+        set_opt_constraints(cst, model=newmodel)
         print('Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
 
     #TODO: Parameter estimation
