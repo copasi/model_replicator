@@ -53,8 +53,13 @@ def is_element(candidate):
     return y
 
 # function to change expression fixing all references to element names with the appropriate suffix
-def fix_expression(expression, suff):
-    # find model name inside a CN
+def fix_expression(exp, suff):
+    expression = str(exp)
+    #is the full expression an element?
+    if( is_element(expression) ):
+        # just process it and return
+        expression = expression + suff
+        return expression
     mname = re.findall(r'^CN=Root,Model=(.+?),', expression )
     if( mname ):
         expression = re.sub(r'^CN=Root,Model=(.+?),', f'CN=Root,Model={newname},', expression )
@@ -244,6 +249,8 @@ if( mevents is None):
     seednevents = 0
 else:
     seednevents = mevents.shape[0]
+#for m in mevents.index:
+#    print(mevents.loc[m,'trigger'])
 
 # print summary of model elements
 if( not args.quiet ):
@@ -588,9 +595,24 @@ if( not args.ignore_tasks):
                     else:
                         tp = sit['type']
                         print(f'Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
-    if( srw ): print('Warning: in Parameter scan task the scanned or sampled items are now converted to those of the first unit only.')
+    if( srw ): print('Warning: in Parameter scan task the scanned or sampled items were converted to those of the first unit only.')
 
-    #TODO: Optimization
+    # Optimization
+    # we translate the objective function to the first element
+    nopt = get_opt_settings(model=seedmodel)
+    if( nopt['expression'] ):
+        nopt['expression'] = fix_expression(nopt['expression'], apdx1)
+        set_opt_settings(nopt,newmodel)
+        ops = get_opt_parameters(model=seedmodel)
+        for p in ops.index:
+            # rename the CN
+            ops.loc[p, 'cn'] = fix_expression(ops.loc[p].at['cn'] ,apdx1)
+            # rename the index
+            newp = fix_expression(p,apdx1)
+            ops.rename(index={p: newp}, inplace=True)
+        set_opt_parameters(ops, model=newmodel)
+        print('Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
+
     #TODO: Parameter estimation
     # consider not including these; when decided leave a comment stating why; consider printing warnings
     #TODO: Time Course Sensitivities
