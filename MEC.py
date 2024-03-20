@@ -623,9 +623,15 @@ if( not args.ignore_tasks):
         set_opt_constraints(cst, model=newmodel)
         print('Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
 
-    #TODO: Parameter estimation
-    # consider not including these; when decided leave a comment stating why; consider printing warnings
-    #TODO: Time Course Sensitivities
+    # We won't do Parameter estimation but need to issue a warning if it was set
+    exps = get_experiment_filenames(model=seedmodel)
+    if( len(exps)>0 ):
+        print('Warning: Parameter Estimation task settings were not copied to the new model.')
+
+    # We won't do Time Course Sensitivities but need to issue a warning if it was set
+    tcs = get_task_settings( 'Time-Course Sensitivities', basic_only=False, model=seedmodel)
+    if( tcs['scheduled'] ):
+        print('Warning: Time Course Sensitivities task settings were not copied to the new model.')
 
 
 #TODO: what to do with reports?
