@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 #
-# MEC.py
-# Model Extender for COPASI
+# sbmodelr
+# Model Replicator
 #
-# This takes a .cps file and replicates it as a set of sub-models
-# which can exist just side-by-side or can be connected in different
-# ways.
+# This takes a SBML or .cps file and replicates it as a set of sub-models
+# which can exist just side-by-side or can be connected in different ways.
 #
 # Written March 2024 by Pedro Mendes <pmendes@uchc.edu>
-# this code is released under the MIT license
+# this code is released under the Artistic 2.0 License
 
 import os
 import argparse
