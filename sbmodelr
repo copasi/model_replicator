@@ -145,6 +145,7 @@ parser.add_argument('layers', nargs='?', type=check_positive, default=1,
                     help='number of layers in a 3D grid')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over any task settings')
+parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -161,6 +162,14 @@ base,ext = os.path.splitext(seedmodelfile)
 
 if( ext.lower() != '.cps' ):
     args.ignore_tasks = True
+    sbmll = 2
+    sbmlv = 4
+    if( args.sbml ):
+        slv = re.match( 'l(\d)v(\d)', args.sbml )
+        if( slv ):
+            sbmll = int(slv.group(1))
+            sbmlv = int(slv.group(2))
+
 
 # sanity check
 nmodels = gridr*gridc
@@ -653,8 +662,6 @@ if( not args.ignore_tasks):
 if( ext.lower() == '.cps' ):
     save_model(filename=newfilename, model=newmodel)
 else:
-    save_model(filename=newfilename, type='sbml', model=newmodel)
+    save_model(filename=newfilename, type='sbml', sbml_level=sbmll, sbml_version=sbmlv, model=newmodel)
 if( not args.quiet ):
     print(f"created new model {newfilename} with {desc} of {seedmodelfile}\n")
-
-
