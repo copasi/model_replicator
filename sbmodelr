@@ -12,15 +12,15 @@
 import os
 import argparse
 import shlex
+import time
+from datetime import date, datetime
+import re
 import sys
 if '../..' not in sys.path:
     sys.path.append('../..')
 
-from basico import *
 import pandas as pd
-import time
-from datetime import date, datetime
-import re
+from basico import *
 #import matplotlib.pyplot as plt
 #%matplotlib inline
 
@@ -37,19 +37,19 @@ def is_float(string):
 
 # function to check if a string is an element in the model
 def is_element(candidate):
-    y=False
+    el=False
     if( (seednparams>0) and (candidate in mparams.index) ):
-        y=True
+        el=True
     else:
         if( (seedncomps>0) and (candidate in mcomps.index) ):
-            y=True
+            el=True
         else:
             if( (seednspecs>0) and (candidate in mspecs.index) ):
-                y=True
+                el=True
             else:
                 if( (seednreacts>0) and (candidate in mreacts.index) ):
-                    y=True
-    return y
+                    el=True
+    return el
 
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(exp, suff):
@@ -127,21 +127,24 @@ def check_positive(value):
 #  TODO: what to do with element annotations?
 ############
 
+
 #####
 #  1. parsing the command line
 #####
 
 parser = argparse.ArgumentParser(
                     prog='sbmodelr',
-                    description='Convert one COPASI model into a set of similar models.')
+                    description='Convert one SBML/COPASI model into another one containing many replicas of the original.')
 # arguments
 parser.add_argument('filename', help='original model file')
 parser.add_argument('rows', type=check_positive, default=2,
-                    help='total number of units or number of rows of a rectangular grid')
+                    help='total number of units or number of rows in a 2D or 3D grid')
 parser.add_argument('columns', nargs='?', type=check_positive, default=1,
-                    help='number of columns of rectangular a grid')
+                    help='number of columns in a 2D or 3D grid')
+parser.add_argument('layers', nargs='?', type=check_positive, default=1,
+                    help='number of layers in a 3D grid')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
-parser.add_argument('--ignore-tasks', action='store_true', help='do not copy any task settings')
+parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over any task settings')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -149,6 +152,7 @@ args = parser.parse_args()
 seedmodelfile = args.filename
 gridr = args.rows
 gridc = args.columns
+gridl = args.layers
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
