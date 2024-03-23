@@ -151,9 +151,9 @@ parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], 
 args = parser.parse_args()
 
 seedmodelfile = args.filename
-gridr = args.rows
-gridc = args.columns
-gridl = args.layers
+r = args.rows
+c = args.columns
+l = args.layers
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
@@ -174,7 +174,7 @@ if( args.sbml ):
 
 
 # sanity check
-nmodels = gridr*gridc*gridl
+nmodels = r*c*l
 
 if(nmodels==1):
     print("Error: Nothing to do, one copy only is the same as the original model!\nAt least one of rows, columns or layers must be larger than 1.\n")
@@ -182,11 +182,11 @@ if(nmodels==1):
 
 # check dimensionality
 dim=0
-if(gridr>1):
+if(r>1):
     dim = dim + 1
-if(gridc>1):
+if(c>1):
     dim = dim + 1
-if(gridl>1):
+if(l>1):
     dim = dim + 1
 
 
@@ -195,22 +195,37 @@ if(dim==1):
     fsuff = f"_{nmodels}"
     desc = f"a set of {nmodels} replicas"
     apdx1 = '_1'
+    gridr = nmodels
+    gridc = 1
+    gridl = 1
 else:
     if(dim==3):
+        gridr = r
+        gridc = c
+        gridl = l
         fsuff = f"_{gridr}x{gridc}x{gridl}"
         desc = f"a 3D set of {nmodels} replicas ({gridr}x{gridc}x{gridl})"
         apdx1 = '_1,1,1'
     else:
-        if(gridr==1):
-            fsuff = f"_{gridc}x{gridl}"
-            desc = f"a 2D set of {nmodels} replicas ({gridc}x{gridl})"
+        if(r==1):
+            gridr = c
+            gridc = l
+            gridl = 1
+            fsuff = f"_{gridr}x{gridc}"
+            desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
             apdx1 = '_1,1'
         else:
-            if(gridc==1):
-                fsuff = f"_{gridr}x{gridl}"
-                desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridl})"
+            if(c==1):
+                gridr = r
+                gridc = l
+                gridl = 1
+                fsuff = f"_{gridr}x{gridc}"
+                desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
                 apdx1 = '_1,1'
             else:
+                gridr = r
+                gridc = c
+                gridl = 1
                 fsuff = f"_{gridr}x{gridc}"
                 desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
                 apdx1 = '_1,1'
@@ -352,7 +367,6 @@ newmodel = new_model(name=newname,
 
 # set the intial time
 it= get_value('Time', initial=True, model=seedmodel)
-print(f'initial time={it}')
 set_value('Time', it, initial=True, model=newmodel)
 
 # transfer the annotations
@@ -378,151 +392,154 @@ else:
 #  MAIN LOOP
 #####
 
-# we use "_i" as suffix if the arrangement is only a set
-# of models, but use "_r,c,l" as suffix if they are a grid
+# we use "_i" as suffix for 1D, "_r,c" for 2D and "_r,c,l" for 3D
 i = 0
 for r in range(gridr):
     for c in range(gridc):
-        if(gridr==1 or gridc==1):
-            apdx = f"_{i+1}"
-        else:
-            apdx = f"_{r+1},{c+1}"
+        for l in range(gridl):
+            if(dim==1):
+                apdx = f"_{i+1}"
+            else:
+                if(dim==2):
+                    apdx = f"_{r+1},{c+1}"
+                else:
+                    apdx = f"_{r+1},{c+1},{l+1}"
 
 #####
 #  5. create parameters, compartments and species
 #####
-        # PARAMETERS
-        if( seednparams>0 ):
-            for p in mparams.index:
-                nname = p + apdx
-                add_parameter(model=newmodel, name=nname, status='fixed', initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
-        if( seedncomps > 0):
-            for p in mcomps.index:
-                nname = p + apdx
-                add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
-        if( seednspecs > 0):
-            for p in mspecs.index:
-                nname = p + apdx
-                cp = mspecs.loc[p].at['compartment'] + apdx
-                add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+            # PARAMETERS
+            if( seednparams>0 ):
+                for p in mparams.index:
+                    nname = p + apdx
+                    add_parameter(model=newmodel, name=nname, status='fixed', initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
+            if( seedncomps > 0):
+                for p in mcomps.index:
+                    nname = p + apdx
+                    add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
+            if( seednspecs > 0):
+                for p in mspecs.index:
+                    nname = p + apdx
+                    cp = mspecs.loc[p].at['compartment'] + apdx
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
 
 #####
 #  6. create reactions
 #####
 
-        # REACTIONS
-        if( seednreacts > 0):
-            for p in mreacts.index:
-                nname = p + apdx
-                scheme = mreacts.loc[p].at['scheme']
-                tok = scheme.split(';')
-                #tok2 = [sub.split() for sub in tok]
-                tok2 = [shlex.split(sub, posix=False) for sub in tok]
-                # build the reaction string
-                rs = ""
-                for t in tok2[0]:
-                    if( (t == '=') or (t == '->') or (t == '+') or is_float(t) or (t=="*")):
-                        rs = rs + t + " "
-                    else:
-                        if re.match(r'\".+\"', t):
-                            t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+            # REACTIONS
+            if( seednreacts > 0):
+                for p in mreacts.index:
+                    nname = p + apdx
+                    scheme = mreacts.loc[p].at['scheme']
+                    tok = scheme.split(';')
+                    #tok2 = [sub.split() for sub in tok]
+                    tok2 = [shlex.split(sub, posix=False) for sub in tok]
+                    # build the reaction string
+                    rs = ""
+                    for t in tok2[0]:
+                        if( (t == '=') or (t == '->') or (t == '+') or is_float(t) or (t=="*")):
                             rs = rs + t + " "
                         else:
-                            rs = rs + t + apdx + " "
-                if( len(tok2) > 1 ):
-                    # deal with the modifiers
-                    rs = rs[:len(rs)-1] + "; "
-                    for t in tok2[1]:
-                        if re.match(r'\".+\"', t):
-                            t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
-                            rs = rs + t + " "
+                            if re.match(r'\".+\"', t):
+                                t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+                                rs = rs + t + " "
+                            else:
+                                rs = rs + t + apdx + " "
+                    if( len(tok2) > 1 ):
+                        # deal with the modifiers
+                        rs = rs[:len(rs)-1] + "; "
+                        for t in tok2[1]:
+                            if re.match(r'\".+\"', t):
+                                t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+                                rs = rs + t + " "
+                            else:
+                                rs = rs + t + apdx + " "
+                    # fix the parameter mappings
+                    mapp = mreacts.loc[p].at['mapping'].copy()
+                    for key in mapp:
+                        if( isinstance(mapp[key], str) ):
+                            t = mapp[key]
+                            if re.match(r'\".+\"', t):
+                                t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
+                            else:
+                                t = t + apdx
+                            mapp[key] = t
                         else:
-                            rs = rs + t + apdx + " "
-                # fix the parameter mappings
-                mapp = mreacts.loc[p].at['mapping'].copy()
-                for key in mapp:
-                    if( isinstance(mapp[key], str) ):
-                        t = mapp[key]
-                        if re.match(r'\".+\"', t):
-                            t = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', t )
-                        else:
-                            t = t + apdx
-                        mapp[key] = t
-                    else:
-                        if( isinstance(mapp[key], list ) ):
-                            nmk = []
-                            for k2 in mapp[key]:
-                                if re.match(r'\".+\"', k2):
-                                    k2 = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', k2 )
-                                else:
-                                    k2 = k2 + apdx
-                                nmk.append(k2)
-                            mapp[key] = nmk
-                            #mapp[key] = [k2 + apdx for k2 in mapp[key]]
-                add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
+                            if( isinstance(mapp[key], list ) ):
+                                nmk = []
+                                for k2 in mapp[key]:
+                                    if re.match(r'\".+\"', k2):
+                                        k2 = re.sub( r'\"(.+)\"', f'"\\1{apdx}"', k2 )
+                                    else:
+                                        k2 = k2 + apdx
+                                    nmk.append(k2)
+                                mapp[key] = nmk
+                                #mapp[key] = [k2 + apdx for k2 in mapp[key]]
+                    add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
 #####
 #  7. set expressions and initial_expressions
 #####
 
-        # PARAMETERS
-        if( seednparams > 0 ):
-            for p in mparams.index:
-                nname = p + apdx
-                if( mparams.loc[p].at['initial_expression'] ):
-                    ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
-                    set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
-                if( mparams.loc[p].at['type']=='assignment' or mparams.loc[p].at['type']=='ode'):
-                    ex = fix_expression(mparams.loc[p].at['expression'], apdx)
-                    set_parameters(model=newmodel, name=nname, exact=True, status=mparams.loc[p].at['type'], expression=ex )
-        # COMPARTMENTS
-        if( seedncomps > 0):
-            for p in mcomps.index:
-                nname = p + apdx
-                if( mcomps.loc[p].at['initial_expression'] ):
-                    ie = fix_expression(mcomps.loc[p].at['initial_expression'], apdx)
-                    set_compartment(model=newmodel, name=nname, exact=True, initial_expression=ie )
-                if( mcomps.loc[p].at['type']=='assignment' or mcomps.loc[p].at['type']=='ode'):
-                    ex = fix_expression(mcomps.loc[p].at['expression'], apdx)
-                    set_compartment(model=newmodel, name=nname, exact=True, expression=ex )
-        # SPECIES
-        if( seednspecs > 0):
-            for p in mspecs.index:
-                nname = p + apdx
-                cp = mspecs.loc[p].at['compartment'] + apdx
-                if( mspecs.loc[p].at['initial_expression'] ):
-                    ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx)
-                    set_species(model=newmodel, name=nname, exact=True, initial_expression=ie )
-                if( mspecs.loc[p].at['type']=='assignment' or mspecs.loc[p].at['type']=='ode'):
-                    ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
-                    set_species(model=newmodel, name=nname, exact=True, expression=ex )
+            # PARAMETERS
+            if( seednparams > 0 ):
+                for p in mparams.index:
+                    nname = p + apdx
+                    if( mparams.loc[p].at['initial_expression'] ):
+                        ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
+                        set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
+                    if( mparams.loc[p].at['type']=='assignment' or mparams.loc[p].at['type']=='ode'):
+                        ex = fix_expression(mparams.loc[p].at['expression'], apdx)
+                        set_parameters(model=newmodel, name=nname, exact=True, status=mparams.loc[p].at['type'], expression=ex )
+            # COMPARTMENTS
+            if( seedncomps > 0):
+                for p in mcomps.index:
+                    nname = p + apdx
+                    if( mcomps.loc[p].at['initial_expression'] ):
+                        ie = fix_expression(mcomps.loc[p].at['initial_expression'], apdx)
+                        set_compartment(model=newmodel, name=nname, exact=True, initial_expression=ie )
+                    if( mcomps.loc[p].at['type']=='assignment' or mcomps.loc[p].at['type']=='ode'):
+                        ex = fix_expression(mcomps.loc[p].at['expression'], apdx)
+                        set_compartment(model=newmodel, name=nname, exact=True, expression=ex )
+            # SPECIES
+            if( seednspecs > 0):
+                for p in mspecs.index:
+                    nname = p + apdx
+                    cp = mspecs.loc[p].at['compartment'] + apdx
+                    if( mspecs.loc[p].at['initial_expression'] ):
+                        ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx)
+                        set_species(model=newmodel, name=nname, exact=True, initial_expression=ie )
+                    if( mspecs.loc[p].at['type']=='assignment' or mspecs.loc[p].at['type']=='ode'):
+                        ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
+                        set_species(model=newmodel, name=nname, exact=True, expression=ex )
 
 #####
 #  8. create events
 #####
 
-        # EVENTS
-        timeonlyevents = []
-        if( seednevents > 0):
-            for p in mevents.index:
-                # fix the trigger expression
-                tr = fix_expression(mevents.loc[p].at['trigger'], apdx)
-                # we skip events that have no elements in the trigger (time-dependent only)
-                if(tr != mevents.loc[p].at['trigger']):
-                    # fix name
-                    nm = p + apdx
-                    # process the targets and expressions
-                    assg = []
-                    for a in mevents.loc[p].at['assignments']:
-                        assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
-                    # add the event
-                    add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx), priority=fix_expression(mevents.loc[p].at['priority'],apdx), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
-                else:
-                    # the trigger does not involve any model element other than time
-                    # add it to the list to be dealt with later
-                    timeonlyevents.append(p)
+            # EVENTS
+            timeonlyevents = []
+            if( seednevents > 0):
+                for p in mevents.index:
+                    # fix the trigger expression
+                    tr = fix_expression(mevents.loc[p].at['trigger'], apdx)
+                    # we skip events that have no elements in the trigger (time-dependent only)
+                    if(tr != mevents.loc[p].at['trigger']):
+                        # fix name
+                        nm = p + apdx
+                        # process the targets and expressions
+                        assg = []
+                        for a in mevents.loc[p].at['assignments']:
+                            assg.append((fix_expression(a['target'],apdx),  fix_expression(a['expression'],apdx)))
+                        # add the event
+                        add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx), priority=fix_expression(mevents.loc[p].at['priority'],apdx), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
+                    else:
+                        # the trigger does not involve any model element other than time
+                        # add it to the list to be dealt with later
+                        timeonlyevents.append(p)
 
-        i += 1
+            i += 1
 
 #####
 #  9. create events not dependent on variables
@@ -553,13 +570,17 @@ if( etd > 0 ):
             i = 0
             for r in range(gridr):
                 for c in range(gridc):
-                    if(gridr==1 or gridc==1):
-                        apdx = f"_{i+1}"
-                    else:
-                        apdx = f"_{r+1},{c+1}"
-                    # add the assignment
-                    assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
-                    i = i + 1
+                    for l in range(gridl):
+                        if(dim==1):
+                            apdx = f"_{i+1}"
+                        else:
+                            if(dim==2):
+                                apdx = f"_{r+1},{c+1}"
+                            else:
+                                apdx = f"_{r+1},{c+1},{l+1}"
+                        # add the assignment
+                        assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
+                        i = i + 1
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
