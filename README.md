@@ -1,4 +1,4 @@
-# model replicator - a tool to replicate one COPASI/SBML model into a set of replicas
+# model replicator - a tool to replicate one SBML/COPASI model into a set of replicas
 
 This is a python-based command line utility (*sbmodelr*) that reads an SBML or COPASI model file and then replicates the existing model into several units. These units may be organized as a simple set, a 2D rectangular grid, or a 3D array. Each unit contains a complete copy of the original model with all its species, reactions, compartments, events, and global quantities. It is possible to connect these units by specifying species or global quantities that are transported between units. It is also possible to specify adding some randomness to parameter values, such that each unit becomes slightly different from each other.
 
