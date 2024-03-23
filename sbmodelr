@@ -156,6 +156,8 @@ gridl = args.layers
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
+#print(f'base: {base}')
+#print(f'ext: {ext}')
 
 # sanity check
 nmodels = gridr*gridc
@@ -297,7 +299,7 @@ munits = get_model_units(model=seedmodel)
 #####
 
 # create filename for new model
-newfilename = f"{base}{fsuff}.cps"
+newfilename = f"{base}{fsuff}{ext}"
 
 # create the new model name
 newname = f"{desc} of {seedname}"
@@ -327,7 +329,7 @@ if 'description' in miriam:
     set_miriam_annotation(model=newmodel, description=miriam['description'], replace=True)
 # add one modification now
 if 'modifications' in miriam:
-    miriam['modifications'].append(datetime.now())
+    miriam['modifications'].append(datetime.datetime.now())
     set_miriam_annotation(model=newmodel, modifications=miriam['modifications'], replace=True)
 else:
     modf = []
@@ -645,7 +647,10 @@ if( not args.ignore_tasks):
 #####
 
 # save the new model
-save_model(filename=newfilename, model=newmodel)
+if( ext == '.cps' ):
+    save_model(filename=newfilename, model=newmodel)
+else:
+    save_model(filename=newfilename, type='sbml', model=newmodel)
 if( not args.quiet ):
     print(f"created new model {newfilename} with {desc} of {seedmodelfile}\n")
 
