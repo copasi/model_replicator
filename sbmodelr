@@ -144,7 +144,7 @@ parser.add_argument('columns', nargs='?', type=check_positive, default=1,
 parser.add_argument('layers', nargs='?', type=check_positive, default=1,
                     help='number of layers in a 3D grid')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
-parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over any task settings')
+parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
 
 # Parse the arguments
@@ -162,36 +162,58 @@ base,ext = os.path.splitext(seedmodelfile)
 
 if( ext.lower() != '.cps' ):
     args.ignore_tasks = True
-    sbmll = 2
-    sbmlv = 4
-    if( args.sbml ):
-        slv = re.match( 'l(\d)v(\d)', args.sbml )
-        if( slv ):
-            sbmll = int(slv.group(1))
-            sbmlv = int(slv.group(2))
+
+# set sbml level and version (l2v4 is the default)
+sbmll = 2
+sbmlv = 4
+if( args.sbml ):
+    slv = re.match( 'l(\d)v(\d)', args.sbml )
+    if( slv ):
+        sbmll = int(slv.group(1))
+        sbmlv = int(slv.group(2))
 
 
 # sanity check
-nmodels = gridr*gridc
+nmodels = gridr*gridc*gridl
 
 if(nmodels==1):
-    print("Error: Nothing to do, one copy only is the same as the original model!\nAt least one of rows or columns must be larger than 1.\n")
+    print("Error: Nothing to do, one copy only is the same as the original model!\nAt least one of rows, columns or layers must be larger than 1.\n")
     exit()
 
+# check dimensionality
+dim=0
+if(gridr>1):
+    dim = dim + 1
+if(gridc>1):
+    dim = dim + 1
+if(gridl>1):
+    dim = dim + 1
+
+
 # strings to add to comments and titles, etc
-if(gridr==1):
-    fsuff = f"_{gridc}"
+if(dim==1):
+    fsuff = f"_{nmodels}"
     desc = f"a set of {nmodels} replicas"
     apdx1 = '_1'
 else:
-    if(gridc==1):
-        fsuff = f"_{gridr}"
-        desc = f"a set of {nmodels} replicas"
-        apdx1 = '_1'
+    if(dim==3):
+        fsuff = f"_{gridr}x{gridc}x{gridl}"
+        desc = f"a 3D set of {nmodels} replicas ({gridr}x{gridc}x{gridl})"
+        apdx1 = '_1,1,1'
     else:
-        fsuff = f"_{gridr}x{gridc}"
-        desc = f"a set of {nmodels} ({gridr}x{gridc}) replicas"
-        apdx1 = '_1,1'
+        if(gridr==1):
+            fsuff = f"_{gridc}x{gridl}"
+            desc = f"a 2D set of {nmodels} replicas ({gridc}x{gridl})"
+            apdx1 = '_1,1'
+        else:
+            if(gridc==1):
+                fsuff = f"_{gridr}x{gridl}"
+                desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridl})"
+                apdx1 = '_1,1'
+            else:
+                fsuff = f"_{gridr}x{gridc}"
+                desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
+                apdx1 = '_1,1'
 
 #####
 #  2. read the original model
@@ -310,8 +332,11 @@ munits = get_model_units(model=seedmodel)
 #  4. create new model
 #####
 
-# create filename for new model
-newfilename = f"{base}{fsuff}{ext}"
+# create new model filename (if sbml string was given force .xml extension)
+if( args.sbml ):
+    newfilename = f"{base}{fsuff}.xml"
+else:
+    newfilename = f"{base}{fsuff}{ext}"
 
 # create the new model name
 newname = f"{desc} of {seedname}"
@@ -326,8 +351,9 @@ newmodel = new_model(name=newname,
                      length_unit=munits['length_unit'])
 
 # set the intial time
-it= get_value('Time', model=seedmodel)
-set_value('Time', 6.0, True)
+it= get_value('Time', initial=True, model=seedmodel)
+print(f'initial time={it}')
+set_value('Time', it, initial=True, model=newmodel)
 
 # transfer the annotations
 miriam = get_miriam_annotation(model=seedmodel)
@@ -345,7 +371,7 @@ if 'modifications' in miriam:
     set_miriam_annotation(model=newmodel, modifications=miriam['modifications'], replace=True)
 else:
     modf = []
-    modf.append(datetime.now())
+    modf.append(datetime.datetime.now())
     set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
 
 #####
@@ -353,7 +379,7 @@ else:
 #####
 
 # we use "_i" as suffix if the arrangement is only a set
-# of models, but use "_r,c" as suffix if they are a grid
+# of models, but use "_r,c,l" as suffix if they are a grid
 i = 0
 for r in range(gridr):
     for c in range(gridc):
@@ -659,7 +685,7 @@ if( not args.ignore_tasks):
 #####
 
 # save the new model
-if( ext.lower() == '.cps' ):
+if( (ext.lower() == '.cps') and not args.sbml ):
     save_model(filename=newfilename, model=newmodel)
 else:
     save_model(filename=newfilename, type='sbml', sbml_level=sbmll, sbml_version=sbmlv, model=newmodel)
