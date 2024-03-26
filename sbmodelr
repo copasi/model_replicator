@@ -100,8 +100,15 @@ def fix_expression(exp, suff):
     return expression
 
 # function to check that value is positive, helper for argparse
-def check_positive(value):
+def positive_integer(value):
     ivalue = int(value)
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
+    return ivalue
+
+# function to check that value is positive, helper for argparse
+def positive_float(value):
+    ivalue = float(value)
     if ivalue <= 0:
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
@@ -138,13 +145,14 @@ parser = argparse.ArgumentParser(
                     description='Convert one SBML/COPASI model into another one containing many replicas of the original.')
 # arguments
 parser.add_argument('filename', help='original model file')
-parser.add_argument('rows', type=check_positive, default=2,
+parser.add_argument('rows', type=positive_integer, default=2,
                     help='total number of units or number of rows in a 2D or 3D grid')
-parser.add_argument('columns', nargs='?', type=check_positive, default=1,
+parser.add_argument('columns', nargs='?', type=positive_integer, default=1,
                     help='number of columns in a 2D or 3D grid')
-parser.add_argument('layers', nargs='?', type=check_positive, default=1,
+parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
                     help='number of layers in a 3D grid')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
+parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
@@ -159,6 +167,8 @@ l = args.layers
 
 # default value for transport rates (this should be passed through command line)
 trate = 1.0
+if( args.transport_rate ):
+    trate = args.transport_rate
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
@@ -598,7 +608,7 @@ if( args.transport ):
         if( (seednspecs>0) and (sp in mspecs.index) ):
             # add a rate constant for the transport reactions
             rateconst = f'k_{sp}_transport'
-            add_parameter(name=rateconst, value=trate, model=newmodel)
+            add_parameter(name=rateconst, initial_value=trate, model=newmodel)
             # add a transport reaction for each neighbour
             if( dim == 1):
                 print('TODO: network connections to be determined later')
@@ -650,6 +660,7 @@ if( args.transport ):
             # error
             print( f'Error: Species {sp} does not exist in the model, no transport reactions added' )
 
+#TODO: what about other ODEs ?
 
 #####
 # 11. set task parameters
