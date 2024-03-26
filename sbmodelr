@@ -128,9 +128,10 @@ def positive_float(value):
 #    7. set expressions for compartments and species
 #    8. create events that depende on variable
 #  9. loop over remaining events that don't depend on variables
-#  10. create unit connections
-#  11. copy task settings
-#  12. save model
+#  10. create medium unit if needed
+#  11. create unit connections
+#  12. copy task settings
+#  13. save model
 #  TODO: what to do with parameter sets?
 #  TODO: what to do with element annotations?
 ############
@@ -151,9 +152,10 @@ parser.add_argument('columns', nargs='?', type=positive_integer, default=1,
                     help='number of columns in a 2D or 3D grid')
 parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
                     help='number of layers in a 3D grid')
+parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
-parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
+parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
 
@@ -165,7 +167,7 @@ r = args.rows
 c = args.columns
 l = args.layers
 
-# default value for transport rates (this should be passed through command line)
+# default value for transport rates
 trate = 1.0
 if( args.transport_rate ):
     trate = args.transport_rate
@@ -598,7 +600,26 @@ if( etd > 0 ):
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
 #####
-# 10. create unit connections
+# 10. create medium unit if needed
+#####
+if( args.add_medium ):
+    if( args.transport ):
+        # check if there is no compartment called "medium
+        cname = 'medium'
+        if(cname in mcomps.index):
+            cname = '_added medium_'
+        # create medium compartment
+        add_compartment(model=newmodel, name=cname, status='fixed', initial_size=1, dimiensionality=3 )
+        # create the species that are transported
+        for sp in args.transport:
+            nname = f'{sp}_medium'
+            add_species(model=newmodel, name=nname, compartment_name=cname, status='fixed', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
+    else:
+        print('Warning: no medium unit created because no species are being transported')
+
+
+#####
+# 11. create unit connections
 #####
 
 # species to be transported
@@ -612,19 +633,30 @@ if( args.transport ):
             # add a transport reaction for each neighbour
             if( dim == 1):
                 print('TODO: network connections to be determined later')
+                # add transport between species and the medium
+                if(args.add_medium):
+                    for r in range(gridr):
+                        suffa = f'{r+1}'
+                        rname = f't_{sp}_{suffa}-medium'
+                        rscheme = f'{sp}_{suffa} = {sp}_medium'
+                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
             else:
                 if( dim == 2 ):
                     for r in range(gridr):
                         for c in range(gridc):
+                            suffa = f'{r+1},{c+1}'
+                            rname = f't_{sp}_{suffa}-medium'
+                            rscheme = f'{sp}_{suffa} = {sp}_medium'
+                            rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                            add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                             if( c+1 < gridc ):
-                                suffa = f'{r+1},{c+1}'
                                 suffb = f'{r+1},{c+2}'
                                 rname = f't_{sp}_{suffa}-{suffb}'
                                 rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                                 rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                             if( r+1 < gridr ):
-                                suffa = f'{r+1},{c+1}'
                                 suffb = f'{r+2},{c+1}'
                                 rname = f't_{sp}_{suffa}-{suffb}'
                                 rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
@@ -635,22 +667,24 @@ if( args.transport ):
                         for r in range(gridr):
                             for c in range(gridc):
                                 for l in range(gridl):
+                                    suffa = f'{r+1},{c+1},{l+1}'
+                                    rname = f't_{sp}_{suffa}-medium'
+                                    rscheme = f'{sp}_{suffa} = {sp}_medium'
+                                    rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                                    add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                     if( c+1 < gridc ):
-                                        suffa = f'{r+1},{c+1},{l+1}'
                                         suffb = f'{r+1},{c+2},{l+1}'
                                         rname = f't_{sp}_{suffa}-{suffb}'
                                         rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                                         rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                         add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                     if( r+1 < gridr ):
-                                        suffa = f'{r+1},{c+1},{l+1}'
                                         suffb = f'{r+2},{c+1},{l+1}'
                                         rname = f't_{sp}_{suffa}-{suffb}'
                                         rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                                         rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                         add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                     if( l+1 < gridl ):
-                                        suffa = f'{r+1},{c+1},{l+1}'
                                         suffb = f'{r+1},{c+1},{l+2}'
                                         rname = f't_{sp}_{suffa}-{suffb}'
                                         rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
@@ -663,7 +697,7 @@ if( args.transport ):
 #TODO: what about other ODEs ?
 
 #####
-# 11. set task parameters
+# 12. set task parameters
 #####
 
 if( not args.ignore_tasks):
@@ -780,7 +814,7 @@ if( not args.ignore_tasks):
 #TODO: to do with plots?
 
 #####
-# 12. save model
+# 13. save model
 #####
 
 # save the new model
