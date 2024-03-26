@@ -143,6 +143,7 @@ parser.add_argument('columns', nargs='?', type=check_positive, default=1,
                     help='number of columns in a 2D or 3D grid')
 parser.add_argument('layers', nargs='?', type=check_positive, default=1,
                     help='number of layers in a 3D grid')
+parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
