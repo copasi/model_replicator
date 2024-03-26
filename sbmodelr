@@ -121,8 +121,9 @@ def check_positive(value):
 #    7. set expressions for compartments and species
 #    8. create events that depende on variable
 #  9. loop over remaining events that don't depend on variables
-#  10. copy task settings
-#  11. save model
+#  10. create unit connections
+#  11. copy task settings
+#  12. save model
 #  TODO: what to do with parameter sets?
 #  TODO: what to do with element annotations?
 ############
@@ -156,10 +157,11 @@ r = args.rows
 c = args.columns
 l = args.layers
 
+# default value for transport rates (this should be passed through command line)
+trate = 1.0
+
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
-#print(f'base: {base}')
-#print(f'ext: {ext}')
 
 if( ext.lower() != '.cps' ):
     args.ignore_tasks = True
@@ -390,7 +392,7 @@ else:
     set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
 
 #####
-#  MAIN LOOP
+#  MAIN LOOP FOR REPLICATION
 #####
 
 # we use "_i" as suffix for 1D, "_r,c" for 2D and "_r,c,l" for 3D
@@ -586,7 +588,71 @@ if( etd > 0 ):
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
 #####
-# 10. set task parameters
+# 10. create unit connections
+#####
+
+# species to be transported
+if( args.transport ):
+    for sp in args.transport:
+        # check that the species exists
+        if( (seednspecs>0) and (sp in mspecs.index) ):
+            # add a rate constant for the transport reactions
+            rateconst = f'k_{sp}_transport'
+            add_parameter(name=rateconst, value=trate, model=newmodel)
+            # add a transport reaction for each neighbour
+            if( dim == 1):
+                print('TODO: network connections to be determined later')
+            else:
+                if( dim == 2 ):
+                    for r in range(gridr):
+                        for c in range(gridc):
+                            if( c+1 < gridc ):
+                                suffa = f'{r+1},{c+1}'
+                                suffb = f'{r+1},{c+2}'
+                                rname = f't_{sp}_{suffa}-{suffb}'
+                                rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
+                                rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                            if( r+1 < gridr ):
+                                suffa = f'{r+1},{c+1}'
+                                suffb = f'{r+2},{c+1}'
+                                rname = f't_{sp}_{suffa}-{suffb}'
+                                rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
+                                rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                else:
+                    if( dim == 3 ):
+                        for r in range(gridr):
+                            for c in range(gridc):
+                                for l in range(gridl):
+                                    if( c+1 < gridc ):
+                                        suffa = f'{r+1},{c+1},{l+1}'
+                                        suffb = f'{r+1},{c+2},{l+1}'
+                                        rname = f't_{sp}_{suffa}-{suffb}'
+                                        rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
+                                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                                    if( r+1 < gridr ):
+                                        suffa = f'{r+1},{c+1},{l+1}'
+                                        suffb = f'{r+2},{c+1},{l+1}'
+                                        rname = f't_{sp}_{suffa}-{suffb}'
+                                        rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
+                                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                                    if( l+1 < gridl ):
+                                        suffa = f'{r+1},{c+1},{l+1}'
+                                        suffb = f'{r+1},{c+1},{l+2}'
+                                        rname = f't_{sp}_{suffa}-{suffb}'
+                                        rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
+                                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+        else:
+            # error
+            print( f'Error: Species {sp} does not exist in the model, no transport reactions added' )
+
+
+#####
+# 11. set task parameters
 #####
 
 if( not args.ignore_tasks):
@@ -703,7 +769,7 @@ if( not args.ignore_tasks):
 #TODO: to do with plots?
 
 #####
-# 11. save model
+# 12. save model
 #####
 
 # save the new model
