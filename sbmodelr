@@ -632,7 +632,6 @@ if( args.transport ):
             add_parameter(name=rateconst, initial_value=trate, model=newmodel)
             # add a transport reaction for each neighbour
             if( dim == 1):
-                print('TODO: network connections to be determined later')
                 # add transport between species and the medium
                 if(args.add_medium):
                     for r in range(gridr):
@@ -641,6 +640,9 @@ if( args.transport ):
                         rscheme = f'{sp}_{suffa} = {sp}_medium'
                         rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
                         add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                else:
+                    print('TODO: network connections should be supplied through dot file')
+
             else:
                 if( dim == 2 ):
                     for r in range(gridr):
