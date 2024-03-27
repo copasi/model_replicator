@@ -155,6 +155,8 @@ parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
+parser.add_argument('-o', '--ode-coupling', action='append', help='explicit ODE to be coupled between units')
+parser.add_argument('-c', '--coupling-constant', type=float, help='strength of ODE coupling between units')
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
@@ -172,6 +174,11 @@ trate = 1.0
 if( args.transport_rate ):
     trate = args.transport_rate
 
+# default value for ODE coupling constants
+coupleconst = 1.0
+if( args.coupling_constant ):
+    coupleconst = args.coupling_constant
+
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
 
@@ -186,7 +193,6 @@ if( args.sbml ):
     if( slv ):
         sbmll = int(slv.group(1))
         sbmlv = int(slv.group(2))
-
 
 # sanity check
 nmodels = r*c*l
@@ -203,7 +209,6 @@ if(c>1):
     dim = dim + 1
 if(l>1):
     dim = dim + 1
-
 
 # strings to add to comments and titles, etc
 if(dim==1):
@@ -627,6 +632,7 @@ if( args.transport ):
     for sp in args.transport:
         # check that the species exists
         if( (seednspecs>0) and (sp in mspecs.index) ):
+            #TODO: check that the species depends on reactions
             # add a rate constant for the transport reactions
             rateconst = f'k_{sp}_transport'
             add_parameter(name=rateconst, initial_value=trate, model=newmodel)
@@ -696,7 +702,36 @@ if( args.transport ):
             # error
             print( f'Error: Species {sp} does not exist in the model, no transport reactions added' )
 
-#TODO: what about other ODEs ?
+# ODEs to be coupled by diffusive mechanism
+if( args.ode_coupling ):
+    for ode in args.ode_coupling:
+        # check if the ODE is a global variable
+        if( (mparams is not None) and (ode in mparams.index) ):
+            if( mparams.loc[ode].at['type'] == 'ode' ):
+                print(f'{ode} is an ODE global variable')
+            else:
+                print(f'ERROR: {ode} is a global variable that is not an ODE')
+        else:
+            # check if the ODE is a species
+            if( (mspecs is not None) and (ode in mspecs.index ) ):
+                if( mspecs.loc[ode].at['type'] == 'ode' ):
+                    print(f'{ode} is a species with explicit ODE')
+                else:
+                    print(f'ERROR: {ode} is a species that is not of type ODE')
+            else:
+                # check if the ODE is a compartment
+                if( (mcomps is not None) and (ode in mcomps.index) ):
+                    if( mcomps.loc[ode].at['type'] == 'ode' ):
+                        print(f'{ode} is a compartment with explicit ODE')
+                    else:
+                        print(f'ERROR: {ode} is a compartment that is not of type ODE')
+                else:
+                    print(f'ERROR: {ode} is not a valid model entity')
+
+
+            # add a coupling constant for the diffusive ODE couplings
+            #couplingconst = f'e_{sp}_coupling'
+            #add_parameter(name=couplingconst, initial_value=coupleconst, model=newmodel)
 
 #####
 # 12. set task parameters
