@@ -125,18 +125,30 @@ def read_network(network_file):
     if( re.search(r'digraph\s*.*{', netf) ):
         print( f'WARNING: {network_file} contains a directed graph but connections will be made reversible' )
 #    matches = re.findall( r'(?=((?:\d+)\s*-[-|>]\s*(?:\d+)))', netf)
+    # find all simple connections like 1--2 and 1--2--3
     matches = re.findall( r'"*(\d+)"*\s*(?=(-[-|>]\s*"*(?:\d+)"*))', netf)
-    for match in matches:
-        se = re.match(r'-[-|>]\s*"*(\d+)"*',match[1])
-        if( se is None ):
-            print(f'ERROR: {network_file} contains invalid node {match[1]}, no connections added')
-            return []
-        e1 = int(match[0])
-        e2 = int(se.group(1))
-        #tt = ( int(match[0]), int(se.group(1)) )
-        #print(tt)
-        ll.append((e1,e2))
-    # look for edges
+    if( matches ):
+        for match in matches:
+            e1 = int(match[0])
+            #se = re.match(r'-[-|>]\s*"*(\d+)"*',match[1])
+            se = re.search(r'(\d+)',match[1])
+            if( se is None ):
+                print(f'ERROR: {network_file} contains invalid node {match[1]}, no connections added')
+                return []
+            e2 = int(se.group(1))
+            ll.append((e1,e2))
+    # find connections to groups
+    gmatches = re.findall( r'"*(\d+)"*\s*-[-|>]\s*(\{[\d\s;"]+\})', netf)
+    if( gmatches ):
+        for gmatch in gmatches:
+            e1 = int(gmatch[0])
+            se = re.findall(r'(\d+)',gmatch[1])
+            if( se is None ):
+                print(f'ERROR: {network_file} contains invalid group node {gmatch[1]}, no connections added')
+                return []
+            for s in se:
+                e2 = int(s)
+                ll.append((e1,e2))
     return ll
 
 ############################
