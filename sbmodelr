@@ -124,8 +124,12 @@ def read_network(network_file):
     # check if this is a digraph
     if( re.search(r'digraph\s*.*{', netf) ):
         print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
-#    matches = re.findall( r'(?=((?:\d+)\s*-[-|>]\s*(?:\d+)))', netf)
+    # remove comments
+    netf = re.sub(r'\s*//.*', '', netf)          # // comments
+    netf = re.sub(r'\s*#.*', '', netf)           # # comments
+    netf = re.sub(r'\/\*[\s\S]*?\*\/', '', netf) # /* */ comments
     # find all simple connections like 1--2 and 1--2--3
+    # make sure that comments are ignored
     matches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*(?=(-[-|>]\s*"*(?:\d+)"*(?:\:\w+)*))', netf)
     if( matches ):
         for match in matches:
@@ -137,9 +141,12 @@ def read_network(network_file):
                 return []
             e2 = int(se.group(1))
             if( e1 == e2 ):
-                print(f'WARNING: ignoring {e1} -> {e2} connection')
+                print(f'WARNING: self-connections not allowed, ignoring {e1} -> {e2}')
             else:
-                ll.append((e1,e2))
+                if( (e1,e2) not in ll):
+                    ll.append((e1,e2))
+                else:
+                    print(f'WARNING: duplicate entry for connection {e1} to {e2}, ignored')
     # find connections to groups
     gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;"]+\})', netf)
     if( gmatches ):
@@ -152,9 +159,15 @@ def read_network(network_file):
             for s in se:
                 e2 = int(s)
                 if( e1 == e2 ):
-                    print(f'WARNING: ignoring {e1} -> {e2} connection')
+                    print(f'WARNING: self-connections not allowed, ignoring {e1} -> {e2}')
                 else:
-                    ll.append((e1,e2))
+                    if( (e1,e2) not in ll):
+                        ll.append((e1,e2))
+                    else:
+                        print(f'WARNING: duplicate entry for connection {e1} to {e2}, ignored')
+    # check if list is empty and issue warning
+    if( len(ll) == 0 ):
+        print(f'WARNING: {network_file} did not contain any valid edges, no connections added')
     return ll
 
 ############################
