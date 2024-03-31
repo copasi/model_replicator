@@ -136,7 +136,10 @@ def read_network(network_file):
                 print(f'ERROR: {network_file} contains invalid node {match[1]}, no connections added')
                 return []
             e2 = int(se.group(1))
-            ll.append((e1,e2))
+            if( e1 == e2 ):
+                print(f'WARNING: ignoring {e1} -> {e2} connection')
+            else:
+                ll.append((e1,e2))
     # find connections to groups
     gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;"]+\})', netf)
     if( gmatches ):
@@ -148,7 +151,10 @@ def read_network(network_file):
                 return []
             for s in se:
                 e2 = int(s)
-                ll.append((e1,e2))
+                if( e1 == e2 ):
+                    print(f'WARNING: ignoring {e1} -> {e2} connection')
+                else:
+                    ll.append((e1,e2))
     return ll
 
 ############################
