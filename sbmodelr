@@ -125,6 +125,7 @@ def read_network(network_file):
     if( re.search(r'digraph\s*.*{', netf) ):
         print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
     # remove comments
+    # TODO: this potentially breaks if "#" "//" or "/* */" are used as identifiers
     netf = re.sub(r'\s*//.*', '', netf)          # // comments
     netf = re.sub(r'\s*#.*', '', netf)           # # comments
     netf = re.sub(r'\/\*[\s\S]*?\*\/', '', netf) # /* */ comments
