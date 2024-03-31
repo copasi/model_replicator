@@ -113,6 +113,32 @@ def positive_float(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
+# function to load a graphviz network file, return list of links
+def read_network(network_file):
+    # read file
+    with open(network_file) as f:
+        netf = f.read()
+    print(netf)
+    # create list for links
+    ll = []
+    # check if this is a digraph
+    if( re.search(r'digraph\s*.*{', netf) ):
+        print( f'WARNING: {network_file} contains a directed graph but connections will be made reversible' )
+#    matches = re.findall( r'(?=((?:\d+)\s*-[-|>]\s*(?:\d+)))', netf)
+    matches = re.findall( r'"*(\d+)"*\s*(?=(-[-|>]\s*"*(?:\d+)"*))', netf)
+    for match in matches:
+        se = re.match(r'-[-|>]\s*"*(\d+)"*',match[1])
+        if( se is None ):
+            print(f'ERROR: {network_file} contains invalid node {match[1]}, no connections added')
+            return []
+        e1 = int(match[0])
+        e2 = int(se.group(1))
+        #tt = ( int(match[0]), int(se.group(1)) )
+        #print(tt)
+        ll.append((e1,e2))
+    # look for edges
+    return ll
+
 ############################
 # MAIN PROGRAM STARTS HERE #
 
@@ -123,10 +149,10 @@ def positive_float(value):
 #  3. copy notes, annotations, and units
 #  4. create new model
 #  MAIN LOOP, iterating over each model element:
-#    5. create parameters, compartments, species without expressions
-#    6. create reactions (and fix mappings)
-#    7. set expressions for compartments and species
-#    8. create events that depende on variable
+#   5. create parameters, compartments, species without expressions
+#   6. create reactions (and fix mappings)
+#   7. set expressions for compartments and species
+#   8. create events that depende on variable
 #  9. loop over remaining events that don't depend on variables
 #  10. create medium unit if needed
 #  11. create unit connections
@@ -157,6 +183,7 @@ parser.add_argument('-t', '--transport', action='append', help='species to be tr
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
 parser.add_argument('-o', '--ode-coupling', action='append', help='explicit ODE to be coupled between units')
 parser.add_argument('-c', '--coupling-constant', type=float, help='strength of ODE coupling between units')
+parser.add_argument('-n', '--network', help='graphviz network file for unit connections')
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
@@ -653,8 +680,9 @@ if( args.transport ):
                         rscheme = f'{sp}_{suffa} = {sp}_medium'
                         rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
                         add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
-                else:
-                    print('TODO: network connections should be supplied through dot file')
+                if( args.network ):
+                    links = read_network(args.network)
+                    print(links)
             elif( dim == 2 ):
                 for r in range(gridr):
                     for c in range(gridc):
