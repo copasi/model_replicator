@@ -123,10 +123,10 @@ def read_network(network_file):
     ll = []
     # check if this is a digraph
     if( re.search(r'digraph\s*.*{', netf) ):
-        print( f'WARNING: {network_file} contains a directed graph but connections will be made reversible' )
+        print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
 #    matches = re.findall( r'(?=((?:\d+)\s*-[-|>]\s*(?:\d+)))', netf)
     # find all simple connections like 1--2 and 1--2--3
-    matches = re.findall( r'"*(\d+)"*\s*(?=(-[-|>]\s*"*(?:\d+)"*))', netf)
+    matches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*(?=(-[-|>]\s*"*(?:\d+)"*(?:\:\w+)*))', netf)
     if( matches ):
         for match in matches:
             e1 = int(match[0])
@@ -138,7 +138,7 @@ def read_network(network_file):
             e2 = int(se.group(1))
             ll.append((e1,e2))
     # find connections to groups
-    gmatches = re.findall( r'"*(\d+)"*\s*-[-|>]\s*(\{[\d\s;"]+\})', netf)
+    gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;"]+\})', netf)
     if( gmatches ):
         for gmatch in gmatches:
             e1 = int(gmatch[0])
