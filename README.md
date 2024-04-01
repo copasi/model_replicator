@@ -1,10 +1,11 @@
 # model replicator - a tool to replicate one SBML/COPASI model into a set of replicas
 
-This is a python-based command line utility (*sbmodelr*) that reads an SBML or COPASI model file and then replicates the existing model into several units. These units may be organized as a simple set, a 2D rectangular grid, or a 3D array. Each unit contains a complete copy of the original model with all its species, reactions, compartments, events, and global quantities. It is possible to connect these units by specifying species or global quantities that are transported between units. An additional unit called 'medium' can also be added which only contains the transported species. It is also possible to specify adding some randomness to parameter values, such that each unit becomes slightly different from each other.
+This is a python-based command line utility (*sbmodelr*) that reads an SBML or COPASI model file and then replicates the existing model into several units. These units may be organized as a set (1D) potentially connected in a network, a 2D rectangular grid, or a 3D array. Each unit contains a complete copy of the original model with all its species, reactions, compartments, events, and global quantities. It is possible to connect these units by specifying species that are transported between units, or global quantities or compartments that are connected by diffusive terms (similar to transport). An additional unit called 'medium' can also be added which only contains the transported species. Finally, it is also possible to specify adding some randomness to parameter values, such that each unit becomes slightly different from each other.
 
 Practical uses of this script include:
  - using a cell model to create a model of a tissue or organoid, 
  - use a neuron model (e.g. the Hodgkin-Huxley) to create a network of neurons
+ - use a gene transcription model to create a gene regulatory network
 
 The output of this program is another model file with the more complex model. If the original was an SBML model the output will automatically be another SBML model, if it was a COPASI model then the output will be another COPASI model; note that in this case the script attempts to adapt the Tasks to use the new model. It is still possible to input one format and output the other through commmand line options.
 
