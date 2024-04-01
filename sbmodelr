@@ -863,8 +863,8 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
-                            set_parameters(oaname, exact=True, expression=odaexpr, model=newmodel)
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
+                            set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
                             obname = f'{ode}_{suffb}'
@@ -912,8 +912,8 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
-                                set_parameters(oaname, exact=True, expression=odaexpr, model=newmodel)
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
+                                set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
                                 obname = f'{ode}_{suffb}'
@@ -1022,8 +1022,8 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
-                            set_species(oaname, exact=True, expression=odaexpr, model=newmodel)
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
+                            set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
                             obname = f'{ode}_{suffb}'
@@ -1050,6 +1050,68 @@ if( args.ode_coupling ):
                             # add term to target ODE
                             odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                             set_species(obname, exact=True, expression=odebexpr, model=newmodel)
+            elif( dim == 3 ):
+                if(args.add_medium):
+                    # we first need to add the global quantity for the medium
+                    mediumode = f'{ode}_medium'
+                    medexp = '0'
+                    add_parameter(mediumode, type='ode', expression=medexp, initial_value=mparams.loc[ode].at['initial_value'], model=newmodel)
+                for r in range(gridr):
+                    for c in range(gridc):
+                        for l in range(gridl):
+                            suffa = f'{r+1},{c+1},{l+1}'
+                            oaname = f'{ode}_{suffa}'
+                            if(args.add_medium):
+                                # add term to medium ODE
+                                if( medexp == '0' ):
+                                    medexp = f'Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                                else:
+                                    medexp = medexp + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                set_species(mediumode, exact=True, expression=medexp, model=newmodel)
+                                # get ode to get expression
+                                aode = get_species(oaname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
+                                set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                            if( c+1 < gridc ):
+                                suffb = f'{r+1},{c+2},{l+1}'
+                                obname = f'{ode}_{suffb}'
+                                # get ode to get expression
+                                aode = get_species(oaname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                                set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                                # get ode to get expression
+                                bode = get_species(obname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                                set_species(obname, exact=True, expression=odebexpr, model=newmodel)
+                            if( r+1 < gridr ):
+                                suffb = f'{r+2},{c+1},{l+1}'
+                                obname = f'{ode}_{suffb}'
+                                # get ode to get expression
+                                aode = get_species(oaname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                                set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                                # get ode to get expression
+                                bode = get_species(obname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                                set_species(obname, exact=True, expression=odebexpr, model=newmodel)
+                            if( l+1 < gridl ):
+                                suffb = f'{r+1},{c+1},{l+2}'
+                                obname = f'{ode}_{suffb}'
+                                # get ode to get expression
+                                aode = get_species(oaname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                                set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                                # get ode to get expression
+                                bode = get_species(obname, exact=True, model=newmodel)
+                                # add term to target ODE
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                                set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
                 print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
