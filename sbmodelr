@@ -9,6 +9,7 @@
 # Written March 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
+__version__ = "0.1"
 import os
 import argparse
 import shlex
@@ -213,6 +214,7 @@ parser.add_argument('columns', nargs='?', type=positive_integer, default=1,
                     help='number of columns in a 2D or 3D grid')
 parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
                     help='number of layers in a 3D grid')
+parser.add_argument('-V', '--version', action='version', version=f'sbmodelr v. {__version__}')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
