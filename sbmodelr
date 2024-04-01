@@ -69,7 +69,7 @@ def fix_expression(exp, suff):
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
-                expression = re.sub(f'\[{el}\]', f'[{elnew}]', expression )
+                expression = re.sub(fr'\[{el}\]', f'[{elnew}]', expression )
     # find object names inside ()
     evars = re.findall(r'\((.+?)\)', expression )
     if( evars ):
@@ -77,7 +77,7 @@ def fix_expression(exp, suff):
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
-                expression = re.sub(f'\({el}\)', f'({elnew})', expression )
+                expression = re.sub(fr'\({el}\)', f'({elnew})', expression )
     # find object names inside () special case of ( something(else) )
     evars = re.findall(r'\((.*\(.*\).*?)\)', expression )
     if( evars ):
@@ -96,7 +96,7 @@ def fix_expression(exp, suff):
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
-                expression = re.sub(f'{el}\\.(\\w)', f'{elnew}.\\1', expression )
+                expression = re.sub(fr'{el}\.(\w)', f'{elnew}.\1', expression )
     return expression
 
 # function to check that value is positive, helper for argparse
@@ -126,7 +126,7 @@ def read_network(network_file):
         print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
     # check for the odd case of /* and */ appearing inside separate quotes and refuse to parse
     if( re.search(r'"[\s\S]*?\/\*[\s\S]*\*\/[\s\S]*?"', netf) ):
-        print(f'{network_file} contains identifiers with \* and *\, and cannot be parsed')
+        print(fr'{network_file} contains identifiers with \* and *\, and cannot be parsed')
         return []
     # remove comments
     netf = re.sub(r'\s*//.*', '', netf)          # // comments
@@ -139,7 +139,6 @@ def read_network(network_file):
     if( matches ):
         for match in matches:
             e1 = int(match[0])
-            #se = re.match(r'-[-|>]\s*"*(\d+)"*',match[1])
             se = re.search(r'(\d+)',match[1])
             if( se is None ):
                 print(f'ERROR: {network_file} contains invalid node {match[1]}, no connections added')
@@ -252,7 +251,7 @@ if( ext.lower() != '.cps' ):
 sbmll = 2
 sbmlv = 4
 if( args.sbml ):
-    slv = re.match( 'l(\d)v(\d)', args.sbml )
+    slv = re.match( r'l(\d)v(\d)', args.sbml )
     if( slv ):
         sbmll = int(slv.group(1))
         sbmlv = int(slv.group(2))
