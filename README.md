@@ -9,7 +9,7 @@ Practical uses of this script include:
 
 The output of this program is another model file with the more complex model. If the original was an SBML model the output will automatically be another SBML model, if it was a COPASI model then the output will be another COPASI model; note that in this case the script attempts to adapt the Tasks to use the new model. It is still possible to input one format and output the other through commmand line options.
 
-This program is inspired by [MEG](http://www.gepasi.org/meg.html) [1], a utility from the old [Gepasi](http://www.gepasi.org). The COPASI GUI and the [BasiCO](https://github.com/copasi/basico) python API [2] both contain some functionality similar to that provided here, however they are limited to replicating compartments (with all their species and reactions), but do not operate on events and global quantities nor on simulation tasks.
+This program is inspired by [MEG](http://www.gepasi.org/meg.html) [1], a utility included in the old [Gepasi](http://www.gepasi.org) simulator. The COPASI GUI and the [BasiCO](https://github.com/copasi/basico) python API [2] both contain some functionality similar to that provided here, however they are limited to replicating compartments (with all their species and reactions), but do not operate on events and global quantities nor on simulation tasks.
 
 **References**
  1. [Mendes P, Kell DB (2001) MEG (Model Extender for Gepasi): a program for the modelling of complex, heterogeneous, cellular systems. Bioinformatics 17:288–289](https://doi.org/10.1093/bioinformatics/17.3.288)
