@@ -113,7 +113,7 @@ def positive_float(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
-# function to load a graphviz network file, return list of links
+# function to load a graphviz network file, return list of links as tuples
 def read_network(network_file):
     # read file
     with open(network_file) as f:
@@ -124,11 +124,15 @@ def read_network(network_file):
     # check if this is a digraph
     if( re.search(r'digraph\s*.*{', netf) ):
         print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
+    # check for the odd case of /* and */ appearing inside separate quotes and refuse to parse
+    if( re.search(r'"[\s\S]*?\/\*[\s\S]*\*\/[\s\S]*?"', netf) ):
+        print(f'{network_file} contains identifiers with \* and *\, and cannot be parsed')
+        return []
     # remove comments
-    # TODO: this potentially breaks if "#" "//" or "/* */" are used as identifiers
     netf = re.sub(r'\s*//.*', '', netf)          # // comments
     netf = re.sub(r'\s*#.*', '', netf)           # # comments
     netf = re.sub(r'\/\*[\s\S]*?\*\/', '', netf) # /* */ comments
+    print(netf)
     # find all simple connections like 1--2 and 1--2--3
     # make sure that comments are ignored
     matches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*(?=(-[-|>]\s*"*(?:\d+)"*(?:\:\w+)*))', netf)
@@ -149,7 +153,7 @@ def read_network(network_file):
                 else:
                     print(f'WARNING: duplicate entry for connection {e1} to {e2}, ignored')
     # find connections to groups
-    gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;"]+\})', netf)
+    gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;,"]+\})', netf)
     if( gmatches ):
         for gmatch in gmatches:
             e1 = int(gmatch[0])
@@ -271,7 +275,7 @@ if(l>1):
 
 # strings to add to comments and titles, etc
 if(dim==1):
-    fsuff = f"_{nmodels}"
+    fsuff = f"{nmodels}"
     desc = f"a set of {nmodels} replicas"
     apdx1 = '_1'
     gridr = nmodels
@@ -282,7 +286,7 @@ else:
         gridr = r
         gridc = c
         gridl = l
-        fsuff = f"_{gridr}x{gridc}x{gridl}"
+        fsuff = f"{gridr}x{gridc}x{gridl}"
         desc = f"a 3D set of {nmodels} replicas ({gridr}x{gridc}x{gridl})"
         apdx1 = '_1,1,1'
     else:
@@ -290,7 +294,7 @@ else:
             gridr = c
             gridc = l
             gridl = 1
-            fsuff = f"_{gridr}x{gridc}"
+            fsuff = f"{gridr}x{gridc}"
             desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
             apdx1 = '_1,1'
         else:
@@ -298,16 +302,31 @@ else:
                 gridr = r
                 gridc = l
                 gridl = 1
-                fsuff = f"_{gridr}x{gridc}"
+                fsuff = f"{gridr}x{gridc}"
                 desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
                 apdx1 = '_1,1'
             else:
                 gridr = r
                 gridc = c
                 gridl = 1
-                fsuff = f"_{gridr}x{gridc}"
+                fsuff = f"{gridr}x{gridc}"
                 desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
                 apdx1 = '_1,1'
+
+# parse the network file if needed
+if( args.network ):
+    # check dimension
+    if( dim > 1 ):
+        print(f'WARNING: network file is only relevant for dimension 1 but you chose dimension {dim} {fsuff}')
+        exit()
+    # parse the network file
+    links = read_network(args.network)
+    if( len(links) > 0 ):
+        for link in links:
+            # sanity check
+            if( (link[0] < 1) or (link[1] < 1) or (link[0] > nmodels) or (link[1] > nmodels) ):
+                print(f'ERROR: network file lists units with numbers outside [1,{nmodels}]')
+                exit()
 
 #####
 #  2. read the original model
@@ -428,9 +447,9 @@ munits = get_model_units(model=seedmodel)
 
 # create new model filename (if sbml string was given force .xml extension)
 if( args.sbml ):
-    newfilename = f"{base}{fsuff}.xml"
+    newfilename = f"{base}_{fsuff}.xml"
 else:
-    newfilename = f"{base}{fsuff}{ext}"
+    newfilename = f"{base}_{fsuff}{ext}"
 
 # create the new model name
 newname = f"{desc} of {seedname}"
@@ -713,16 +732,22 @@ if( args.transport ):
                         rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
                         add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                 if( args.network ):
-                    links = read_network(args.network)
-                    print(links)
+                    for link in links:
+                        suffa = f'{link[0]}'
+                        suffb = f'{link[1]}'
+                        rname = f't_{sp}_{suffa}-{suffb}'
+                        rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
+                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
             elif( dim == 2 ):
                 for r in range(gridr):
                     for c in range(gridc):
                         suffa = f'{r+1},{c+1}'
-                        rname = f't_{sp}_{suffa}-medium'
-                        rscheme = f'{sp}_{suffa} = {sp}_medium'
-                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
-                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                        if(args.add_medium):
+                            rname = f't_{sp}_{suffa}-medium'
+                            rscheme = f'{sp}_{suffa} = {sp}_medium'
+                            rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                            add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
                             rname = f't_{sp}_{suffa}-{suffb}'
@@ -765,21 +790,23 @@ if( args.transport ):
             else:
                 # insanity error
                 print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
+                exit()
         else:
             # error
             print( f'Error: Species {sp} does not exist in the model, no transport reactions added' )
+            exit()
 
 # ODEs to be coupled by diffusive mechanism
 if( args.ode_coupling ):
     for ode in args.ode_coupling:
+        # add a rate constant for the diffusive connections
+        diffconst = f'k_{ode}_coupling'
+        add_parameter(diffconst, type='fixed', initial_value=coupleconst, model=newmodel)
         # check if the ODE is a global variable
         if( (mparams is not None) and (ode in mparams.index) ):
             if( mparams.loc[ode].at['type'] != 'ode' ):
                 print(f'ERROR: {ode} is a global variable that is not an ODE')
                 continue
-            # add a rate constant for the diffusive connection
-            diffconst = f'k_{ode}_coupling'
-            add_parameter(diffconst, type='fixed', initial_value=coupleconst, model=newmodel)
             if( dim == 1):
                 # add coupling between unit and the medium
                 if(args.add_medium):
@@ -799,35 +826,111 @@ if( args.ode_coupling ):
                         set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                         # get ode to get expression
                         tode = get_parameters(oname, exact=True, model=newmodel)
-                        # add term to medium ODE
+                        # add term to target ODE
                         odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * (Values[{oname}] - Values[{mediumode}])'
                         set_parameters(oname, exact=True, type='ode', expression=odexpr, model=newmodel)
-                else:
-                    print('TODO: network connections should be supplied through dot file')
+                if( args.network ):
+                    for link in links:
+                        suffa = f'{link[0]}'
+                        oaname = f'{ode}_{suffa}'
+                        suffb = f'{link[1]}'
+                        obname = f'{ode}_{suffb}'
+                        # get ode a to get expression
+                        aode = get_parameters(oaname, exact=True, model=newmodel)
+                        # add term to ODE a
+                        odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                        set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        # get ode b to get expression
+                        bode = get_parameters(obname, exact=True, model=newmodel)
+                        # add term to ODE b
+                        odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                        set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
                 print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
-
+                exit()
         # check if the ODE is a species
-        elif( (mspecs is not None) and (ode in mspecs.index ) ):
-            if( mspecs.loc[ode].at['type'] == 'ode' ):
-                print(f'{ode} is a species with explicit ODE')
+        elif( (mspecs is not None) and (ode in mspecs.index) ):
+            if( mspecs.loc[ode].at['type'] != 'ode' ):
+                print(f'ERROR: {ode} is a species but it is not of type ODE')
+                continue
+            if( dim == 1):
+                # add coupling between unit and the medium
+                if(args.add_medium):
+                    # because species live in compartments, we need to add a special new compartment for the medium
+                    add_compartment('medium')
+                    # then add the new medium species
+                    mediumode = f'{ode}_medium'
+                    medexp = '0'
+                    add_species(mediumode, compartment_name='medium', type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], model=newmodel)
+                    for r in range(gridr):
+                        # name of ode in this unit
+                        suffa = f'{r+1}'
+                        oname = f'{ode}_{suffa}'
+                        # add term to medium ODE
+                        if( medexp == '0' ):
+                            medexp = f'Values[{diffconst}] * ([{mediumode}] - [{oname}])'
+                        else:
+                            medexp = medexp + f' + Values[{diffconst}] * ([{mediumode}] - [{oname}])'
+                        set_species(mediumode, exact=True, expression=medexp, model=newmodel)
+                        # get target ode to get expression
+                        tode = get_species(oname, exact=True, model=newmodel)
+                        # add term to target ODE
+                        odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * ([{oname}] - [{mediumode}])'
+                        set_species(oname, exact=True, expression=odexpr, model=newmodel)
+                if( args.network ):
+                    for link in links:
+                        suffa = f'{link[0]}'
+                        oaname = f'{ode}_{suffa}'
+                        suffb = f'{link[1]}'
+                        obname = f'{ode}_{suffb}'
+                        # get ode a to get expression
+                        aode = get_species(oaname, exact=True, model=newmodel)
+                        # add term to ODE a
+                        odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                        set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        # get ode b to get expression
+                        bode = get_species(obname, exact=True, model=newmodel)
+                        # add term to ODE b
+                        odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                        set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
-                print(f'ERROR: {ode} is a species that is not of type ODE')
+                # insanity error
+                print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
+                exit()
+
         # check if the ODE is a compartment
         elif( (mcomps is not None) and (ode in mcomps.index) ):
-            if( mcomps.loc[ode].at['type'] == 'ode' ):
-                print(f'{ode} is a compartment with explicit ODE')
+            if( mcomps.loc[ode].at['type'] != 'ode' ):
+                print(f'ERROR: {ode} is a species but it is not of type ODE')
+                continue
+            if( dim == 1):
+                # for compartments we do nothing about the medium...
+                # let's just work on the network
+                if( args.network ):
+                    for link in links:
+                        suffa = f'{link[0]}'
+                        oaname = f'{ode}_{suffa}'
+                        suffb = f'{link[1]}'
+                        obname = f'{ode}_{suffb}'
+                        # get ode a to get expression
+                        aode = get_compartments(oaname, exact=True, model=newmodel)
+                        # add term to ODE a
+                        odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                        set_compartments(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        # get ode b to get expression
+                        bode = get_compartments(obname, exact=True, model=newmodel)
+                        # add term to ODE b
+                        odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                        set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
-                print(f'ERROR: {ode} is a compartment that is not of type ODE')
+                # insanity error
+                print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
+                exit()
         # not an entity in this model
         else:
-            print(f'ERROR: {ode} is not a valid model entity')
+            print(f'ERROR: {ode} is not a valid model entity, no connection added')
 
-
-            # add a coupling constant for the diffusive ODE couplings
-            #couplingconst = f'e_{sp}_coupling'
-            #add_parameter(name=couplingconst, initial_value=coupleconst, model=newmodel)
 
 #####
 # 12. set task parameters
