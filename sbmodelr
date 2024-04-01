@@ -9,7 +9,8 @@
 # Written March 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
-__version__ = "0.1"
+__version__ = "1.0a1"
+
 import os
 import argparse
 import shlex
@@ -22,8 +23,6 @@ if '../..' not in sys.path:
 
 import pandas as pd
 from basico import *
-#import matplotlib.pyplot as plt
-#%matplotlib inline
 
 #######################
 # AUXILIARY FUNCTIONS #
@@ -119,7 +118,6 @@ def read_network(network_file):
     # read file
     with open(network_file) as f:
         netf = f.read()
-    print(netf)
     # create list for links
     ll = []
     # check if this is a digraph
@@ -133,7 +131,6 @@ def read_network(network_file):
     netf = re.sub(r'\s*//.*', '', netf)          # // comments
     netf = re.sub(r'\s*#.*', '', netf)           # # comments
     netf = re.sub(r'\/\*[\s\S]*?\*\/', '', netf) # /* */ comments
-    print(netf)
     # find all simple connections like 1--2 and 1--2--3
     # make sure that comments are ignored
     matches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*(?=(-[-|>]\s*"*(?:\d+)"*(?:\:\w+)*))', netf)
@@ -214,7 +211,7 @@ parser.add_argument('columns', nargs='?', type=positive_integer, default=1,
                     help='number of columns in a 2D or 3D grid')
 parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
                     help='number of layers in a 3D grid')
-parser.add_argument('-V', '--version', action='version', version=f'sbmodelr v. {__version__}')
+parser.add_argument('-V', '--version', action='version', version=f'sbmodelr {__version__}')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
@@ -1005,6 +1002,54 @@ if( args.ode_coupling ):
                         # add term to ODE b
                         odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                         set_species(obname, exact=True, expression=odebexpr, model=newmodel)
+            elif( dim == 2 ):
+                if(args.add_medium):
+                    # we first need to add the global quantity for the medium
+                    mediumode = f'{ode}_medium'
+                    medexp = '0'
+                    add_species(name=mediumode, compartment_name=cname, type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'], model=newmodel )
+                for r in range(gridr):
+                    for c in range(gridc):
+                        suffa = f'{r+1},{c+1}'
+                        oaname = f'{ode}_{suffa}'
+                        if(args.add_medium):
+                            # add term to medium ODE
+                            if( medexp == '0' ):
+                                medexp = f'Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                            else:
+                                medexp = medexp + f' + Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                            set_species(mediumode, exact=True, expression=medexp, model=newmodel)
+                            # get ode to get expression
+                            aode = get_species(oaname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
+                            set_species(oaname, exact=True, expression=odaexpr, model=newmodel)
+                        if( c+1 < gridc ):
+                            suffb = f'{r+1},{c+2}'
+                            obname = f'{ode}_{suffb}'
+                            # get ode to get expression
+                            aode = get_species(oaname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                            set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                            # get ode to get expression
+                            bode = get_species(obname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                            set_species(obname, exact=True, expression=odebexpr, model=newmodel)
+                        if( r+1 < gridr ):
+                            suffb = f'{r+2},{c+1}'
+                            obname = f'{ode}_{suffb}'
+                            # get ode to get expression
+                            aode = get_species(oaname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                            set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                            # get ode to get expression
+                            bode = get_species(obname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                            set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
                 print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
