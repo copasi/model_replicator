@@ -1141,6 +1141,37 @@ if( args.ode_coupling ):
                         # add term to ODE b
                         odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
                         set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
+            elif( dim == 2 ):
+                for r in range(gridr):
+                    for c in range(gridc):
+                        suffa = f'{r+1},{c+1}'
+                        oaname = f'{ode}_{suffa}'
+                        if( c+1 < gridc ):
+                            suffb = f'{r+1},{c+2}'
+                            obname = f'{ode}_{suffb}'
+                            # get ode to get expression
+                            aode = get_compartments(oaname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            set_compartments(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                            # get ode to get expression
+                            bode = get_compartments(obname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            set_compartments(obname, exact=True, expression=odebexpr, model=newmodel)
+                        if( r+1 < gridr ):
+                            suffb = f'{r+2},{c+1}'
+                            obname = f'{ode}_{suffb}'
+                            # get ode to get expression
+                            aode = get_compartments(oaname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            set_compartments(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                            # get ode to get expression
+                            bode = get_compartments(obname, exact=True, model=newmodel)
+                            # add term to target ODE
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            set_compartments(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
                 print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
