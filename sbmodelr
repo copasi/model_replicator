@@ -82,7 +82,6 @@ def fix_expression(exp, suff):
     evars = re.findall(r'\((.*\(.*\).*?)\)', expression )
     if( evars ):
         for el in evars:
-            print(f' el: {el}')
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
