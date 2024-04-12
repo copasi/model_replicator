@@ -650,8 +650,10 @@ for r in range(gridr):
 
 etd=len(timeonlyevents)
 entd = seednevents - etd
-# now we can print out how many events there are...
+
+# now we can print out the rest of the model information
 if( not args.quiet ):
+    #how many events there are...
     print(f"  Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})")
     # and also information on network if one is used
     if( args.network ):
