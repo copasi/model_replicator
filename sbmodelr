@@ -18,8 +18,8 @@ import time
 from datetime import date, datetime
 import re
 import sys
-if '../..' not in sys.path:
-    sys.path.append('../..')
+#if '../..' not in sys.path:
+#    sys.path.append('../..')
 
 import pandas as pd
 from basico import *
@@ -122,7 +122,7 @@ def read_network(network_file):
     # check if this is a digraph
     if( re.search(r'digraph\s*.*{', netf) ):
         ll.append((0,0))
-        # print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
+        # print( f' Warning: {network_file} contains a directed graph, however connections will be made reversible' )
     # check for the odd case of /* and */ appearing inside separate quotes and refuse to parse
     if( re.search(r'"[\s\S]*?\/\*[\s\S]*\*\/[\s\S]*?"', netf) ):
         print(fr'{network_file} contains identifiers with \* and *\, and cannot be parsed')
@@ -143,12 +143,12 @@ def read_network(network_file):
                 return []
             e2 = int(se.group(1))
             if( e1 == e2 ):
-                print(f'WARNING: self-connections not allowed, ignoring {e1} -> {e2}')
+                print(f' Warning: self-connections not allowed, ignoring {e1} -> {e2}')
             else:
                 if( (e1,e2) not in ll):
                     ll.append((e1,e2))
                 else:
-                    print(f'WARNING: duplicate entry for connection {e1} to {e2}, ignored')
+                    print(f' Warning: duplicate entry for connection {e1} to {e2}, ignored')
     # find connections to groups
     gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;,"]+\})', netf)
     if( gmatches ):
@@ -161,15 +161,15 @@ def read_network(network_file):
             for s in se:
                 e2 = int(s)
                 if( e1 == e2 ):
-                    print(f'WARNING: self-connections not allowed, ignoring {e1} -> {e2}')
+                    print(f' Warning: self-connections not allowed, ignoring {e1} -> {e2}')
                 else:
                     if( (e1,e2) not in ll):
                         ll.append((e1,e2))
                     else:
-                        print(f'WARNING: duplicate entry for connection {e1} to {e2}, ignored')
+                        print(f' Warning: duplicate entry for connection {e1} to {e2}, ignored')
     # check if list is empty and issue warning
     if( (len(ll) == 0) or ( (len(ll) == 1) and ll[0] == (0,0) ) ):
-        print(f'WARNING: {network_file} did not contain any valid edges, no connections added')
+        print(f' Warning: {network_file} did not contain any valid edges, no connections added')
         if( len(ll) == 1 ):
             del ll[0]
     return ll
@@ -662,9 +662,9 @@ if( etd > 0 ):
         pr = fix_expression(mevents.loc[p].at['priority'],apdx1)
         if( not args.quiet ):
             if( dl != mevents.loc[p].at['delay'] ):
-                print(f"Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of unit {apdx1}")
+                print(f' Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of unit {apdx1}')
             if( pr != mevents.loc[p].at['priority'] ):
-                print(f"Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of unit {apdx1}")
+                print(f' Warning: Event {p} contains a priority expression dependent on variables, it was set to the variables of unit {apdx1}')
         # process the targets and expressions
         assg = []
         for a in mevents.loc[p].at['assignments']:
@@ -706,7 +706,7 @@ if( args.add_medium ):
         # because they can be of one of three different types of entity
 
     else:
-        print('Warning: no medium unit created because no species are being transported or ODEs coupled')
+        print(' Warning: no medium unit created because no species are being transported or ODEs coupled')
 
 
 #####
@@ -720,7 +720,7 @@ if( args.transport ):
         if( (seednspecs>0) and (sp in mspecs.index) ):
             # check that the species depends on reactions
             if( mspecs.loc[sp].at['type'] != 'reactions' ):
-                print( f'WARNING: {sp} is a species that does not depend on reactions, no transport reactions added')
+                print( f' Warning: {sp} is a species that does not depend on reactions, no transport reactions added')
                 continue
             # add a rate constant for the transport reactions
             rateconst = f'k_{sp}_transport'
@@ -1283,7 +1283,7 @@ if( not args.ignore_tasks):
     cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
     if( cs['problem']['SingleVariable'] != ''):
         newv = fix_expression(cs['problem']['SingleVariable'], apdx1)
-        print(f'Warning: the cross section task was updated to use {newv} as variable.')
+        print(f' Warning: the cross section task was updated to use {newv} as variable.')
         cs['problem']['SingleVariable'] = newv
         set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
 
@@ -1297,7 +1297,7 @@ if( not args.ignore_tasks):
     scau = fix_expression(sen['cause'],apdx1)
     ssec = fix_expression(sen['secondary_cause'],apdx1)
     if( (seff != sen['effect']) or (scau != sen['cause']) or (ssec != sen['secondary_cause']) ):
-        print(f'Warning: sensitivies task is now using items of unit {apdx1}")')
+        print(f' Warning: sensitivies task is now using items of unit {apdx1}")')
         sen['effect'] = seff
         sen['cause'] = scau
         sen['secondary_cause'] = ssec
@@ -1312,7 +1312,7 @@ if( not args.ignore_tasks):
     srw = False
     for sit in scanitems:
         if( sit['type']=='parameter_set' ):
-            print(f'Warning: a scan of parameter sets exists in the original model but was not included in the new model.')
+            print(f' Warning: a scan of parameter sets exists in the original model but was not included in the new model.')
         else:
             if( sit['type']=='scan' ):
                 newit = fix_expression(sit['item'], apdx1)
@@ -1328,8 +1328,8 @@ if( not args.ignore_tasks):
                         add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'])
                     else:
                         tp = sit['type']
-                        print(f'Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
-    if( srw ): print('Warning: in Parameter scan task the scanned or sampled items were converted to those of the first unit only.')
+                        print(f' Warning: This scan task includes an unknonw type {tp}, likely from a new version of COPASI. Please file an issue on Github.')
+    if( srw ): print(' Warning: in Parameter scan task the scanned or sampled items were converted to those of the first unit only.')
 
     # Optimization
     # we translate the objective function and parameters to the first unit
@@ -1355,17 +1355,17 @@ if( not args.ignore_tasks):
             newp = fix_expression(p,apdx1)
             cst.rename(index={p: newp}, inplace=True)
         set_opt_constraints(cst, model=newmodel)
-        print('Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
+        print(' Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
 
     # We won't do Parameter estimation but need to issue a warning if it was set
     exps = get_experiment_filenames(model=seedmodel)
     if( len(exps)>0 ):
-        print('Warning: Parameter Estimation task settings were not copied to the new model.')
+        print(' Warning: Parameter Estimation task settings were not copied to the new model.')
 
     # We won't do Time Course Sensitivities but need to issue a warning if it was set
     tcs = get_task_settings( 'Time-Course Sensitivities', basic_only=False, model=seedmodel)
     if( tcs['scheduled'] ):
-        print('Warning: Time Course Sensitivities task settings were not copied to the new model.')
+        print(' Warning: Time Course Sensitivities task settings were not copied to the new model.')
 
 
 #TODO: what to do with reports?
