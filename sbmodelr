@@ -339,12 +339,12 @@ if( args.network ):
 
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 if( seedmodel is None):
-    print(f"ERROR: {seedmodelfile} failed to load.\n")
+    print(f'ERROR: {seedmodelfile} failed to load.\n')
     exit()
 
 # print some information about the model
 if( not args.quiet ):
-    print(f"Processing {seedmodelfile}")
+    print(f'Processing {seedmodelfile}')
 
 #Get the global quantities
 mparams = get_parameters(model=seedmodel, exact=True)
@@ -653,6 +653,13 @@ entd = seednevents - etd
 # now we can print out how many events there are...
 if( not args.quiet ):
     print(f"  Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})")
+    # and also information on network if one is used
+    if( args.network ):
+        if digraph:
+            netype = 'directed'
+        else:
+            netype = 'undirected'
+        print(f"  Network:           {netype}\t(Nodes: {nmodels}, Edges: {len(links)})")
 
 # let's go over the events again to process those that are only time dependent
 if( etd > 0 ):
