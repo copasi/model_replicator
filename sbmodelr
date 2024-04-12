@@ -803,7 +803,7 @@ if( args.transport ):
                 exit()
         else:
             # error
-            print( f'Error: Species {sp} does not exist in the model, no transport reactions added' )
+            print( f'ERROR: Species {sp} does not exist in the model, no transport reactions added' )
             exit()
 
 # ODEs to be coupled by diffusive mechanism
