@@ -6,10 +6,10 @@
 # This takes a SBML or .cps file and replicates it as a set of sub-models
 # which can exist just side-by-side or can be connected in different ways.
 #
-# Written March 2024 by Pedro Mendes <pmendes@uchc.edu>
+# Written March-April 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
-__version__ = "1.0a1"
+__version__ = "1.0a2"
 
 import os
 import argparse
@@ -121,7 +121,8 @@ def read_network(network_file):
     ll = []
     # check if this is a digraph
     if( re.search(r'digraph\s*.*{', netf) ):
-        print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
+        ll.append((0,0))
+        # print( f'WARNING: {network_file} contains a directed graph, however connections will be made reversible' )
     # check for the odd case of /* and */ appearing inside separate quotes and refuse to parse
     if( re.search(r'"[\s\S]*?\/\*[\s\S]*\*\/[\s\S]*?"', netf) ):
         print(fr'{network_file} contains identifiers with \* and *\, and cannot be parsed')
@@ -167,8 +168,10 @@ def read_network(network_file):
                     else:
                         print(f'WARNING: duplicate entry for connection {e1} to {e2}, ignored')
     # check if list is empty and issue warning
-    if( len(ll) == 0 ):
+    if( (len(ll) == 0) or ( (len(ll) == 1) and ll[0] == (0,0) ) ):
         print(f'WARNING: {network_file} did not contain any valid edges, no connections added')
+        if( len(ll) == 1 ):
+            del ll[0]
     return ll
 
 ############################
@@ -185,7 +188,7 @@ def read_network(network_file):
 #   6. create reactions (and fix mappings)
 #   7. set expressions for compartments and species
 #   8. create events that depende on variable
-#  9. loop over remaining events that don't depend on variables
+#   9. loop over remaining events that don't depend on variables
 #  10. create medium unit if needed
 #  11. create unit connections
 #  12. copy task settings
@@ -314,12 +317,17 @@ else:
 if( args.network ):
     # check dimension
     if( dim > 1 ):
-        print(f'WARNING: network file is only relevant for dimension 1 but you chose dimension {dim} ({fsuff})')
+        print(f'ERROR: network file is only relevant for dimension 1 but you chose dimension {dim} ({fsuff})')
         exit()
     # parse the network file
     links = read_network(args.network)
+    digraph = False
     if( len(links) > 0 ):
         for link in links:
+            if( link[0]==0 and link[1]==0 ):
+                digraph = True
+                del links[0]
+                continue
             # sanity check
             if( (link[0] < 1) or (link[1] < 1) or (link[0] > nmodels) or (link[1] > nmodels) ):
                 print(f'ERROR: network file lists units with numbers outside [1,{nmodels}]')
