@@ -217,7 +217,8 @@ parser.add_argument('-V', '--version', action='version', version=f'sbmodelr {__v
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units')
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
-parser.add_argument('-o', '--ode-coupling', action='append', help='explicit ODE to be coupled between units')
+parser.add_argument('-o', '--ode-coupling', action='append', help='explicit ODE to be coupled between units by diffusive terms')
+parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms')
 parser.add_argument('-c', '--coupling-constant', type=float, help='strength of ODE coupling between units')
 parser.add_argument('-n', '--network', help='graphviz network file for unit connections')
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
@@ -261,7 +262,7 @@ if( args.sbml ):
 nmodels = r*c*l
 
 if(nmodels==1):
-    print("Error: Nothing to do, one copy only is the same as the original model!\nAt least one of rows, columns or layers must be larger than 1.\n")
+    print("ERROR: Nothing to do, one copy only is the same as the original model!\nAt least one of rows, columns or layers must be larger than 1.\n")
     exit()
 
 # check dimensionality
@@ -329,7 +330,7 @@ if( args.network ):
         for link in links:
             # sanity check
             if( (link[0] < 1) or (link[1] < 1) or (link[0] > nmodels) or (link[1] > nmodels) ):
-                print(f'ERROR: network file lists units with numbers outside [1,{nmodels}]')
+                print(f'ERROR: network file lists nodes with numbers outside [1,{nmodels}]')
                 exit()
 
 #####
@@ -338,7 +339,7 @@ if( args.network ):
 
 seedmodel = load_model(seedmodelfile, remove_user_defined_functions=True)
 if( seedmodel is None):
-    print(f"File {seedmodelfile} failed to load.\n")
+    print(f"ERROR: {seedmodelfile} failed to load.\n")
     exit()
 
 # print some information about the model
