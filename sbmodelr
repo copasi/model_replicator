@@ -727,7 +727,7 @@ if( args.transport ):
             add_parameter(name=rateconst, initial_value=trate, model=newmodel)
             # add a transport reaction for each neighbour
             if( dim == 1):
-                # add transport between species and the medium
+                # add transport between species and the medium which is always reversible
                 if(args.add_medium):
                     for r in range(gridr):
                         suffa = f'{r+1}'
@@ -741,8 +741,13 @@ if( args.transport ):
                         suffb = f'{link[1]}'
                         rname = f't_{sp}_{suffa}-{suffb}'
                         rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
-                        rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
-                        add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
+                        # check whether reversible or irreversible
+                        if digraph:
+                            rmap = {'k1': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                            add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (irreversible)' )
+                        else:
+                            rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                            add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
             elif( dim == 2 ):
                 for r in range(gridr):
                     for c in range(gridc):
@@ -824,14 +829,14 @@ if( args.ode_coupling ):
                         oname = f'{ode}_{suffa}'
                         # add term to medium ODE
                         if( medexp == '0' ):
-                            medexp = f'Values[{diffconst}] * (Values[{mediumode}] - Values[{oname}])'
+                            medexp = f'Values[{diffconst}] * (Values[{oname}] - Values[{mediumode}])'
                         else:
-                            medexp = medexp + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oname}])'
+                            medexp = medexp + f' + Values[{diffconst}] * (Values[{oname}] - Values[{mediumode}])'
                         set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                         # get ode to get expression
                         tode = get_parameters(oname, exact=True, model=newmodel)
                         # add term to target ODE
-                        odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * (Values[{oname}] - Values[{mediumode}])'
+                        odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oname}])'
                         set_parameters(oname, exact=True, type='ode', expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
@@ -841,13 +846,19 @@ if( args.ode_coupling ):
                         obname = f'{ode}_{suffb}'
                         # get ode a to get expression
                         aode = get_parameters(oaname, exact=True, model=newmodel)
-                        # add term to ODE a
-                        odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
-                        set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         # get ode b to get expression
                         bode = get_parameters(obname, exact=True, model=newmodel)
-                        # add term to ODE b
-                        odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                        if digraph:
+                            # add term to ODE a
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' - Values[{diffconst}] * Values[{oaname}]'
+                            # add term to ODE b
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * Values[{oaname}]'
+                        else:
+                            # add term to ODE a
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            # add term to ODE b
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                        set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
                 if(args.add_medium):
@@ -862,14 +873,14 @@ if( args.ode_coupling ):
                         if(args.add_medium):
                             # add term to medium ODE
                             if( medexp == '0' ):
-                                medexp = f'Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                medexp = f'Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
                             else:
-                                medexp = medexp + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                medexp = medexp + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
                             set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
                             set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
@@ -877,12 +888,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
                             set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_parameters(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
                             set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
@@ -890,12 +901,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
                             set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_parameters(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
                             set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
                 if(args.add_medium):
@@ -911,14 +922,14 @@ if( args.ode_coupling ):
                             if(args.add_medium):
                                 # add term to medium ODE
                                 if( medexp == '0' ):
-                                    medexp = f'Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                    medexp = f'Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
                                 else:
-                                    medexp = medexp + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                    medexp = medexp + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
                                 set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
@@ -926,12 +937,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_parameters(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
                                 set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
@@ -939,12 +950,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_parameters(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
                                 set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
@@ -952,12 +963,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_parameters(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
                                 set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
@@ -983,14 +994,14 @@ if( args.ode_coupling ):
                         oname = f'{ode}_{suffa}'
                         # add term to medium ODE
                         if( medexp == '0' ):
-                            medexp = f'Values[{diffconst}] * ([{mediumode}] - [{oname}])'
+                            medexp = f'Values[{diffconst}] * ([{oname}] - [{mediumode}])'
                         else:
-                            medexp = medexp + f' + Values[{diffconst}] * ([{mediumode}] - [{oname}])'
+                            medexp = medexp + f' + Values[{diffconst}] * ([{oname}] - [{mediumode}])'
                         set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                         # get target ode to get expression
                         tode = get_species(oname, exact=True, model=newmodel)
                         # add term to target ODE
-                        odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * ([{oname}] - [{mediumode}])'
+                        odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * ([{mediumode}] - [{oname}])'
                         set_species(oname, exact=True, expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
@@ -998,15 +1009,20 @@ if( args.ode_coupling ):
                         oaname = f'{ode}_{suffa}'
                         suffb = f'{link[1]}'
                         obname = f'{ode}_{suffb}'
-                        # get ode a to get expression
+                        # get ode expressions from a and b
                         aode = get_species(oaname, exact=True, model=newmodel)
-                        # add term to ODE a
-                        odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
-                        set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
-                        # get ode b to get expression
                         bode = get_species(obname, exact=True, model=newmodel)
-                        # add term to ODE b
-                        odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                        if digraph:
+                            # add term to ODE a
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' - Values[{diffconst}] *  [{oaname}]'
+                            # add term to ODE b
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * [{oaname}]'
+                        else:
+                            # add term to ODE a
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                            # add term to ODE b
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                        set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
                 if(args.add_medium):
@@ -1021,14 +1037,14 @@ if( args.ode_coupling ):
                         if(args.add_medium):
                             # add term to medium ODE
                             if( medexp == '0' ):
-                                medexp = f'Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                                medexp = f'Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
                             else:
-                                medexp = medexp + f' + Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                                medexp = medexp + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
                             set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
                             set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
@@ -1036,12 +1052,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                             set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_species(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
                             set_species(obname, exact=True, expression=odebexpr, model=newmodel)
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
@@ -1049,12 +1065,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                             set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_species(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
                             set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
                 if(args.add_medium):
@@ -1070,14 +1086,14 @@ if( args.ode_coupling ):
                             if(args.add_medium):
                                 # add term to medium ODE
                                 if( medexp == '0' ):
-                                    medexp = f'Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                                    medexp = f'Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
                                 else:
-                                    medexp = medexp + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                    medexp = medexp + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
                                 set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
@@ -1085,12 +1101,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_species(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
                                 set_species(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
@@ -1098,12 +1114,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_species(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
                                 set_species(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
@@ -1111,12 +1127,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_species(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{obname}] - [{oaname}])'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ([{oaname}] - [{obname}])'
                                 set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
@@ -1139,14 +1155,20 @@ if( args.ode_coupling ):
                         obname = f'{ode}_{suffb}'
                         # get ode a to get expression
                         aode = get_compartments(oaname, exact=True, model=newmodel)
-                        # add term to ODE a
-                        odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Compartments[{oaname}].Volume - Compartments[{obname}].Volume)'
-                        set_compartments(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         # get ode b to get expression
                         bode = get_compartments(obname, exact=True, model=newmodel)
-                        # add term to ODE b
-                        odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Compartments[{obname}].Volume - Compartments[{oaname}].Volume)'
-                        set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
+                        if digraph:
+                            # add term to ODE a
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' - Values[{diffconst}] *  [{oaname}]'
+                            # add term to ODE b
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * [{oaname}]'
+                        else:
+                            # add term to ODE a
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Compartments[{obname}].Volume - Compartments[{oaname}].Volume)'
+                            # add term to ODE b
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Compartments[{oaname}].Volume - Compartments[{obname}].Volume)'
+                        set_compartments(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        set_compartments(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
                 for r in range(gridr):
                     for c in range(gridc):
@@ -1158,12 +1180,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_compartments(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
                             set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_compartments(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
                             set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
@@ -1171,12 +1193,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_compartments(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
                             set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_compartments(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
                             set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
                 for r in range(gridr):
@@ -1190,12 +1212,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
                                 set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_compartments(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
@@ -1203,12 +1225,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
                                 set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_compartments(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
@@ -1216,12 +1238,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
                                 set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_compartments(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
