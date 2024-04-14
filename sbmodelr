@@ -998,15 +998,17 @@ if( odelink ):
             if( mspecs.loc[ode].at['type'] != 'ode' ):
                 print(f'ERROR: {ode} is a species but it is not of type ODE')
                 continue
+            # add medium unit if needed
+            if(args.add_medium):
+                # because species live in compartments, we need to add a special new compartment for the medium
+                add_compartment('medium')
+                # then add the new medium species
+                mediumode = f'{ode}_medium'
+                medexp = ''
+                add_species(mediumode, compartment_name='medium', type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], model=newmodel)
             if( dim == 1):
                 # add coupling between unit and the medium
                 if(args.add_medium):
-                    # because species live in compartments, we need to add a special new compartment for the medium
-                    add_compartment('medium')
-                    # then add the new medium species
-                    mediumode = f'{ode}_medium'
-                    medexp = ''
-                    add_species(mediumode, compartment_name='medium', type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], model=newmodel)
                     for r in range(gridr):
                         # name of ode in this unit
                         suffa = f'{r+1}'
@@ -1041,11 +1043,6 @@ if( odelink ):
                         set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
-                if(args.add_medium):
-                    # we first need to add the global quantity for the medium
-                    mediumode = f'{ode}_medium'
-                    medexp = ''
-                    add_species(name=mediumode, compartment_name=cname, type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'], model=newmodel )
                 for r in range(gridr):
                     for c in range(gridc):
                         suffa = f'{r+1},{c+1}'
@@ -1086,11 +1083,6 @@ if( odelink ):
                             odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
                             set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
-                if(args.add_medium):
-                    # we first need to add the global quantity for the medium
-                    mediumode = f'{ode}_medium'
-                    medexp = '0'
-                    add_parameter(mediumode, type='ode', expression=medexp, initial_value=mparams.loc[ode].at['initial_value'], model=newmodel)
                 for r in range(gridr):
                     for c in range(gridc):
                         for l in range(gridl):
@@ -1098,15 +1090,12 @@ if( odelink ):
                             oaname = f'{ode}_{suffa}'
                             if(args.add_medium):
                                 # add term to medium ODE
-                                if( medexp == '0' ):
-                                    medexp = f'Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
-                                else:
-                                    medexp = medexp + f' + Values[{diffconst}] * ([{oaname}] - [{mediumode}])'
+                                medexp = add_diffusive_term( medexp, diffconst, oname, mediumode)
                                 set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ([{mediumode}] - [{oaname}])'
+                                odeaxpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, mediumode, oname )
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
