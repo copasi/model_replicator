@@ -51,7 +51,7 @@ def is_element(candidate):
 
 # function to add a diffusive term to an ode expression
 def add_diffusive_term(expression, c, a, b):
-    return expression + f' + Values[{c}] * ({a} - {b})'
+    return expression + f' + Values[{c}] * ( {a} - {b} )'
 
 # function to add an irreversible diffusive term to an ode expression
 def add_irr_diffusive_term(expression, c, sign, a):
@@ -719,16 +719,16 @@ if( etd > 0 ):
 if( args.add_medium ):
     if( args.transport or odelink ):
         # check if there is no compartment called "medium
-        cname = 'medium'
-        if((mcomps is not None) and (cname in mcomps.index)):
-            cname = '_added medium_'
+        medium_name = 'medium'
+        if((mcomps is not None) and (medium_name in mcomps.index)):
+            medium_name = '_added_medium_'
         # create medium compartment
-        add_compartment(model=newmodel, name=cname, status='fixed', initial_size=1, dimiensionality=3 )
+        add_compartment(model=newmodel, name=medium_name, status='fixed', initial_size=1, dimiensionality=3 )
         # create the species that are transported
         if( args.transport ):
             for sp in args.transport:
                 nname = f'{sp}_medium'
-                add_species(model=newmodel, name=nname, compartment_name=cname, status='fixed', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
+                add_species(model=newmodel, name=nname, compartment_name=medium_name, status='fixed', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
         # we should create odes here too, but it is easier to create them further down
         # because they can be of one of three different types of entity
 
@@ -1000,12 +1000,10 @@ if( odelink ):
                 continue
             # add medium unit if needed
             if(args.add_medium):
-                # because species live in compartments, we need to add a special new compartment for the medium
-                add_compartment('medium')
-                # then add the new medium species
+                # add the new medium species
                 mediumode = f'{ode}_medium'
                 medexp = ''
-                add_species(mediumode, compartment_name='medium', type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], model=newmodel)
+                add_species(mediumode, compartment_name=medium_name, type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], model=newmodel)
             if( dim == 1):
                 # add coupling between unit and the medium
                 if(args.add_medium):
@@ -1014,12 +1012,12 @@ if( odelink ):
                         suffa = f'{r+1}'
                         oname = f'{ode}_{suffa}'
                         # add term to medium ODE
-                        medexp = add_diffusive_term( medexp, diffconst, oname, mediumode)
+                        medexp = add_diffusive_term( medexp, diffconst, f'[{oname}]', f'[{mediumode}]')
                         set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                         # get target ode to get expression
                         tode = get_species(oname, exact=True, model=newmodel)
                         # add term to target ODE
-                        odexpr = add_diffusive_term( tode.loc[oname].at['expression'], diffconst, mediumode, oname )
+                        odexpr = add_diffusive_term( tode.loc[oname].at['expression'], diffconst, f'[{mediumode}]', f'[{oname}]' )
                         set_species(oname, exact=True, expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
@@ -1032,14 +1030,14 @@ if( odelink ):
                         bode = get_species(obname, exact=True, model=newmodel)
                         if digraph:
                             # add term to ODE a
-                            odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',oaname)
+                            odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',f'[{oaname}]')
                             # add term to ODE b
-                            odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',oaname)
+                            odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',f'[{oaname}]')
                         else:
                             # add term to ODE a
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
                             # add term to ODE b
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
                         set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
@@ -1049,12 +1047,12 @@ if( odelink ):
                         oaname = f'{ode}_{suffa}'
                         if(args.add_medium):
                             # add term to medium ODE
-                            medexp = add_diffusive_term( medexp, diffconst, oname, mediumode)
+                            medexp = add_diffusive_term( medexp, diffconst, f'[{oaname}]', f'[{mediumode}]')
                             set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaxpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, mediumode, oname )
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{mediumode}]', f'[{oaname}]' )
                             set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
@@ -1062,12 +1060,12 @@ if( odelink ):
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
                             set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_species(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
                             set_species(obname, exact=True, expression=odebexpr, model=newmodel)
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
@@ -1075,12 +1073,12 @@ if( odelink ):
                             # get ode to get expression
                             aode = get_species(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
                             set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_species(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
                             set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
                 for r in range(gridr):
@@ -1090,12 +1088,12 @@ if( odelink ):
                             oaname = f'{ode}_{suffa}'
                             if(args.add_medium):
                                 # add term to medium ODE
-                                medexp = add_diffusive_term( medexp, diffconst, oname, mediumode)
+                                medexp = add_diffusive_term( medexp, diffconst, f'[{oname}]', f'[{mediumode}]')
                                 set_species(mediumode, exact=True, expression=medexp, model=newmodel)
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaxpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, mediumode, oname )
+                                odeaxpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{mediumode}]', f'[{oname}]' )
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
@@ -1103,12 +1101,12 @@ if( odelink ):
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_species(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
                                 set_species(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
@@ -1116,12 +1114,12 @@ if( odelink ):
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_species(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
                                 set_species(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
@@ -1129,12 +1127,12 @@ if( odelink ):
                                 # get ode to get expression
                                 aode = get_species(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
                                 set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_species(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
                                 set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
