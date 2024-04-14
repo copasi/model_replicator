@@ -1182,12 +1182,12 @@ if( odelink ):
                             # get ode to get expression
                             aode = get_compartments(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
                             set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_compartments(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                             set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
@@ -1195,12 +1195,12 @@ if( odelink ):
                             # get ode to get expression
                             aode = get_compartments(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
                             set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_compartments(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                             set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
                 for r in range(gridr):
@@ -1214,12 +1214,12 @@ if( odelink ):
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
                                 set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_compartments(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
@@ -1227,12 +1227,12 @@ if( odelink ):
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
                                 set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_compartments(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
@@ -1240,12 +1240,12 @@ if( odelink ):
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{obname}].Volume - Compartments[{oaname}].Volume )'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
                                 set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_compartments(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * ( Compartments[{oaname}].Volume - Compartments[{obname}].Volume )'
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
