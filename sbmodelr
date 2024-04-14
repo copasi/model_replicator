@@ -12,14 +12,12 @@
 __version__ = "1.0a2"
 
 import os
+import re
+import sys
 import argparse
 import shlex
 import time
 from datetime import date, datetime
-import re
-import sys
-#if '../..' not in sys.path:
-#    sys.path.append('../..')
 
 import pandas as pd
 from basico import *
@@ -50,6 +48,14 @@ def is_element(candidate):
                 if( (seednreacts>0) and (candidate in mreacts.index) ):
                     el=True
     return el
+
+# function to add a diffusive term to an ode expression
+def add_diffusive_term(expression, c, a, b):
+    return expression + f' + Values[{c}] * (Values[{a}] - Values[{b}])'
+
+# function to add an irreversible diffusive term to an ode expression
+def add_irr_diffusive_term(expression, c, sign, a):
+    return expression + f' {sign} Values[{c}] * Values[{a}]'
 
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(exp, suff):
@@ -242,6 +248,17 @@ if( args.transport_rate ):
 coupleconst = 1.0
 if( args.coupling_constant ):
     coupleconst = args.coupling_constant
+
+# unify the lists of ODEs to couple
+odelink = []
+if( args.ode_coupling ):
+    for ode in args.ode_coupling:
+        # 'd' means diffusive coupling
+        odelink.append((ode,'d'))
+if( args.ode_synaptic ):
+    for ode in args.ode_synaptic:
+        # 's' means synaptic coupling
+        odelink.append((ode,'s'))
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
@@ -700,7 +717,7 @@ if( etd > 0 ):
 # 10. create medium unit if needed
 #####
 if( args.add_medium ):
-    if( args.transport or args.ode_coupling ):
+    if( args.transport or odelink ):
         # check if there is no compartment called "medium
         cname = 'medium'
         if((mcomps is not None) and (cname in mcomps.index)):
@@ -816,11 +833,12 @@ if( args.transport ):
             exit()
 
 # ODEs to be coupled by diffusive mechanism
-if( args.ode_coupling ):
-    for ode in args.ode_coupling:
-        # add a rate constant for the diffusive connections
-        diffconst = f'k_{ode}_coupling'
-        add_parameter(diffconst, type='fixed', initial_value=coupleconst, model=newmodel)
+if( odelink ):
+    for (ode,linktype) in odelink:
+        if( linktype=='d'):
+            # add a rate constant for the diffusive connections
+            diffconst = f'k_{ode}_coupling'
+            add_parameter(diffconst, type='fixed', initial_value=coupleconst, model=newmodel)
         # check if the ODE is a global variable
         if( (mparams is not None) and (ode in mparams.index) ):
             if( mparams.loc[ode].at['type'] != 'ode' ):
@@ -831,22 +849,19 @@ if( args.ode_coupling ):
                 if(args.add_medium):
                     # we first need to add the global quantity
                     mediumode = f'{ode}_medium'
-                    medexp = '0'
+                    medexp = ''
                     add_parameter(mediumode, type='ode', expression=medexp, initial_value=mparams.loc[ode].at['initial_value'], model=newmodel)
                     for r in range(gridr):
                         # name of ode in this unit
                         suffa = f'{r+1}'
                         oname = f'{ode}_{suffa}'
                         # add term to medium ODE
-                        if( medexp == '0' ):
-                            medexp = f'Values[{diffconst}] * (Values[{oname}] - Values[{mediumode}])'
-                        else:
-                            medexp = medexp + f' + Values[{diffconst}] * (Values[{oname}] - Values[{mediumode}])'
+                        medexp = add_diffusive_term(medexp, diffconst,oname,mediumode)
                         set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                         # get ode to get expression
                         tode = get_parameters(oname, exact=True, model=newmodel)
                         # add term to target ODE
-                        odexpr = tode.loc[oname].at['expression'] + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oname}])'
+                        odexpr = add_diffusive_term(tode.loc[oname].at['expression'], diffconst,mediumode, oname)
                         set_parameters(oname, exact=True, type='ode', expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
@@ -860,21 +875,21 @@ if( args.ode_coupling ):
                         bode = get_parameters(obname, exact=True, model=newmodel)
                         if digraph:
                             # add term to ODE a
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' - Values[{diffconst}] * Values[{oaname}]'
+                            odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',oaname)
                             # add term to ODE b
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * Values[{oaname}]'
+                            odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',oaname)
                         else:
                             # add term to ODE a
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            odeaexpr = add_diffusive_term(aode.loc[oaname].at['expression'], diffconst, obname, oaname)
                             # add term to ODE b
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            odebexpr = add_diffusive_term(bode.loc[obname].at['expression'], diffconst, oaname, obname)
                         set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
                 if(args.add_medium):
                     # we first need to add the global quantity for the medium
                     mediumode = f'{ode}_medium'
-                    medexp = '0'
+                    medexp = ''
                     add_parameter(mediumode, type='ode', expression=medexp, initial_value=mparams.loc[ode].at['initial_value'], model=newmodel)
                 for r in range(gridr):
                     for c in range(gridc):
@@ -882,15 +897,12 @@ if( args.ode_coupling ):
                         oaname = f'{ode}_{suffa}'
                         if(args.add_medium):
                             # add term to medium ODE
-                            if( medexp == '0' ):
-                                medexp = f'Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
-                            else:
-                                medexp = medexp + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
+                            medexp = add_diffusive_term( medexp, diffconst, oaname, mediumode )
                             set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, mediumode, oaname )
                             set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
@@ -898,12 +910,12 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
                             set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_parameters(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
                             set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
@@ -911,18 +923,18 @@ if( args.ode_coupling ):
                             # get ode to get expression
                             aode = get_parameters(oaname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
                             set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             # get ode to get expression
                             bode = get_parameters(obname, exact=True, model=newmodel)
                             # add term to target ODE
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
                             set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
                 if(args.add_medium):
                     # we first need to add the global quantity for the medium
                     mediumode = f'{ode}_medium'
-                    medexp = '0'
+                    medexp = ''
                     add_parameter(mediumode, type='ode', expression=medexp, initial_value=mparams.loc[ode].at['initial_value'], model=newmodel)
                 for r in range(gridr):
                     for c in range(gridc):
@@ -931,15 +943,12 @@ if( args.ode_coupling ):
                             oaname = f'{ode}_{suffa}'
                             if(args.add_medium):
                                 # add term to medium ODE
-                                if( medexp == '0' ):
-                                    medexp = f'Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
-                                else:
-                                    medexp = medexp + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{mediumode}])'
+                                medexp = add_diffusive_term( medexp, diffconst, oaname, mediumode )
                                 set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{mediumode}] - Values[{oaname}])'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, mediumode, oaname )
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
@@ -947,12 +956,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_parameters(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
                                 set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
@@ -960,12 +969,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_parameters(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
                                 set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
@@ -973,12 +982,12 @@ if( args.ode_coupling ):
                                 # get ode to get expression
                                 aode = get_parameters(oaname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odeaexpr = aode.loc[oaname].at['expression'] + f' + Values[{diffconst}] * (Values[{obname}] - Values[{oaname}])'
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, obname, oaname)
                                 set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
                                 # get ode to get expression
                                 bode = get_parameters(obname, exact=True, model=newmodel)
                                 # add term to target ODE
-                                odebexpr = bode.loc[obname].at['expression'] + f' + Values[{diffconst}] * (Values[{oaname}] - Values[{obname}])'
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, oaname, obname)
                                 set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             else:
                 # insanity error
