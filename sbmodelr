@@ -273,7 +273,6 @@ if( args.ode_synaptic ):
     for ode in args.ode_synaptic:
         # 's' means synaptic coupling
         odelink.append((ode,'s'))
-print(odelink)
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
@@ -873,7 +872,7 @@ if( odelink ):
         else:
             print(f'ERROR: ODE link of type \'{linktype}\' is not allowed.')
             exit()
-        # check if the ODE is a global variable
+        # check if the global variable is an ODE
         if( (mparams is not None) and (ode in mparams.index) ):
             if( mparams.loc[ode].at['type'] != 'ode' ):
                 print(f'ERROR: {ode} is a global variable that is not an ODE')
@@ -930,7 +929,7 @@ if( odelink ):
                             add_parameter(syngc, type='fixed', initial_value=gcinit, model=newmodel)
                             # add a term to the postsynaptic ode corresponding to the voltage that is proportional to the bound receptor
                             odebexpr = bode.loc[obname].at['expression'] + f' - Values[{syngc}] * Values[{brname}] * ( Values[{synvsyn}] - Values[{oaname}] )'
-                        # obname is affected by all types of connection so we can only set it here after if/elif statements
+                        # obname is affected by all types of connection so we can only update it here, after if/elif statements
                         set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
                 if(args.add_medium and linktype=='d'):
@@ -1075,17 +1074,30 @@ if( odelink ):
                         # get ode expressions from a and b
                         aode = get_species(oaname, exact=True, model=newmodel)
                         bode = get_species(obname, exact=True, model=newmodel)
-                        if digraph:
-                            # add term to ODE a
-                            odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',f'[{oaname}]')
-                            # add term to ODE b
-                            odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',f'[{oaname}]')
-                        else:
-                            # add term to ODE a
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
-                            # add term to ODE b
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
-                        set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        if( linktype=='d' ):
+                            if digraph:
+                                # add term to ODE a
+                                odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',f'[{oaname}]')
+                                # add term to ODE b
+                                odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',f'[{oaname}]')
+                            else:
+                                # add term to ODE a
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], diffconst, f'[{obname}]', f'[{oaname}]')
+                                # add term to ODE b
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'[{oaname}]', f'[{obname}]')
+                            # we update oaname species here since it won't be modified in other types of connection
+                            set_species(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        elif( linktype=='s' ):
+                            # add a new ODE to represent the proportion of bound post-synaptic receptor
+                            brname = f'br_{ode}_{suffa},{suffb}'
+                            brexp = f'( 1 / Values[{syntaur}] - 1 / Values[{syntaud}] ) * ( 1 - Values[{brname}] ) / ( 1 + exp( Values[{synv0}] - [{oaname}] ) ) -  Values[{brname}] / Values[{syntaud}]'
+                            add_parameter(brname, type='ode', expression=brexp, initial_value=0.5, model=newmodel)
+                            # add a synaptic maximum conductance parameter
+                            syngc = f'g_c_{ode}_{suffa},{suffb}_synapse'
+                            add_parameter(syngc, type='fixed', initial_value=gcinit, model=newmodel)
+                            # add a term to the postsynaptic ode corresponding to the voltage that is proportional to the bound receptor
+                            odebexpr = bode.loc[obname].at['expression'] + f' - Values[{syngc}] * Values[{brname}] * ( Values[{synvsyn}] - [{oaname}] )'
+                        # update species obname here as it was changed by all types
                         set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
                 for r in range(gridr):
@@ -1301,7 +1313,8 @@ if( odelink ):
                 exit()
         # not an entity in this model
         else:
-            print(f'ERROR: {ode} is not a valid model entity, no connection added')
+            print(f'ERROR: {ode} is not a valid model entity')
+            exit()
 
 
 #####
