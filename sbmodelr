@@ -118,7 +118,7 @@ def positive_float(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
-# function to load a graphviz network file, return list of links as tuples
+# function to load and parse a graphviz network file, return list of links as tuples
 def read_network(network_file):
     # read file
     with open(network_file) as f:
@@ -145,7 +145,7 @@ def read_network(network_file):
             e1 = int(match[0])
             se = re.search(r'(\d+)',match[1])
             if( se is None ):
-                print(f'ERROR: {network_file} contains invalid node {match[1]}, no connections added')
+                print(f' Warning: {network_file} contains invalid node {match[1]}, no connections added')
                 return []
             e2 = int(se.group(1))
             if( e1 == e2 ):
@@ -162,7 +162,7 @@ def read_network(network_file):
             e1 = int(gmatch[0])
             se = re.findall(r'(\d+)',gmatch[1])
             if( se is None ):
-                print(f'ERROR: {network_file} contains invalid group node {gmatch[1]}, no connections added')
+                print(f' Warning: {network_file} contains invalid group node {gmatch[1]}, no connections added')
                 return []
             for s in se:
                 e2 = int(s)
@@ -191,6 +191,7 @@ def read_network(network_file):
 #  4. create new model
 #  MAIN LOOP, iterating over each model element:
 #   5. create parameters, compartments, species without expressions
+#      TODO: what to do with element annotations?
 #   6. create reactions (and fix mappings)
 #   7. set expressions for compartments and species
 #   8. create events that depende on variable
@@ -199,8 +200,7 @@ def read_network(network_file):
 #  11. create unit connections
 #  12. copy task settings
 #  13. save model
-#  TODO: what to do with parameter sets?
-#  TODO: what to do with element annotations?
+#  TODO: add Michaelis-Menten transport
 ############
 
 
