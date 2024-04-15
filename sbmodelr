@@ -55,7 +55,13 @@ def add_diffusive_term(expression, c, a, b):
 
 # function to add an irreversible diffusive term to an ode expression
 def add_irr_diffusive_term(expression, c, sign, a):
-    return expression + f' {sign} {c} * {a}'
+    return expression + f' {sign} Values[{c}] * {a}'
+
+# function to add a synaptic term to an ode expression
+#def add_irr_diffusive_term(expression, c, sign, a):
+#    return
+#(1/{Values[tau_r]}-1/{Values[tau_d]})*(1-{Values[br_1,2]})/(1+exp({Values[V_0]}-{Values[V_1]}))-{Values[br_1,2]}/{Values[tau_d]}
+#    medexp = add_synaptic_term(medexp, syntaur, syntaud, synv0, synvsyn,f'Values[{oname}]',f'Values[{mediumode}]')
 
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(exp, suff):
@@ -249,6 +255,14 @@ coupleconst = 1.0
 if( args.coupling_constant ):
     coupleconst = args.coupling_constant
 
+# default constants for ode synaptic connections
+# TODO: these should be allowed to be passed through command line
+taurinit = 0.5
+taudinit = 8
+v0init = 5
+vsyninit = 20
+gcinit = 1
+
 # unify the lists of ODEs to couple
 odelink = []
 if( args.ode_coupling ):
@@ -259,6 +273,7 @@ if( args.ode_synaptic ):
     for ode in args.ode_synaptic:
         # 's' means synaptic coupling
         odelink.append((ode,'s'))
+print(odelink)
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
@@ -747,8 +762,8 @@ if( args.transport ):
         if( (seednspecs>0) and (sp in mspecs.index) ):
             # check that the species depends on reactions
             if( mspecs.loc[sp].at['type'] != 'reactions' ):
-                print( f' Warning: {sp} is a species that does not depend on reactions, no transport reactions added')
-                continue
+                print( f'ERROR: {sp} is a species that does not depend on reactions, no transport reactions can be added')
+                exit()
             # add a rate constant for the transport reactions
             rateconst = f'k_{sp}_transport'
             add_parameter(name=rateconst, initial_value=trate, model=newmodel)
@@ -839,14 +854,33 @@ if( odelink ):
             # add a rate constant for the diffusive connections
             diffconst = f'k_{ode}_coupling'
             add_parameter(diffconst, type='fixed', initial_value=coupleconst, model=newmodel)
+        elif( linktype=='s'):
+            # check dimension, only dim 1 can have synaptic connections
+            if(dim>1):
+                print(f'ERROR: 2D or 3D grids cannot have synaptic connections')
+                exit()
+            if( args.network and not digraph ):
+                print( f' Warning: network was defined as undirected, but synapses will be added as directed connections' )
+            # add rate constants for the synaptic connections
+            syntaur = f'tau_r_{ode}_synapse'
+            add_parameter(syntaur, type='fixed', initial_value=taurinit, model=newmodel)
+            syntaud = f'tau_d_{ode}_synapse'
+            add_parameter(syntaud, type='fixed', initial_value=taudinit, model=newmodel)
+            synv0 = f'V0_{ode}_synapse'
+            add_parameter(synv0, type='fixed', initial_value=v0init, model=newmodel)
+            synvsyn = f'Vsyn_{ode}_synapse'
+            add_parameter(synvsyn, type='fixed', initial_value=vsyninit, model=newmodel)
+        else:
+            print(f'ERROR: ODE link of type \'{linktype}\' is not allowed.')
+            exit()
         # check if the ODE is a global variable
         if( (mparams is not None) and (ode in mparams.index) ):
             if( mparams.loc[ode].at['type'] != 'ode' ):
                 print(f'ERROR: {ode} is a global variable that is not an ODE')
-                continue
+                exit()
             if( dim == 1):
                 # add coupling between unit and the medium
-                if(args.add_medium):
+                if(args.add_medium and linktype=='d'):
                     # we first need to add the global quantity
                     mediumode = f'{ode}_medium'
                     medexp = ''
@@ -855,13 +889,13 @@ if( odelink ):
                         # name of ode in this unit
                         suffa = f'{r+1}'
                         oname = f'{ode}_{suffa}'
-                        # add term to medium ODE
-                        medexp = add_diffusive_term(medexp, diffconst,f'Values[{oname}]',f'Values[{mediumode}]')
-                        set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                         # get ode to get expression
                         tode = get_parameters(oname, exact=True, model=newmodel)
+                        # add term to medium ODE
+                        medexp = add_diffusive_term(medexp, diffconst,f'Values[{oname}]',f'Values[{mediumode}]')
                         # add term to target ODE
                         odexpr = add_diffusive_term(tode.loc[oname].at['expression'], diffconst,f'Values[{mediumode}]', f'Values[{oname}]')
+                        set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
                         set_parameters(oname, exact=True, type='ode', expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
@@ -873,20 +907,33 @@ if( odelink ):
                         aode = get_parameters(oaname, exact=True, model=newmodel)
                         # get ode b to get expression
                         bode = get_parameters(obname, exact=True, model=newmodel)
-                        if digraph:
-                            # add term to ODE a
-                            odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',f'Values[{oaname}]')
-                            # add term to ODE b
-                            odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',f'Values[{oaname}]')
-                        else:
-                            # add term to ODE a
-                            odeaexpr = add_diffusive_term(aode.loc[oaname].at['expression'], diffconst, f'Values[{obname}]', f'Values[{oaname}]')
-                            # add term to ODE b
-                            odebexpr = add_diffusive_term(bode.loc[obname].at['expression'], diffconst, f'Values[{oaname}]', f'Values[{obname}]')
-                        set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        if( linktype=='d' ):
+                            if digraph:
+                                # add term to ODE a
+                                odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], diffconst,'-',f'Values[{oaname}]')
+                                # add term to ODE b
+                                odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], diffconst,'+',f'Values[{oaname}]')
+                            else:
+                                # add term to ODE a
+                                odeaexpr = add_diffusive_term(aode.loc[oaname].at['expression'], diffconst, f'Values[{obname}]', f'Values[{oaname}]')
+                                # add term to ODE b
+                                odebexpr = add_diffusive_term(bode.loc[obname].at['expression'], diffconst, f'Values[{oaname}]', f'Values[{obname}]')
+                                # we update oaname here because it is not affected in the other type of connections
+                                set_parameters(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                        elif( linktype=='s' ):
+                            # add a new ODE to represent the proportion of bound post-synaptic receptor
+                            brname = f'br_{ode}_{suffa},{suffb}'
+                            brexp = f'( 1 / Values[{syntaur}] - 1 / Values[{syntaud}] ) * ( 1 - Values[{brname}] ) / ( 1 + exp( Values[{synv0}] - Values[{oaname}] ) ) -  Values[{brname}] / Values[{syntaud}]'
+                            add_parameter(brname, type='ode', expression=brexp, initial_value=0.5, model=newmodel)
+                            # add a synaptic maximum conductance parameter
+                            syngc = f'g_c_{ode}_{suffa},{suffb}_synapse'
+                            add_parameter(syngc, type='fixed', initial_value=gcinit, model=newmodel)
+                            # add a term to the postsynaptic ode corresponding to the voltage that is proportional to the bound receptor
+                            odebexpr = bode.loc[obname].at['expression'] + f' - Values[{syngc}] * Values[{brname}] * ( Values[{synvsyn}] - Values[{oaname}] )'
+                        # obname is affected by all types of connection so we can only set it here after if/elif statements
                         set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
-                if(args.add_medium):
+                if(args.add_medium and linktype=='d'):
                     # we first need to add the global quantity for the medium
                     mediumode = f'{ode}_medium'
                     medexp = ''
@@ -895,7 +942,7 @@ if( odelink ):
                     for c in range(gridc):
                         suffa = f'{r+1},{c+1}'
                         oaname = f'{ode}_{suffa}'
-                        if(args.add_medium):
+                        if(args.add_medium and linktype=='d'):
                             # add term to medium ODE
                             medexp = add_diffusive_term( medexp, diffconst, f'Values[{oaname}]', f'Values[{mediumode}]' )
                             set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
@@ -931,7 +978,7 @@ if( odelink ):
                             odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], diffconst, f'Values[{oaname}]', f'Values[{obname}]')
                             set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 3 ):
-                if(args.add_medium):
+                if(args.add_medium and linktype=='d'):
                     # we first need to add the global quantity for the medium
                     mediumode = f'{ode}_medium'
                     medexp = ''
@@ -941,7 +988,7 @@ if( odelink ):
                         for l in range(gridl):
                             suffa = f'{r+1},{c+1},{l+1}'
                             oaname = f'{ode}_{suffa}'
-                            if(args.add_medium):
+                            if(args.add_medium and linktype=='d'):
                                 # add term to medium ODE
                                 medexp = add_diffusive_term( medexp, diffconst, f'Values[{oaname}]', f'Values[{mediumode}]' )
                                 set_parameters(mediumode, exact=True, type='ode', expression=medexp, model=newmodel)
@@ -999,14 +1046,14 @@ if( odelink ):
                 print(f'ERROR: {ode} is a species but it is not of type ODE')
                 continue
             # add medium unit if needed
-            if(args.add_medium):
+            if(args.add_medium and linktype=='d'):
                 # add the new medium species
                 mediumode = f'{ode}_medium'
                 medexp = ''
                 add_species(mediumode, compartment_name=medium_name, type='ode', expression=medexp, initial_concentration=mspecs.loc[ode].at['initial_concentration'], model=newmodel)
             if( dim == 1):
                 # add coupling between unit and the medium
-                if(args.add_medium):
+                if(args.add_medium and linktype=='d'):
                     for r in range(gridr):
                         # name of ode in this unit
                         suffa = f'{r+1}'
@@ -1045,7 +1092,7 @@ if( odelink ):
                     for c in range(gridc):
                         suffa = f'{r+1},{c+1}'
                         oaname = f'{ode}_{suffa}'
-                        if(args.add_medium):
+                        if(args.add_medium and linktype=='d'):
                             # add term to medium ODE
                             medexp = add_diffusive_term( medexp, diffconst, f'[{oaname}]', f'[{mediumode}]')
                             set_species(mediumode, exact=True, expression=medexp, model=newmodel)
@@ -1086,7 +1133,7 @@ if( odelink ):
                         for l in range(gridl):
                             suffa = f'{r+1},{c+1},{l+1}'
                             oaname = f'{ode}_{suffa}'
-                            if(args.add_medium):
+                            if(args.add_medium and linktype=='d'):
                                 # add term to medium ODE
                                 medexp = add_diffusive_term( medexp, diffconst, f'[{oname}]', f'[{mediumode}]')
                                 set_species(mediumode, exact=True, expression=medexp, model=newmodel)
@@ -1142,8 +1189,11 @@ if( odelink ):
         # check if the ODE is a compartment
         elif( (mcomps is not None) and (ode in mcomps.index) ):
             if( mcomps.loc[ode].at['type'] != 'ode' ):
-                print(f'ERROR: {ode} is a species but it is not of type ODE')
-                continue
+                print(f'ERROR: {ode} is a compartment but it is not of type ODE')
+                exit()
+            if(linktype=='d'):
+                print(f'ERROR: {ode} is a compartment ODE, but compartments cannot have synaptic links')
+                exit()
             if( dim == 1):
                 # for compartments we do nothing about the medium...
                 # let's just work on the network
