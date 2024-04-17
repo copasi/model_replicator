@@ -200,7 +200,6 @@ def read_network(network_file):
 #  11. create unit connections
 #  12. copy task settings
 #  13. save model
-#  TODO: add Michaelis-Menten transport
 ############
 
 
@@ -221,10 +220,11 @@ parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
                     help='number of layers in a 3D grid')
 parser.add_argument('-V', '--version', action='version', version=f'sbmodelr {__version__}')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
+parser.add_argument('-o', '--output', help='output filename')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units (mass action)')
 parser.add_argument('-m', '--mm-transport', action='append', help='species to be transported between units (Michalis-Menten kinetics')
 parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
-parser.add_argument('-o', '--ode-coupling', action='append', help='explicit ODE to be coupled between units by diffusive terms')
+parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms')
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms')
 parser.add_argument('-c', '--coupling-constant', type=float, help='strength of ODE coupling between units')
 parser.add_argument('-n', '--network', help='graphviz network file for unit connections')
@@ -255,7 +255,7 @@ tVmax = trate
 tKm = 1.0
 
 # default constants for ode synaptic connections
-# TODO: these should be allowed to be passed through command line
+# TODO: these constants should be allowed to be passed through command line
 taurinit = 0.5
 taudinit = 8
 v0init = 5
@@ -275,8 +275,8 @@ if( args.mm_transport ):
 
 # unify the lists of ODEs to couple
 odelink = []
-if( args.ode_coupling ):
-    for ode in args.ode_coupling:
+if( args.ode_diffusive ):
+    for ode in args.ode_diffusive:
         # 'd' means diffusive coupling
         odelink.append((ode,'d'))
 if( args.ode_synaptic ):
@@ -284,9 +284,8 @@ if( args.ode_synaptic ):
         # 's' means synaptic coupling
         odelink.append((ode,'s'))
 
-# get the base of the filename
+# get the base of the input model filename
 base,ext = os.path.splitext(seedmodelfile)
-#print(os.path.basename(seedmodelfile))
 
 if( ext.lower() != '.cps' ):
     args.ignore_tasks = True
@@ -493,14 +492,14 @@ munits = get_model_units(model=seedmodel)
 #####
 
 # create new model filename (if sbml string was given force .xml extension)
-
-# TODO: we should check whether user gave output file name explicitly
-
-base,ext = os.path.splitext(os.path.basename(seedmodelfile))
-if( args.sbml ):
-    newfilename = f"{base}_{fsuff}.xml"
+if( args.output ):
+    newfilename = args.output
 else:
-    newfilename = f"{base}_{fsuff}{ext}"
+    base,ext = os.path.splitext(os.path.basename(seedmodelfile))
+    if( args.sbml ):
+        newfilename = f"{base}_{fsuff}.xml"
+    else:
+        newfilename = f"{base}_{fsuff}{ext}"
 
 # create the new model name
 newname = f"{desc} of {seedname}"
@@ -1506,7 +1505,7 @@ if( not args.ignore_tasks):
 
 
 #TODO: what to do with reports?
-#TODO: to do with plots?
+#TODO: what to do with plots?
 
 #####
 # 13. save model
