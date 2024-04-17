@@ -9,7 +9,7 @@
 # Written March-April 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
-__version__ = "1.0a2"
+__version__ = "1.0a3"
 
 import os
 import re
@@ -210,7 +210,7 @@ def read_network(network_file):
 parser = argparse.ArgumentParser(
                     prog='sbmodelr',
                     description='Convert one SBML/COPASI model into another one containing many replicas of the original.')
-# arguments
+# command line arguments
 parser.add_argument('filename', help='original model file')
 parser.add_argument('rows', type=positive_integer, default=2,
                     help='total number of units or number of rows in a 2D or 3D grid')
@@ -227,10 +227,17 @@ parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate co
 parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms')
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms')
 parser.add_argument('-c', '--coupling-constant', type=float, help='strength of ODE coupling between units')
-parser.add_argument('-n', '--network', help='graphviz network file for unit connections')
+parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections')
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
+
+# TODO: for randomness we need: size of noise, type of noise, which parameters to apply noise
+# TODO: size of noise in percentage of the parameter value (ie +/- x%)
+# TODO: type of noise: uniform, normal, gamma? log-normal?
+# TODO: apply to all parameters is easy, but is it useful?
+# TODO: could apply to these classes: a) transport/coupling parameters, b) reaction parameters, c) initial state,
+# TODO: d) compartment volumes, e) single parameter
 
 # Parse the arguments
 args = parser.parse_args()
