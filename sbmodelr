@@ -67,7 +67,7 @@ def fix_expression(exp, suff):
         return expression
     mname = re.findall(r'^CN=Root,Model=(.+?),', expression )
     if( mname ):
-        expression = re.sub(r'^CN=Root,Model=(.+?),', f'CN=Root,Model={newname},', expression )
+        expression = re.sub(r'^CN=Root,Model=(.+?),', fr'CN=Root,Model={newname},', expression )
     # find object names inside []
     evars = re.findall(r'\[(.+?)\]', expression )
     if( evars ):
@@ -286,6 +286,7 @@ if( args.ode_synaptic ):
 
 # get the base of the filename
 base,ext = os.path.splitext(seedmodelfile)
+#print(os.path.basename(seedmodelfile))
 
 if( ext.lower() != '.cps' ):
     args.ignore_tasks = True
@@ -492,6 +493,10 @@ munits = get_model_units(model=seedmodel)
 #####
 
 # create new model filename (if sbml string was given force .xml extension)
+
+# TODO: we should check whether user gave output file name explicitly
+
+base,ext = os.path.splitext(os.path.basename(seedmodelfile))
 if( args.sbml ):
     newfilename = f"{base}_{fsuff}.xml"
 else:
@@ -741,7 +746,7 @@ if( etd > 0 ):
 # 10. create medium unit if needed
 #####
 if( args.add_medium ):
-    if( args.transport or odelink ):
+    if( transported or odelink ):
         # check if there is no compartment called "medium
         medium_name = 'medium'
         if((mcomps is not None) and (medium_name in mcomps.index)):
@@ -749,8 +754,8 @@ if( args.add_medium ):
         # create medium compartment
         add_compartment(model=newmodel, name=medium_name, status='fixed', initial_size=1, dimiensionality=3 )
         # create the species that are transported
-        if( args.transport ):
-            for sp in args.transport:
+        if( transported ):
+            for (sp,ttype) in transported:
                 nname = f'{sp}_medium'
                 add_species(model=newmodel, name=nname, compartment_name=medium_name, status='fixed', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
         # we should create odes here too, but it is easier to create them further down
@@ -764,7 +769,7 @@ if( args.add_medium ):
 # 11. create unit connections
 #####
 
-# we start checking if we need to add a new function
+# check if we need to add the Michaelis-Menten transport rate law
 if( args.mm_transport ):
     # add Michaelis-Menten for molecule transport
     mmtmap = {'V': 'parameter', 'Km': 'parameter', 'S': 'substrate', 'P': 'product'}
