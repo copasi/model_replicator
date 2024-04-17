@@ -75,7 +75,7 @@ def fix_expression(exp, suff):
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
-                expression = re.sub(fr'\[{el}\]', f'[{elnew}]', expression )
+                expression = re.sub(fr'\[{el}\]', fr'[{elnew}]', expression )
     # find object names inside ()
     evars = re.findall(r'\((.+?)\)', expression )
     if( evars ):
@@ -101,7 +101,7 @@ def fix_expression(exp, suff):
             #check that the variable exists
             if( is_element(el) ):
                 elnew = el + suff
-                expression = re.sub(fr'{el}\.(\w)', f'{elnew}.\1', expression )
+                expression = re.sub(fr'{el}\.(\w)', fr'{elnew}.\1', expression )
     return expression
 
 # function to check that value is positive, helper for argparse
@@ -829,7 +829,7 @@ if( transported ):
                             elif( ttype == 'm' ):
                                 rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
-                elif( dim == 2 ):
+            elif( dim == 2 ):
                 for r in range(gridr):
                     for c in range(gridc):
                         suffa = f'{r+1},{c+1}'
