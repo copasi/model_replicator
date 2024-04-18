@@ -497,20 +497,23 @@ if( args.noisy ):
 seedname = get_model_name(model=seedmodel)
 
 # edit the notes
+# get the command line
+#cmd = 'sbmodelr ' + str(sys.argv)
+cmd = " ".join(map(shlex.quote, sys.argv))
 nnotes = get_notes(model=seedmodel)
 # check if notes are empty
 if not nnotes:
-    nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p></body>"
+    nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p><pre style=\"font-size:small\">{cmd}</pre></body>"
 else:
     # check if the notes are in HTML
     index = nnotes.find('</body>')
     if( index == -1 ):
         # not HTML, so add a simple string
-        nnotes = nnotes + f"\n\nProcessed with sbmodelr to produce {desc} of {seedmodelfile}"
+        nnotes = nnotes + f"\n\nProcessed with sbmodelr to produce {desc} of {seedmodelfile}\n{cmd}"
     else:
         # add info at the end of the body section
         nend = nnotes[index:]
-        nnotes = nnotes[:index] + f"<hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p>" + nend
+        nnotes = nnotes[:index] + f"<hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p><pre style=\"font-size:small\">{cmd}</pre>" + nend
 
 # get original model units
 munits = get_model_units(model=seedmodel)
