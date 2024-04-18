@@ -17,6 +17,7 @@ import sys
 import argparse
 import shlex
 import time
+import random
 from datetime import date, datetime
 
 import pandas as pd
@@ -187,19 +188,20 @@ def read_network(network_file):
 # Strategy:
 #  1. parse command line and deal with options
 #  2. read original model,
-#  3. copy notes, annotations, and units
-#  4. create new model
+#  3. pre-process the items that will have noise
+#  4. copy notes, annotations, and units
+#  5. create new model
 #  MAIN LOOP, iterating over each model element:
-#   5. create parameters, compartments, species without expressions
+#   6. create parameters, compartments, species without expressions
 #      TODO: what to do with element annotations?
-#   6. create reactions (and fix mappings)
-#   7. set expressions for compartments and species
-#   8. create events that depende on variable
-#   9. loop over remaining events that don't depend on variables
-#  10. create medium unit if needed
-#  11. create unit connections
-#  12. copy task settings
-#  13. save model
+#   7. create reactions (and fix mappings)
+#   8. set expressions for compartments and species
+#   9. create events that depende on variable
+#  10. loop over remaining events that don't depend on variables
+#  11. create medium unit if needed
+#  12. create unit connections
+#  13. copy task settings
+#  14. save model
 ############
 
 
@@ -220,24 +222,18 @@ parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
                     help='number of layers in a 3D grid')
 parser.add_argument('-V', '--version', action='version', version=f'sbmodelr {__version__}')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
-parser.add_argument('-o', '--output', help='output filename')
-parser.add_argument('-t', '--transport', action='append', help='species to be transported between units (mass action)')
-parser.add_argument('-m', '--mm-transport', action='append', help='species to be transported between units (Michalis-Menten kinetics')
-parser.add_argument('-r', '--transport-rate', type=positive_float, help='rate constant for transport between units')
-parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms')
-parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms')
-parser.add_argument('-c', '--coupling-constant', type=float, help='strength of ODE coupling between units')
-parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections')
+parser.add_argument('-o', '--output', help='output filename', metavar='filename')
+parser.add_argument('-t', '--transport', action='append', help='species to be transported between units (mass action)', metavar='species')
+parser.add_argument('-m', '--mm-transport', action='append', help='species to be transported between units (Michalis-Menten kinetics', metavar='species')
+parser.add_argument('-r', '--transport-rate', type=positive_float, help='value of rate constant for transport between units', metavar='value')
+parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms', metavar='ode')
+parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
+parser.add_argument('-c', '--coupling-constant', type=float, help='value for strength of ODE coupling between units', metavar='value')
+parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections', metavar='netfile')
+parser.add_argument('--pn', dest='noisy', help='add level noise from distribution to parameter', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
-
-# TODO: for randomness we need: size of noise, type of noise, which parameters to apply noise
-# TODO: size of noise in percentage of the parameter value (ie +/- x%)
-# TODO: type of noise: uniform, normal, gamma? log-normal?
-# TODO: apply to all parameters is easy, but is it useful?
-# TODO: could apply to these classes: a) transport/coupling parameters, b) reaction parameters, c) initial state,
-# TODO: d) compartment volumes, e) single parameter
 
 # Parse the arguments
 args = parser.parse_args()
@@ -470,7 +466,32 @@ if( not args.quiet ):
 scanitems = get_scan_items(model=seedmodel)
 
 #####
-#  3. copy notes, annotations, and units
+#  3. pre-process the items that will have noise
+#####
+
+# deal with noisy parameters, put them in 3 separate lists
+# TODO: apply to classes of parameters ?
+# TODO:  a) transport/coupling parameters, b) reaction parameters, c) initial state, d) compartment volumes
+
+noisy_species = {}
+noisy_param = {}
+noisy_comp = {}
+if( args.noisy ):
+    for (item, level, dist) in args.noisy:
+        # species?
+        if( (seednspecs>0) and (item in mspecs.index) ):
+            noisy_species[item] = (level,dist)
+        # global quantity?
+        elif( (seednparams>0) and (item in mparams.index) ):
+            noisy_param[item] = (level,dist)
+        # compartment?
+        elif( (seedncomps>0) and (item in mcomps.index) ):
+            noisy_comp[item] = (level,dist)
+        else:
+            print( f' Warning: {item} is not an item allowed to be noisy, ignored')
+
+#####
+#  4. copy notes, annotations, and units
 #####
 
 seedname = get_model_name(model=seedmodel)
@@ -495,7 +516,7 @@ else:
 munits = get_model_units(model=seedmodel)
 
 #####
-#  4. create new model
+#  5. create new model
 #####
 
 # create new model filename (if sbml string was given force .xml extension)
@@ -561,25 +582,78 @@ for r in range(gridr):
                     apdx = f"_{r+1},{c+1},{l+1}"
 
 #####
-#  5. create parameters, compartments and species
+#  6. create parameters, compartments and species
 #####
             # PARAMETERS
             if( seednparams>0 ):
                 for p in mparams.index:
                     nname = p + apdx
-                    add_parameter(model=newmodel, name=nname, status='fixed', initial_value=mparams.loc[p].at['initial_value'], unit=mparams.loc[p].at['unit'] )
+                    if( p in noisy_param ):
+                        (level,dist) = noisy_param[p]
+                        if( not is_float(level) ):
+                            print( f'ERROR: level in option --pn for {p} must be a floating point number')
+                            exit()
+                        if( dist == 'uni' ):
+                            s = 1.0 + float(level) * random.uniform(-1.0,1.0)
+                            iv = mparams.loc[p].at['initial_value'] * s
+                        elif( dist == 'norm' ):
+                            s = random.gauss(1.0, float(level))
+                            iv = mparams.loc[p].at['initial_value'] * s
+                        else:
+                            print( f'ERROR: dist in option --pn for {p} must be \'uni\' or \'norm\'')
+                            exit()
+                    else:
+                        iv = mparams.loc[p].at['initial_value']
+                    print(f'{p} = {iv}')
+                    add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=mparams.loc[p].at['unit'] )
+            # COMPARTMENTS
             if( seedncomps > 0):
                 for p in mcomps.index:
+                    if( p in noisy_comp ):
+                        (level,dist) = noisy_comp[p]
+                        if( not is_float(level) ):
+                            print( f'ERROR: level in option --pn for {p} must be a floating point number')
+                            exit()
+                        if( dist == 'uni' ):
+                            s = 1.0 + float(level) * random.uniform(-1.0,1.0)
+                            iv = mcomps.loc[p].at['initial_size'] * s
+                        elif( dist == 'norm' ):
+                            s = random.gauss(1.0, float(level))
+                            iv = mcomps.loc[p].at['initial_size'] * s
+                        else:
+                            print( f'ERROR: dist in option --pn for {p} must be \'uni\' or \'norm\'')
+                            exit()
+                    else:
+                        iv = mcomps.loc[p].at['initial_size']
+                    print(f'{p} = {iv}')
                     nname = p + apdx
-                    add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimiensionality=mcomps.loc[p].at['dimensionality'] )
+                    add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=iv, unit=mcomps.loc[p].at['unit'], dimensionality=int(mcomps.loc[p].at['dimensionality']) )
+            # SPECIES
             if( seednspecs > 0):
                 for p in mspecs.index:
+                    if( p in noisy_species ):
+                        (level,dist) = noisy_species[p]
+                        if( not is_float(level) ):
+                            print( f'ERROR: level in option --pn for {p} must be a floating point number')
+                            exit()
+                        if( dist == 'uni' ):
+                            s = 1.0 + float(level) * random.uniform(-1.0,1.0)
+                            iv = mspecs.loc[p].at['initial_concentration'] * s
+                        elif( dist == 'norm' ):
+                            s = random.gauss(1.0, float(level))
+                            iv = mspecs.loc[p].at['initial_concentration'] * s
+                        else:
+                            print( f'ERROR: dist in option --pn for {p} must be \'uni\' or \'norm\'')
+                            exit()
+                    else:
+                        iv = mspecs.loc[p].at['initial_concentration']
+                    print(f'{p} = {iv}')
                     nname = p + apdx
                     cp = mspecs.loc[p].at['compartment'] + apdx
-                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=mspecs.loc[p].at['initial_concentration'], unit=mspecs.loc[p].at['unit'] )
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=iv, unit=mspecs.loc[p].at['unit'] )
 
 #####
-#  6. create reactions
+#  7. create reactions
 #####
 
             # REACTIONS
@@ -634,7 +708,7 @@ for r in range(gridr):
                     add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
 
 #####
-#  7. set expressions and initial_expressions
+#  8. set expressions and initial_expressions
 #####
 
             # PARAMETERS
@@ -670,7 +744,7 @@ for r in range(gridr):
                         set_species(model=newmodel, name=nname, exact=True, expression=ex )
 
 #####
-#  8. create events
+#  9. create events
 #####
 
             # EVENTS
@@ -697,7 +771,7 @@ for r in range(gridr):
             i += 1
 
 #####
-#  9. create events not dependent on variables
+#  10. create events not dependent on variables
 #####
 
 etd=len(timeonlyevents)
@@ -749,7 +823,7 @@ if( etd > 0 ):
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
 
 #####
-# 10. create medium unit if needed
+# 11. create medium unit if needed
 #####
 if( args.add_medium ):
     if( transported or odelink ):
@@ -772,7 +846,7 @@ if( args.add_medium ):
 
 
 #####
-# 11. create unit connections
+# 12. create unit connections
 #####
 
 # check if we need to add the Michaelis-Menten transport rate law
@@ -1398,7 +1472,7 @@ if( odelink ):
 
 
 #####
-# 12. set task parameters
+# 13. set task parameters
 #####
 
 if( not args.ignore_tasks):
@@ -1515,7 +1589,7 @@ if( not args.ignore_tasks):
 #TODO: what to do with plots?
 
 #####
-# 13. save model
+# 14. save model
 #####
 
 # save the new model
