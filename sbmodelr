@@ -235,17 +235,24 @@ parser.add_argument('-V', '--version', action='version', version=f'sbmodelr {__v
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-o', '--output', help='output filename', metavar='filename')
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units (mass action)', metavar='species')
-parser.add_argument('-m', '--mm-transport', action='append', help='species to be transported between units (Michalis-Menten kinetics', metavar='species')
-parser.add_argument('-r', '--transport-rate', type=positive_float, help='value of rate constant for transport between units', metavar='value')
+parser.add_argument('-m', '--mm-transport', action='append', help='species to be transported between units (Michalis-Menten kinetics)', metavar='species')
 parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms', metavar='ode')
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
-parser.add_argument('-c', '--coupling-constant', type=float, help='value for strength of ODE coupling between units', metavar='value')
 parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections', metavar='netfile')
-parser.add_argument('--pn', dest='noisy', help='add noise to parameter with dist distribition and level magnitude', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
-parser.add_argument('--cn', dest='cnoise', help='add noise to coupling parameters with dist distribition and level magnitude', nargs=2, metavar=('level', 'dist'))
-parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
+parser.add_argument('-k', '--transport-k', dest='transport_rate', type=positive_float, help='value of rate constant for transport between units', default='1.0', metavar='value')
+parser.add_argument('--transport-Km', dest='transport_Km', type=positive_float, help='value of Km for transport between units', default='1.0', metavar='value')
+parser.add_argument('--transport-Vmax', dest='transport_Vmax', type=positive_float, help='value of Vmax for transport between units', default='1.0', metavar='value')
+parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=float, help='value for strength of ODE coupling between units', metavar='value')
+parser.add_argument('--synapse-g', type=positive_float, help='value of g for synaptic connections between units', metavar='value')
+parser.add_argument('--synapse-V0', type=positive_float, help='value of V0 for synaptic connections between units', metavar='value')
+parser.add_argument('--synapse-Vsyn', type=positive_float, help='value of Vsyn for synaptic connections between units', metavar='value')
+parser.add_argument('--synapse-tau-r', type=positive_float, help='value of tau_r for synaptic connections between units', metavar='value')
+parser.add_argument('--synapse-tau-d', type=positive_float, help='value of tau_d for synaptic connections between units', metavar='value')
+parser.add_argument('--pn', dest='noisy', help='add noise to parameter with level magnitude, dist: {uni,norm}', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
+parser.add_argument('--cn', dest='cnoise', help='add noise to coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
+parser.add_argument('--add-medium', action='store_true', help='add a medium unit with all transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
-parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
+parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in SBML format of this level and version.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -255,19 +262,22 @@ r = args.rows
 c = args.columns
 l = args.layers
 
-# default value for transport rates
-trate = 1.0
-if( args.transport_rate ):
-    trate = args.transport_rate
+# value for mass action transport
+trate = args.transport_rate
 
-# default value for ODE coupling constants
-coupleconst = 1.0
-if( args.coupling_constant ):
-    coupleconst = args.coupling_constant
+# value for ODE coupling constants
+coupleconst = args.coupling_constant
 
-# default value for MM transport
-tVmax = trate
-tKm = 1.0
+# values for Michaelis-Menten transport
+tVmax = args.transport_Vmax
+tKm = args.transport_Km
+
+# values for ODE synaptic connections
+taurinit = args.synapse_tau_r
+taudinit = args.synapse_tau_d
+v0init = args.synapse_V0
+vsyninit = args.synapse_Vsyn
+gcinit = args.synapse_g
 
 # check if level for --cn is a float
 if( args.cnoise ):
@@ -275,14 +285,6 @@ if( args.cnoise ):
     if( not is_float(level) ):
         print( 'ERROR: \'level\' must be a floating point number')
         exit()
-
-# default constants for ode synaptic connections
-# TODO: these constants should be allowed to be passed through command line
-taurinit = 0.5
-taudinit = 8
-v0init = 5
-vsyninit = 20
-gcinit = 1
 
 # unify the lists of species to transport
 transported = []
