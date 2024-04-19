@@ -58,6 +58,17 @@ def add_diffusive_term(expression, c, a, b):
 def add_irr_diffusive_term(expression, c, sign, a):
     return expression + f' {sign} Values[{c}] * {a}'
 
+# function to add noise to a value
+def addnoise( rate, level, dist):
+    if( dist == 'uni' ):
+        s = 1.0 + level * random.uniform(-1.0,1.0)
+    elif( dist == 'norm' ):
+        s = random.gauss(1.0, level)
+    else:
+        print( 'ERROR: dist must be \'uni\' or \'norm\'')
+        exit()
+    return rate * s
+
 # function to change expression fixing all references to element names with the appropriate suffix
 def fix_expression(exp, suff):
     expression = str(exp)
@@ -230,7 +241,8 @@ parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
 parser.add_argument('-c', '--coupling-constant', type=float, help='value for strength of ODE coupling between units', metavar='value')
 parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections', metavar='netfile')
-parser.add_argument('--pn', dest='noisy', help='add level noise from distribution to parameter', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
+parser.add_argument('--pn', dest='noisy', help='add noise to parameter with dist distribition and level magnitude', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
+parser.add_argument('--cn', dest='cnoise', help='add noise to coupling parameters with dist distribition and level magnitude', nargs=2, metavar=('level', 'dist'))
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with the transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in sbml of this level and version.')
@@ -256,6 +268,13 @@ if( args.coupling_constant ):
 # default value for MM transport
 tVmax = trate
 tKm = 1.0
+
+# check if level for --cn is a float
+if( args.cnoise ):
+    (level, dist) = args.cnoise
+    if( not is_float(level) ):
+        print( 'ERROR: \'level\' must be a floating point number')
+        exit()
 
 # default constants for ode synaptic connections
 # TODO: these constants should be allowed to be passed through command line
@@ -591,66 +610,27 @@ for r in range(gridr):
             if( seednparams>0 ):
                 for p in mparams.index:
                     nname = p + apdx
+                    iv = mparams.loc[p].at['initial_value']
                     if( p in noisy_param ):
                         (level,dist) = noisy_param[p]
-                        if( not is_float(level) ):
-                            print( f'ERROR: level in option --pn for {p} must be a floating point number')
-                            exit()
-                        if( dist == 'uni' ):
-                            s = 1.0 + float(level) * random.uniform(-1.0,1.0)
-                            iv = mparams.loc[p].at['initial_value'] * s
-                        elif( dist == 'norm' ):
-                            s = random.gauss(1.0, float(level))
-                            iv = mparams.loc[p].at['initial_value'] * s
-                        else:
-                            print( f'ERROR: dist in option --pn for {p} must be \'uni\' or \'norm\'')
-                            exit()
-                    else:
-                        iv = mparams.loc[p].at['initial_value']
-                    print(f'{p} = {iv}')
+                        iv = addnoise(mparams.loc[p].at['initial_value'], float(level), dist)
                     add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=mparams.loc[p].at['unit'] )
             # COMPARTMENTS
             if( seedncomps > 0):
                 for p in mcomps.index:
+                    iv = mcomps.loc[p].at['initial_size']
                     if( p in noisy_comp ):
                         (level,dist) = noisy_comp[p]
-                        if( not is_float(level) ):
-                            print( f'ERROR: level in option --pn for {p} must be a floating point number')
-                            exit()
-                        if( dist == 'uni' ):
-                            s = 1.0 + float(level) * random.uniform(-1.0,1.0)
-                            iv = mcomps.loc[p].at['initial_size'] * s
-                        elif( dist == 'norm' ):
-                            s = random.gauss(1.0, float(level))
-                            iv = mcomps.loc[p].at['initial_size'] * s
-                        else:
-                            print( f'ERROR: dist in option --pn for {p} must be \'uni\' or \'norm\'')
-                            exit()
-                    else:
-                        iv = mcomps.loc[p].at['initial_size']
-                    print(f'{p} = {iv}')
+                        iv = addnoise(mcomps.loc[p].at['initial_size'], float(level), dist)
                     nname = p + apdx
                     add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=iv, unit=mcomps.loc[p].at['unit'], dimensionality=int(mcomps.loc[p].at['dimensionality']) )
             # SPECIES
             if( seednspecs > 0):
                 for p in mspecs.index:
+                    iv = mspecs.loc[p].at['initial_concentration']
                     if( p in noisy_species ):
                         (level,dist) = noisy_species[p]
-                        if( not is_float(level) ):
-                            print( f'ERROR: level in option --pn for {p} must be a floating point number')
-                            exit()
-                        if( dist == 'uni' ):
-                            s = 1.0 + float(level) * random.uniform(-1.0,1.0)
-                            iv = mspecs.loc[p].at['initial_concentration'] * s
-                        elif( dist == 'norm' ):
-                            s = random.gauss(1.0, float(level))
-                            iv = mspecs.loc[p].at['initial_concentration'] * s
-                        else:
-                            print( f'ERROR: dist in option --pn for {p} must be \'uni\' or \'norm\'')
-                            exit()
-                    else:
-                        iv = mspecs.loc[p].at['initial_concentration']
-                    print(f'{p} = {iv}')
+                        iv = addnoise(mspecs.loc[p].at['initial_concentration'], float(level), dist)
                     nname = p + apdx
                     cp = mspecs.loc[p].at['compartment'] + apdx
                     add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=iv, unit=mspecs.loc[p].at['unit'] )
@@ -870,11 +850,13 @@ if( transported ):
             if( ttype == 'a' ):
                 # add a rate constant for the transport reactions
                 rateconst = f'k_{sp}_transport'
-                add_parameter(name=rateconst, initial_value=trate, model=newmodel)
+                if( not args.cnoise ):
+                    add_parameter(name=rateconst, initial_value=trate, model=newmodel)
             elif( ttype == 'm' ):
                 # add parameters for the transport reactions
                 vmaxconst = f'Vmax_{sp}_transport'
-                add_parameter(name=vmaxconst, initial_value=tVmax, model=newmodel)
+                if( not args.cnoise ):
+                    add_parameter(name=vmaxconst, initial_value=tVmax, model=newmodel)
                 kmconst = f'Km_{sp}_transport'
                 add_parameter(name=kmconst, initial_value=tKm, model=newmodel)
             else:
@@ -889,10 +871,24 @@ if( transported ):
                         rname = f't_{sp}_{suffa}-medium'
                         rscheme = f'{sp}_{suffa} = {sp}_medium'
                         if( ttype == 'a' ):
-                            rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                            thisrateconst = rateconst
+                            if( args.cnoise ):
+                                # if we add noise to couplings, then we need 1 parameter per reaction
+                                (level, dist) = args.cnoise
+                                thisrateconst = f'k_{sp}_transport_{suffa}-medium'
+                                v = addnoise(trate,float(level),dist)
+                                add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                            rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
                             add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                         elif( ttype == 'm' ):
-                            rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_medium'}
+                            thisvmaxconst = vmaxconst
+                            if( args.cnoise ):
+                                # if we add noise to couplings, then we need 1 vmax per reaction
+                                (level, dist) = args.cnoise
+                                thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-medium'
+                                v = addnoise(tVmax,float(level),dist)
+                                add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                            rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_medium'}
                             add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
 
                 if( args.network ):
@@ -904,18 +900,46 @@ if( transported ):
                         if digraph:
                             rscheme = f'{sp}_{suffa} -> {sp}_{suffb}'
                             if( ttype == 'a' ):
-                                rmap = {'k1': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                thisrateconst = rateconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 parameter per reaction
+                                    (level, dist) = args.cnoise
+                                    thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(trate,float(level),dist)
+                                    add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                rmap = {'k1': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (irreversible)' )
                             elif( ttype == 'm' ):
-                                rmap = {'V': vmaxconst, 'Km': kmconst, 'substrate': f'{sp}_{suffa}'}
+                                thisvmaxconst = vmaxconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 vmax per reaction
+                                    (level, dist) = args.cnoise
+                                    thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(tVmax,float(level),dist)
+                                    add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                rmap = {'V': thisvmaxconst, 'Km': kmconst, 'substrate': f'{sp}_{suffa}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Henri-Michaelis-Menten (irreversible)' )
                         else:
                             rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                             if( ttype == 'a' ):
-                                rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                thisrateconst = rateconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 parameter per reaction
+                                    (level, dist) = args.cnoise
+                                    thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(trate,float(level),dist)
+                                    add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                rmap = {'k1': thisrateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                             elif( ttype == 'm' ):
-                                rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
+                                thisvmaxconst = vmaxconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 vmax per reaction
+                                    (level, dist) = args.cnoise
+                                    thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(tVmax,float(level),dist)
+                                    add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
             elif( dim == 2 ):
                 for r in range(gridr):
@@ -925,30 +949,72 @@ if( transported ):
                             rname = f't_{sp}_{suffa}-medium'
                             rscheme = f'{sp}_{suffa} = {sp}_medium'
                             if( ttype == 'a' ):
-                                rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                                thisrateconst = rateconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 parameter per reaction
+                                    (level, dist) = args.cnoise
+                                    thisrateconst = f'k_{sp}_transport_{suffa}-medium'
+                                    v = addnoise(trate,float(level),dist)
+                                    add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                             elif( ttype == 'm' ):
-                                rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_medium'}
+                                thisvmaxconst = vmaxconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 vmax per reaction
+                                    (level, dist) = args.cnoise
+                                    thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-medium'
+                                    v = addnoise(tVmax,float(level),dist)
+                                    add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_medium'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
                         if( c+1 < gridc ):
                             suffb = f'{r+1},{c+2}'
                             rname = f't_{sp}_{suffa}-{suffb}'
                             rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                             if( ttype == 'a' ):
-                                rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                thisrateconst = rateconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 parameter per reaction
+                                    (level, dist) = args.cnoise
+                                    thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(trate,float(level),dist)
+                                    add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                             elif( ttype == 'm' ):
-                                rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
+                                thisvmaxconst = vmaxconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 vmax per reaction
+                                    (level, dist) = args.cnoise
+                                    thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(tVmax,float(level),dist)
+                                    add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
                         if( r+1 < gridr ):
                             suffb = f'{r+2},{c+1}'
                             rname = f't_{sp}_{suffa}-{suffb}'
                             rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                             if( ttype == 'a' ):
-                                rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                thisrateconst = rateconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 parameter per reaction
+                                    (level, dist) = args.cnoise
+                                    thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(trate,float(level),dist)
+                                    add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                             elif( ttype == 'm' ):
-                                rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
+                                thisvmaxconst = vmaxconst
+                                if( args.cnoise ):
+                                    # if we add noise to couplings, then we need 1 vmax per reaction
+                                    (level, dist) = args.cnoise
+                                    thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                    v = addnoise(tVmax,float(level),dist)
+                                    add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
             elif( dim == 3 ):
                 for r in range(gridr):
@@ -959,40 +1025,96 @@ if( transported ):
                                 rname = f't_{sp}_{suffa}-medium'
                                 rscheme = f'{sp}_{suffa} = {sp}_medium'
                                 if( ttype == 'a' ):
-                                    rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
+                                    thisrateconst = rateconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisrateconst = f'k_{sp}_transport_{suffa}-medium'
+                                        v = addnoise(trate,float(level),dist)
+                                        add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                    rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_medium'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                 elif( ttype == 'm' ):
-                                    rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_medium'}
+                                    thisvmaxconst = vmaxconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 vmax per reaction
+                                        (level, dist) = args.cnoise
+                                        thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-medium'
+                                        v = addnoise(tVmax,float(level),dist)
+                                        add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                    rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_medium'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
                             if( c+1 < gridc ):
                                 suffb = f'{r+1},{c+2},{l+1}'
                                 rname = f't_{sp}_{suffa}-{suffb}'
                                 rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                                 if( ttype == 'a' ):
-                                    rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                    thisrateconst = rateconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                        v = addnoise(trate,float(level),dist)
+                                        add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                    rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                 elif( ttype == 'm' ):
-                                    rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
+                                    thisvmaxconst = vmaxconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 vmax per reaction
+                                        (level, dist) = args.cnoise
+                                        thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                        v = addnoise(tVmax,float(level),dist)
+                                        add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                    rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
                             if( r+1 < gridr ):
                                 suffb = f'{r+2},{c+1},{l+1}'
                                 rname = f't_{sp}_{suffa}-{suffb}'
                                 rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                                 if( ttype == 'a' ):
-                                    rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                    thisrateconst = rateconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                        v = addnoise(trate,float(level),dist)
+                                        add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                    rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                 elif( ttype == 'm' ):
-                                    rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
+                                    thisvmaxconst = vmaxconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 vmax per reaction
+                                        (level, dist) = args.cnoise
+                                        thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                        v = addnoise(tVmax,float(level),dist)
+                                        add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                    rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
                             if( l+1 < gridl ):
                                 suffb = f'{r+1},{c+1},{l+2}'
                                 rname = f't_{sp}_{suffa}-{suffb}'
                                 rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                                 if( ttype == 'a' ):
-                                    rmap = {'k1': rateconst, 'k2': rateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
+                                    thisrateconst = rateconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisrateconst = f'k_{sp}_transport_{suffa}-{suffb}'
+                                        v = addnoise(trate,float(level),dist)
+                                        add_parameter(name=thisrateconst, initial_value=v, model=newmodel)
+                                    rmap = {'k1': thisrateconst, 'k2': thisrateconst, 'substrate': f'{sp}_{suffa}', 'product': f'{sp}_{suffb}'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Mass action (reversible)' )
                                 elif( ttype == 'm' ):
-                                    rmap = {'V': vmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
+                                    thisvmaxconst = vmaxconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 vmax per reaction
+                                        (level, dist) = args.cnoise
+                                        thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                                        v = addnoise(tVmax,float(level),dist)
+                                        add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                                    rmap = {'V': thisvmaxconst, 'Km': kmconst, 'S': f'{sp}_{suffa}', 'P': f'{sp}_{suffb}'}
                                     add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='MM Transport' )
             else:
                 # insanity error
