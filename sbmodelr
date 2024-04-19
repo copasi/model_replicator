@@ -9,7 +9,7 @@
 # Written March-April 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
-__version__ = "1.0a3"
+__version__ = "1.0a4"
 
 import os
 import re
