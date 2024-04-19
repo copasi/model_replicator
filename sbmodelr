@@ -34,6 +34,20 @@ def is_float(string):
     except ValueError:
         return False
 
+# function to check that value is positive, helper for argparse
+def positive_integer(value):
+    ivalue = int(value)
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
+    return ivalue
+
+# function to check that value is positive, helper for argparse
+def positive_float(value):
+    ivalue = float(value)
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
+    return ivalue
+
 # function to check if a string is an element in the model
 def is_element(candidate):
     el=False
@@ -115,20 +129,6 @@ def fix_expression(exp, suff):
                 elnew = el + suff
                 expression = re.sub(fr'{el}\.(\w)', fr'{elnew}.\1', expression )
     return expression
-
-# function to check that value is positive, helper for argparse
-def positive_integer(value):
-    ivalue = int(value)
-    if ivalue <= 0:
-        raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
-    return ivalue
-
-# function to check that value is positive, helper for argparse
-def positive_float(value):
-    ivalue = float(value)
-    if ivalue <= 0:
-        raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
-    return ivalue
 
 # function to load and parse a graphviz network file, return list of links as tuples
 def read_network(network_file):
