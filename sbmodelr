@@ -1143,6 +1143,7 @@ if( odelink ):
                 exit()
             if( args.network and not digraph ):
                 print( f' Warning: network was defined as undirected, but synapses will be added as directed connections' )
+            #TODO: DECIDE WHICH OF THESE CONSTANTS CAN BE AFFECTED BY NOISE
             # add rate constants for the synaptic connections
             syntaur = f'tau_r_{ode}_synapse'
             add_parameter(syntaur, type='fixed', initial_value=taurinit, model=newmodel)
