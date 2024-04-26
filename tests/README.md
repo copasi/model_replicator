@@ -7,7 +7,8 @@ This folder contains a variety of functional tests for *sbmodelr* that should co
 Each test resides in its own folder. Folders have names with format /^\d{4}_.*$/, the numeral being assigned sequentially, followed by a tag. A folder *sources* contains original files (SBML, COPASI and GraphViz files).
  - a brief *README.md* describing the functionality that is being tested
  - a *run.sh* script that runs the test and that carries out any needed comparisons so that it announces **pass** or **errors**
- - a file *target_output* containing the expected *stdout* output from a correct execution (ideally this should be a read-only file)
+ - a file *target_stdout* containing the expected *stdout* output from a correct execution (ideally this should be a read-only file)
+ - potentially files with results from COPASI runs to be compared against runs of the result files (no specific names prescribed)
 Note that the test may execute a series of calls to *sbmodelr*
 
 ## Functionality
