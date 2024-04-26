@@ -1,0 +1,4 @@
+graph twins{
+/* two nodes connected */
+1 -- 2
+}
