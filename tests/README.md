@@ -30,7 +30,7 @@ Tests should focus on:
  - adding noise, uniform and Gaussian, to connection parameters
  - combinations of all the above
 
- **2. negative tests (should generate errors)**
+ **2. negative tests** (should generate errors)
 
  - synaptic coupling in compartment connections
  - invalid GraphViz files
