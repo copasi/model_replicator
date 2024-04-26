@@ -15,7 +15,7 @@ Note that the test may execute a series of calls to *sbmodelr*
 
 Tests should focus on:
 
- 1. positive tests
+ **1. positive tests**
 
  - 1D, 2D and 3D architectures
  - adding a medium unit
@@ -30,7 +30,7 @@ Tests should focus on:
  - adding noise, uniform and Gaussian, to connection parameters
  - combinations of all the above
 
- 2. negative tests (should generate errors)
+ **2. negative tests (should generate errors)**
 
  - synaptic coupling in compartment connections
  - invalid GraphViz files
