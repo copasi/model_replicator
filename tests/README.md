@@ -4,7 +4,7 @@ This folder contains a variety of functional tests for *sbmodelr* that should co
 
 ## Structure
 
-Each test resides in its own folder, which should contain:
+Each test resides in its own folder. Folders have names with format /^\d{4}_.*$/ , the numeral being assigned sequentially, the part after the underscore a tag.
  - a brief *README.md* describing the functionality that is being tested
  - a *run.sh* script that runs the test and that carries out any needed comparisons so that it announces **pass** or **errors**
  - one or more source files (SBML, COPASI and GraphViz files)
