@@ -85,7 +85,7 @@ else:
     print(mreacts.to_string(columns=['scheme','function', 'mapping'], header=['scheme','function', 'mapping'], justify='left'), file=outf)
     outf.write("\n\n")
 
-# TODO: repor on functions used
+# TODO: report on functions used
 
 # global quantities
 mparams = get_parameters()
@@ -107,6 +107,7 @@ else:
     print(mevents.to_string(columns=['trigger','delay','assignments','fire_at_initial_time', 'persistent','priority'], header=['trigger','delay','targets','fire_t0', 'persist', 'pri'], justify='left'), file=outf)
     outf.write("\n\n")
 
+# TODO: should we create a report about the tasks? in which case we need to know if copasi or SBML loaded
 
 # close report file
 outf.close()
