@@ -10,6 +10,7 @@
 
 import argparse
 import time
+import html2text
 import pandas as pd
 from basico import *
 
@@ -45,23 +46,67 @@ except:
 
 # model name
 modelname = get_model_name()
-outf.write(f"#### Model Name ####\n")
-outf.write(f"{modelname}\n\n")
+outf.write(f"==== Model Name ====\n")
+outf.write(f"{modelname}\n\n\n")
 
 # model notes
-notes = get_notes()
-outf.write(f"#### Model Notes ####\n")
+htmlnotes = get_notes()
+notes = html2text.html2text(htmlnotes)
+outf.write(f"==== Model Notes ====\n")
 outf.write(f"{notes}\n\n")
 
 # compartments
 comps = get_compartments()
 if( comps is None):
-    outf.write(f"#### Compartments: 0 ---\n\n")
+    outf.write(f"==== Compartments: 0 ====\n\n")
 else:
     ncomps = comps.shape[0]
-    outf.write(f"#### Compartments: {ncomps} ####\n")
-    print(comps.to_string(columns=['type','initial_size', 'unit', 'dimensionality', 'expression', 'initial_expression'], header=['type','size_0', 'unit','D','expression','expression_0']), file=outf)
+    outf.write(f"==== Compartments: {ncomps} ====\n")
+    print(comps.to_string(columns=['type','initial_size', 'unit', 'dimensionality', 'expression', 'initial_expression'], header=['type','size_0', 'unit','D','expression','expression_0'], justify='left'), file=outf)
     outf.write("\n\n")
+
+# species
+mspecs = get_species()
+if( mspecs is None):
+    outf.write(f"==== Species: 0 ====\n\n")
+else:
+    nspecs = mspecs.shape[0]
+    outf.write(f"==== Species: {nspecs} ====\n")
+    print(mspecs.to_string(columns=['type','initial_concentration', 'unit', 'compartment', 'expression', 'initial_expression'], header=['type','[]_0', 'unit','comp.', 'expression','expression_0'],justify='left'),  file=outf)
+    outf.write("\n\n")
+
+# reactions
+mreacts = get_reactions()
+if( mreacts is None):
+    outf.write(f"==== Reactions: 0 ====\n\n")
+else:
+    nreacts = mreacts.shape[0]
+    outf.write(f"==== Reactions: {nreacts} ====\n")
+    print(mreacts.to_string(columns=['scheme','function', 'mapping'], header=['scheme','function', 'mapping'], justify='left'), file=outf)
+    outf.write("\n\n")
+
+# TODO: repor on functions used
+
+# global quantities
+mparams = get_parameters()
+if( mparams is None):
+    outf.write(f"==== Global Quantities: 0 ====\n\n")
+else:
+    nparams = mparams.shape[0]
+    outf.write(f"==== Global Quantities: {nparams} ====\n")
+    print(mparams.to_string(columns=['type','initial_value','unit', 'expression','initial_expression'], header=['type','value_0','unit','expression', 'expression_0'], justify='left'), file=outf)
+    outf.write("\n\n")
+
+# events
+mevents = get_events()
+if( mevents is None):
+    outf.write(f"==== Events: 0 ====\n\n")
+else:
+    nevents = mevents.shape[0]
+    outf.write(f"==== Events: {nevents} ====\n")
+    print(mevents.to_string(columns=['trigger','delay','assignments','fire_at_initial_time', 'persistent','priority'], header=['trigger','delay','targets','fire_t0', 'persist', 'pri'], justify='left'), file=outf)
+    outf.write("\n\n")
+
 
 # close report file
 outf.close()
