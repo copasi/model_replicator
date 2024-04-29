@@ -133,8 +133,12 @@ def fix_expression(exp, suff):
 # function to load and parse a graphviz network file, return list of links as tuples
 def read_network(network_file):
     # read file
-    with open(network_file) as f:
-        netf = f.read()
+    try:
+        with open(network_file) as f:
+            netf = f.read()
+    except FileNotFoundError:
+        print(f'ERROR: file {network_file} not found')
+        exit()
     # create list for links
     ll = []
     # check if this is a digraph
@@ -438,7 +442,6 @@ else:
     cfixed = (mcomps['type']=='fixed').sum()
     cassg = (mcomps['type']=='assignment').sum()
     code = (mcomps['type']=='ode').sum()
-    #print(mcomps)
 
 #Get the species
 mspecs = get_species(model=seedmodel, exact=True)
@@ -455,11 +458,9 @@ else:
     sfixed = (mspecs['type']=='fixed').sum()
     sassg = (mspecs['type']=='assignment').sum()
     sode = (mspecs['type']=='ode').sum()
-    #print(mspecs)
 
 # get the reactions
 mreacts = get_reactions(model=seedmodel, exact=True)
-#print(mreacts)
 if( mreacts is None):
     seednreacts = 0
 else:
@@ -471,8 +472,6 @@ if( mevents is None):
     seednevents = 0
 else:
     seednevents = mevents.shape[0]
-#for m in mevents.index:
-#    print(mevents.loc[m,'trigger'])
 
 # print summary of model elements
 if( not args.quiet ):
@@ -823,7 +822,7 @@ if( args.add_medium ):
             for (sp,ttype) in transported:
                 nname = f'{sp}_medium'
                 add_species(model=newmodel, name=nname, compartment_name=medium_name, status='fixed', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
-        # we should create odes here too, but it is easier to create them further down
+        # it would be logic to create odes here too, but it is easier to create them further down
         # because they can be of one of three different types of entity
 
     else:
@@ -1827,7 +1826,7 @@ if( not args.ignore_tasks):
     ps = get_task_settings('Scan', basic_only=False, model=seedmodel)
     set_task_settings('Scan', {'scheduled': ps['scheduled'], 'update_model': ps['update_model'], 'problem': ps['problem'], 'method': ps['method']},model=newmodel)
 
-    # we got the scanitems way earlier due to a bug in COPASI/BasiCO ...
+    # we got the scanitems much further up... (due to a bug in COPASI/BasiCO)
     # when there are scan or random sampling items, we convert them to be those of the first unit
     srw = False
     for sit in scanitems:
