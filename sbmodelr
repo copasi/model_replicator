@@ -1150,10 +1150,10 @@ if( odelink ):
             # tau_d is a time constant characteristic of post-synaptic degradation of neurotransmitter
             syntaud = f'tau_d_{ode}_synapse'
             add_parameter(syntaud, type='fixed', initial_value=taudinit, model=newmodel)
-            # V_0 is an inversion potential characteristic of the activation of currents by bound receptor
+            # V_0 is the voltage at the pre-synaptic neuron that gives half maximal rate of release of neurotransmitter
             synv0 = f'V0_{ode}_synapse'
             add_parameter(synv0, type='fixed', initial_value=v0init, model=newmodel)
-            # V_syn is an inversion potential characteristic of the activation of currents by bound receptor
+            # V_syn is the post-synaptic inversion potential characteristic
             synvsyn = f'Vsyn_{ode}_synapse'
             add_parameter(synvsyn, type='fixed', initial_value=vsyninit, model=newmodel)
         else:
