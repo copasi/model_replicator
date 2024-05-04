@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# work out our folder name
+test=${PWD##*/}          # to assign to a variable
+test=${test:-/}          # to correct for the case where PWD=/
+
+# run sbmodelr
+../../sbmodelr  --pn Ka 0.2 norm ../sources/BindingKa.cps 100 > output
+
+# compare output and target
+difference=$(diff output target_stdout)
+if [[ $difference ]]; then
+  printf 'FAIL %s\n' "${test}"
+#  exit
+fi
+
+# create model summary
+../model_report.py BindingKa_100.cps
+
+fail=0
+
+# check that 20 Ka parameters exist
+n=$(grep -Pc "Ka_\d+\s+fixed" BindingKa_100.summary.txt)
+if ((n != 100))  ; then
+  printf 'FAIL %s\n' "${test}"
+  fail=1
+fi
+
+# get values of Ka
+grep -Po "Ka_\d+\s+fixed\s+(\d+\.\d+)" BindingKa_100.summary.txt | awk '{ print $3 }' > Ka.csv
+# test if they look normal
+../shapiro-wilk.py Ka.csv
+if [ "$?" = 1 ] ; then
+  printf 'FAIL %s\n' "${test}"
+  fail=1
+fi
+
+# this would calculate mean and stdved using only grep and awk !
+#grep -Po "Ka_\d+\s+fixed\s+(\d+\.\d+)" BindingKa_1000.summary.txt | awk '{ sum+=$3; sumsq +=$3^2 } END { print sum/NR, NR*(sqrt((sumsq-sum^2/NR)/NR))/sum }'
+
+# check that the transport between two units exists
+#if ! grep -Pq "t_c_1-2\s+c_1 = c_2\s+Mass action \(reversible\)" BindingKa_2.summary.txt; then
+#  printf 'FAIL %s\n' "${test}"
+#  fail=1
+#fi
+
+if [ "$fail" = 0 ] ; then
+  printf 'PASS %s\n' "${test}"
+  rm BindingKa_100.summary.txt Ka.csv output *.cps
+fi
+
+
