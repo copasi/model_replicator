@@ -1142,7 +1142,7 @@ if( odelink ):
                 exit()
             if( args.network and not digraph ):
                 print( f' Warning: network was defined as undirected, but synapses will be added as directed connections' )
-            #TODO: DECIDE WHICH OF THESE CONSTANTS CAN BE AFFECTED BY NOISE
+            #TODO: NOISE IS ADDED ONLY TO TAU CONSTANTS AND THE GC CONSTANT (CONDUCTANCE)
             # add rate constants for the synaptic connections
             # tau_r is a time constant characteristic of pre-synaptic synthesis of neurotransmitter and its diffusion across the synapse
             syntaur = f'tau_r_{ode}_synapse'
