@@ -2,6 +2,11 @@
 
 This folder contains a variety of functional tests for *sbmodelr* that should cover all of its possible functions.
 
+Included are two utilities that are used by the tests:
+ - *model_report.py* produces a text file with a readable report of a copasi or sbml file
+ - *shapiro-wilk.py* reads numbers from a file and tests whether they look like normally distributed 
+these scripts require *pandas* and *scipy* to be installed
+ 
 ## Structure
 
 Each test resides in its own folder. Folders have names with format /^\d{4}_.*$/, the numeral being assigned sequentially, followed by a tag. A folder *sources* contains original files (SBML, COPASI and GraphViz files).
