@@ -6,7 +6,7 @@
 # This takes a SBML or .cps file and replicates it as a set of sub-models
 # which can exist just side-by-side or can be connected in different ways.
 #
-# Written March-April 2024 by Pedro Mendes <pmendes@uchc.edu>
+# Written March-May 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
 __version__ = "1.0a4"
@@ -26,7 +26,7 @@ from basico import *
 #######################
 # AUXILIARY FUNCTIONS #
 
-# function to test if string has a number, it's amazing this is not native to python...
+# function to test if string is a number, it's amazing this is not native to python...
 def is_float(string):
     try:
         float(string)
@@ -34,14 +34,14 @@ def is_float(string):
     except ValueError:
         return False
 
-# function to check that value is positive, helper for argparse
+# function to check that value is positive integer, helper for argparse
 def positive_integer(value):
     ivalue = int(value)
     if ivalue <= 0:
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
-# function to check that value is positive, helper for argparse
+# function to check that value is positive number, helper for argparse
 def positive_float(value):
     ivalue = float(value)
     if ivalue <= 0:
@@ -83,7 +83,7 @@ def addnoise( rate, level, dist):
         exit()
     return rate * s
 
-# function to change expression fixing all references to element names with the appropriate suffix
+# function to change expression, fixing all references to element names with the appropriate suffix
 def fix_expression(exp, suff):
     expression = str(exp)
     #is the full expression an element?
@@ -479,7 +479,7 @@ if( not args.quiet ):
     print(f"  Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})")
     print(f"  Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})")
     print(f"  Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
-    # we print the events later to be able to show how many are only time dependent
+    # we print the events later to be able to discriminate how many are only time dependent
 
 # read scan items
 # we need to retrieve then now before we create a new model due to a bug in COPASI/BasiCO (not sure which)
@@ -518,7 +518,6 @@ seedname = get_model_name(model=seedmodel)
 
 # edit the notes
 # get the command line
-#cmd = 'sbmodelr ' + str(sys.argv)
 cmd = " ".join(map(shlex.quote, sys.argv))
 nnotes = get_notes(model=seedmodel)
 # check if notes are empty
@@ -1145,12 +1144,16 @@ if( odelink ):
                 print( f' Warning: network was defined as undirected, but synapses will be added as directed connections' )
             #TODO: DECIDE WHICH OF THESE CONSTANTS CAN BE AFFECTED BY NOISE
             # add rate constants for the synaptic connections
+            # tau_r is a time constant characteristic of pre-synaptic synthesis of neurotransmitter and its diffusion across the synapse
             syntaur = f'tau_r_{ode}_synapse'
             add_parameter(syntaur, type='fixed', initial_value=taurinit, model=newmodel)
+            # tau_d is a time constant characteristic of post-synaptic degradation of neurotransmitter
             syntaud = f'tau_d_{ode}_synapse'
             add_parameter(syntaud, type='fixed', initial_value=taudinit, model=newmodel)
+            # V_0 is an inversion potential characteristic of the activation of currents by bound receptor
             synv0 = f'V0_{ode}_synapse'
             add_parameter(synv0, type='fixed', initial_value=v0init, model=newmodel)
+            # V_syn is an inversion potential characteristic of the activation of currents by bound receptor
             synvsyn = f'Vsyn_{ode}_synapse'
             add_parameter(synvsyn, type='fixed', initial_value=vsyninit, model=newmodel)
         else:
