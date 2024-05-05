@@ -1,6 +1,6 @@
 # Tests for model replicator
 
-This folder contains a variety of functional tests for *sbmodelr* that should cover all of its possible functions.
+This folder contains a variety of functional tests for *sbmodelr* that should cover all of its possible functions. Running all tests can be done by executing *run_all_tests.sh*
 
 Included are four utilities that are used in some tests, (they require *pandas* and *scipy*):
  - *model_report.py* produces a text file with a readable report of a copasi or sbml file
@@ -12,9 +12,10 @@ Included are four utilities that are used in some tests, (they require *pandas* 
 
 Each test resides in its own folder. Folders have names with format /^\d{4}_.*$/, the numeral being assigned sequentially, followed by a tag. A folder *sources* contains original files (SBML, COPASI and GraphViz files).
  - a brief *README.md* describing the functionality that is being tested
- - a *run.sh* script that runs the test and that carries out any needed comparisons so that it announces **pass** or **errors**; note that this may execute a series of calls to *sbmodelr* and it may also run the resulting file with COPASI
+ - a *run.sh* script that runs the test and that carries out any needed comparisons so that it announces **PASS** or **FAIL**; note that this may execute a series of calls to *sbmodelr*, the utilities mentioned above, unix utilities (*awk*, *bc*, *grep*, *sed*), and it may also run the resulting file with COPASI
  - a file *target_stdout* containing the expected *stdout* output from a correct execution (ideally this should be a read-only file)
  - potentially files with results from COPASI runs to be compared against runs of the result files (no specific names prescribed)
+ - models and network files are stored in *sources* as they can be re-used in several tests
 
 ## Functionality
 
