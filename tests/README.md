@@ -2,9 +2,11 @@
 
 This folder contains a variety of functional tests for *sbmodelr* that should cover all of its possible functions.
 
-Included are two utilities that are used in some tests, (they require *pandas* and *scipy*):
+Included are four utilities that are used in some tests, (they require *pandas* and *scipy*):
  - *model_report.py* produces a text file with a readable report of a copasi or sbml file
  - *shapiro-wilk.py* reads numbers from a file and tests whether they look like normally distributed 
+ - *ttest-mean.py* reads numbers from a file and tests whether their mean is different from a given value
+ - *chisqtest-sd.py* reads numbers from a file and tests whether their stdev is different from a given value
  
 ## Structure
 
