@@ -11,7 +11,7 @@ test=${test:-/}          # to correct for the case where PWD=/
 difference=$(diff output target_stdout)
 if [[ $difference ]]; then
   printf 'FAIL %s\n' "${test}"
-#  exit
+  exit
 fi
 
 # create model summary
@@ -34,7 +34,7 @@ m=$(awk 'NR == 1 || $1 < min {line = $0; min = $1}END{print line}' Ka.csv)
 #printf 'MIN %s\n' "$m"
 if (( $(echo "$m < 800" |bc -l) )); then
   printf 'FAIL %s\n' "${test}"
-  fail=1
+  fail=2
 fi
 
 # test that the maximum is below 1000+1000*0.2 = 1200
@@ -42,7 +42,7 @@ m=$(awk 'NR == 1 || $1 > max {line = $0; max = $1}END{print line}' Ka.csv)
 #printf 'MAX %s\n' "$m"
 if (( $(echo "$m > 1200" |bc -l) )); then
   printf 'FAIL %s\n' "${test}"
-  fail=1
+  fail=3
 fi
 
 # this would calculate mean and stdved using only grep and awk !
@@ -53,3 +53,5 @@ if [ "$fail" = 0 ] ; then
   printf 'PASS %s\n' "${test}"
   rm BindingKa_100.summary.txt Ka.csv output *.cps
 fi
+
+exit $fail
