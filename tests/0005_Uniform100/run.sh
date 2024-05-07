@@ -7,6 +7,8 @@ test=${test:-/}          # to correct for the case where PWD=/
 # run sbmodelr
 ../../sbmodelr  --pn Ka 0.2 uni ../sources/BindingKa.cps 100 > output
 
+fail=0
+
 # compare output and target
 difference=$(diff output target_stdout)
 if [[ $difference ]]; then
@@ -16,8 +18,6 @@ fi
 
 # create model summary
 ../model_report.py BindingKa_100.cps
-
-fail=0
 
 # check that 100 Ka parameters exist
 n=$(grep -Pc "Ka_\d+\s+fixed" BindingKa_100.summary.txt)
