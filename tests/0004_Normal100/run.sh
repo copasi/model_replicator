@@ -7,23 +7,23 @@ test=${test:-/}          # to correct for the case where PWD=/
 # run sbmodelr
 ../../sbmodelr  --pn Ka 0.2 norm ../sources/BindingKa.cps 100 > output
 
+fail=0
+
 # compare output and target
 difference=$(diff output target_stdout)
 if [[ $difference ]]; then
   printf 'FAIL %s\n' "${test}"
-#  exit
+  fail=1
 fi
 
 # create model summary
 ../model_report.py BindingKa_100.cps
 
-fail=0
-
 # check that 20 Ka parameters exist
 n=$(grep -Pc "Ka_\d+\s+fixed" BindingKa_100.summary.txt)
 if ((n != 100))  ; then
   printf 'FAIL %s\n' "${test}"
-  fail=1
+  let "fail = $fail + 2"
 fi
 
 # get values of Ka
@@ -32,7 +32,7 @@ grep -Po "Ka_\d+\s+fixed\s+(\d+\.\d+)" BindingKa_100.summary.txt | awk '{ print 
 ../shapiro-wilk.py Ka.csv
 if [ "$?" = 1 ] ; then
   printf 'FAIL %s\n' "${test}"
-  fail=1
+  let "fail = $fail + 4"
 fi
 
 # this would calculate mean and stdved using only grep and awk !
@@ -49,4 +49,4 @@ if [ "$fail" = 0 ] ; then
   rm BindingKa_100.summary.txt Ka.csv output *.cps
 fi
 
-
+exit $fail
