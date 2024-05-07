@@ -820,8 +820,7 @@ if( args.add_medium ):
         if( transported ):
             for (sp,ttype) in transported:
                 nname = f'{sp}_medium'
-                # TODO: not clear whether the species in the medium should be fixed or dependent on reactions...
-                add_species(model=newmodel, name=nname, compartment_name=medium_name, status='fixed', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
+                add_species(model=newmodel, name=nname, compartment_name=medium_name, status='reactions', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
         # it would be logic to create odes here too, but it is easier to create them further down
         # because they can be of one of three different types of entity
 
