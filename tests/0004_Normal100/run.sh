@@ -19,7 +19,7 @@ fi
 # create model summary
 ../model_report.py BindingKa_100.cps
 
-# check that 20 Ka parameters exist
+# check that 100 Ka parameters exist
 n=$(grep -Pc "Ka_\d+\s+fixed" BindingKa_100.summary.txt)
 if ((n != 100))  ; then
   printf 'FAIL %s\n' "${test}"
