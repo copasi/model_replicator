@@ -35,6 +35,20 @@ if [ "$?" = 1 ] ; then
   let "fail = $fail + 4"
 fi
 
+# test if the mean is 1000
+../ttest-mean.py Ka.csv 1000
+if [ "$?" = 1 ] ; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 8"
+fi
+
+# test if the stdev is 0.2
+../chisqtest-sd.py Ka.csv 0.2
+if [ "$?" = 1 ] ; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 16"
+fi
+
 # this would calculate mean and stdved using only grep and awk !
 #grep -Po "Ka_\d+\s+fixed\s+(\d+\.\d+)" BindingKa_1000.summary.txt | awk '{ sum+=$3; sumsq +=$3^2 } END { print sum/NR, NR*(sqrt((sumsq-sum^2/NR)/NR))/sum }'
 
