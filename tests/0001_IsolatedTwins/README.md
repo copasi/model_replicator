@@ -4,5 +4,7 @@ creates a set of two exact replicate units with a simple binding reaction each, 
 
 ## tests
 
+- 1D, 2 units, unconnected, no noise
 - file reads well
 - produces an expected warning about parameter scan
+- produces no other warning or error
