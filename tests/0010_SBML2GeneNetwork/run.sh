@@ -45,9 +45,26 @@ if ! grep -Pq "t_B_1-2\s+B_1 = B_2\s+Function for t_B_1-2" BIOMD0000000539_url_2
   let "fail = $fail + 16"
 fi
 
+# get values of [A_i]_0
+grep -Po "A_[12]\s+reactions\s+(\d+\.\d+)" BIOMD0000000539_url_2.summary.txt | awk '{ print $3 }' > A.csv
+
+# test that the minimum is above 40-40*0.3 = 28
+m=$(awk 'NR == 1 || $1 < min {line = $0; min = $1}END{print line}' A.csv)
+if (( $(echo "$m < 28" |bc -l) )); then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
+fi
+
+# test that the maximum is below 40+40*0.3 = 52
+m=$(awk 'NR == 1 || $1 > max {line = $0; max = $1}END{print line}' A.csv)
+if (( $(echo "$m > 52" |bc -l) )); then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 64"
+fi
+
 if [ "$fail" = 0 ] ; then
   printf 'PASS %s\n' "${test}"
-  rm BIOMD0000000539_url_2.summary.txt output *.xml
+  rm BIOMD0000000539_url_2.summary.txt output A.csv *.xml
 fi
 
 exit $fail
