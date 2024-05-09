@@ -1,0 +1,9 @@
+Processing ../sources/BIOMD0000000539_url.xml
+  Reactions:         11
+  Species:           6	(Reactions: 6, Fixed: 0, Assignment: 0, ODE: 0)
+  Compartments:      1	(Fixed: 1, Assignment: 0, ODE: 0)
+  Global quantities: 11	(Fixed: 11, Assignment: 0, ODE: 0)
+  Events:            0	(Only time-dependent: 0, variable-dependent: 0)
+  Network:           undirected	(Nodes: 2, Edges: 1)
+created new model BIOMD0000000539_url_2.xml with a set of 2 replicas of ../sources/BIOMD0000000539_url.xml
+
