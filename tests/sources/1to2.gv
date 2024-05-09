@@ -1,0 +1,4 @@
+digraph 1to2{
+// two nodes connected irreversibly
+1 -> 2
+}
