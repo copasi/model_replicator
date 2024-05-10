@@ -35,14 +35,14 @@ else:
 model = load_model(args.filename, remove_user_defined_functions=True)
 if( model is None):
     print(f'ERROR: {args.filename} failed to load.\n')
-    exit()
+    exit(1)
 
 # open report file
 try:
     outf = open(report, "w")
 except:
     print(f'ERROR: cannot create file {report}')
-    exit()
+    exit(2)
 
 # model name
 modelname = get_model_name()
