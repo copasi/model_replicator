@@ -1,0 +1,8 @@
+Processing ../sources/IrreversibleReactionChain.cps
+  Reactions:         4
+  Species:           3	(Reactions: 3, Fixed: 0, Assignment: 0, ODE: 0)
+  Compartments:      1	(Fixed: 1, Assignment: 0, ODE: 0)
+  Global quantities: 0	(Fixed: 0, Assignment: 0, ODE: 0)
+  Events:            0	(Only time-dependent: 0, variable-dependent: 0)
+created new model IRC_2x2.cps with a 2D set of 4 replicas (2x2) of ../sources/IrreversibleReactionChain.cps
+
