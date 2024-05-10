@@ -17,7 +17,11 @@ if [[ $difference ]]; then
 fi
 
 # create model summary
-../model_report.py BindingKa_3.cps
+../model_report.py BindingKa_3.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # check that there are exactly three transport reactions
 n=$(grep -Pc "t_b_([123])-([123])\s+b_\1 = b_\2" BindingKa_3.summary.txt)

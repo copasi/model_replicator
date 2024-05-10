@@ -24,7 +24,11 @@ if ((s != 0))  ; then
 fi
 
 # create model summary
-../model_report.py BIOMD0000000539_url_2.xml
+../model_report.py BIOMD0000000539_url_2.xml >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # are there 9 kinetic functions?
 if ! grep -Pq "Kinetic Functions\: 9 =" BIOMD0000000539_url_2.summary.txt; then

@@ -23,7 +23,11 @@ if ! [ -f Wolf4x4Y.cps ]; then
 fi
 
 # create model summary
-../model_report.py Wolf4x4Y.cps
+../model_report.py Wolf4x4Y.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # get values of X_i_j
 grep -Po "X_\d+,\d+\s+reactions\s+(\d+\.\d+)\s" Wolf4x4Y.summary.txt | awk '{ print $3 }' > X.csv

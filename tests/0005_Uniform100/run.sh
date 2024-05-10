@@ -17,7 +17,11 @@ if [[ $difference ]]; then
 fi
 
 # create model summary
-../model_report.py BindingKa_100.cps
+../model_report.py BindingKa_100.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # check that 100 Ka parameters exist
 n=$(grep -Pc "Ka_\d+\s+fixed" BindingKa_100.summary.txt)

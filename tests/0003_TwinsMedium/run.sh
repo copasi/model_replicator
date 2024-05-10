@@ -17,7 +17,11 @@ if [[ $difference ]]; then
 fi
 
 # create model summary
-../model_report.py BindingKa_2.cps
+../model_report.py BindingKa_2.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # check that medium exists
 if ! grep -Pq "medium\s+fixed" BindingKa_2.summary.txt; then

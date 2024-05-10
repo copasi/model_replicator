@@ -23,7 +23,11 @@ if ! [ -f Wolf3x3x3Y.cps ]; then
 fi
 
 # create model summary
-../model_report.py Wolf3x3x3Y.cps
+../model_report.py Wolf3x3x3Y.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # was the name of the model written correctly?
 if ! grep -Pq "a 3D set of 27 replicas \(3x3x3\) of Simple model of glycolytic oscillations" Wolf3x3x3Y.summary.txt; then

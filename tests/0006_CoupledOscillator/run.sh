@@ -23,7 +23,11 @@ if ! [ -f Wolf2X.cps ]; then
 fi
 
 # create model summary
-../model_report.py Wolf2X.cps
+../model_report.py Wolf2X.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # check that the transport rate constant is set properly
 grep -Po "k_X_transport\s+fixed\s+0.1" Wolf2X.summary.txt >/dev/null

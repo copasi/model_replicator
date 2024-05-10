@@ -23,7 +23,11 @@ if ! [ -f Wolf2Irr.cps ]; then
 fi
 
 # create model summary
-../model_report.py Wolf2Irr.cps
+../model_report.py Wolf2Irr.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
 
 # check that the transport reaction is irreversible
 if ! grep -Pq "t_X_1-2\s+X_1 -> X_2\s+Mass action \(irreversible\)" Wolf2Irr.summary.txt; then
