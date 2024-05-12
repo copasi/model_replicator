@@ -1926,9 +1926,13 @@ if( not args.ignore_tasks):
 # 14. save model
 #####
 
-# save the new model
+# get the base of the output model filename
+base,ext = os.path.splitext(newfilename)
+
+# save a COPASI file if the extension was .cps
 if( (ext.lower() == '.cps') and not args.sbml ):
     save_model(filename=newfilename, model=newmodel)
+# otherwise save an SBML file
 else:
     save_model(filename=newfilename, type='sbml', sbml_level=sbmll, sbml_version=sbmlv, model=newmodel)
 if( not args.quiet ):
