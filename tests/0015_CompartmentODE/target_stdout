@@ -1,0 +1,9 @@
+Processing ../sources/shrink.cps
+  Reactions:         2
+  Species:           1	(Reactions: 1, Fixed: 0, Assignment: 0, ODE: 0)
+  Compartments:      1	(Fixed: 0, Assignment: 0, ODE: 1)
+  Global quantities: 2	(Fixed: 2, Assignment: 0, ODE: 0)
+  Events:            0	(Only time-dependent: 0, variable-dependent: 0)
+  Network:           undirected	(Nodes: 2, Edges: 1)
+created new model shrink_2.cps with a set of 2 replicas of ../sources/shrink.cps
+
