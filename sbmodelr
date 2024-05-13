@@ -1477,7 +1477,7 @@ if( odelink ):
                                 add_parameter(name=thissyntaud, initial_value=d, model=newmodel)
                             # add a new ODE to represent the proportion of bound post-synaptic receptor
                             brname = f'br_{ode}_{suffa},{suffb}'
-                            brexp = f'( 1 / Values[{thissyntaur}] - 1 / Values[{thissyntaud}] ) * ( 1 - Values[{brname}] ) / ( 1 + exp( Values[{synv0}] - Values[{oaname}] ) ) -  Values[{brname}] / Values[{thissyntaud}]'
+                            brexp = f'( 1 / Values[{thissyntaur}] - 1 / Values[{thissyntaud}] ) * ( 1 - Values[{brname}] ) / ( 1 + exp( Values[{synv0}] - [{oaname}] ) ) -  Values[{brname}] / Values[{thissyntaud}]'
                             add_parameter(brname, type='ode', expression=brexp, initial_value=0.5, model=newmodel)
                             # add a synaptic maximum conductance parameter
                             syngc = f'g_c_{ode}_{suffa},{suffb}_synapse'
@@ -1487,7 +1487,7 @@ if( odelink ):
                                 gc = gcinit
                             add_parameter(syngc, type='fixed', initial_value=gc, model=newmodel)
                             # add a term to the postsynaptic ode corresponding to the voltage that is proportional to the bound receptor
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{syngc}] * Values[{brname}] * ( Values[{synvsyn}] - Values[{oaname}] )'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{syngc}] * Values[{brname}] * ( Values[{synvsyn}] - [{oaname}] )'
                         # update species obname here as it was changed by all types
                         set_species(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
