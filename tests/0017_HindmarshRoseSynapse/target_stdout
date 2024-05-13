@@ -1,0 +1,9 @@
+Processing ../sources/Hindmarsh-Rose.cps
+  Reactions:         0
+  Species:           3	(Reactions: 0, Fixed: 0, Assignment: 0, ODE: 3)
+  Compartments:      1	(Fixed: 1, Assignment: 0, ODE: 0)
+  Global quantities: 9	(Fixed: 8, Assignment: 1, ODE: 0)
+  Events:            0	(Only time-dependent: 0, variable-dependent: 0)
+  Network:           directed	(Nodes: 3, Edges: 2)
+created new model Hindmarsh-Rose_3.cps with a set of 3 replicas of ../sources/Hindmarsh-Rose.cps
+
