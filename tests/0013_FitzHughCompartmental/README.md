@@ -1,6 +1,6 @@
 # 0013_FitzHughCompartmental
 
-three replicates of FitzHugh-Nagumo.cps connected by diffusive connections by ODE *y* using a graphviz file
+three replicates of FitzHugh-Nagumo.cps connected by diffusive connections by ODE *x* using a graphviz file
 
 ## tests
 
