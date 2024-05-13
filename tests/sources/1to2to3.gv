@@ -1,0 +1,5 @@
+digraph 1to2to3{
+// three nodes connected sequentially
+1 -> 2
+2 -> 3
+}
