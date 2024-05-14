@@ -2,7 +2,7 @@
 
 This folder contains a variety of functional tests for *sbmodelr* that should cover all of its possible functions. Running all tests can be done by executing *run_all_tests.sh*
 
-Included are four utilities that are used in some tests, (they require *pandas* and *scipy*):
+Included are four utilities that are used in some tests, (they require *pandas*, *html2text*, *scipy*):
  - *model_report.py* produces a text file with a readable report of a copasi or sbml file
  - *shapiro-wilk.py* reads numbers from a file and tests whether they look like normally distributed 
  - *ttest-mean.py* reads numbers from a file and tests whether their mean is different from a given value
@@ -40,6 +40,6 @@ Tests should focus on:
  These are tests that check that failures happen as expected (i.e. should generate errors)
 
  - loading random files fails with error message
- - synaptic coupling in compartment connections
  - invalid GraphViz files
+ - synaptic coupling in compartment connections
  - parameter noise that results in negative values that should be non-negative
