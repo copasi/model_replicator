@@ -20,7 +20,7 @@ Each test resides in its own folder. Folders have names with format /^\d{4}_.*$/
 
 Tests should focus on:
 
- **1. positive tests**
+ **1. positive tests** with numbers 0001 to 0500
 
  - 1D, 2D and 3D architectures
  - adding a medium unit
@@ -35,7 +35,8 @@ Tests should focus on:
  - adding noise, uniform and Gaussian, to connection parameters
  - combinations of all the above
 
- **2. negative tests** (should generate errors)
+ **2. negative tests** with numbers 0501 to 1000
+ These are tests that check that failures happen as expected (i.e. should generate errors)
 
  - synaptic coupling in compartment connections
  - invalid GraphViz files
