@@ -7,15 +7,26 @@ test=${test:-/}          # to correct for the case where PWD=/
 # run sbmodelr
 ../../sbmodelr ../sources/BindingKa.cps 2 > output
 
+fail=0
+
 # compare output and target
 difference=$(diff output target_stdout)
 if [[ $difference ]]; then
   printf 'FAIL %s\n' "${test}"
-  exit 1
+  fail=1
 fi
 
-printf 'PASS %s\n' "${test}"
-rm output
-rm *.cps
-exit 0
+# validate the model with CopasiSE
+../CopasiSE -c . --nologo --validate BindingKa_2.cps > cpsout 2>&1
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 2"
+fi
+
+if [ "$fail" = 0 ] ; then
+  printf 'PASS %s\n' "${test}"
+  rm output cpsout *.cps
+fi
+
+exit $fail
 

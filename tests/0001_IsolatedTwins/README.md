@@ -8,3 +8,4 @@ creates a set of two exact replicate units with a simple binding reaction each, 
 - file reads well
 - produces an expected warning about parameter scan
 - produces no other warning or error
+- validates new file through CopasiSE
