@@ -28,10 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install html2text
-        #cd tests
-        #wget https://github.com/copasi/COPASI/releases/download/Build-288/COPASI-4.43.288-Source.tar.gz
-        #tar -xvf COPASI-4.43.288-AllSE.tar.gz
-        #ln -s COPASI-4.43.288-AllSE/Linux/CopasiSE .
+        cd tests
+        wget http://cuprum.cam.uchc.edu/copasi/CopasiSE.gz
+        gunzip CopasiSE.gz
+        chmod a+x CopasiSE
     - name: run tests
       run: |
         cd tests
