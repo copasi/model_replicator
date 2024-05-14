@@ -36,6 +36,7 @@ Tests should focus on:
  - combinations of all the above
 
  **2. negative tests** with numbers 0501 to 1000
+
  These are tests that check that failures happen as expected (i.e. should generate errors)
 
  - synaptic coupling in compartment connections
