@@ -39,6 +39,7 @@ Tests should focus on:
 
  These are tests that check that failures happen as expected (i.e. should generate errors)
 
+ - loading random files fails with error message
  - synaptic coupling in compartment connections
  - invalid GraphViz files
  - parameter noise that results in negative values that should be non-negative
