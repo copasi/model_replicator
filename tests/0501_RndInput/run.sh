@@ -5,7 +5,8 @@ test=${PWD##*/}          # to assign to a variable
 test=${test:-/}          # to correct for the case where PWD=/
 
 # create a completely random file called rdninput.cps
-< /dev/urandom tr -dc "[:space:][:print:]" | head -c40000 > rndinput.cps
+#< /dev/urandom tr -dc "q[:print:]" | head -c40000 > rndinput.cps
+basenc --z85 -w 0 /dev/urandom | head -c 40000 > rndinput.cps
 
 fail=0
 
