@@ -9,7 +9,7 @@
 # Written March-May 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
-__version__ = "1.0a4"
+__version__ = "1.0a5"
 
 import os
 import re
@@ -255,7 +255,7 @@ parser.add_argument('--pn', dest='noisy', help='add noise to parameter with leve
 parser.add_argument('--cn', dest='cnoise', help='add noise to coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with all transported species')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
-parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l3v1', 'l3v2'], help='export in SBML format of this level and version.')
+parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l2v5', 'l3v1', 'l3v2'], help='export in SBML format of this level and version.')
 
 # Parse the arguments
 args = parser.parse_args()
