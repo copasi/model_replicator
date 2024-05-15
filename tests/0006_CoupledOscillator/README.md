@@ -9,3 +9,6 @@ creates a set of 2 units of the Selkov-Wolf-Heinrich model of coupled oscillatin
 - produces no warning or error
 - tests -o option to name output file
 - checks that transport rate constant is set to correct value
+- checks that the model is run by CopasiSE without errors
+- checks that the output contains all the species
+- checks that the last time point is in the output

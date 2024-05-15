@@ -36,9 +36,30 @@ if [ "$?" != 0  ] ; then
   let "fail = $fail + 4"
 fi
 
+# run the file with CopasiSE
+../CopasiSE -c . --nologo Wolf2X.cps > /dev/null 2>&1
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 8"
+fi
+
+# check that output file has time course header with all species
+grep -Po "# Time\s+X_1\s+X_2\s+Y_1\s+Y_2\s+X_medium" tc.txt >/dev/null
+if [ "$?" != 0  ] ; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 16"
+fi
+
+# check that output file has last time point with 2 values equal (X) and two others equal (Y) plus one more
+grep -Po "100\t([\d\.]+)\t\1\t([\d\.]+)\t\2\t[\d\.]+" tc.txt >/dev/null
+if [ "$?" != 0  ] ; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
+fi
+
 if [ "$fail" = 0 ] ; then
   printf 'PASS %s\n' "${test}"
-  rm Wolf2X.summary.txt Wolf2X.cps output
+  rm Wolf2X.summary.txt tc.txt Wolf2X.cps output
 fi
 
 exit $fail
