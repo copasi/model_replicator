@@ -1,0 +1,6 @@
+digraph G {
+  ranksep=equally;
+  c [height=2.0];
+  1 -> 2
+  1 -> { B };
+}
