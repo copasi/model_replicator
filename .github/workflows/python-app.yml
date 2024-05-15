@@ -29,7 +29,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install html2text
         cd tests
-        wget -q http://cuprum.cam.uchc.edu/copasi/CopasiSE.gz
+        wget -q http://cuprum.cam.uchc.edu/copasi/CopasiSE2.gz
         gunzip CopasiSE.gz
         chmod a+x CopasiSE
     - name: run tests
