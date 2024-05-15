@@ -1812,26 +1812,46 @@ if( odelink ):
 if( not args.ignore_tasks):
     # time course
     tc = get_task_settings('Time-Course', basic_only=False, model=seedmodel)
-    set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method']},model=newmodel)
-
+    # if report is not the default one, clear it
+    if( tc['report']['report_definition'] != 'Time-Course' ):
+        tc['report']['report_definition'] = 'Time-Course'
+        tc['report']['filename'] = ""
+    set_task_settings('Time-Course', {'scheduled': tc['scheduled'], 'problem': tc['problem'], 'method': tc['method'], 'report': tc['report']}, model=newmodel)
     # steady state
     ss = get_task_settings('Steady-State', basic_only=False, model=seedmodel)
-    set_task_settings('Steady-State', {'scheduled': ss['scheduled'], 'update_model': ss['update_model'], 'problem': ss['problem'], 'method': ss['method']},model=newmodel)
+    # if report is not the default one, clear it
+    if( ss['report']['report_definition'] != 'Steady-State' ):
+        ss['report']['report_definition'] = 'Steady-State'
+        ss['report']['filename'] = ""
+    set_task_settings('Steady-State', {'scheduled': ss['scheduled'], 'update_model': ss['update_model'], 'problem': ss['problem'], 'method': ss['method'], 'report': ss['report']},model=newmodel)
 
     # MCA
     mca = get_task_settings('Metabolic Control Analysis', basic_only=False, model=seedmodel)
-    set_task_settings('Metabolic Control Analysis', {'scheduled': mca['scheduled'], 'update_model': mca['update_model'], 'problem': mca['problem'], 'method': mca['method']},model=newmodel)
+    # if report is not the default one, clear it
+    if( mca['report']['report_definition'] != 'Metabolic Control Analysis' ):
+        mca['report']['report_definition'] = 'Metabolic Control Analysis'
+        mca['report']['filename'] = ""
+    set_task_settings('Metabolic Control Analysis', {'scheduled': mca['scheduled'], 'update_model': mca['update_model'], 'problem': mca['problem'], 'method': mca['method'], 'report': mca['report']},model=newmodel)
 
     # Lyapunov Exponents
     le = get_task_settings('Lyapunov Exponents', basic_only=False, model=seedmodel)
-    set_task_settings('Lyapunov Exponents', {'scheduled': le['scheduled'], 'update_model': le['update_model'], 'problem': le['problem'], 'method': le['method']},model=newmodel)
+    # if report is not the default one, clear it
+    if( le['report']['report_definition'] != 'Lyapunov Exponents' ):
+        le['report']['report_definition'] = 'Lyapunov Exponents'
+        le['report']['filename'] = ""
+    set_task_settings('Lyapunov Exponents', {'scheduled': le['scheduled'], 'update_model': le['update_model'], 'problem': le['problem'], 'method': le['method'], 'report': le['report']},model=newmodel)
 
     # Time Scale Separation Analysis
     tsa = get_task_settings('Time Scale Separation Analysis', basic_only=False, model=seedmodel)
-    set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled'], 'update_model': tsa['update_model'], 'problem': tsa['problem'], 'method': tsa['method']},model=newmodel)
+    # if report is not the default one, clear it
+    if( tsa['report']['report_definition'] != 'Time Scale Separation Analysis' ):
+        tsa['report']['report_definition'] = 'Time Scale Separation Analysis'
+        tsa['report']['filename'] = ""
+    set_task_settings('Time Scale Separation Analysis', {'scheduled': tsa['scheduled'], 'update_model': tsa['update_model'], 'problem': tsa['problem'], 'method': tsa['method'], 'report': tsa['report']},model=newmodel)
 
     # Cross section
     cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
+    # there is no standard report for cross section...
     if( cs['problem']['SingleVariable'] != ''):
         newv = fix_expression(cs['problem']['SingleVariable'], apdx1)
         print(f' Warning: the cross section task was updated to use {newv} as variable.')
@@ -1840,10 +1860,18 @@ if( not args.ignore_tasks):
 
     # Linear Noise Approximation
     lna = get_task_settings('Linear Noise Approximation', basic_only=False, model=seedmodel)
-    set_task_settings('Linear Noise Approximation', {'scheduled': lna['scheduled'], 'update_model': lna['update_model'], 'problem': lna['problem'], 'method': lna['method']},model=newmodel)
+    # if report is not the default one, clear it
+    if( lna['report']['report_definition'] != 'Linear Noise Approximation' ):
+        lna['report']['report_definition'] = 'Linear Noise Approximation'
+        lna['report']['filename'] = ""
+    set_task_settings('Linear Noise Approximation', {'scheduled': lna['scheduled'], 'update_model': lna['update_model'], 'problem': lna['problem'], 'method': lna['method'], 'report': lna['report']},model=newmodel)
 
     # Sensitivities
     sen = get_sensitivity_settings(model=seedmodel)
+    # if report is not the default one, clear it
+    if( sen['report']['report_definition'] != 'Sensitivities' ):
+        sen['report']['report_definition'] = 'Sensitivities'
+        sen['report']['filename'] = ""
     seff = fix_expression(sen['effect'],apdx1)
     scau = fix_expression(sen['cause'],apdx1)
     ssec = fix_expression(sen['secondary_cause'],apdx1)
@@ -1885,6 +1913,11 @@ if( not args.ignore_tasks):
     # Optimization
     # we translate the objective function and parameters to the first unit
     nopt = get_opt_settings(model=seedmodel)
+    # if report is not the default one, clear it
+    if( nopt['report']['report_definition'] != 'Optimization' ):
+        nopt['report']['report_definition'] = 'Optimization'
+        nopt['report']['filename'] = ""
+    set_opt_settings(nopt, model=newmodel)
     if( nopt['expression'] ):
         nopt['expression'] = fix_expression(nopt['expression'], apdx1)
         set_opt_settings(nopt,newmodel)
@@ -1919,7 +1952,6 @@ if( not args.ignore_tasks):
         print(' Warning: Time Course Sensitivities task settings were not copied to the new model.')
 
 
-#TODO: what to do with reports?
 #TODO: what to do with plots?
 
 #####
