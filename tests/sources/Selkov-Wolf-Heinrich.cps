@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.43 (Build 288) (http://www.copasi.org) at 2024-05-15T02:06:42Z -->
+<!-- generated with COPASI 4.43 (Build 288) (http://www.copasi.org) at 2024-05-15T02:18:57Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="43" versionDevel="288" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -312,8 +312,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <Report reference="Report_12" target="tc.txt" append="0" confirmOverwrite="0"/>
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="0"/>
-        <Parameter name="StepNumber" type="unsignedInteger" value="2000"/>
-        <Parameter name="StepSize" type="float" value="0.050000000000000003"/>
+        <Parameter name="StepNumber" type="unsignedInteger" value="20"/>
+        <Parameter name="StepSize" type="float" value="5"/>
         <Parameter name="Duration" type="float" value="100"/>
         <Parameter name="TimeSeriesRequested" type="bool" value="1"/>
         <Parameter name="OutputStartTime" type="float" value="0"/>
