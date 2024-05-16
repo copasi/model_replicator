@@ -316,6 +316,7 @@ if( args.ode_synaptic ):
 # get the base of the input model filename
 base,ext = os.path.splitext(seedmodelfile)
 
+# if sbml file, then we have to ignore tasks
 if( ext.lower() != '.cps' ):
     args.ignore_tasks = True
 
@@ -327,6 +328,8 @@ if( args.sbml ):
     if( slv ):
         sbmll = int(slv.group(1))
         sbmlv = int(slv.group(2))
+    # if we are writing out sbml, then we also can ignore tasks
+    args.ignore_tasks = True
 
 # sanity check
 nmodels = r*c*l
