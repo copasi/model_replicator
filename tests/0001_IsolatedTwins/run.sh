@@ -25,7 +25,7 @@ fi
 
 if [ "$fail" = 0 ] ; then
   printf 'PASS %s\n' "${test}"
-  rm output cpsout *.cps
+  rm output tc.txt cpsout *.cps > /dev/null 2>&1
 fi
 
 exit $fail
