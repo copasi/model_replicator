@@ -48,8 +48,8 @@ def positive_float(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
-# function to check if a string is an element in the model
-def is_element(candidate):
+# function to check if a string is an element in the model, optionally ignore compartments
+def is_element(candidate, ignore_compartments):
     el=False
     if( (seednparams>0) and (candidate in mparams.index) ):
         el=True
@@ -57,7 +57,7 @@ def is_element(candidate):
         if( (seedncomps>0) and (candidate in mcomps.index) ):
             el=True
         else:
-            if( (seednspecs>0) and (candidate in mspecs.index) ):
+            if( (not ignore_compartments) and (seednspecs>0) and (candidate in mspecs.index) ):
                 el=True
             else:
                 if( (seednreacts>0) and (candidate in mreacts.index) ):
@@ -83,11 +83,11 @@ def addnoise( rate, level, dist):
         exit()
     return rate * s
 
-# function to change expression, fixing all references to element names with the appropriate suffix
-def fix_expression(exp, suff):
+# function to change expression, fixing all references to element names with the appropriate suffix, with option to ignore compartments
+def fix_expression(exp, suff, ignore_compartments):
     expression = str(exp)
     #is the full expression an element?
-    if( is_element(expression) ):
+    if( is_element(expression, ignore_compartments) ):
         # just process it and return
         expression = expression + suff
         return expression
@@ -99,7 +99,7 @@ def fix_expression(exp, suff):
     if( evars ):
         for el in evars:
             #check that the variable exists
-            if( is_element(el) ):
+            if( is_element(el, ignore_compartments) ):
                 elnew = el + suff
                 expression = re.sub(fr'\[{el}\]', fr'[{elnew}]', expression )
     # find object names inside ()
@@ -107,7 +107,7 @@ def fix_expression(exp, suff):
     if( evars ):
         for el in evars:
             #check that the variable exists
-            if( is_element(el) ):
+            if( is_element(el, ignore_compartments) ):
                 elnew = el + suff
                 expression = re.sub(fr'\({el}\)', f'({elnew})', expression )
     # find object names inside () special case of ( something(else) )
@@ -115,7 +115,7 @@ def fix_expression(exp, suff):
     if( evars ):
         for el in evars:
             #check that the variable exists
-            if( is_element(el) ):
+            if( is_element(el, ignore_compartments) ):
                 elnew = el + suff
                 el = re.sub(r'\(', r'\\(', el)
                 el = re.sub(r'\)', r'\\)', el)
@@ -125,7 +125,7 @@ def fix_expression(exp, suff):
     if( evars ):
         for el in evars:
             #check that the variable exists
-            if( is_element(el) ):
+            if( is_element(el, ignore_compartments) ):
                 elnew = el + suff
                 expression = re.sub(fr'{el}\.(\w)', fr'{elnew}.\1', expression )
     return expression
@@ -252,8 +252,9 @@ parser.add_argument('--synapse-Vsyn', type=positive_float, help='value of Vsyn f
 parser.add_argument('--synapse-tau-r', type=positive_float, help='value of tau_r for synaptic connections between units', default=0.5, metavar='value')
 parser.add_argument('--synapse-tau-d', type=positive_float, help='value of tau_d for synaptic connections between units', default=10,  metavar='value')
 parser.add_argument('--pn', dest='noisy', help='add noise to parameter with level magnitude, dist: {uni,norm}', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
-parser.add_argument('--cn', dest='cnoise', help='add noise to coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
+parser.add_argument('--cn', dest='cnoise', help='add noise to all coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with all transported species')
+parser.add_argument('--ignore-compartments', action='store_true', help='do not replicate compartments')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l2v5', 'l3v1', 'l3v2'], help='export in SBML format of this level and version.')
 
@@ -265,6 +266,7 @@ r = args.rows
 c = args.columns
 l = args.layers
 
+ignc = args.ignore_compartments
 # value for mass action transport
 trate = args.transport_rate
 
@@ -702,20 +704,20 @@ for r in range(gridr):
                 for p in mparams.index:
                     nname = p + apdx
                     if( mparams.loc[p].at['initial_expression'] ):
-                        ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx)
+                        ie = fix_expression(mparams.loc[p].at['initial_expression'], apdx, ignc)
                         set_parameters(model=newmodel, name=nname, exact=True, initial_expression=ie )
                     if( mparams.loc[p].at['type']=='assignment' or mparams.loc[p].at['type']=='ode'):
-                        ex = fix_expression(mparams.loc[p].at['expression'], apdx)
+                        ex = fix_expression(mparams.loc[p].at['expression'], apdx, ignc)
                         set_parameters(model=newmodel, name=nname, exact=True, status=mparams.loc[p].at['type'], expression=ex )
             # COMPARTMENTS
             if( seedncomps > 0):
                 for p in mcomps.index:
                     nname = p + apdx
                     if( mcomps.loc[p].at['initial_expression'] ):
-                        ie = fix_expression(mcomps.loc[p].at['initial_expression'], apdx)
+                        ie = fix_expression(mcomps.loc[p].at['initial_expression'], apdx, ignc)
                         set_compartment(model=newmodel, name=nname, exact=True, initial_expression=ie )
                     if( mcomps.loc[p].at['type']=='assignment' or mcomps.loc[p].at['type']=='ode'):
-                        ex = fix_expression(mcomps.loc[p].at['expression'], apdx)
+                        ex = fix_expression(mcomps.loc[p].at['expression'], apdx, ignc)
                         set_compartment(model=newmodel, name=nname, exact=True, expression=ex )
             # SPECIES
             if( seednspecs > 0):
@@ -723,10 +725,10 @@ for r in range(gridr):
                     nname = p + apdx
                     cp = mspecs.loc[p].at['compartment'] + apdx
                     if( mspecs.loc[p].at['initial_expression'] ):
-                        ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx)
+                        ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx, ignc)
                         set_species(model=newmodel, name=nname, exact=True, initial_expression=ie )
                     if( mspecs.loc[p].at['type']=='assignment' or mspecs.loc[p].at['type']=='ode'):
-                        ex = fix_expression(mspecs.loc[p].at['expression'], apdx)
+                        ex = fix_expression(mspecs.loc[p].at['expression'], apdx, ignc)
                         set_species(model=newmodel, name=nname, exact=True, expression=ex )
 
 #####
@@ -738,7 +740,7 @@ for r in range(gridr):
             if( seednevents > 0):
                 for p in mevents.index:
                     # fix the trigger expression
-                    tr = fix_expression(mevents.loc[p].at['trigger'], apdx)
+                    tr = fix_expression(mevents.loc[p].at['trigger'], apdx, ignc)
                     # we skip events that have no elements in the trigger (time-dependent only)
                     if(tr != mevents.loc[p].at['trigger']):
                         # fix name
@@ -746,9 +748,9 @@ for r in range(gridr):
                         # process the targets and expressions
                         assg = []
                         for a in mevents.loc[p].at['assignments']:
-                            assg.append((fix_expression(a['target'],apdx),  fix_expression(a['expression'],apdx)))
+                            assg.append((fix_expression(a['target'],apdx, ignc),  fix_expression(a['expression'],apdx, ignc)))
                         # add the event
-                        add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx), priority=fix_expression(mevents.loc[p].at['priority'],apdx), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
+                        add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx, ignc), priority=fix_expression(mevents.loc[p].at['priority'],apdx, ignc), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
                     else:
                         # the trigger does not involve any model element other than time
                         # add it to the list to be dealt with later
@@ -780,8 +782,8 @@ if( etd > 0 ):
     # loop over the time-only dependent events
     for p in timeonlyevents:
         # if the delay or priority expressions contain elements we use model_1
-        dl = fix_expression(mevents.loc[p].at['delay'],apdx1)
-        pr = fix_expression(mevents.loc[p].at['priority'],apdx1)
+        dl = fix_expression(mevents.loc[p].at['delay'],apdx1, ignc)
+        pr = fix_expression(mevents.loc[p].at['priority'],apdx1, ignc)
         if( not args.quiet ):
             if( dl != mevents.loc[p].at['delay'] ):
                 print(f' Warning: Event {p} contains a delay expression dependent on variables, it was set to the variables of unit {apdx1}')
@@ -803,7 +805,7 @@ if( etd > 0 ):
                             else:
                                 apdx = f"_{r+1},{c+1},{l+1}"
                         # add the assignment
-                        assg.append((fix_expression(a['target'],apdx), fix_expression(a['expression'],apdx)))
+                        assg.append((fix_expression(a['target'],apdx, ignc), fix_expression(a['expression'],apdx, ignc)))
                         i = i + 1
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
@@ -1856,7 +1858,7 @@ if( not args.ignore_tasks):
     cs = get_task_settings('Cross Section', basic_only=False, model=seedmodel)
     # there is no standard report for cross section...
     if( cs['problem']['SingleVariable'] != ''):
-        newv = fix_expression(cs['problem']['SingleVariable'], apdx1)
+        newv = fix_expression(cs['problem']['SingleVariable'], apdx1, ignc)
         print(f' Warning: the cross section task was updated to use {newv} as variable.')
         cs['problem']['SingleVariable'] = newv
         set_task_settings('Cross Section', {'scheduled': cs['scheduled'], 'update_model': cs['update_model'], 'problem': cs['problem'], 'method': cs['method']},model=newmodel)
@@ -1875,9 +1877,9 @@ if( not args.ignore_tasks):
     if( sen['report']['report_definition'] != 'Sensitivities' ):
         sen['report']['report_definition'] = 'Sensitivities'
         sen['report']['filename'] = ""
-    seff = fix_expression(sen['effect'],apdx1)
-    scau = fix_expression(sen['cause'],apdx1)
-    ssec = fix_expression(sen['secondary_cause'],apdx1)
+    seff = fix_expression(sen['effect'],apdx1, ignc)
+    scau = fix_expression(sen['cause'],apdx1, ignc)
+    ssec = fix_expression(sen['secondary_cause'],apdx1, ignc)
     if( (seff != sen['effect']) or (scau != sen['cause']) or (ssec != sen['secondary_cause']) ):
         print(f' Warning: sensitivies task is now using items of unit {apdx1}")')
         sen['effect'] = seff
@@ -1897,12 +1899,12 @@ if( not args.ignore_tasks):
             print(f' Warning: a scan of parameter sets exists in the original model but was not included in the new model.')
         else:
             if( sit['type']=='scan' ):
-                newit = fix_expression(sit['item'], apdx1)
+                newit = fix_expression(sit['item'], apdx1, ignc)
                 srw = True
                 add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], use_values=sit['use_values'], values=sit['values'] )
             else:
                 if( sit['type']=='random' ):
-                    newit = fix_expression(sit['item'], apdx1)
+                    newit = fix_expression(sit['item'], apdx1, ignc)
                     srw = True
                     add_scan_item(model=newmodel, type=sit['type'], num_steps=sit['num_steps'], item=newit, log=sit['log'], min=sit['min'], max=sit['max'], distribution=sit['distribution'])
                 else:
@@ -1922,24 +1924,24 @@ if( not args.ignore_tasks):
         nopt['report']['filename'] = ""
     set_opt_settings(nopt, model=newmodel)
     if( nopt['expression'] ):
-        nopt['expression'] = fix_expression(nopt['expression'], apdx1)
+        nopt['expression'] = fix_expression(nopt['expression'], apdx1, ignc)
         set_opt_settings(nopt,newmodel)
         # deal with paramters
         ops = get_opt_parameters(model=seedmodel)
         for p in ops.index:
             # rename the CN
-            ops.loc[p, 'cn'] = fix_expression(ops.loc[p].at['cn'] ,apdx1)
+            ops.loc[p, 'cn'] = fix_expression(ops.loc[p].at['cn'] ,apdx1, ignc)
             # rename the index
-            newp = fix_expression(p,apdx1)
+            newp = fix_expression(p,apdx1, ignc)
             ops.rename(index={p: newp}, inplace=True)
         set_opt_parameters(ops, model=newmodel)
         cst = get_opt_constraints(model=seedmodel)
         # deal with constraints
         for p in cst.index:
             # rename the CN
-            cst.loc[p, 'cn'] = fix_expression(cst.loc[p].at['cn'] ,apdx1)
+            cst.loc[p, 'cn'] = fix_expression(cst.loc[p].at['cn'] ,apdx1, ignc)
             # rename the index
-            newp = fix_expression(p,apdx1)
+            newp = fix_expression(p,apdx1, ignc)
             cst.rename(index={p: newp}, inplace=True)
         set_opt_constraints(cst, model=newmodel)
         print(' Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
