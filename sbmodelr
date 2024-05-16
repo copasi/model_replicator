@@ -499,7 +499,7 @@ scanitems = get_scan_items(model=seedmodel)
 
 # deal with noisy parameters, put them in 3 separate lists
 # TODO: apply to classes of parameters ?
-# TODO:  a) transport/coupling parameters, b) reaction parameters, c) initial state, d) compartment volumes
+# TODO:  b) reaction parameters, c) initial state, d) compartment volumes
 
 noisy_species = {}
 noisy_param = {}
@@ -514,7 +514,10 @@ if( args.noisy ):
             noisy_param[item] = (level,dist)
         # compartment?
         elif( (seedncomps>0) and (item in mcomps.index) ):
-            noisy_comp[item] = (level,dist)
+            if( ignc ):
+                print( f' Warning: compartment {item} will not have noise added given ignore-compartments option')
+            else:
+                noisy_comp[item] = (level,dist)
         else:
             print( f' Warning: {item} is not an item allowed to be noisy, ignored')
 
@@ -594,6 +597,11 @@ else:
     modf.append(datetime.datetime.now())
     set_miriam_annotation(model=newmodel, modifications=modf, replace=True)
 
+# if we are ignoring compartments, then simply copy the compartments to the new model
+if ignc:
+    for mc in mcomps:
+        add_compartment(model=newmodel, name=mc['name'], status=mc['status'], initial_size=mc['initial_size'], unit=mc['unit'], dimensionality=int(mc['dimensionality']), expression=mc['expression'], initial_expression=mc['initial_expression'] )
+
 #####
 #  MAIN LOOP FOR REPLICATION
 #####
@@ -624,7 +632,8 @@ for r in range(gridr):
                         iv = addnoise(mparams.loc[p].at['initial_value'], float(level), dist)
                     add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=mparams.loc[p].at['unit'] )
             # COMPARTMENTS
-            if( seedncomps > 0):
+            # if we are ignore_compartments, then we already created the original ones, nothing done here
+            if( (seedncomps > 0) and (not ignc) ):
                 for p in mcomps.index:
                     iv = mcomps.loc[p].at['initial_size']
                     if( p in noisy_comp ):
@@ -640,7 +649,10 @@ for r in range(gridr):
                         (level,dist) = noisy_species[p]
                         iv = addnoise(mspecs.loc[p].at['initial_concentration'], float(level), dist)
                     nname = p + apdx
-                    cp = mspecs.loc[p].at['compartment'] + apdx
+                    if ignc:
+                        cp = mspecs.loc[p].at['compartment']
+                    else:
+                        cp = mspecs.loc[p].at['compartment'] + apdx
                     add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=iv, unit=mspecs.loc[p].at['unit'] )
 
 #####
@@ -713,7 +725,7 @@ for r in range(gridr):
                         ex = fix_expression(mparams.loc[p].at['expression'], apdx, ignc)
                         set_parameters(model=newmodel, name=nname, exact=True, status=mparams.loc[p].at['type'], expression=ex )
             # COMPARTMENTS
-            if( seedncomps > 0):
+            if( (seedncomps > 0) and (not ignc) ):
                 for p in mcomps.index:
                     nname = p + apdx
                     if( mcomps.loc[p].at['initial_expression'] ):
@@ -726,7 +738,6 @@ for r in range(gridr):
             if( seednspecs > 0):
                 for p in mspecs.index:
                     nname = p + apdx
-                    cp = mspecs.loc[p].at['compartment'] + apdx
                     if( mspecs.loc[p].at['initial_expression'] ):
                         ie = fix_expression(mspecs.loc[p].at['initial_expression'], apdx, ignc)
                         set_species(model=newmodel, name=nname, exact=True, initial_expression=ie )
@@ -756,6 +767,7 @@ for r in range(gridr):
                         add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx, ignc), priority=fix_expression(mevents.loc[p].at['priority'],apdx, ignc), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
                     else:
                         # the trigger does not involve any model element other than time
+                        # (or compartments when ignore_compartments is on)
                         # add it to the list to be dealt with later
                         timeonlyevents.append(p)
 
@@ -818,7 +830,7 @@ if( etd > 0 ):
 #####
 if( args.add_medium ):
     if( transported or odelink ):
-        # check if there is no compartment called "medium
+        # check if there is no compartment called "medium" already
         medium_name = 'medium'
         if((mcomps is not None) and (medium_name in mcomps.index)):
             medium_name = '_added_medium_'
@@ -831,7 +843,6 @@ if( args.add_medium ):
                 add_species(model=newmodel, name=nname, compartment_name=medium_name, status='reactions', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
         # it would be logic to create odes here too, but it is easier to create them further down
         # because they can be of one of three different types of entity
-
     else:
         print(' Warning: no medium unit created because no species are being transported or ODEs coupled')
 
@@ -1654,55 +1665,28 @@ if( odelink ):
 
         # check if the ODE is a compartment
         elif( (mcomps is not None) and (ode in mcomps.index) ):
-            if( mcomps.loc[ode].at['type'] != 'ode' ):
-                print(f'ERROR: {ode} is a compartment but it is not of type ODE')
-                exit()
-            if(linktype=='s'):
-                print(f'ERROR: {ode} is a compartment ODE, but compartments cannot have synaptic links')
-                exit()
-            if( dim == 1):
-                # for compartments we do nothing about the medium...
-                # let's just work on the network
-                if( args.network ):
-                    for link in links:
-                        suffa = f'{link[0]}'
-                        oaname = f'{ode}_{suffa}'
-                        suffb = f'{link[1]}'
-                        obname = f'{ode}_{suffb}'
-                        # get ode a to get expression
-                        aode = get_compartments(oaname, exact=True, model=newmodel)
-                        # get ode b to get expression
-                        bode = get_compartments(obname, exact=True, model=newmodel)
-                        thisdiffconst = diffconst
-                        if( args.cnoise ):
-                            # if we add noise to couplings, then we need 1 parameter per reaction
-                            (level, dist) = args.cnoise
-                            thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
-                            v = addnoise(coupleconst,float(level),dist)
-                            add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
-                        if digraph:
-                            # add term to ODE a
-                            odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], thisdiffconst,'-',f'Compartments[{oaname}].Volume')
-                            # add term to ODE b
-                            odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], thisdiffconst,'+',f'Compartments[{oaname}].Volume')
-                        else:
-                            # add term to ODE a
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
-                            # add term to ODE b
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
-                        set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
-                        set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
-            elif( dim == 2 ):
-                for r in range(gridr):
-                    for c in range(gridc):
-                        suffa = f'{r+1},{c+1}'
-                        oaname = f'{ode}_{suffa}'
-                        if( c+1 < gridc ):
-                            suffb = f'{r+1},{c+2}'
+            if( ignc ):
+                print(f' Warning: {ode} is a compartment but ignore_compartments is set, nothing done')
+            else:
+                if( mcomps.loc[ode].at['type'] != 'ode' ):
+                    print(f'ERROR: {ode} is a compartment but it is not of type ODE')
+                    exit()
+                if(linktype=='s'):
+                    print(f'ERROR: {ode} is a compartment ODE, but compartments cannot have synaptic links')
+                    exit()
+                if( dim == 1):
+                    # for compartments we do nothing about the medium...
+                    # let's just work on the network
+                    if( args.network ):
+                        for link in links:
+                            suffa = f'{link[0]}'
+                            oaname = f'{ode}_{suffa}'
+                            suffb = f'{link[1]}'
                             obname = f'{ode}_{suffb}'
-                            # get ode to get expression
+                            # get ode a to get expression
                             aode = get_compartments(oaname, exact=True, model=newmodel)
-                            # add term to target ODE
+                            # get ode b to get expression
+                            bode = get_compartments(obname, exact=True, model=newmodel)
                             thisdiffconst = diffconst
                             if( args.cnoise ):
                                 # if we add noise to couplings, then we need 1 parameter per reaction
@@ -1710,41 +1694,25 @@ if( odelink ):
                                 thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
                                 v = addnoise(coupleconst,float(level),dist)
                                 add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
+                            if digraph:
+                                # add term to ODE a
+                                odeaexpr = add_irr_diffusive_term(aode.loc[oaname].at['expression'], thisdiffconst,'-',f'Compartments[{oaname}].Volume')
+                                # add term to ODE b
+                                odebexpr = add_irr_diffusive_term(bode.loc[obname].at['expression'], thisdiffconst,'+',f'Compartments[{oaname}].Volume')
+                            else:
+                                # add term to ODE a
+                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
+                                # add term to ODE b
+                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                             set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
-                            # get ode to get expression
-                            bode = get_compartments(obname, exact=True, model=newmodel)
-                            # add term to target ODE
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                             set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
-                        if( r+1 < gridr ):
-                            suffb = f'{r+2},{c+1}'
-                            obname = f'{ode}_{suffb}'
-                            # get ode to get expression
-                            aode = get_compartments(oaname, exact=True, model=newmodel)
-                            # add term to target ODE
-                            thisdiffconst = diffconst
-                            if( args.cnoise ):
-                                # if we add noise to couplings, then we need 1 parameter per reaction
-                                (level, dist) = args.cnoise
-                                thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
-                                v = addnoise(coupleconst,float(level),dist)
-                                add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
-                            odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
-                            set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
-                            # get ode to get expression
-                            bode = get_compartments(obname, exact=True, model=newmodel)
-                            # add term to target ODE
-                            odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
-                            set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
-            elif( dim == 3 ):
-                for r in range(gridr):
-                    for c in range(gridc):
-                        for l in range(gridl):
-                            suffa = f'{r+1},{c+1},{l+1}'
+                elif( dim == 2 ):
+                    for r in range(gridr):
+                        for c in range(gridc):
+                            suffa = f'{r+1},{c+1}'
                             oaname = f'{ode}_{suffa}'
                             if( c+1 < gridc ):
-                                suffb = f'{r+1},{c+2},{l+1}'
+                                suffb = f'{r+1},{c+2}'
                                 obname = f'{ode}_{suffb}'
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
@@ -1764,7 +1732,7 @@ if( odelink ):
                                 odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
                             if( r+1 < gridr ):
-                                suffb = f'{r+2},{c+1},{l+1}'
+                                suffb = f'{r+2},{c+1}'
                                 obname = f'{ode}_{suffb}'
                                 # get ode to get expression
                                 aode = get_compartments(oaname, exact=True, model=newmodel)
@@ -1783,33 +1751,79 @@ if( odelink ):
                                 # add term to target ODE
                                 odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
                                 set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
-                            if( l+1 < gridl ):
-                                suffb = f'{r+1},{c+1},{l+2}'
-                                obname = f'{ode}_{suffb}'
-                                # get ode to get expression
-                                aode = get_compartments(oaname, exact=True, model=newmodel)
-                                # add term to target ODE
-                                thisdiffconst = diffconst
-                                if( args.cnoise ):
-                                    # if we add noise to couplings, then we need 1 parameter per reaction
-                                    (level, dist) = args.cnoise
-                                    thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
-                                    v = addnoise(coupleconst,float(level),dist)
-                                    add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
-                                odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
-                                set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
-                                # get ode to get expression
-                                bode = get_compartments(obname, exact=True, model=newmodel)
-                                # add term to target ODE
-                                odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
-                                set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
-            else:
-                # insanity error
-                print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
-                exit()
+                elif( dim == 3 ):
+                    for r in range(gridr):
+                        for c in range(gridc):
+                            for l in range(gridl):
+                                suffa = f'{r+1},{c+1},{l+1}'
+                                oaname = f'{ode}_{suffa}'
+                                if( c+1 < gridc ):
+                                    suffb = f'{r+1},{c+2},{l+1}'
+                                    obname = f'{ode}_{suffb}'
+                                    # get ode to get expression
+                                    aode = get_compartments(oaname, exact=True, model=newmodel)
+                                    # add term to target ODE
+                                    thisdiffconst = diffconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
+                                        v = addnoise(coupleconst,float(level),dist)
+                                        add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
+                                    odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
+                                    set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                                    # get ode to get expression
+                                    bode = get_compartments(obname, exact=True, model=newmodel)
+                                    # add term to target ODE
+                                    odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
+                                    set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
+                                if( r+1 < gridr ):
+                                    suffb = f'{r+2},{c+1},{l+1}'
+                                    obname = f'{ode}_{suffb}'
+                                    # get ode to get expression
+                                    aode = get_compartments(oaname, exact=True, model=newmodel)
+                                    # add term to target ODE
+                                    thisdiffconst = diffconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
+                                        v = addnoise(coupleconst,float(level),dist)
+                                        add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
+                                    odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
+                                    set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                                    # get ode to get expression
+                                    bode = get_compartments(obname, exact=True, model=newmodel)
+                                    # add term to target ODE
+                                    odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
+                                    set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
+                                if( l+1 < gridl ):
+                                    suffb = f'{r+1},{c+1},{l+2}'
+                                    obname = f'{ode}_{suffb}'
+                                    # get ode to get expression
+                                    aode = get_compartments(oaname, exact=True, model=newmodel)
+                                    # add term to target ODE
+                                    thisdiffconst = diffconst
+                                    if( args.cnoise ):
+                                        # if we add noise to couplings, then we need 1 parameter per reaction
+                                        (level, dist) = args.cnoise
+                                        thisdiffconst = f'k_{ode}_coupling_{suffa}-{suffb}'
+                                        v = addnoise(coupleconst,float(level),dist)
+                                        add_parameter(name=thisdiffconst, initial_value=v, model=newmodel)
+                                    odeaexpr = add_diffusive_term( aode.loc[oaname].at['expression'], thisdiffconst, f'Compartments[{obname}].Volume', f'Compartments[{oaname}].Volume')
+                                    set_compartment(oaname, exact=True, expression=odeaexpr, model=newmodel)
+                                    # get ode to get expression
+                                    bode = get_compartments(obname, exact=True, model=newmodel)
+                                    # add term to target ODE
+                                    odebexpr = add_diffusive_term( bode.loc[obname].at['expression'], thisdiffconst, f'Compartments[{oaname}].Volume', f'Compartments[{obname}].Volume')
+                                    set_compartment(obname, exact=True, expression=odebexpr, model=newmodel)
+                else:
+                    # insanity error
+                    print('ERROR: this should not happen, dim is not 1,2 or 3. Contact developer!')
+                    exit()
         # not an entity in this model
         else:
-            print(f'ERROR: {ode} is not a valid model entity')
+            print(f'ERROR: {ode} is not an ODE in the model valid model entity')
             exit()
 
 
@@ -1959,8 +1973,8 @@ if( not args.ignore_tasks):
     if( tcs['scheduled'] ):
         print(' Warning: Time Course Sensitivities task settings were not copied to the new model.')
 
-
 #TODO: what to do with plots?
+
 
 #####
 # 14. save model
