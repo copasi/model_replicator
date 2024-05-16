@@ -59,7 +59,7 @@ fi
 
 if [ "$fail" = 0 ] ; then
   printf 'PASS %s\n' "${test}"
-  rm Wolf2X.summary.txt tc.txt Wolf2X.cps output
+  rm Wolf2X.summary.txt tc.txt Wolf2X.cps output > /dev/null 2>&1
 fi
 
 exit $fail
