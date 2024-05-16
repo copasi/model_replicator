@@ -599,8 +599,8 @@ else:
 
 # if we are ignoring compartments, then simply copy the compartments to the new model
 if ignc:
-    for mc in mcomps:
-        add_compartment(model=newmodel, name=mc['name'], status=mc['status'], initial_size=mc['initial_size'], unit=mc['unit'], dimensionality=int(mc['dimensionality']), expression=mc['expression'], initial_expression=mc['initial_expression'] )
+    for p in mcomps.index:
+        add_compartment(model=newmodel, name=p, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimensionality=int(mcomps.loc[p].at['dimensionality']), expression=mcomps.loc[p].at['expression'], initial_expression=mcomps.loc[p].at['initial_expression'] )
 
 #####
 #  MAIN LOOP FOR REPLICATION
