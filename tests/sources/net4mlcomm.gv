@@ -1,0 +1,6 @@
+graph duplicates{
+/* a nasty multiline comment
+3--4 to trick you */
+1 -- {2 3 4}
+2--4
+}
