@@ -33,7 +33,7 @@ fi
 # get values of Ka
 grep -Po "Ka_\d+\s+fixed\s+(\d+\.\d+)" BindingKa_100.summary.txt | awk '{ print $3 }' > Ka.csv
 # test if they look normal
-../shapiro-wilk.py Ka.csv
+../normality_test.py Ka.csv
 if [ "$?" = 1 ] ; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 4"
