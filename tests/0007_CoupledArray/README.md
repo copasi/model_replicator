@@ -1,10 +1,10 @@
 # 0007_CoupledArray
 
-creates an array of 8x8 units of the Selkov-Wolf-Heinrich model coupled through transport of Y between cells (no external compartment)
+creates an array of 6x6 units of the Selkov-Wolf-Heinrich model coupled through transport of Y between cells (no external compartment)
 
 ## tests
 
-- 2D, 8x8 units, transport, norm noise on initial conditions
+- 2D, 6x6 units, transport, norm noise on initial conditions
 - cps file reads well
 - produces no warning or error
 - checks -o option creates correct filename
