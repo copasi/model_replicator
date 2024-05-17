@@ -4,5 +4,5 @@ Processing ../sources/Selkov-Wolf-Heinrich.cps
   Compartments:      1	(Fixed: 1, Assignment: 0, ODE: 0)
   Global quantities: 2	(Fixed: 2, Assignment: 0, ODE: 0)
   Events:            0	(Only time-dependent: 0, variable-dependent: 0)
-created new model Wolf8x8Y.cps with a 2D set of 64 replicas (8x8) of ../sources/Selkov-Wolf-Heinrich.cps
+created new model Wolf6x6Y.cps with a 2D set of 36 replicas (6x6) of ../sources/Selkov-Wolf-Heinrich.cps
 
