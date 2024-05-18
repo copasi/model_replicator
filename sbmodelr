@@ -48,6 +48,17 @@ def positive_float(value):
         raise argparse.ArgumentTypeError("%s is an invalid negative value" % value)
     return ivalue
 
+#  class to verify that value is integer within a range, helper for argparse
+def integer_range(astr, min=1, max=10):
+    try:
+        value = int(astr)
+    except:
+        raise argparse.ArgumentTypeError('value not an integer')
+    if min<= value <= max:
+        return value
+    else:
+        raise argparse.ArgumentTypeError('value not in range %s-%s'%(min,max))
+
 # function to check if a string is an element in the model, optionally ignore compartments
 def is_element(candidate, ignore_compartments):
     el=False
@@ -237,22 +248,33 @@ parser.add_argument('layers', nargs='?', type=positive_integer, default=1,
 parser.add_argument('-V', '--version', action='version', version=f'sbmodelr {__version__}')
 parser.add_argument('-q', '--quiet', action='store_true', help='supress information messages')
 parser.add_argument('-o', '--output', help='output filename', metavar='filename')
+parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections', metavar='netfile')
+# types of connection
 parser.add_argument('-t', '--transport', action='append', help='species to be transported between units (mass action)', metavar='species')
 parser.add_argument('-m', '--mm-transport', action='append', help='species to be transported between units (Michalis-Menten kinetics)', metavar='species')
+parser.add_argument('-g', '--grn', action='append', help='species to be connected between units by regulation of synthesis (eg gene regulatory network)', metavar='species')
 parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms', metavar='ode')
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
-parser.add_argument('-n', '--network', help='graphviz network file mapping unit connections', metavar='netfile')
+# options for transport and diffusive coupling
 parser.add_argument('-k', '--transport-k', dest='transport_rate', type=positive_float, help='value of rate constant for transport between units', default='1.0', metavar='value')
+parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=float, default=1.0, help='value for strength of ODE coupling between units', metavar='value')
+# options for Michaelis-Menten transport
 parser.add_argument('--transport-Km', dest='transport_Km', type=positive_float, help='value of Km for transport between units', default='1.0', metavar='value')
 parser.add_argument('--transport-Vmax', dest='transport_Vmax', type=positive_float, help='value of Vmax for transport between units', default='1.0', metavar='value')
-parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=float, default=1.0, help='value for strength of ODE coupling between units', metavar='value')
+# options for regulatory synthesis interactions
+parser.add_argument('--grn-V', type=positive_float, help='value of basal rate for connection by regulation of synthesis', default=1.0, metavar='value')
+parser.add_argument('--grn-a', type=float, help='value of activation/inhibition strength for connection by regulation of synthesis', default=1.0, metavar='value')
+parser.add_argument('--grn-h', type=integer_range, metavar='INT[1:10]', help='value of Hill coefficient for connection by regulation of synthesis', default=2)
+# options for synaptic coupling
 parser.add_argument('--synapse-g', type=positive_float, help='value of g for synaptic connections between units', default=1.0, metavar='value')
 parser.add_argument('--synapse-V0', type=positive_float, help='value of V0 for synaptic connections between units', default=-20.0, metavar='value')
 parser.add_argument('--synapse-Vsyn', type=positive_float, help='value of Vsyn for synaptic connections between units', default=20.0, metavar='value')
 parser.add_argument('--synapse-tau-r', type=positive_float, help='value of tau_r for synaptic connections between units', default=0.5, metavar='value')
 parser.add_argument('--synapse-tau-d', type=positive_float, help='value of tau_d for synaptic connections between units', default=10,  metavar='value')
+# options for noise
 parser.add_argument('--pn', dest='noisy', help='add noise to parameter with level magnitude, dist: {uni,norm}', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
 parser.add_argument('--cn', dest='cnoise', help='add noise to all coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
+# other options
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with all transported species')
 parser.add_argument('--ignore-compartments', action='store_true', help='do not replicate compartments')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
