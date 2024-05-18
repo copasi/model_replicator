@@ -174,13 +174,10 @@ def read_network(network_file):
                 print(f' Warning: {network_file} contains invalid node {match[1]}, no connections added')
                 return []
             e2 = int(se.group(1))
-            if( e1 == e2 ):
-                print(f' Warning: self-connections not allowed, ignoring {e1} -> {e2}')
+            if( (e1,e2) not in ll):
+                ll.append((e1,e2))
             else:
-                if( (e1,e2) not in ll):
-                    ll.append((e1,e2))
-                else:
-                    print(f' Warning: duplicate entry for connection {e1} to {e2}, ignored')
+                print(f' Warning: duplicate entry for connection {e1} to {e2}, ignored')
     # find connections to groups
     gmatches = re.findall( r'"*(\d+)"*(?:\:\w+)*\s*-[-|>]\s*(\{[\d\s;,"]+\})', netf)
     if( gmatches ):
@@ -939,6 +936,10 @@ if( transported ):
                         rname = f't_{sp}_{suffa}-{suffb}'
                         # check whether reversible or irreversible
                         if digraph:
+                            # check if we have a self-connection and ignore if type a or m
+                            if( (suffa == suffb) and ( ttype == 'a' or ttype == 'm' ) ):
+                                print(f' Warning: transport on the same unit not allowed, ignoring {suffa} -> {suffb}')
+                                continue
                             rscheme = f'{sp}_{suffa} -> {sp}_{suffb}'
                             if( ttype == 'a' ):
                                 thisrateconst = rateconst
@@ -961,6 +962,9 @@ if( transported ):
                                 rmap = {'V': thisvmaxconst, 'Km': kmconst, 'substrate': f'{sp}_{suffa}'}
                                 add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function='Henri-Michaelis-Menten (irreversible)' )
                         else:
+                            # check if we have a self-connection and ignore if type a or m
+                            if( (suffa == suffb) and ( ttype == 'a' or ttype == 'm' ) ):
+                                print(f' Warning: transport on the same unit not allowed, ignoring {suffa} -- {suffb}')
                             rscheme = f'{sp}_{suffa} = {sp}_{suffb}'
                             if( ttype == 'a' ):
                                 thisrateconst = rateconst
@@ -1231,6 +1235,10 @@ if( odelink ):
                         set_parameters(oname, exact=True, type='ode', expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
+                        # check if we have a self-connection and ignore it
+                        if( link[0] == link[1]):
+                            print(f' Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
+                            continue
                         suffa = f'{link[0]}'
                         oaname = f'{ode}_{suffa}'
                         suffb = f'{link[1]}'
@@ -1477,6 +1485,9 @@ if( odelink ):
                         set_species(oname, exact=True, expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
+                        if( link[0] == link[1]):
+                            print(f' Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
+                            continue
                         suffa = f'{link[0]}'
                         oaname = f'{ode}_{suffa}'
                         suffb = f'{link[1]}'
@@ -1701,6 +1712,9 @@ if( odelink ):
                     # let's just work on the network
                     if( args.network ):
                         for link in links:
+                            if( link[0] == link[1]):
+                                print(f' Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
+                                continue
                             suffa = f'{link[0]}'
                             oaname = f'{ode}_{suffa}'
                             suffb = f'{link[1]}'
