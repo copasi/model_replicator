@@ -406,6 +406,9 @@ else:
                 desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
                 apdx1 = '_1,1'
 
+# in a grn this has the nodes that are regulated and their in-degree
+regulated = dict()
+
 # parse the network file if needed
 if( args.network ):
     # check dimension
@@ -420,14 +423,28 @@ if( args.network ):
             digraph = True
             del links[0]
         for link in links:
-            #if( digraph ):
-            #    print(f'{link[0]} -> {link[1]}')
-            #else:
-            #    print(f'{link[0]} -- {link[1]}')
-            # sanity check
             if( (link[0] < 1) or (link[1] < 1) or (link[0] > nmodels) or (link[1] > nmodels) ):
                 print(f'ERROR: network file lists nodes with numbers outside [1,{nmodels}]')
-                exit()
+                exit(1)
+    # if we have a grn, we need to process edges and nodes a bit more
+    if( args.grn ):
+        # if it is not a digraph we should stop right here!
+        if not digraph:
+            print(f'ERROR: regulatory connections require a directed graph')
+            exit(2)
+        # dictionary of nodes and their in-degree (doesn't include nodes without inward edges)
+        for link in links:
+            # add one more value to the receiving node
+            regulated[link[1]] = regulated.get(link[1], 0) + 1
+        print( regulated )
+        # dictionary of in-degrees and nodes with that in-degree (useful for creating rate laws)
+        indegrees = {}
+        for k, v in regulated.items():
+            indegrees[v] = indegrees.get(v, []) + [k]
+        # indegrees is the inverse of regulated...
+        print( indegrees )
+        #print( links )
+
 
 #####
 #  2. read the original model
@@ -1862,6 +1879,24 @@ if( odelink ):
             print(f'ERROR: {ode} is not an ODE in the model valid model entity')
             exit()
 
+# regulated synthesis (GRNs)
+if( args.grn ):
+    # if we are not ignoring compartments issue warning suggesting we should
+    if not args.ignore_compartments:
+        print(f' Warning: option --ignore-compartments is often desirable to building regulatory networks')
+    if (dim != 1) or (not args.network ):
+        # error
+        print( f'ERROR: regulatory synthesis reactions can only be created with dimension 1 and through a network (use option -n)' )
+        exit()
+
+    for sp in args.grn:
+        # check that the species exists
+        if( (seednspecs>0) and (sp in mspecs.index) ):
+            print( f'will process species {sp} into a GRN')
+        else:
+            # error
+            print( f'ERROR: Species {sp} does not exist in the model, no regulatory synthesis reactions added' )
+            exit()
 
 #####
 # 13. set task parameters
