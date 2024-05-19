@@ -94,6 +94,18 @@ def addnoise( rate, level, dist):
         exit()
     return rate * s
 
+# function to create a rate law for a regulatory synthesis with k inputs
+def add_regulatory_ratelaw(k):
+    # initialize with V
+    exp = 'V'
+    rimap = {'V': 'parameter' }
+    for i in range(1, k+1):
+        exp = exp + f' * ( ( 1 + ( 1 + a{i} ) * M{i} ^ h{i} ) / ( 1 + M{i} ^ h{i} ) )'
+        rimap[f'M{i}'] = 'modifier'
+        rimap[f'a{i}'] = 'parameter'
+        rimap[f'h{i}'] = 'parameter'
+    add_function(name=f'regulated_by_{k}', infix=exp, type='general', mapping=rimap, model=newmodel)
+
 # function to change expression, fixing all references to element names with the appropriate suffix, with option to ignore compartments
 def fix_expression(exp, suff, ignore_compartments):
     expression = str(exp)
@@ -406,9 +418,6 @@ else:
                 desc = f"a 2D set of {nmodels} replicas ({gridr}x{gridc})"
                 apdx1 = '_1,1'
 
-# in a grn this has the nodes that are regulated and their in-degree
-regulated = dict()
-
 # parse the network file if needed
 if( args.network ):
     # check dimension
@@ -433,12 +442,17 @@ if( args.network ):
             print(f'ERROR: regulatory connections require a directed graph')
             exit(2)
         # dictionary of nodes and their in-degree (doesn't include nodes without inward edges)
+        regulated = dict()
+        # dictionary of nodes and their regulators
+        reglinks = dict()
         for link in links:
             # add one more value to the receiving node
             regulated[link[1]] = regulated.get(link[1], 0) + 1
+            reglinks[link[1]] = reglinks.get(link[1], []) + [link[0]]
         print( regulated )
+        print(reglinks)
         # dictionary of in-degrees and nodes with that in-degree (useful for creating rate laws)
-        indegrees = {}
+        indegrees = dict()
         for k, v in regulated.items():
             indegrees[v] = indegrees.get(v, []) + [k]
         # indegrees is the inverse of regulated...
@@ -1882,17 +1896,53 @@ if( odelink ):
 # regulated synthesis (GRNs)
 if( args.grn ):
     # if we are not ignoring compartments issue warning suggesting we should
-    if not args.ignore_compartments:
-        print(f' Warning: option --ignore-compartments is often desirable to building regulatory networks')
     if (dim != 1) or (not args.network ):
         # error
         print( f'ERROR: regulatory synthesis reactions can only be created with dimension 1 and through a network (use option -n)' )
         exit()
-
+    if not args.ignore_compartments:
+        print(f' Warning: option --ignore-compartments is often desirable to building regulatory networks')
+    # create all rate-laws for regulatory synthesis
+    for k in indegrees:
+        # add a rate law with this number of in-degrees
+        add_regulatory_ratelaw(k)
+    # iterate over all species with regulatory synthesis
     for sp in args.grn:
         # check that the species exists
         if( (seednspecs>0) and (sp in mspecs.index) ):
-            print( f'will process species {sp} into a GRN')
+            # create global quantities for parameters
+            GRN_V_const = f'V_synthesis_{sp}'
+            GRN_a_const = f'a_synthesis_{sp}'
+            GRN_h_const = f'h_synthesis_{sp}'
+            if( not args.cnoise ):
+                add_parameter(name=GRN_V_const, initial_value=float(args.grn_V), model=newmodel)
+                add_parameter(name=GRN_a_const, initial_value=float(args.grn_a), model=newmodel)
+                add_parameter(name=GRN_h_const, initial_value=float(args.grn_h), model=newmodel)
+            # create all regulatory synthesis reactions
+            for target in reglinks:
+                rname = f'synthesis {sp}_{target}'
+                rscheme = f'  -> {sp}_{target};'
+                nregs = regulated[target]
+                rmap = {'V': f'V_synthesis_{sp}'}
+                i=0
+                for source in reglinks[target]:
+                    i = i+1
+                    rscheme = rscheme + f' {sp}_{source}'
+                    rmap[f'M{i}'] = f'{sp}_{source}'
+                    rmap[f'h{i}'] = f'h_synthesis_{sp}'
+                    rmap[f'a{i}'] = f'a_synthesis_{sp}'
+                    # add reaction from source  to link[1] with rate law regulated_by{regulated[link1]}
+                #thisv = vmaxconst
+                #if( args.cnoise ):
+                    # if we add noise to couplings, then we need 1 vmax per reaction
+                    #(level, dist) = args.cnoise
+                    #thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
+                    #v = addnoise(tVmax,float(level),dist)
+                    #add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
+                    #rmap = {'V': thisvmaxconst, 'Km': kmconst, 'substrate': f'{sp}_{suffa}'}
+                print(f'{rname}: {rscheme}\n{rmap}')
+                add_reaction(model=newmodel, name=rname, scheme=rscheme, function=f'regulated_by_{nregs}' )
+
         else:
             # error
             print( f'ERROR: Species {sp} does not exist in the model, no regulatory synthesis reactions added' )
