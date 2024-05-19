@@ -315,6 +315,11 @@ v0init = args.synapse_V0
 vsyninit = args.synapse_Vsyn
 gcinit = args.synapse_g
 
+# values for GRN synthetic regulation
+grnV = args.grn_V
+grna = args.grn_a
+grnh = args.grn_h
+
 # check if level for --cn is a float
 if( args.cnoise ):
     (level, dist) = args.cnoise
@@ -449,15 +454,11 @@ if( args.network ):
             # add one more value to the receiving node
             regulated[link[1]] = regulated.get(link[1], 0) + 1
             reglinks[link[1]] = reglinks.get(link[1], []) + [link[0]]
-        print( regulated )
-        print(reglinks)
         # dictionary of in-degrees and nodes with that in-degree (useful for creating rate laws)
         indegrees = dict()
         for k, v in regulated.items():
             indegrees[v] = indegrees.get(v, []) + [k]
         # indegrees is the inverse of regulated...
-        print( indegrees )
-        #print( links )
 
 
 #####
@@ -1901,7 +1902,7 @@ if( args.grn ):
         print( f'ERROR: regulatory synthesis reactions can only be created with dimension 1 and through a network (use option -n)' )
         exit()
     if not args.ignore_compartments:
-        print(f' Warning: option --ignore-compartments is often desirable to building regulatory networks')
+        print(f' Warning: option --ignore-compartments is often desirable for building regulatory networks')
     # create all rate-laws for regulatory synthesis
     for k in indegrees:
         # add a rate law with this number of in-degrees
@@ -1911,38 +1912,57 @@ if( args.grn ):
         # check that the species exists
         if( (seednspecs>0) and (sp in mspecs.index) ):
             # create global quantities for parameters
-            GRN_V_const = f'V_synthesis_{sp}'
-            GRN_a_const = f'a_synthesis_{sp}'
-            GRN_h_const = f'h_synthesis_{sp}'
+            GRN_V_const = f'V_synth_{sp}'
+            GRN_a_const = f'a_synth_{sp}'
+            GRN_h_const = f'h_synth_{sp}'
             if( not args.cnoise ):
-                add_parameter(name=GRN_V_const, initial_value=float(args.grn_V), model=newmodel)
-                add_parameter(name=GRN_a_const, initial_value=float(args.grn_a), model=newmodel)
-                add_parameter(name=GRN_h_const, initial_value=float(args.grn_h), model=newmodel)
+                add_parameter(name=GRN_V_const, initial_value=grnV, model=newmodel)
+                add_parameter(name=GRN_a_const, initial_value=grna, model=newmodel)
+                add_parameter(name=GRN_h_const, initial_value=grnh, model=newmodel)
             # create all regulatory synthesis reactions
             for target in reglinks:
                 rname = f'synthesis {sp}_{target}'
                 rscheme = f'  -> {sp}_{target};'
                 nregs = regulated[target]
-                rmap = {'V': f'V_synthesis_{sp}'}
+                thisV = GRN_V_const
+                thisa = GRN_a_const
+                thish = GRN_h_const
+                if( args.cnoise ):
+                    # if we add noise to regulations, then we need 1 V per target
+                    (level, dist) = args.cnoise
+                    thisV = f'V_synth_{sp}_{target}'
+                    val = addnoise(grnV,float(level),dist)
+                    add_parameter(name=thisV, initial_value=val, model=newmodel)
+                rmap = {'V': thisV}
                 i=0
                 for source in reglinks[target]:
                     i = i+1
                     rscheme = rscheme + f' {sp}_{source}'
                     rmap[f'M{i}'] = f'{sp}_{source}'
-                    rmap[f'h{i}'] = f'h_synthesis_{sp}'
-                    rmap[f'a{i}'] = f'a_synthesis_{sp}'
+                    if( args.cnoise ):
+                        # if we add noise to regulations, then we need 1 a and h per source
+                        (level, dist) = args.cnoise
+                        thisa = f'a_synth_{sp}_{source}-{target}'
+                        val = addnoise(grna,float(level),dist)
+                        # enforce boundaries: a should be in [-1,1]
+                        if val < -1:
+                            val = -1
+                        if val > 1:
+                            val = 1
+                        add_parameter(name=thisa, initial_value=val, model=newmodel)
+                        thish = f'h_synth_{sp}_{source}-{target}'
+                        val = addnoise(grnh,float(level),dist)
+                        val = float(int(val))
+                        # enforce boundaries: h should be in [1,10]
+                        if val < 1:
+                            val = 1
+                        if val > 10:
+                            val = 10
+                        add_parameter(name=thish, initial_value=val, model=newmodel)
+                    rmap[f'h{i}'] = thish
+                    rmap[f'a{i}'] = thisa
                     # add reaction from source  to link[1] with rate law regulated_by{regulated[link1]}
-                #thisv = vmaxconst
-                #if( args.cnoise ):
-                    # if we add noise to couplings, then we need 1 vmax per reaction
-                    #(level, dist) = args.cnoise
-                    #thisvmaxconst = vmaxconst = f'Vmax_{sp}_transport_{suffa}-{suffb}'
-                    #v = addnoise(tVmax,float(level),dist)
-                    #add_parameter(name=thisvmaxconst, initial_value=v, model=newmodel)
-                    #rmap = {'V': thisvmaxconst, 'Km': kmconst, 'substrate': f'{sp}_{suffa}'}
-                print(f'{rname}: {rscheme}\n{rmap}')
-                add_reaction(model=newmodel, name=rname, scheme=rscheme, function=f'regulated_by_{nregs}' )
-
+                add_reaction(model=newmodel, name=rname, scheme=rscheme, mapping=rmap, function=f'regulated_by_{nregs}' )
         else:
             # error
             print( f'ERROR: Species {sp} does not exist in the model, no regulatory synthesis reactions added' )
