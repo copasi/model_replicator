@@ -1,0 +1,460 @@
+digraph "CoopSW8_001" {
+	graph
+	[
+		center="true"
+		overlap="false"
+		Damping=0.999
+		fontname="Helvetica"
+		maxiter=1000000
+		splines="true"
+		sep=0.8
+		epsilon=0.0000001
+		label="CoopSW8_001"
+		ratio="auto"
+	]
+
+	node
+	[
+		fontsize=9
+		fontname="Helvetica-bold"
+		shape="circle"
+		style="bold"
+	]
+
+	edge
+	[
+		fontsize=9
+		fontname="Helvetica"
+		color="blue"
+		arrowhead="normal"
+		len=2.5
+	]
+
+	2 -> 1
+		[arrowhead="tee"
+		color="red"]
+	100 -> 1
+		[arrowhead="tee"
+		color="red"]
+	3 -> 2
+		[arrowhead="tee"
+		color="red"]
+	1 -> 2
+		[arrowhead="tee"
+		color="red"]
+	4 -> 3
+	2 -> 3
+	5 -> 4
+	3 -> 4
+		[arrowhead="tee"
+		color="red"]
+	6 -> 5
+		[arrowhead="tee"
+		color="red"]
+	83 -> 5
+		[arrowhead="tee"
+		color="red"]
+	7 -> 6
+	5 -> 6
+	6 -> 7
+	8 -> 7
+		[arrowhead="tee"
+		color="red"]
+	9 -> 8
+	7 -> 8
+		[arrowhead="tee"
+		color="red"]
+	10 -> 9
+	8 -> 9
+		[arrowhead="tee"
+		color="red"]
+	11 -> 10
+	9 -> 10
+		[arrowhead="tee"
+		color="red"]
+	12 -> 11
+	10 -> 11
+		[arrowhead="tee"
+		color="red"]
+	13 -> 12
+	87 -> 12
+		[arrowhead="tee"
+		color="red"]
+	12 -> 13
+	14 -> 13
+		[arrowhead="tee"
+		color="red"]
+	15 -> 14
+	13 -> 14
+	16 -> 15
+		[arrowhead="tee"
+		color="red"]
+	14 -> 15
+		[arrowhead="tee"
+		color="red"]
+	17 -> 16
+	15 -> 16
+	18 -> 17
+		[arrowhead="tee"
+		color="red"]
+	97 -> 17
+		[arrowhead="tee"
+		color="red"]
+	19 -> 18
+	99 -> 18
+		[arrowhead="tee"
+		color="red"]
+	18 -> 19
+	20 -> 19
+		[arrowhead="tee"
+		color="red"]
+	21 -> 20
+		[arrowhead="tee"
+		color="red"]
+	19 -> 20
+		[arrowhead="tee"
+		color="red"]
+	20 -> 21
+		[arrowhead="tee"
+		color="red"]
+	52 -> 21
+		[arrowhead="tee"
+		color="red"]
+	21 -> 22
+	23 -> 22
+		[arrowhead="tee"
+		color="red"]
+	22 -> 23
+	24 -> 23
+		[arrowhead="tee"
+		color="red"]
+	23 -> 24
+	61 -> 24
+		[arrowhead="tee"
+		color="red"]
+	26 -> 25
+		[arrowhead="tee"
+		color="red"]
+	78 -> 25
+		[arrowhead="tee"
+		color="red"]
+	27 -> 26
+		[arrowhead="tee"
+		color="red"]
+	25 -> 26
+		[arrowhead="tee"
+		color="red"]
+	28 -> 27
+	26 -> 27
+		[arrowhead="tee"
+		color="red"]
+	29 -> 28
+		[arrowhead="tee"
+		color="red"]
+	27 -> 28
+		[arrowhead="tee"
+		color="red"]
+	30 -> 29
+	28 -> 29
+		[arrowhead="tee"
+		color="red"]
+	31 -> 30
+		[arrowhead="tee"
+		color="red"]
+	29 -> 30
+		[arrowhead="tee"
+		color="red"]
+	32 -> 31
+	30 -> 31
+		[arrowhead="tee"
+		color="red"]
+	33 -> 32
+		[arrowhead="tee"
+		color="red"]
+	31 -> 32
+		[arrowhead="tee"
+		color="red"]
+	34 -> 33
+	32 -> 33
+		[arrowhead="tee"
+		color="red"]
+	35 -> 34
+	33 -> 34
+	36 -> 35
+	34 -> 35
+		[arrowhead="tee"
+		color="red"]
+	37 -> 36
+	72 -> 36
+		[arrowhead="tee"
+		color="red"]
+	38 -> 37
+	36 -> 37
+	39 -> 38
+	37 -> 38
+	40 -> 39
+		[arrowhead="tee"
+		color="red"]
+	38 -> 39
+		[arrowhead="tee"
+		color="red"]
+	41 -> 40
+		[arrowhead="tee"
+		color="red"]
+	96 -> 40
+		[arrowhead="tee"
+		color="red"]
+	42 -> 41
+	40 -> 41
+	43 -> 42
+		[arrowhead="tee"
+		color="red"]
+	41 -> 42
+		[arrowhead="tee"
+		color="red"]
+	44 -> 43
+		[arrowhead="tee"
+		color="red"]
+	60 -> 43
+		[arrowhead="tee"
+		color="red"]
+	43 -> 44
+	33 -> 44
+		[arrowhead="tee"
+		color="red"]
+	46 -> 45
+	44 -> 45
+	47 -> 46
+	45 -> 46
+	96 -> 47
+		[arrowhead="tee"
+		color="red"]
+	22 -> 47
+		[arrowhead="tee"
+		color="red"]
+	49 -> 48
+		[arrowhead="tee"
+		color="red"]
+	47 -> 48
+		[arrowhead="tee"
+		color="red"]
+	50 -> 49
+		[arrowhead="tee"
+		color="red"]
+	48 -> 49
+		[arrowhead="tee"
+		color="red"]
+	51 -> 50
+	49 -> 50
+		[arrowhead="tee"
+		color="red"]
+	52 -> 51
+	50 -> 51
+		[arrowhead="tee"
+		color="red"]
+	51 -> 52
+	53 -> 52
+		[arrowhead="tee"
+		color="red"]
+	54 -> 53
+	52 -> 53
+		[arrowhead="tee"
+		color="red"]
+	53 -> 54
+	55 -> 54
+		[arrowhead="tee"
+		color="red"]
+	54 -> 55
+	21 -> 55
+		[arrowhead="tee"
+		color="red"]
+	57 -> 56
+		[arrowhead="tee"
+		color="red"]
+	55 -> 56
+		[arrowhead="tee"
+		color="red"]
+	56 -> 57
+	58 -> 57
+		[arrowhead="tee"
+		color="red"]
+	57 -> 58
+	52 -> 58
+		[arrowhead="tee"
+		color="red"]
+	60 -> 59
+	58 -> 59
+	61 -> 60
+	59 -> 60
+		[arrowhead="tee"
+		color="red"]
+	60 -> 61
+	62 -> 61
+		[arrowhead="tee"
+		color="red"]
+	61 -> 62
+	63 -> 62
+		[arrowhead="tee"
+		color="red"]
+	64 -> 63
+	62 -> 63
+	65 -> 64
+	63 -> 64
+	66 -> 65
+	64 -> 65
+	67 -> 66
+	65 -> 66
+		[arrowhead="tee"
+		color="red"]
+	68 -> 67
+	66 -> 67
+	69 -> 68
+		[arrowhead="tee"
+		color="red"]
+	67 -> 68
+		[arrowhead="tee"
+		color="red"]
+	68 -> 69
+	70 -> 69
+		[arrowhead="tee"
+		color="red"]
+	71 -> 70
+	69 -> 70
+	70 -> 71
+	8 -> 71
+		[arrowhead="tee"
+		color="red"]
+	73 -> 72
+	71 -> 72
+		[arrowhead="tee"
+		color="red"]
+	72 -> 73
+		[arrowhead="tee"
+		color="red"]
+	82 -> 73
+		[arrowhead="tee"
+		color="red"]
+	75 -> 74
+		[arrowhead="tee"
+		color="red"]
+	73 -> 74
+		[arrowhead="tee"
+		color="red"]
+	74 -> 75
+	48 -> 75
+		[arrowhead="tee"
+		color="red"]
+	77 -> 76
+		[arrowhead="tee"
+		color="red"]
+	75 -> 76
+		[arrowhead="tee"
+		color="red"]
+	78 -> 77
+	76 -> 77
+		[arrowhead="tee"
+		color="red"]
+	77 -> 78
+	79 -> 78
+		[arrowhead="tee"
+		color="red"]
+	78 -> 79
+	80 -> 79
+		[arrowhead="tee"
+		color="red"]
+	79 -> 80
+	81 -> 80
+		[arrowhead="tee"
+		color="red"]
+	82 -> 81
+	80 -> 81
+		[arrowhead="tee"
+		color="red"]
+	83 -> 82
+	81 -> 82
+		[arrowhead="tee"
+		color="red"]
+	84 -> 83
+		[arrowhead="tee"
+		color="red"]
+	82 -> 83
+		[arrowhead="tee"
+		color="red"]
+	83 -> 84
+	85 -> 84
+		[arrowhead="tee"
+		color="red"]
+	86 -> 85
+		[arrowhead="tee"
+		color="red"]
+	84 -> 85
+		[arrowhead="tee"
+		color="red"]
+	87 -> 86
+	85 -> 86
+		[arrowhead="tee"
+		color="red"]
+	88 -> 87
+		[arrowhead="tee"
+		color="red"]
+	86 -> 87
+		[arrowhead="tee"
+		color="red"]
+	89 -> 88
+	87 -> 88
+	90 -> 89
+		[arrowhead="tee"
+		color="red"]
+	88 -> 89
+		[arrowhead="tee"
+		color="red"]
+	91 -> 90
+	89 -> 90
+	92 -> 91
+	61 -> 91
+		[arrowhead="tee"
+		color="red"]
+	91 -> 92
+		[arrowhead="tee"
+		color="red"]
+	25 -> 92
+		[arrowhead="tee"
+		color="red"]
+	94 -> 93
+	72 -> 93
+		[arrowhead="tee"
+		color="red"]
+	95 -> 94
+	71 -> 94
+		[arrowhead="tee"
+		color="red"]
+	96 -> 95
+	33 -> 95
+		[arrowhead="tee"
+		color="red"]
+	97 -> 96
+		[arrowhead="tee"
+		color="red"]
+	95 -> 96
+		[arrowhead="tee"
+		color="red"]
+	98 -> 97
+	96 -> 97
+		[arrowhead="tee"
+		color="red"]
+	99 -> 98
+	97 -> 98
+	100 -> 99
+		[arrowhead="tee"
+		color="red"]
+	98 -> 99
+		[arrowhead="tee"
+		color="red"]
+	1 -> 100
+		[arrowhead="tee"
+		color="red"]
+	99 -> 100
+		[arrowhead="tee"
+		color="red"]
+
+}
