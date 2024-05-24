@@ -1,0 +1,8 @@
+Processing ../sources/blob.cps
+  Reactions:         0
+  Species:           0	(Reactions: 0, Fixed: 0, Assignment: 0, ODE: 0)
+  Compartments:      1	(Fixed: 0, Assignment: 0, ODE: 1)
+  Global quantities: 0	(Fixed: 0, Assignment: 0, ODE: 0)
+  Events:            0	(Only time-dependent: 0, variable-dependent: 0)
+created new model blob_3x3x3.cps with a 3D set of 27 replicas (3x3x3) of ../sources/blob.cps
+
