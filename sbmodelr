@@ -1931,7 +1931,10 @@ if( args.grn ):
                     # if we add noise to regulations, then we need 1 V per target
                     (level, dist) = args.cnoise
                     thisV = f'V_synth_{sp}_{target}'
-                    val = addnoise(grnV,float(level),dist)
+                    val = -1
+                    # make sure that val is positive (for V parameter)
+                    while val < 0:
+                        val = addnoise(grnV,float(level),dist)
                     add_parameter(name=thisV, initial_value=val, model=newmodel)
                 rmap = {'V': thisV}
                 i=0
