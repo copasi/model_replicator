@@ -8,8 +8,8 @@ a gene regulatory network of 100 genes connected according to a small-world topo
 - cps file reads well
 - network file reads well
 - named output file
+- checks the regulated_by_2 rate law was created
 
-- checks the regulated_by_1 rate law was created
 - checks that there are exactly 3 species
 - checks that noise worked
 - checks no compartments created
