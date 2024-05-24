@@ -5,5 +5,6 @@ Processing ../sources/GeneExpressionUnit.cps
   Global quantities: 0	(Fixed: 0, Assignment: 0, ODE: 0)
   Events:            0	(Only time-dependent: 0, variable-dependent: 0)
   Network:           directed	(Nodes: 100, Edges: 200)
+
 created new model CoopSW8_001.cps with a set of 100 replicas of ../sources/GeneExpressionUnit.cps
 

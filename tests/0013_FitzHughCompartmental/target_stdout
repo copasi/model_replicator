@@ -5,6 +5,7 @@ Processing ../sources/FitzHugh-Nagumo.cps
   Global quantities: 6	(Fixed: 4, Assignment: 0, ODE: 2)
   Events:            1	(Only time-dependent: 1, variable-dependent: 0)
   Network:           undirected	(Nodes: 3, Edges: 2)
+
  Warning: a scan of parameter sets exists in the original model but was not included in the new model.
 created new model FitzHugh-Nagumo_3.cps with a set of 3 replicas of ../sources/FitzHugh-Nagumo.cps
 
