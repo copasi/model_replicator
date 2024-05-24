@@ -532,12 +532,12 @@ if( mevents is None):
 else:
     seednevents = mevents.shape[0]
 
-# print summary of model elements
+# create string for summary of base model
 if( not args.quiet ):
-    print(f"  Reactions:         {seednreacts}")
-    print(f"  Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})")
-    print(f"  Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})")
-    print(f"  Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})")
+    base_model_summary = f"  Reactions:         {seednreacts}\n"
+    base_model_summary = base_model_summary + f"  Species:           {seednspecs}\t(Reactions: {sreact}, Fixed: {sfixed}, Assignment: {sassg}, ODE: {sode})\n"
+    base_model_summary = base_model_summary + f"  Compartments:      {seedncomps}\t(Fixed: {cfixed}, Assignment: {cassg}, ODE: {code})\n"
+    base_model_summary = base_model_summary + f"  Global quantities: {seednparams}\t(Fixed: {pfixed}, Assignment: {passg}, ODE: {pode})\n"
     # we print the events later to be able to discriminate how many are only time dependent
 
 # read scan items
@@ -834,14 +834,16 @@ entd = seednevents - etd
 # now we can print out the rest of the model information
 if( not args.quiet ):
     #how many events there are...
-    print(f"  Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})")
+    base_model_summary = base_model_summary + f"  Events:            {seednevents}\t(Only time-dependent: {etd}, variable-dependent: {entd})\n"
     # and also information on network if one is used
     if( args.network ):
         if digraph:
             netype = 'directed'
         else:
             netype = 'undirected'
-        print(f"  Network:           {netype}\t(Nodes: {nmodels}, Edges: {len(links)})")
+        base_model_summary = base_model_summary + f"  Network:           {netype}\t(Nodes: {nmodels}, Edges: {len(links)})\n"
+    # let's print it
+    print( base_model_summary )
 
 # let's go over the events again to process those that are only time dependent
 if( etd > 0 ):
