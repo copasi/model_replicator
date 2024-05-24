@@ -1,0 +1,10 @@
+Processing ../sources/IzhikevichBurstingNeuron.cps
+  Reactions:         0
+  Species:           0	(Reactions: 0, Fixed: 0, Assignment: 0, ODE: 0)
+  Compartments:      1	(Fixed: 1, Assignment: 0, ODE: 0)
+  Global quantities: 8	(Fixed: 6, Assignment: 0, ODE: 2)
+  Events:            2	(Only time-dependent: 1, variable-dependent: 1)
+  Network:           directed	(Nodes: 3, Edges: 2)
+
+created new model Izhi_1-2-3.cps with a set of 3 replicas of ../sources/IzhikevichBurstingNeuron.cps
+
