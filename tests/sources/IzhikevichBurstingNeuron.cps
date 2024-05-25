@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.44 (Build 289) (http://www.copasi.org) at 2024-05-24T18:45:21Z -->
+<!-- generated with COPASI 4.42 (Build 284) (http://www.copasi.org) at 2024-05-25T01:49:12Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
-<COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="44" versionDevel="289" copasiSourcesModified="0">
+<COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="42" versionDevel="284" copasiSourcesModified="0">
   <Model key="Model_0" name="Izhikevich2003_SpikingNeuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
     <MiriamAnnotation>
 <rdf:RDF
@@ -31,6 +31,22 @@
       </rdf:Description>
     </dcterms:created>
     <dcterms:creator>
+      <rdf:Description>
+        <vCard:EMAIL>pmendes@uchc.edu</vCard:EMAIL>
+        <vCard:N>
+          <rdf:Description>
+            <vCard:Family>Mendes</vCard:Family>
+            <vCard:Given>Pedro</vCard:Given>
+          </rdf:Description>
+        </vCard:N>
+        <vCard:ORG>
+          <rdf:Description>
+            <vCard:Orgname>University of Connecticut School of Medicine</vCard:Orgname>
+          </rdf:Description>
+        </vCard:ORG>
+      </rdf:Description>
+    </dcterms:creator>
+    <dcterms:creator>
       <rdf:Bag>
         <rdf:li>
           <rdf:Description>
@@ -50,6 +66,11 @@
         </rdf:li>
       </rdf:Bag>
     </dcterms:creator>
+    <dcterms:modified>
+      <rdf:Description>
+        <dcterms:W3CDTF>2024-05-24T21:47:47</dcterms:W3CDTF>
+      </rdf:Description>
+    </dcterms:modified>
     <dcterms:modified>
       <rdf:Description>
         <dcterms:W3CDTF>2014-02-14T11:28:54Z</dcterms:W3CDTF>
@@ -77,70 +98,113 @@
 
     </MiriamAnnotation>
     <Comment>
-      
-  <body xmlns="http://www.w3.org/1999/xhtml">
+      <body xmlns="http://www.w3.org/1999/xhtml">
     <p>The model is according to the paper      <i>Simple Model of Spiking Neurons</i>
           In this paper, a simple spiking model is presented that is as biologically plausible as the Hodgkin-Huxley model, yet as computationally efficient as the integrate-and-fire model. Known types of neurons correspond to different values of the parameters a,b,c,d in the model. Figure2RS,IB,CH,FS,LTS have been simulated by MathSBML.      <p>RS: a=0.02,  b=0.2,  c=-65, d=8.</p>
     <p>IB:  a=0.02,b=0.2,c=-55,d=4</p>
     <p>CH: a=0.02,b=0.2,c=-50,d=2</p>
     <p>FS:a=0.1b=0.2c=-65,d=2</p>
     <p>LTS:a=0.02,b=0.25,c=-65,d=2</p></p>
-    <br/>
-    <p>To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. Please refer to      <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a>
-          for more information.      </p>
-    <p>In summary, you are entitled to use this encoded model in absolutely any manner you deem suitable, verbatim, or with modification, alone or embedded it in a larger context, redistribute it, commercially or not, in a restricted way or not.</p>
-    <br/>
-    <p>To cite BioModels Database, please use      <a href="http://www.pubmedcentral.nih.gov/articlerender.fcgi?tool=pubmed&amp;pubmedid=16381960" target="_blank">Le Novère N., Bornstein B., Broicher A., Courtot M., Donizelli M., Dharuri H., Li L., Sauro H., Schilstra M., Shapiro B., Snoep J.L., Hucka M. (2006) BioModels Database: A Free, Centralized Database of Curated, Published, Quantitative Kinetic Models of Biochemical and Cellular Systems Nucleic Acids Res., 34: D689-D691.</a></p>
-  </body>
 
+  </body>
     </Comment>
     <ListOfCompartments>
       <Compartment key="Compartment_0" name="cell" simulationType="fixed" dimensionality="3" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Compartment_0">
     <CopasiMT:isVersionOf>
       <rdf:Bag>
-        <rdf:li rdf:resource="http://identifiers.org/go/GO:0005623"/>
+        <rdf:li rdf:resource="http://identifiers.org/go/GO:0005623" />
       </rdf:Bag>
     </CopasiMT:isVersionOf>
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
       </Compartment>
     </ListOfCompartments>
     <ListOfModelValues>
       <ModelValue key="ModelValue_0" name="a" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_0">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_1" name="b" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_1">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_2" name="c" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_2">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_3" name="d" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_3">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_4" name="Vthresh" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_4">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_5" name="i" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_5">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_6" name="v" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#ModelValue_6">
-    <CopasiMT:is rdf:resource="urn:miriam:sbo:SBO:0000259"/>
+    <CopasiMT:is rdf:resource="urn:miriam:sbo:SBO:0000259" />
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
         <Expression>
           0.040000000000000001*&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[v],Reference=Value>^2+5*&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[v],Reference=Value>+140-&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[U],Reference=Value>+&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[i],Reference=Value>
         </Expression>
       </ModelValue>
       <ModelValue key="ModelValue_7" name="U" simulationType="ode" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_7">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Expression>
           &lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[a],Reference=Value>*(&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[b],Reference=Value>*&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[v],Reference=Value>-&lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[U],Reference=Value>)
         </Expression>
@@ -148,6 +212,14 @@
     </ListOfModelValues>
     <ListOfEvents>
       <Event key="Event_0" name="event_0000001" fireAtInitialTime="0" persistentTrigger="1">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#Event_0">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <TriggerExpression>
           &lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[v],Reference=Value> gt &lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Vector=Values[Vthresh],Reference=Value>
         </TriggerExpression>
@@ -165,6 +237,14 @@
         </ListOfAssignments>
       </Event>
       <Event key="Event_1" name="Stimulus" fireAtInitialTime="0" persistentTrigger="1">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#Event_1">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <TriggerExpression>
           &lt;CN=Root,Model=Izhikevich2003_SpikingNeuron,Reference=Time> gt 10
         </TriggerExpression>
@@ -245,8 +325,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Target Criterion" type="string" value="Distance and Rate"/>
       </Method>
     </Task>
-    <Task key="Task_12" name="Time-Course" type="timeCourse" scheduled="false" updateModel="false">
-      <Report reference="Report_9" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_12" name="Time-Course" type="timeCourse" scheduled="true" updateModel="false">
+      <Report reference="Report_9" target="I-tc.txt" append="0" confirmOverwrite="0"/>
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="0"/>
         <Parameter name="StepNumber" type="unsignedInteger" value="30000"/>
@@ -272,9 +352,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Subtask" type="unsignedInteger" value="1"/>
         <ParameterGroup name="ScanItems">
         </ParameterGroup>
-        <Parameter name="Subtask Output" type="string" value="subTaskDuring"/>
+        <Parameter name="Output in subtask" type="bool" value="1"/>
         <Parameter name="Adjust initial conditions" type="bool" value="0"/>
         <Parameter name="Continue on Error" type="bool" value="0"/>
+        <Parameter name="Subtask Output" type="string" value="subTaskDuring"/>
       </Problem>
       <Method name="Scan Framework" type="ScanFramework">
       </Method>
@@ -428,10 +509,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="PositiveDirection" type="bool" value="1"/>
         <Parameter name="NumOutCrossingsLimit" type="unsignedInteger" value="0"/>
         <Parameter name="LimitUntilConvergence" type="bool" value="0"/>
-        <Parameter name="ConvergenceTolerance" type="float" value="9.9999999999999995e-07"/>
+        <Parameter name="ConvergenceTolerance" type="float" value="0"/>
         <Parameter name="Threshold" type="float" value="0"/>
         <Parameter name="DelayOutputUntilConvergence" type="bool" value="0"/>
-        <Parameter name="OutputConvergenceTolerance" type="float" value="9.9999999999999995e-07"/>
+        <Parameter name="OutputConvergenceTolerance" type="float" value="0"/>
         <ParameterText name="TriggerExpression" type="expression">
           
         </ParameterText>
