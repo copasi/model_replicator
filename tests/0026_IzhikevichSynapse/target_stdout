@@ -6,5 +6,5 @@ Processing ../sources/IzhikevichBurstingNeuron.cps
   Events:            2	(Only time-dependent: 1, variable-dependent: 1)
   Network:           directed	(Nodes: 3, Edges: 2)
 
-created new model Izhi_1-2-3.cps with a set of 3 replicas of ../sources/IzhikevichBurstingNeuron.cps
+created new model I-1-2-3.cps with a set of 3 replicas of ../sources/IzhikevichBurstingNeuron.cps
 
