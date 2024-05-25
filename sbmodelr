@@ -652,6 +652,9 @@ else:
 if ignc:
     for p in mcomps.index:
         add_compartment(model=newmodel, name=p, status=mcomps.loc[p].at['type'], initial_size=mcomps.loc[p].at['initial_size'], unit=mcomps.loc[p].at['unit'], dimensionality=int(mcomps.loc[p].at['dimensionality']), expression=mcomps.loc[p].at['expression'], initial_expression=mcomps.loc[p].at['initial_expression'] )
+        if( 'notes' in mcomps.loc[p] ):
+            set_compartment(model=newmodel, name=p, notes=mcomps.loc[p].at['notes'])
+
 
 #####
 #  MAIN LOOP FOR REPLICATION
@@ -681,7 +684,9 @@ for r in range(gridr):
                     if( p in noisy_param ):
                         (level,dist) = noisy_param[p]
                         iv = addnoise(mparams.loc[p].at['initial_value'], float(level), dist)
-                    add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=mparams.loc[p].at['unit'] )
+                    add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=mparams.loc[p].at['unit'])
+                    if( 'notes' in mparams.loc[p] ):
+                        set_parameters(model=newmodel, name=nname, notes=mparams.loc[p].at['notes'])
             # COMPARTMENTS
             # if we are ignore_compartments, then we already created the original ones, nothing done here
             if( (seedncomps > 0) and (not ignc) ):
@@ -692,6 +697,8 @@ for r in range(gridr):
                         iv = addnoise(mcomps.loc[p].at['initial_size'], float(level), dist)
                     nname = p + apdx
                     add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=iv, unit=mcomps.loc[p].at['unit'], dimensionality=int(mcomps.loc[p].at['dimensionality']) )
+                    if( 'notes' in mcomps.loc[p] ):
+                        set_compartment(model=newmodel, name=nname, notes=mcomps.loc[p].at['notes'])
             # SPECIES
             if( seednspecs > 0):
                 for p in mspecs.index:
@@ -704,7 +711,9 @@ for r in range(gridr):
                         cp = mspecs.loc[p].at['compartment']
                     else:
                         cp = mspecs.loc[p].at['compartment'] + apdx
-                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=iv, unit=mspecs.loc[p].at['unit'] )
+                    add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=iv, unit=mspecs.loc[p].at['unit'])
+                    if( 'notes' in mspecs.loc[p] ):
+                        set_species(model=newmodel, name=nname, notes=mspecs.loc[p].at['notes'])
 
 #####
 #  7. create reactions
@@ -760,6 +769,8 @@ for r in range(gridr):
                                 mapp[key] = nmk
                                 #mapp[key] = [k2 + apdx for k2 in mapp[key]]
                     add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
+                    if( 'notes' in mreacts.loc[p] ):
+                        set_reaction(model=newmodel, name=nname, notes=mreacts.loc[p].at['notes'])
 
 #####
 #  8. set expressions and initial_expressions
@@ -816,6 +827,8 @@ for r in range(gridr):
                             assg.append((fix_expression(a['target'],apdx, ignc),  fix_expression(a['expression'],apdx, ignc)))
                         # add the event
                         add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx, ignc), priority=fix_expression(mevents.loc[p].at['priority'],apdx, ignc), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
+                        if( 'notes' in mevents.loc[p] ):
+                            set_event(model=newmodel, name=nm, notes=mevents.loc[p].at['notes'])
                     else:
                         # the trigger does not involve any model element other than time
                         # (or compartments when ignore_compartments is on)
@@ -876,7 +889,9 @@ if( etd > 0 ):
                         assg.append((fix_expression(a['target'],apdx, ignc), fix_expression(a['expression'],apdx, ignc)))
                         i = i + 1
         # add the event
-        add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
+        add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'] )
+        if( 'notes' in mevents.loc[p] ):
+            set_event(model=newmodel, name=nm, notes=mevents.loc[p].at['notes'])
 
 #####
 # 11. create medium unit if needed
@@ -888,12 +903,15 @@ if( args.add_medium ):
         if((mcomps is not None) and (medium_name in mcomps.index)):
             medium_name = '_added_medium_'
         # create medium compartment
-        add_compartment(model=newmodel, name=medium_name, status='fixed', initial_size=1, dimiensionality=3 )
+        add_compartment(model=newmodel, name=medium_name, status='fixed', initial_size=1, dimiensionality=3, notes="medium compartment added by sbmodlr" )
         # create the species that are transported
         if( transported ):
             for (sp,ttype) in transported:
                 nname = f'{sp}_medium'
                 add_species(model=newmodel, name=nname, compartment_name=medium_name, status='reactions', initial_concentration=mspecs.loc[sp].at['initial_concentration'], unit=mspecs.loc[sp].at['unit'] )
+                if( 'notes' in mspecs.loc[p] ):
+                    set_species(model=newmodel, name=nname, notes=mspecs.loc[p].at['notes'])
+
         # it would be logic to create odes here too, but it is easier to create them further down
         # because they can be of one of three different types of entity
     else:
