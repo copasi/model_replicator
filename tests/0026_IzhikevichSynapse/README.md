@@ -8,8 +8,8 @@ three replicates of IzhikevichBurstingNeuron.cps connected by chemical synapses 
 - cps file reads well
 - network file reads well
 - output file named correctly
+- checks that there are three ODEs for v
 - check that variable-dependent event is processed correctly
 - check that time dependent event is processed correctly
-- checks that there are three ODEs for v
 - checks that there are two ODEs for br_i_j (the post-synaptic bound receptor)
 - running the model through COPASI produces output
