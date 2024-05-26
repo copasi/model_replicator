@@ -685,8 +685,9 @@ for r in range(gridr):
                         (level,dist) = noisy_param[p]
                         iv = addnoise(mparams.loc[p].at['initial_value'], float(level), dist)
                     add_parameter(model=newmodel, name=nname, status='fixed', initial_value=iv, unit=mparams.loc[p].at['unit'])
-                    if( 'notes' in mparams.loc[p] ):
-                        set_parameters(model=newmodel, name=nname, notes=mparams.loc[p].at['notes'])
+                    nt = get_notes(model=seedmodel, name=f'Values[{p}]')
+                    if( nt is not None ):
+                        set_parameters(model=newmodel, exact=True, name=nname, notes=nt)
             # COMPARTMENTS
             # if we are ignore_compartments, then we already created the original ones, nothing done here
             if( (seedncomps > 0) and (not ignc) ):
@@ -697,8 +698,9 @@ for r in range(gridr):
                         iv = addnoise(mcomps.loc[p].at['initial_size'], float(level), dist)
                     nname = p + apdx
                     add_compartment(model=newmodel, name=nname, status=mcomps.loc[p].at['type'], initial_size=iv, unit=mcomps.loc[p].at['unit'], dimensionality=int(mcomps.loc[p].at['dimensionality']) )
-                    if( 'notes' in mcomps.loc[p] ):
-                        set_compartment(model=newmodel, name=nname, notes=mcomps.loc[p].at['notes'])
+                    nt = get_notes(model=seedmodel, name=f'Compartments[{p}]')
+                    if( nt is not None ):
+                        set_compartment(model=newmodel, name=nname, notes=nt)
             # SPECIES
             if( seednspecs > 0):
                 for p in mspecs.index:
@@ -712,8 +714,9 @@ for r in range(gridr):
                     else:
                         cp = mspecs.loc[p].at['compartment'] + apdx
                     add_species(model=newmodel, name=nname, compartment_name=cp, status=mspecs.loc[p].at['type'], initial_concentration=iv, unit=mspecs.loc[p].at['unit'])
-                    if( 'notes' in mspecs.loc[p] ):
-                        set_species(model=newmodel, name=nname, notes=mspecs.loc[p].at['notes'])
+                    nt = get_notes(model=seedmodel, name=p)
+                    if( nt is not None ):
+                        set_species(model=newmodel, exact=True, name=nname, notes=nt)
 
 #####
 #  7. create reactions
@@ -769,8 +772,10 @@ for r in range(gridr):
                                 mapp[key] = nmk
                                 #mapp[key] = [k2 + apdx for k2 in mapp[key]]
                     add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
-                    if( 'notes' in mreacts.loc[p] ):
-                        set_reaction(model=newmodel, name=nname, notes=mreacts.loc[p].at['notes'])
+# TODO: how to get notes for reactions?
+#                    nt = get_notes(model=seedmodel, name=f'Reactions.{p}')
+#                    if( nt is not None ):
+#                        set_reaction(model=newmodel, exact=True, name=nname, notes=nt)
 
 #####
 #  8. set expressions and initial_expressions
@@ -827,8 +832,10 @@ for r in range(gridr):
                             assg.append((fix_expression(a['target'],apdx, ignc),  fix_expression(a['expression'],apdx, ignc)))
                         # add the event
                         add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx, ignc), priority=fix_expression(mevents.loc[p].at['priority'],apdx, ignc), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
-                        if( 'notes' in mevents.loc[p] ):
-                            set_event(model=newmodel, name=nm, notes=mevents.loc[p].at['notes'])
+# TODO: how to get notes for events?
+#                        nt = get_notes(model=seedmodel, element=mevents.loc[p])
+#                        if( nt is not None ):
+#                            set_event(model=newmodel, name=nm, notes=nt)
                     else:
                         # the trigger does not involve any model element other than time
                         # (or compartments when ignore_compartments is on)
@@ -890,8 +897,10 @@ if( etd > 0 ):
                         i = i + 1
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'] )
-        if( 'notes' in mevents.loc[p] ):
-            set_event(model=newmodel, name=nm, notes=mevents.loc[p].at['notes'])
+# TODO: how to get notes for events?
+#        nt = get_notes(model=seedmodel, element=mevents.loc[p])
+#        if( nt is not None ):
+#            set_event(model=newmodel, name=nm, notes=nt)
 
 #####
 # 11. create medium unit if needed
