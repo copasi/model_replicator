@@ -39,11 +39,25 @@ if ((n != 2))  ; then
   let "fail = $fail + 8"
 fi
 
+# check that there are two notes for reactions R1_i
+n=$(grep -c "first reaction" PD2.cps)
+if ((n != 2))  ; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 16"
+fi
+
+# check that there are two notes for the events DrugOn_i
+n=$(grep -c "<p>event that turns <i>on</i> drug addition</p></body>" PD2.cps)
+if ((n != 2))  ; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
+fi
+
 # validate the model with CopasiSE
 ../CopasiSE -c . --nologo --validate PD2.cps > /dev/null 2>&1
 if ! [[ $? = 0 ]]; then
   printf 'FAIL %s\n' "${test}"
-  let "fail = $fail + 16"
+  let "fail = $fail + 128"
 fi
 
 if [ "$fail" = 0 ] ; then
