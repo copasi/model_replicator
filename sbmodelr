@@ -688,6 +688,18 @@ for r in range(gridr):
                     nt = get_notes(model=seedmodel, name=f'Values[{p}]')
                     if( nt is not None ):
                         set_parameters(model=newmodel, exact=True, name=nname, notes=nt)
+                    an = get_miriam_annotation(model=seedmodel, name=f'Values[{p}]')
+                    if( an ):
+                        if( 'creators' in an ):
+                            set_miriam_annotation(creators=an['creators'],model=newmodel, name=nname, replace=False)
+                        if( 'references' in an ):
+                            set_miriam_annotation(references=an['references'],model=newmodel, name=nname, replace=False)
+                        if( 'descriptions' in an ):
+                            set_miriam_annotation(descriptions=an['descriptions'],model=newmodel, name=nname, replace=False)
+                        if( 'modifications' in an ):
+                            set_miriam_annotation(modifications=an['modifications'],model=newmodel, name=nname, replace=False)
+                        if( 'created' in an ):
+                            set_miriam_annotation(created=an['created'],model=newmodel, name=nname, replace=False)
             # COMPARTMENTS
             # if we are ignore_compartments, then we already created the original ones, nothing done here
             if( (seedncomps > 0) and (not ignc) ):
@@ -701,6 +713,18 @@ for r in range(gridr):
                     nt = get_notes(model=seedmodel, name=f'Compartments[{p}]')
                     if( nt is not None ):
                         set_compartment(model=newmodel, name=nname, notes=nt)
+                    an = get_miriam_annotation(model=seedmodel, name=f'Compartments[{p}]')
+                    if( an ):
+                        if( 'creators' in an ):
+                            set_miriam_annotation(creators=an['creators'],model=newmodel, name=nname, replace=False)
+                        if( 'references' in an ):
+                            set_miriam_annotation(references=an['references'],model=newmodel, name=nname, replace=False)
+                        if( 'descriptions' in an ):
+                            set_miriam_annotation(descriptions=an['descriptions'],model=newmodel, name=nname, replace=False)
+                        if( 'modifications' in an ):
+                            set_miriam_annotation(modifications=an['modifications'],model=newmodel, name=nname, replace=False)
+                        if( 'created' in an ):
+                            set_miriam_annotation(created=an['created'],model=newmodel, name=nname, replace=False)
             # SPECIES
             if( seednspecs > 0):
                 for p in mspecs.index:
@@ -717,6 +741,18 @@ for r in range(gridr):
                     nt = get_notes(model=seedmodel, name=p)
                     if( nt is not None ):
                         set_species(model=newmodel, exact=True, name=nname, notes=nt)
+                    an = get_miriam_annotation(model=seedmodel, name=p)
+                    if( an ):
+                        if( 'creators' in an ):
+                            set_miriam_annotation(creators=an['creators'],model=newmodel, name=nname, replace=False)
+                        if( 'references' in an ):
+                            set_miriam_annotation(references=an['references'],model=newmodel, name=nname, replace=False)
+                        if( 'descriptions' in an ):
+                            set_miriam_annotation(descriptions=an['descriptions'],model=newmodel, name=nname, replace=False)
+                        if( 'modifications' in an ):
+                            set_miriam_annotation(modifications=an['modifications'],model=newmodel, name=nname, replace=False)
+                        if( 'created' in an ):
+                            set_miriam_annotation(created=an['created'],model=newmodel, name=nname, replace=False)
 
 #####
 #  7. create reactions
@@ -772,11 +808,21 @@ for r in range(gridr):
                                 mapp[key] = nmk
                                 #mapp[key] = [k2 + apdx for k2 in mapp[key]]
                     add_reaction(model=newmodel, name=nname, scheme=rs, mapping=mapp, function=mreacts.loc[p].at['function'] )
-# TODO: how to get notes for reactions?
-#                    nt = get_notes(model=seedmodel, name=f'Reactions.{p}')
-#                    if( nt is not None ):
-#                        set_reaction(model=newmodel, exact=True, name=nname, notes=nt)
-
+                    nt = get_notes(model=seedmodel, name=p)
+                    if( nt is not None ):
+                        set_reaction(model=newmodel, exact=True, name=nname, notes=nt)
+                    an = get_miriam_annotation(model=seedmodel, name=p)
+                    if( an ):
+                        if( 'creators' in an ):
+                            set_miriam_annotation(creators=an['creators'],model=newmodel, name=nname, replace=False)
+                        if( 'references' in an ):
+                            set_miriam_annotation(references=an['references'],model=newmodel, name=nname, replace=False)
+                        if( 'descriptions' in an ):
+                            set_miriam_annotation(descriptions=an['descriptions'],model=newmodel, name=nname, replace=False)
+                        if( 'modifications' in an ):
+                            set_miriam_annotation(modifications=an['modifications'],model=newmodel, name=nname, replace=False)
+                        if( 'created' in an ):
+                            set_miriam_annotation(created=an['created'],model=newmodel, name=nname, replace=False)
 #####
 #  8. set expressions and initial_expressions
 #####
@@ -832,10 +878,21 @@ for r in range(gridr):
                             assg.append((fix_expression(a['target'],apdx, ignc),  fix_expression(a['expression'],apdx, ignc)))
                         # add the event
                         add_event(model=newmodel, name=nm, trigger=tr, assignments=assg, delay=fix_expression(mevents.loc[p].at['delay'],apdx, ignc), priority=fix_expression(mevents.loc[p].at['priority'],apdx, ignc), persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'])
-# TODO: how to get notes for events?
-#                        nt = get_notes(model=seedmodel, element=mevents.loc[p])
-#                        if( nt is not None ):
-#                            set_event(model=newmodel, name=nm, notes=nt)
+                        nt = get_notes(model=seedmodel, name=p)
+                        if( nt is not None ):
+                            set_notes(model=newmodel, name=nm, notes=nt)
+                        an = get_miriam_annotation(model=seedmodel, name=p)
+                        if( an ):
+                            if( 'creators' in an ):
+                                set_miriam_annotation(creators=an['creators'],model=newmodel, name=nm, replace=False)
+                            if( 'references' in an ):
+                                set_miriam_annotation(references=an['references'],model=newmodel, name=nm, replace=False)
+                            if( 'descriptions' in an ):
+                                set_miriam_annotation(descriptions=an['descriptions'],model=newmodel, name=nm, replace=False)
+                            if( 'modifications' in an ):
+                                set_miriam_annotation(modifications=an['modifications'],model=newmodel, name=nm, replace=False)
+                            if( 'created' in an ):
+                                set_miriam_annotation(created=an['created'],model=newmodel, name=nm, replace=False)
                     else:
                         # the trigger does not involve any model element other than time
                         # (or compartments when ignore_compartments is on)
@@ -897,10 +954,21 @@ if( etd > 0 ):
                         i = i + 1
         # add the event
         add_event(model=newmodel, name=p, trigger=mevents.loc[p].at['trigger'], assignments=assg, delay=dl, priority=pr, persistent=mevents.loc[p].at['persistent'], fire_at_initial_time=mevents.loc[p].at['fire_at_initial_time'], delay_calculation=mevents.loc[p].at['delay_calculation'] )
-# TODO: how to get notes for events?
-#        nt = get_notes(model=seedmodel, element=mevents.loc[p])
-#        if( nt is not None ):
-#            set_event(model=newmodel, name=nm, notes=nt)
+        nt = get_notes(model=seedmodel, name=p)
+        if( nt is not None ):
+            set_notes(model=newmodel, name=p, notes=nt)
+        an = get_miriam_annotation(model=seedmodel, name=p)
+        if( an ):
+            if( 'creators' in an ):
+                set_miriam_annotation(creators=an['creators'],model=newmodel, name=p, replace=False)
+            if( 'references' in an ):
+                set_miriam_annotation(references=an['references'],model=newmodel, name=p, replace=False)
+            if( 'descriptions' in an ):
+                set_miriam_annotation(descriptions=an['descriptions'],model=newmodel, name=p, replace=False)
+            if( 'modifications' in an ):
+                set_miriam_annotation(modifications=an['modifications'],model=newmodel, name=p, replace=False)
+            if( 'created' in an ):
+                set_miriam_annotation(created=an['created'],model=newmodel, name=p, replace=False)
 
 #####
 # 11. create medium unit if needed
