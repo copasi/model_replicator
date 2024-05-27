@@ -227,7 +227,6 @@ def read_network(network_file):
 #  5. create new model
 #  MAIN LOOP, iterating over each model element:
 #   6. create parameters, compartments, species without expressions
-#      TODO: what to do with element annotations?
 #   7. create reactions (and fix mappings)
 #   8. set expressions for compartments and species
 #   9. create events that depende on variable
