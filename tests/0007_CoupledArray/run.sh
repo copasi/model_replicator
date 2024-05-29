@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# Caution that this test fails too often due to failure in the statistical tests
+# it may fail at a rate of 1/15 times...
+
 # work out our folder name
 test=${PWD##*/}          # to assign to a variable
 test=${test:-/}          # to correct for the case where PWD=/
 
 # run sbmodelr
-../../sbmodelr  -t Y -k 0.1 --pn X 0.1 norm --pn Y 0.1 norm  -o Wolf6x6Y.cps ../sources/Selkov-Wolf-Heinrich.cps 6 6 > output
+../../sbmodelr  -t Y -k 0.1 --pn X 0.1 norm --pn Y 0.1 norm  -o Wolf6x6Y.cps ../sources/Selkov-Wolf-Heinrich.cps 9 9 > output
 
 fail=0
 
