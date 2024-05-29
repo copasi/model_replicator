@@ -263,7 +263,7 @@ parser.add_argument('-m', '--mm-transport', action='append', help='species to be
 parser.add_argument('-g', '--grn', action='append', help='species to be connected between units by regulation of synthesis (eg gene regulatory network)', metavar='species')
 parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms', metavar='ode')
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
-# options for transport and diffusive coupling
+# options for transpoisrt and diffusive coupling
 parser.add_argument('-k', '--transport-k', dest='transport_rate', type=positive_float, help='value of rate constant for transport between units', default='1.0', metavar='value')
 parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=float, default=1.0, help='value for strength of ODE coupling between units', metavar='value')
 # options for Michaelis-Menten transport
@@ -275,8 +275,8 @@ parser.add_argument('--grn-a', type=float, help='value of activation/inhibition 
 parser.add_argument('--grn-h', type=integer_range, metavar='INT[1:10]', help='value of Hill coefficient for connection by regulation of synthesis', default=2)
 # options for synaptic coupling
 parser.add_argument('--synapse-g', type=positive_float, help='value of g for synaptic connections between units', default=1.0, metavar='value')
-parser.add_argument('--synapse-V0', type=positive_float, help='value of V0 for synaptic connections between units', default=-20.0, metavar='value')
-parser.add_argument('--synapse-Vsyn', type=positive_float, help='value of Vsyn for synaptic connections between units', default=20.0, metavar='value')
+parser.add_argument('--synapse-V0', type=float, help='value of V0 for synaptic connections between units', default=-20.0, metavar='value')
+parser.add_argument('--synapse-Vsyn', type=float, help='value of Vsyn for synaptic connections between units', default=20.0, metavar='value')
 parser.add_argument('--synapse-tau-r', type=positive_float, help='value of tau_r for synaptic connections between units', default=0.5, metavar='value')
 parser.add_argument('--synapse-tau-d', type=positive_float, help='value of tau_d for synaptic connections between units', default=10,  metavar='value')
 # options for noise
@@ -319,12 +319,32 @@ grnV = args.grn_V
 grna = args.grn_a
 grnh = args.grn_h
 
-# check if level for --cn is a float
+# check if level for --cn is a positive float and distribution is allowed
 if( args.cnoise ):
     (level, dist) = args.cnoise
     if( not is_float(level) ):
-        print( 'ERROR: \'level\' must be a floating point number')
+        print( 'ERROR: \'level\' must be a positive floating point number')
         exit()
+    if( float(level) < 0.0 ):
+        print( 'ERROR: \'level\' must be a positive floating point number')
+        exit()
+    if( (dist != 'uni') and (dist != 'norm') ):
+        print( 'ERROR: dist must be \'uni\' or \'norm\'')
+        exit()
+
+# check if level for --pn are positive floats and distribution is allowed
+if( args.noisy ):
+    for ns in args.noisy:
+        (param,level, dist) = ns
+        if( not is_float(level) ):
+            print( 'ERROR: \'level\' must be a positive floating point number')
+            exit()
+        if( float(level) < 0.0 ):
+            print( 'ERROR: \'level\' must be a positive floating point number')
+            exit()
+        if( (dist != 'uni') and (dist != 'norm') ):
+            print( 'ERROR: dist must be \'uni\' or \'norm\'')
+            exit()
 
 # unify the lists of species to transport
 transported = []
