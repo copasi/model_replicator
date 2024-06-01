@@ -265,7 +265,7 @@ parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
 # options for transpoisrt and diffusive coupling
 parser.add_argument('-k', '--transport-k', dest='transport_rate', type=positive_float, help='value of rate constant for transport between units', default='1.0', metavar='value')
-parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=float, default=1.0, help='value for strength of ODE coupling between units', metavar='value')
+parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=positive_float, default=1.0, help='value for strength of ODE coupling between units', metavar='value')
 # options for Michaelis-Menten transport
 parser.add_argument('--transport-Km', dest='transport_Km', type=positive_float, help='value of Km for transport between units', default='1.0', metavar='value')
 parser.add_argument('--transport-Vmax', dest='transport_Vmax', type=positive_float, help='value of Vmax for transport between units', default='1.0', metavar='value')
@@ -345,6 +345,11 @@ if( args.noisy ):
         if( (dist != 'uni') and (dist != 'norm') ):
             print( 'ERROR: dist must be \'uni\' or \'norm\'')
             exit()
+
+# check if value for --grn-a lies between -1 and +1
+if( (grna < -1.0) or (grna > 1.0) ):
+    print( 'ERROR: \'--grn-a\' value must be in the interval [-1,1]')
+    exit()
 
 # unify the lists of species to transport
 transported = []
