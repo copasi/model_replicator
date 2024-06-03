@@ -1320,10 +1320,10 @@ if( transported ):
                 exit()
         else:
             # error
-            print( f'ERROR: Species {sp} does not exist in the model, no transport reactions added' )
+            print( f'ERROR: Species {sp} does not exist in the model' )
             exit()
 
-# ODEs to be coupled by diffusive mechanism
+# ODEs to be coupled by diffusive mechanism or chemical synapses
 if( odelink ):
     for (ode,linktype) in odelink:
         if( linktype=='d'):
