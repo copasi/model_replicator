@@ -2012,7 +2012,7 @@ if( odelink ):
                     exit()
         # not an entity in this model
         else:
-            print(f'ERROR: {ode} is not an ODE in the model valid model entity')
+            print(f'ERROR: {ode} is not a valid model entity')
             exit()
 
 # regulated synthesis (GRNs)
