@@ -1,0 +1,29 @@
+digraph simple {
+orientation=landscape;
+ratio=auto;
+size = "10,7.5";
+label="Task Hierarchy: model2";
+1 [shape=box,fontcolor=forestgreen];
+2 [shape=box];
+3 [shape=box];
+4 [shape=box];
+5 [shape=box];
+6 [shape=box];
+7 [shape=box];
+8 [shape=box];
+9 [shape=box];
+10 [shape=box];
+11 [shape=box];
+12 [shape=box];
+1 -> 2 [];
+1 -> 3 [];
+1 -> 4 [];
+1 -> 5 [];
+1 -> 6 [];
+1 -> 7 [];
+1 -> 8 [];
+1 -> 9 [];
+9 -> 10 [];
+9 -> 11 [];
+9 -> 12 [];
+}
