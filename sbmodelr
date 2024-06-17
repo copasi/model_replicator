@@ -3,7 +3,7 @@
 # sbmodelr
 # Model Replicator
 #
-# This takes a SBML or .cps file and replicates it as a set of sub-models
+# This takes a SBML or COPASI file and replicates it as a set of sub-models
 # which can exist just side-by-side or can be connected in different ways.
 #
 # Written March-June 2024 by Pedro Mendes <pmendes@uchc.edu>
