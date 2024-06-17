@@ -13,7 +13,7 @@ This is Model I, with 2 cells producing synchronous oscillations (file *case1.sh
 |``sbmodelr``                  | run sbmodelr                         |
 |`` --output case1.cps``       | name output file                     |
 |`` --add-medium``             | include a medium unit                |
-|`` --transport Y``            | transport the species Y              |
+|`` --transport Y``            | transport the species Y (Model I)    |
 |`` --transport-k 3.2``        | value of rate constant for transport |
 |`` --pn X 0.5 uni``           | initial values of X inside +/-50% interval around value of X in base |
 |`` --pn Y 0.5 uni``           | initial values of Y inside +/-50% interval around value of Y in base |
