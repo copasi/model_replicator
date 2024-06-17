@@ -11,7 +11,7 @@ This is Model I, with 2 cells producing synchronous oscillations (file *case1.sh
 | command/options              | comment                              |
 | ---------------------------- | ------------------------------------ |
 |``sbmodelr``                  | run sbmodelr                         |
-|`` --output case1.cps``       | name output file                     |
+|`` --output case1.cps``       | name the output file                 |
 |`` --add-medium``             | include a medium unit                |
 |`` --transport Y``            | transport the species Y (Model I)    |
 |`` --transport-k 3.2``        | value of rate constant for transport |
