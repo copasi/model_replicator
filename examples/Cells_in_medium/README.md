@@ -6,7 +6,7 @@ This follows the work of Wolf and Hierich (1), which takes a simple model of gly
 We create several examples following (1) using either Model I or II. Each example is codified in a shell script, and included are all the files produced by sbmodelr and COPASI, which are invoked in the shell script.
 
 ### Case 1
-This is Model I, with 2 cells producing synchronous oscillations (file *case1.sh*).
+This is Model I, with 2 cells producing synchronous oscillations (file *case1.sh*). We set the two cells to have different initial conditions (options ``--pn``), and set the rate constant for transport to be 3.2 (Fig. 3 in ref. 1).
 
 | command/options              | comment                              |
 | ---------------------------- | ------------------------------------ |
@@ -15,8 +15,8 @@ This is Model I, with 2 cells producing synchronous oscillations (file *case1.sh
 |`` --add-medium``             | include a medium unit                |
 |`` --transport Y``            | transport the species Y              |
 |`` --transport-k 3.2``        | value of rate constant for transport |
-|`` --pn Y 0.5 uni``           | initial values of Y inside +/-50% interval around value of Y in base |
 |`` --pn X 0.5 uni``           | initial values of X inside +/-50% interval around value of X in base |
+|`` --pn Y 0.5 uni``           | initial values of Y inside +/-50% interval around value of Y in base |
 |`` Selkov-Wolf-Heinrich.cps`` | COPASI file with the base unit       |
 |`` 2``                        | create 2 units                       |
 
