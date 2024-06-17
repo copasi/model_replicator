@@ -12,7 +12,7 @@ This is model I, with 2 cells producing synchronous oscillations (file *case1.sh
 | ---------------------------- | -------------------------------- |
 |``sbmodelr``                  | invoking sbmodelr                |
 |`` --output case1.cps``       | name output file                 |
-|`` --add-medium ``            | include a medium unit            |
+|`` --add-medium``             | include a medium unit            |
 |`` --transport Y``            | transport the species Y          |
 |`` Selkov-Wolf-Heinrich.cps`` | a COPASI file with the base unit |
 |`` 2 ``                       | add two units                    |
