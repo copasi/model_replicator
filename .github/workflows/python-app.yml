@@ -1,14 +1,14 @@
 # Workflow to run all tests
 
-name: Python application
+name: Functional tests
 
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - '!examples/**'
+    paths: ['! examples/**']
   pull_request:
     branches: [ "main" ]
+    paths: ['! examples/**']
 
 permissions:
   contents: read
