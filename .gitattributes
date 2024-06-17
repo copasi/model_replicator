@@ -1,1 +1,1 @@
-fmt/**/*.cps linguis-language=XML
+*.cps linguist-language=XML
