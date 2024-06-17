@@ -133,7 +133,7 @@ if ((n != 10))  ; then
   fi
 fi
 
-# check that there is exactly 1 reactions with regulated_by_5 kinetics
+# check that there is exactly 1 reaction with regulated_by_5 kinetics
 n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1.*regulated_by_5" t15.summary.txt)
 if ((n != 1))  ; then
   printf 'FAIL %s\n' "${test}"
@@ -142,6 +142,102 @@ if ((n != 1))  ; then
   fi
 fi
 
+# directed 8 nodes with ranks
+../../sbmodelr -g G --ignore-compartments -o t10.cps -n ../sources/test10_8.gv ../sources/GeneExpressionUnit.cps 8 > output
+
+if ! grep -q "created new model t10.cps with a set of 8 replicas of ../sources/GeneExpressionUnit.cps" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 16"
+elif grep -q "Warning" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 16"
+elif grep -q "Error" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 16"
+fi
+
+
+# create model summary
+../model_report.py t10.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
+
+# check that there are exactly 6 regulated synthesis reactions
+n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1;\s+G_\d+" t10.summary.txt)
+if ((n != 6))  ; then
+  printf 'FAIL %s\n' "${test}"
+  if [[ $fail -lt 16 ]]; then
+   let "fail = $fail + 16"
+  fi
+fi
+
+# check that there are exactly 2 reactions with regulated_by_2 kinetics
+n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1.*regulated_by_2" t10.summary.txt)
+if ((n != 2))  ; then
+  printf 'FAIL %s\n' "${test}"
+  if [[ $fail -lt 16 ]]; then
+   let "fail = $fail + 16"
+  fi
+fi
+
+# check that there are exactly 4 reactions with regulated_by_1 kinetics
+n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1.*regulated_by_1" t10.summary.txt)
+if ((n != 4))  ; then
+  printf 'FAIL %s\n' "${test}"
+  if [[ $fail -lt 16 ]]; then
+   let "fail = $fail + 16"
+  fi
+fi
+
+# directed 12 nodes with groups
+../../sbmodelr -g G --ignore-compartments -o t11.cps -n ../sources/test11_12.gv ../sources/GeneExpressionUnit.cps 12 > output
+
+if ! grep -q "created new model t11.cps with a set of 12 replicas of ../sources/GeneExpressionUnit.cps" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
+elif grep -q "Warning" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
+elif grep -q "Error" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
+fi
+
+# create model summary
+../model_report.py t11.cps >/dev/null
+if ! [[ $? = 0 ]]; then
+  printf 'FAIL %s\n' "${test}"
+  exit -1
+fi
+
+# check that there are exactly 9 regulated synthesis reactions
+n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1;\s+G_\d+" t11.summary.txt)
+if ((n != 9))  ; then
+  printf 'FAIL %s\n' "${test}"
+  if [[ $fail -lt 32 ]]; then
+   let "fail = $fail + 32"
+  fi
+fi
+
+# check that there are exactly 4 reactions with regulated_by_2 kinetics
+n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1.*regulated_by_2" t11.summary.txt)
+if ((n != 4))  ; then
+  printf 'FAIL %s\n' "${test}"
+  if [[ $fail -lt 32 ]]; then
+   let "fail = $fail + 32"
+  fi
+fi
+
+# check that there are exactly 5 reactions with regulated_by_1 kinetics
+n=$(grep -Pc "^synthesis G_(\d+)\s+\-\>\s+G_\1.*regulated_by_1" t11.summary.txt)
+if ((n != 5))  ; then
+  printf 'FAIL %s\n' "${test}"
+  if [[ $fail -lt 32 ]]; then
+   let "fail = $fail + 32"
+  fi
+fi
 
 if [ "$fail" = 0 ] ; then
   printf 'PASS %s\n' "${test}"
