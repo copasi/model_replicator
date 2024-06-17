@@ -12,5 +12,5 @@ tests errors related with creating links
 - appropriate error for diffusive link on a non-existent entity
 - appropriate error for regulatory link without network
 - appropriate error for regulatory link on 2D grid
-- appropriate warning for regulatory connection without --ignore_compartments
+- appropriate warninggit  for regulatory connection without --ignore_compartments
 - appropriate error for regulatory connection with inexistent species
