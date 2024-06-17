@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.43 (Build 288) (http://www.copasi.org) at 2024-05-15T02:18:57Z -->
+<!-- generated with COPASI 4.43 (Build 288) (http://www.copasi.org) at 2024-06-17T19:50:35Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="43" versionDevel="288" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -52,8 +52,8 @@ Reaction scheme where the products are created from the reactants and the change
   <rdf:Description rdf:about="#Model_1">
     <dcterms:bibliographicCitation>
       <rdf:Description>
-        <dcterms:description>Effect of cellular interaction on glycolytic oscillations in yeast: a theoretical investigation</dcterms:description>
-        <CopasiMT:isDescribedBy rdf:resource="urn:miriam:pubmed:10702114"/>
+        <dcterms:description>Dynamics of two-component biochemical systems in interacting cells; synchronization and desynchronization of oscillations and multiple steady states</dcterms:description>
+        <CopasiMT:isDescribedBy rdf:resource="urn:miriam:pubmed:9224551"/>
       </rdf:Description>
     </dcterms:bibliographicCitation>
     <dcterms:bibliographicCitation>
@@ -83,17 +83,22 @@ Reaction scheme where the products are created from the reactants and the change
         </vCard:ORG>
       </rdf:Description>
     </dcterms:creator>
+    <dcterms:modified>
+      <rdf:Description>
+        <dcterms:W3CDTF>2024-06-17T15:49:18</dcterms:W3CDTF>
+      </rdf:Description>
+    </dcterms:modified>
   </rdf:Description>
 </rdf:RDF>
 
     </MiriamAnnotation>
     <Comment>
       <body xmlns="http://www.w3.org/1999/xhtml"><h1>Simple model of glycolytic oscillations</h1>
-<p>This is the version of Wolf-Heinrich (2000) of the Sel'kov (1968) model of glycolytic oscillations. It is a very simple model with two species, X and Y, where the conversion of X->Y is activated by Y itself. Wolf and Heinrich use this model as a building block for a model of coupled oscillating cells connected by a well-stirred medium. However, the model included here is equivalent to what Sel'kov proposed for a single cell, without export of any species to the medium.</p>
+<p>This is the Wolf-Heinrich (1997) version of the Sel'kov (1968) model of glycolytic oscillations. It is a very simple model with two species, X and Y, where the conversion of X->Y is activated by Y itself. Wolf and Heinrich use this model as a building block for a model of coupled oscillating cells connected by a well-stirred medium. However, the model included here is equivalent to what Sel'kov proposed for a single cell, without export of any species to the medium.</p>
 <p><b>References:</b>
 <ul>
 <li><a href="https://doi.org/10.1111/j.1432-1033.1968.tb00175.x">Sel'kov EE (1968) Self-oscillations in glycolysis. 1. A simple kinetic model. European Journal of Biochemistry 4:79–86</a> </li>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1220770/">Wolf J, Heinrich R (2000) Effect of cellular interaction on glycolytic oscillations in yeast: a theoretical investigation. Biochemical Journal 345 Pt 2:321–334</a></li>
+<li><a href="https://doi.org/10.1016/s0303-2647(97)01688-2">Wolf J, Heinrich R (1997) Dynamics of two-component biochemical systems in interacting cells; synchronization and desynchronization of oscillations and multiple steady states. BioSystems 43:1–24</a></li>
 </ul>
 </p>
 <p style="font-size:small"><b>CC0 1.0 Universal</b>: To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. Please refer to <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a> for more information.</p></body>
@@ -129,9 +134,7 @@ Reaction scheme where the products are created from the reactants and the change
     <ListOfModelValues>
       <ModelValue key="ModelValue_0" name="v" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_0">
 </rdf:Description>
 </rdf:RDF>
@@ -139,9 +142,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_1" name="k" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_1">
 </rdf:Description>
 </rdf:RDF>
@@ -151,9 +152,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <ListOfReactions>
       <Reaction key="Reaction_0" name="v1" reversible="false" fast="false" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#Reaction_0">
 </rdf:Description>
 </rdf:RDF>
@@ -162,7 +161,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_0" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7446" name="v" value="4.04689"/>
+          <Constant key="Parameter_7456" name="v" value="4.04689"/>
         </ListOfConstants>
         <KineticLaw function="Function_6" unitType="Default" scalingCompartment="CN=Root,Model=Simple model of glycolytic oscillations,Vector=Compartments[Cell]">
           <ListOfCallParameters>
@@ -174,9 +173,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </Reaction>
       <Reaction key="Reaction_1" name="v2" reversible="false" fast="false" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#Reaction_1">
 </rdf:Description>
 </rdf:RDF>
@@ -189,12 +186,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_1" stoichiometry="3"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7445" name="k1" value="1"/>
+          <Constant key="Parameter_7455" name="k1" value="1"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=Simple model of glycolytic oscillations,Vector=Compartments[Cell]">
           <ListOfCallParameters>
             <CallParameter functionParameter="FunctionParameter_80">
-              <SourceParameter reference="Parameter_7445"/>
+              <SourceParameter reference="Parameter_7455"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_81">
               <SourceParameter reference="Metabolite_0"/>
@@ -206,9 +203,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </Reaction>
       <Reaction key="Reaction_2" name="v3" reversible="false" fast="false" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#Reaction_2">
 </rdf:Description>
 </rdf:RDF>
@@ -217,7 +212,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_1" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7443" name="k1" value="2.64442"/>
+          <Constant key="Parameter_7453" name="k1" value="2.64442"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=Simple model of glycolytic oscillations,Vector=Compartments[Cell]">
           <ListOfCallParameters>
