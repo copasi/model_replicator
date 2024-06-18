@@ -3,12 +3,14 @@
 
 This follows the work of Wolf and Heinrich (1), which takes a simple model of glycolytic oscillations (2) as the base unit (a cell with oscillating glycolysis) and creates a new model with suspensions consisting of an arbitrary number N of interacting units. The individual cells interact via the flux of metabolites, which are produced in all cells and may permeate through the cell membranes (1). Two specific cases are examined: in Model I the coupling is via the product of the autocatalytic reaction (species Y), and in Model II the coupling is via the substrate of the autocatalytic reaction (species X).
 
-We create several examples following (1) using either Model I or II. Each example is codified in a shell script, and included are all the files produced by sbmodelr and COPASI, which are invoked in the shell script.
+We create several examples following (1) using either Model I or II. Each example is codified in a shell script, and
+included are all the files produced by sbmodelr and COPASI, which are invoked in the shell script.
 
 ### Case 1
-This is Model I, with 2 cells producing synchronous oscillations (file *ex1case1.sh*). We set the two cells to have different initial conditions (options ``--pn``), set the rate constant for transport to be 3.2, as in Fig. 3 of
-ref. 1), and the medium volume to be 10 (5-fold the number of cells, to keep the density of intracellular volume
-to 0.2 and in ref. 1).
+This is Model I, with 2 cells producing synchronous oscillations (file *ex1case1.sh*). We set the two cells to have
+different initial conditions (options ``--pn``), set the transport rate constant for transport to be 3.2, as in
+Fig. 3 of ref. 1), and the medium volume to be 10 (5-fold the number of cells, to keep the density of intracellular
+volume to 0.2 and in ref. 1).
 
 | command line options         | comment                              |
 | ---------------------------- | ------------------------------------ |
@@ -18,12 +20,16 @@ to 0.2 and in ref. 1).
 |`` --medium-volume 10``       | set medium volume (5*N)              |
 |`` --transport Y``            | transport the species Y (Model I)    |
 |`` --transport-k 3.2``        | value of rate constant for transport |
-|`` --pn X 0.5 uni``           | initial values of X inside +/-50% interval around value of X in base |
-|`` --pn Y 0.5 uni``           | initial values of Y inside +/-50% interval around value of Y in base |
+|`` --pn X 0.1 uni``           | initial values of X inside +/-10% interval around value of X in base |
+|`` --pn Y 0.1 uni``           | initial values of Y inside +/-10% interval around value of Y in base |
 |`` Selkov-Wolf-Heinrich.cps`` | COPASI file with the base unit       |
 |`` 2``                        | create 2 units                       |
 
-Running the command explained above (e.g. by running file *ex1case.sh*), results in a new model *case1.cps*. Loading that file into COPASI, creating a plot for Y_1, Y_2 and Y_medium, and adjusting its axes, entirely reproduces Fig. 3 of reference 1.
+Running the command explained above (e.g. by running file *ex1case.sh*) results in a new model file *case1.cps*.
+Loading that file into COPASI, creating a plot for Y_1, Y_2 and Y_medium, and adjusting its axes,
+entirely reproduces Fig. 3 of reference 1.
+
+![Reproduction of Fig.3 of reference 1, the two intracellular Y oscillate in phase and Y in the medium oscillates with lower amplitude and out of phase](case1.png)
 
 
 ## References
