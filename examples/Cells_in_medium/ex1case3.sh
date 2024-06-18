@@ -14,9 +14,9 @@
  --add-medium \
  --medium-volume 15 \
  --transport X \
- --transport-k 0.75 \
+ --transport-k 4.16 \
  --pn X 0.1 uni \
  --pn Y 0.1 uni \
- Selkov-Wolf-Heinrich.cps \
+ Selkov-Wolf-Heinrich_k1.5.cps \
  3
 
