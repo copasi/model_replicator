@@ -15,8 +15,8 @@
  --medium-volume 20 \
  --transport Y \
  --transport-k 1 \
- --pn X 0.9 uni \
- --pn Y 0.9 uni \
+ --pn X 0.1 uni \
+ --pn Y 0.1 uni \
  Selkov-Wolf-Heinrich_k2.5.cps \
  5
 
