@@ -284,6 +284,7 @@ parser.add_argument('--pn', dest='noisy', help='add noise to parameter with leve
 parser.add_argument('--cn', dest='cnoise', help='add noise to all coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
 # other options
 parser.add_argument('--add-medium', action='store_true', help='add a medium unit with all transported species')
+parser.add_argument('--medium-volume', type=positive_float, help='volume of medium unit', default='1.0', metavar='value')
 parser.add_argument('--ignore-compartments', action='store_true', help='do not replicate compartments')
 parser.add_argument('--ignore-tasks', action='store_true', help='do not copy over task settings')
 parser.add_argument('--sbml', choices=['l1v2', 'l2v3', 'l2v4', 'l2v5', 'l3v1', 'l3v2'], help='export in SBML format of this level and version.')
@@ -318,6 +319,9 @@ gcinit = args.synapse_g
 grnV = args.grn_V
 grna = args.grn_a
 grnh = args.grn_h
+
+# medium volume
+mediumVol = args.medium_volume
 
 # check if level for --cn is a positive float and distribution is allowed
 if( args.cnoise ):
@@ -1004,7 +1008,7 @@ if( args.add_medium ):
         if((mcomps is not None) and (medium_name in mcomps.index)):
             medium_name = '_added_medium_'
         # create medium compartment
-        add_compartment(model=newmodel, name=medium_name, status='fixed', initial_size=1, dimiensionality=3, notes="medium compartment added by sbmodlr" )
+        add_compartment(model=newmodel, name=medium_name, status='fixed', initial_size=mediumVol, dimiensionality=3, notes="medium compartment added by sbmodlr" )
         # create the species that are transported
         if( transported ):
             for (sp,ttype) in transported:
