@@ -4,8 +4,9 @@
 
 # create 2 cells in a medium, with transport on Y, with a transport rate
 # constant of 3.2, random initial conditions where X and Y are within
-# +/- 10% of their value in the base unit, medium volume equal to 10 (5x
-# total cell volume)
+# +/- 10% of their value in the base unit, medium volume equal to 10 (such
+# that the ratio of volumes 2/10 = 0.2)
+
 
 ../../sbmodelr \
  --output case1.cps \
