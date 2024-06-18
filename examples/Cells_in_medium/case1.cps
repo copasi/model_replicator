@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.42.284 (Source) (http://www.copasi.org) at 2024-06-18T01:15:39Z -->
+<!-- generated with COPASI 4.42.284 (Source) (http://www.copasi.org) at 2024-06-18T17:23:33Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="42" versionDevel="284" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -116,7 +116,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:modified>
     <dcterms:modified>
       <rdf:Description>
-        <dcterms:W3CDTF>2024-06-17T21:15:39.587399</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2024-06-18T13:23:33.623371</dcterms:W3CDTF>
       </rdf:Description>
     </dcterms:modified>
   </rdf:Description>
@@ -287,7 +287,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_2" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7254" name="v" value="0.1"/>
+          <Constant key="Parameter_8699" name="v" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_6" unitType="Default" scalingCompartment="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1]">
           <ListOfCallParameters>
@@ -314,12 +314,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_3" stoichiometry="3"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7252" name="k1" value="1"/>
+          <Constant key="Parameter_7262" name="k1" value="1"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1]">
           <ListOfCallParameters>
             <CallParameter functionParameter="FunctionParameter_80">
-              <SourceParameter reference="Parameter_7252"/>
+              <SourceParameter reference="Parameter_7262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_81">
               <SourceParameter reference="Metabolite_2"/>
@@ -342,7 +342,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7251" name="k1" value="3.84"/>
+          <Constant key="Parameter_7261" name="k1" value="3.84"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1]">
           <ListOfCallParameters>
@@ -368,7 +368,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_4" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7253" name="v" value="0.1"/>
+          <Constant key="Parameter_7263" name="v" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_6" unitType="Default" scalingCompartment="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2]">
           <ListOfCallParameters>
@@ -395,12 +395,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_5" stoichiometry="3"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7250" name="k1" value="1"/>
+          <Constant key="Parameter_7260" name="k1" value="1"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2]">
           <ListOfCallParameters>
             <CallParameter functionParameter="FunctionParameter_80">
-              <SourceParameter reference="Parameter_7250"/>
+              <SourceParameter reference="Parameter_7260"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_81">
               <SourceParameter reference="Metabolite_4"/>
@@ -423,7 +423,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_5" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7249" name="k1" value="3.84"/>
+          <Constant key="Parameter_7259" name="k1" value="3.84"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2]">
           <ListOfCallParameters>
@@ -452,8 +452,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7247" name="k1" value="3.2"/>
-          <Constant key="Parameter_7246" name="k2" value="3.2"/>
+          <Constant key="Parameter_7257" name="k1" value="3.2"/>
+          <Constant key="Parameter_7256" name="k2" value="3.2"/>
         </ListOfConstants>
         <KineticLaw function="Function_14" unitType="Default">
           <ListOfCallParameters>
@@ -488,8 +488,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7245" name="k1" value="3.2"/>
-          <Constant key="Parameter_7248" name="k2" value="3.2"/>
+          <Constant key="Parameter_7255" name="k1" value="3.2"/>
+          <Constant key="Parameter_7258" name="k2" value="3.2"/>
         </ListOfConstants>
         <KineticLaw function="Function_14" unitType="Default">
           <ListOfCallParameters>
@@ -528,10 +528,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[medium]" value="10" type="Compartment" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Species Values" type="Group">
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[X_1]" value="4.4712105083169753" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[Y_1]" value="0.69305092972790872" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[X_2]" value="5.1555335950888779" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[Y_2]" value="0.83499379853017408" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[X_1]" value="4.5324707037753891" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[Y_1]" value="0.70618193407398866" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[X_2]" value="4.966912285052552" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[Y_2]" value="0.77025158272253491" type="Species" simulationType="reactions"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of Simple model of glycolytic oscillations,Vector=Compartments[medium],Vector=Metabolites[Y_medium]" value="7.7000000000000002" type="Species" simulationType="reactions"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Global Quantities" type="Group">
@@ -620,7 +620,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_6"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 0.69305092972790872 0.83499379853017408 5.1555335950888779 4.4712105083169753 7.7000000000000002 1 1 10 3 3.8399999999999999 3 3.8399999999999999 3.2000000000000002 
+      0 0.70618193407398866 0.77025158272253491 4.966912285052552 4.5324707037753891 7.7000000000000002 1 1 10 3 3.8399999999999999 3 3.8399999999999999 3.2000000000000002 
     </InitialState>
   </Model>
   <ListOfTasks>
@@ -644,14 +644,14 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </Method>
     </Task>
     <Task key="Task_29" name="Time-Course" type="timeCourse" scheduled="true" updateModel="false">
-      <Report reference="Report_23" target="tc.txt" append="0" confirmOverwrite="0"/>
+      <Report reference="Report_23" target="" append="0" confirmOverwrite="0"/>
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="0"/>
         <Parameter name="StepNumber" type="unsignedInteger" value="2500"/>
         <Parameter name="StepSize" type="float" value="0.10000000000000001"/>
         <Parameter name="Duration" type="float" value="250"/>
         <Parameter name="TimeSeriesRequested" type="bool" value="1"/>
-        <Parameter name="OutputStartTime" type="float" value="0"/>
+        <Parameter name="OutputStartTime" type="float" value="228"/>
         <Parameter name="Output Event" type="bool" value="0"/>
         <Parameter name="Start in Steady State" type="bool" value="0"/>
         <Parameter name="Use Values" type="bool" value="0"/>
