@@ -8,7 +8,7 @@ We create several examples following (1) using either Model I or II. Each exampl
 ### Case 1
 This uses Model I, with 2 cells producing synchronous oscillations (file *ex1case1.sh*). We set the two cells to have
 different initial conditions (options ``--pn``), set the transport rate constant for transport to be 3.2, as in
-Fig. 3 of ref. 1), and the medium volume to be 8 (to keep the density of intracellular volume to 0.2 as in ref. 1).
+Fig. 3 of ref. 1), and the medium volume to be 10 (to keep the ratio of volumes to 0.2 as in ref. 1).
 
 | command line options         | comment                              |
 | ---------------------------- | ------------------------------------ |
