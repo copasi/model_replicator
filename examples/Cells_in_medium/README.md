@@ -15,7 +15,7 @@ Fig. 3 of ref. 1), and the medium volume to be 8 (to keep the density of intrace
 |``sbmodelr``                  | run *sbmodelr*                       |
 |`` --output case1.cps``       | name the output file                 |
 |`` --add-medium``             | include a medium unit                |
-|`` --medium-volume 8``        | set medium volume (5*N-N)            |
+|`` --medium-volume 10``       | set medium volume (5*N)              |
 |`` --transport Y``            | transport the species Y (Model I)    |
 |`` --transport-k 3.2``        | value of rate constant for transport |
 |`` --pn X 0.1 uni``           | initial values of X inside +/-10% interval around value of X in base |
@@ -32,14 +32,16 @@ entirely reproduces Fig. 3 of reference 1.
 ### Case 2
 This uses Model I, with 5 cells producing regular asynchronous oscillations (file *ex1case2.sh*). We set the five
 cells to have different initial conditions (options ``--pn``), set the transport rate constant for transport to be 1,
-as in Fig. 3 of ref. 1), and the medium volume to be 20 (to keep the density of intracellular volume to 0.2 as in ref. 1). We use a different base file, *Selkov-Wolf-Heinrich_k2.5.cps*, which only differs from the one used in case 1 by setting the constant k=2.5 (instead of 3.84).
+as in Fig. 3 of ref. 1), and the medium volume to be 25 (to keep the ratio of intracellular over extracellular volume to
+0.2 as in ref. 1). We use a different base file, *Selkov-Wolf-Heinrich_k2.5.cps*, which only differs from the one used
+in case 1 by setting the constant k=2.5 (instead of 3.84).
 
 | command line options              | comment                              |
 | --------------------------------- | ------------------------------------ |
 |``sbmodelr``                       | run *sbmodelr*                       |
 |`` --output case2.cps``            | name the output file                 |
 |`` --add-medium``                  | include a medium unit                |
-|`` --medium-volume 20``            | set medium volume (5*N-N)            |
+|`` --medium-volume 25``            | set medium volume (5*N)              |
 |`` --transport Y``                 | transport the species Y (Model I)    |
 |`` --transport-k 1``               | value of rate constant for transport |
 |`` --pn X 0.1 uni``                | initial values of X inside +/-10% interval around value of X in base |
