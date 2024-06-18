@@ -25,7 +25,7 @@ Fig. 3 of ref. 1), and the medium volume to be 10 (to keep the ratio of volumes 
 
 Running the command explained above (e.g. by running file *ex1case1.sh*) results in a new model file *case1.cps*.
 Loading that file into COPASI, creating a plot for Y_1, Y_2 and Y_medium, and adjusting its axes,
-entirely reproduces Fig. 3 of reference 1.
+reproduces Fig. 3 of reference 1.
 
 ![Reproduction of Fig.3 of reference 1, the two intracellular Y oscillate in phase and Y in the medium oscillates with lower amplitude and out of phase](case1.png)
 
@@ -51,7 +51,7 @@ in case 1 by setting the constant k=2.5 (instead of 3.84).
 
 Running the command explained above (e.g. by running file *ex1case2.sh*) results in a new model file *case2.cps*.
 Loading that file into COPASI, creating a plot for Y_1, Y_2, Y_3, Y_4, Y_5 and Y_medium, and adjusting its axes,
-entirely reproduces Fig. 5 of reference 1.
+reproduces Fig. 5 of reference 1.
 
 ![Reproduction of Fig.5 of reference 1, the five intracellular Y oscillate out phase shifted by 1/5 the value of the period; Y in the medium oscillates with very low amplitude, nearly constant](case2.png)
 
