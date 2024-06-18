@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.42.284 (Source) (http://www.copasi.org) at 2024-06-18T17:03:08Z -->
+<!-- generated with COPASI 4.42.284 (Source) (http://www.copasi.org) at 2024-06-18T17:26:24Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="42" versionDevel="284" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -116,7 +116,7 @@ Reaction scheme where the products are created from the reactants and the change
     </dcterms:modified>
     <dcterms:modified>
       <rdf:Description>
-        <dcterms:W3CDTF>2024-06-18T13:03:08.357877</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2024-06-18T13:26:24.728151</dcterms:W3CDTF>
       </rdf:Description>
     </dcterms:modified>
   </rdf:Description>
@@ -132,7 +132,7 @@ Reaction scheme where the products are created from the reactants and the change
 <li><a href="https://doi.org/10.1016/s0303-2647(97)01688-2">Wolf J, Heinrich R (1997) Dynamics of two-component biochemical systems in interacting cells; synchronization and desynchronization of oscillations and multiple steady states. BioSystems 43:1–24</a></li>
 </ul>
 </p>
-<p style="font-size:small"><b>CC0 1.0 Universal</b>: To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. Please refer to <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a> for more information.</p><hr/><p>Processed with sbmodelr to produce a set of 5 replicas of Selkov-Wolf-Heinrich_k2.5.cps</p><pre style="font-size:small">../../sbmodelr --output case2.cps --add-medium --medium-volume 20 --transport Y --transport-k 1 --pn X 0.1 uni --pn Y 0.1 uni Selkov-Wolf-Heinrich_k2.5.cps 5</pre></body>
+<p style="font-size:small"><b>CC0 1.0 Universal</b>: To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. Please refer to <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a> for more information.</p><hr/><p>Processed with sbmodelr to produce a set of 5 replicas of Selkov-Wolf-Heinrich_k2.5.cps</p><pre style="font-size:small">../../sbmodelr --output case2.cps --add-medium --medium-volume 25 --transport Y --transport-k 1 --pn X 0.1 uni --pn Y 0.1 uni Selkov-Wolf-Heinrich_k2.5.cps 5</pre></body>
     </Comment>
     <ListOfCompartments>
       <Compartment key="Compartment_1" name="Cell_1" simulationType="fixed" dimensionality="3" addNoise="false">
@@ -1029,20 +1029,20 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_3]" value="1" type="Compartment" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_4]" value="1" type="Compartment" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_5]" value="1" type="Compartment" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[medium]" value="20" type="Compartment" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[medium]" value="25" type="Compartment" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Species Values" type="Group">
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[X_1]" value="5.3319677298551706" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[Y_1]" value="0.71869781449892756" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[X_2]" value="5.3271980540944419" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[Y_2]" value="0.82438227525438434" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_3],Vector=Metabolites[X_3]" value="4.8653725045016563" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_3],Vector=Metabolites[Y_3]" value="0.76539063863055667" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_4],Vector=Metabolites[X_4]" value="5.2414264813038622" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_4],Vector=Metabolites[Y_4]" value="0.69321589352351598" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_5],Vector=Metabolites[X_5]" value="4.6576157539726717" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_5],Vector=Metabolites[Y_5]" value="0.8029294759914587" type="Species" simulationType="reactions"/>
-          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[medium],Vector=Metabolites[Y_medium]" value="15.4" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[X_1]" value="4.6736738569976692" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_1],Vector=Metabolites[Y_1]" value="0.7702553758892059" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[X_2]" value="5.0202861928906719" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_2],Vector=Metabolites[Y_2]" value="0.75532171283283656" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_3],Vector=Metabolites[X_3]" value="5.2095190196689369" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_3],Vector=Metabolites[Y_3]" value="0.83433717129844542" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_4],Vector=Metabolites[X_4]" value="4.5200579719353815" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_4],Vector=Metabolites[Y_4]" value="0.81588945041457162" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_5],Vector=Metabolites[X_5]" value="4.6142466233654202" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[Cell_5],Vector=Metabolites[Y_5]" value="0.83077440954638926" type="Species" simulationType="reactions"/>
+          <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Compartments[medium],Vector=Metabolites[Y_medium]" value="19.25" type="Species" simulationType="reactions"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Initial Global Quantities" type="Group">
           <ModelParameter cn="CN=Root,Model=a set of 5 replicas of Simple model of glycolytic oscillations,Vector=Values[v_1]" value="3" type="ModelValue" simulationType="fixed"/>
@@ -1238,7 +1238,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_12"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 15.4 0.71869781449892756 0.82438227525438434 0.76539063863055667 0.69321589352351598 0.8029294759914587 5.2414264813038622 5.3271980540944419 4.6576157539726717 4.8653725045016563 5.3319677298551706 1 1 1 1 1 20 3 2.5 3 2.5 3 2.5 3 2.5 3 2.5 1 
+      0 19.25 0.7702553758892059 0.75532171283283656 0.83433717129844542 0.81588945041457162 0.83077440954638926 4.5200579719353815 5.0202861928906719 4.6142466233654202 5.2095190196689369 4.6736738569976692 1 1 1 1 1 25 3 2.5 3 2.5 3 2.5 3 2.5 3 2.5 1 
     </InitialState>
   </Model>
   <ListOfTasks>

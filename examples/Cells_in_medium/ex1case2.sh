@@ -12,7 +12,7 @@
 ../../sbmodelr \
  --output case2.cps \
  --add-medium \
- --medium-volume 20 \
+ --medium-volume 25 \
  --transport Y \
  --transport-k 1 \
  --pn X 0.1 uni \
