@@ -3,10 +3,10 @@
 
 This follows the work of Wolf and Heinrich (1), which takes a simple model of glycolytic oscillations from Sel'kov (2) as the base unit (a cell with oscillating glycolysis) and creates a new model with suspensions consisting of an arbitrary number N of interacting units. The individual cells interact via the flux of metabolites, which are produced in all cells and may permeate through the cell membranes (1). Two specific cases are examined: in Model I the coupling is via the product of the autocatalytic reaction (species Y, case 1 and 2), and in Model II the coupling is via the substrate of the autocatalytic reaction (species X, case 3).
 
-We create three examples following (1) using either Model I or II. Each example is codified in a shell script that calls
-*sbmodelr* using a base COPASI file which encodes the basic model for a single unit. In this case we have a different
-base file for each case, however they only differ in the value of the constant *k* and the settings for the time course
-(this allows one to run the resulting file without first having to adjust parameters).
+We create three examples following (1) using either Model I or II. Each example is codified in a shell script
+that calls *sbmodelr*, using a base COPASI file encoding the basic model for a single unit. In this case we have
+a different base file for each case, however they only differ in the value of the constant *k* and the settings
+for the time course (this allows one to run the resulting file without first having to adjust parameters).
 
 Invoking *sbmodelr* with appropriate options, creates a new model that contains several cells that export one species
 (Y for Model I, and X for Model II) to a medium with the appropriate volume (5-fold larger than the total volume of all cells, according to ref. 1). We also set slightly different initial conditions for each unit (variance of ~10%).
