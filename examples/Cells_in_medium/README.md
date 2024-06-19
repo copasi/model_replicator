@@ -8,7 +8,7 @@ that calls *sbmodelr*, using a base COPASI file encoding the basic model for a s
 a different base file for each case, however they only differ in the value of the constant *k* and the settings
 for the time course (this allows one to run the resulting file without first having to adjust parameters).
 
-Invoking *sbmodelr* with appropriate options, creates a new model that contains several cells that export one species
+Invoking *sbmodelr* with appropriate options, creates a new model consisting of several cells that export one species
 (Y for Model I, and X for Model II) to a medium with the appropriate volume (5-fold larger than the total volume of all cells, according to ref. 1). We also set slightly different initial conditions for each unit (variance of ~10%).
 
 For each example there is a shell script that shows the complete command invoking *sbmodelr*, the base file,
