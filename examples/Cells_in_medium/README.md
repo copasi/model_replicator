@@ -45,7 +45,7 @@ This uses Model I, with 5 cells producing regular asynchronous oscillations (fil
 cells to have different initial conditions (options ``--pn``), set the transport rate constant for transport to be 1,
 as in Fig. 3 of ref. 1), and the medium volume to be 25 (to keep the ratio of intracellular over extracellular volume to
 0.2 as in ref. 1). We use a different base file, *Selkov-Wolf-Heinrich_k2.5.cps*, which only differs from the one used
-in case 1 by setting the constant k=2.5 (instead of 3.84).
+in case 1 by setting the constant *k*=2.5 (instead of 3.84).
 
 | command line options              | comment                              |
 | --------------------------------- | ------------------------------------ |
@@ -69,7 +69,7 @@ reproduces Fig. 5 of reference 1.
 ### Case 3
 This uses Model II, with 3 cells producing a stable steady state but with oscillations before convergence
 (file *ex1case3.sh*). We set the three cells to have different initial conditions (options ``--pn``),
-set the transport rate constant for transport to be 4.16, as in, and the medium volume to be 15 (to keep
+set the transport rate constant for transport to be *k*=4.16, as in, and the medium volume to be 15 (to keep
 the ratio of volumes to 0.2 as in ref. 1).
 
 | command line options         | comment                              |
