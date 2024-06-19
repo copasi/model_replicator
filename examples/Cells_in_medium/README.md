@@ -55,6 +55,33 @@ reproduces Fig. 5 of reference 1.
 
 ![Reproduction of Fig.5 of reference 1, the five intracellular Y oscillate out phase shifted by 1/5 the value of the period; Y in the medium oscillates with very low amplitude, nearly constant](case2.png)
 
+### Case 3
+This uses Model II, with 3 cells producing a stable steady state but with oscillations before convergence
+(file *ex1case3.sh*). We set the three cells to have different initial conditions (options ``--pn``),
+set the transport rate constant for transport to be 4.16, as in, and the medium volume to be 15 (to keep
+the ratio of volumes to 0.2 as in ref. 1).
+
+| command line options         | comment                              |
+| --------------------------------- | ------------------------------------ |
+|``sbmodelr``                       | run *sbmodelr*                       |
+|`` --output case3.cps``            | name the output file                 |
+|`` --add-medium``                  | include a medium unit                |
+|`` --medium-volume 15``            | set medium volume (5*N)              |
+|`` --transport X``                 | transport the species X (Model II)   |
+|`` --transport-k 4.16``            | value of rate constant for transport |
+|`` --pn X 0.1 uni``                | initial values of X inside +/-10% interval around value of X in base |
+|`` --pn Y 0.1 uni``                | initial values of Y inside +/-10% interval around value of Y in base |
+|`` Selkov-Wolf-Heinrich_k1.5.cps`` | COPASI file with the base unit       |
+|`` 3``                             | create 3 units                       |
+
+Running the command explained above (e.g. by running file *ex1case3.sh*) results in a new model file *case3.cps*.
+Loading that file into COPASI, creating a plot for X_1, Y_1, X_2, Y_2, X_3, Y_3, and Y_medium displays the complex
+approach to the steady state with oscillations. Note that not all units converge to the same steady state. This
+corresponds to a small region in the bifurcation diagram of Fig. 12 of reference 1 (between lines kappa_c and
+kappa_a).
+
+![Complex approach to a stable steady state](case3.png)
+
 ## References
 
 1. Wolf J, Heinrich R (1997) Dynamics of two-component biochemical systems in interacting cells; synchronization and desynchronization of oscillations and multiple steady states. [BioSystems 43:1–24](https://doi.org/10.1016/s0303-2647(97)01688-2)
