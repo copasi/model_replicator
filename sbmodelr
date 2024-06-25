@@ -9,6 +9,11 @@
 # Written March-June 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
+#TODO: hexagonal arrays? (please no!)
+#TODO: binding between units?  (would nedd to select A,B and bind each one on each side)
+#TODO: modification between units? (would need to select species and reaction)
+#TODO: gene regulation by adding corresponding protein?
+
 __version__ = "1.0a5"
 
 import os
