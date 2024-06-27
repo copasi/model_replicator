@@ -9,6 +9,7 @@
 ../../sbmodelr \
  --output ex2case1.cps \
  -t IP3 \
+ -k 2 \
  -n row_of_11.gv \
  ChI_DePitta2009 \
  11

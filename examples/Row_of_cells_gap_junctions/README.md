@@ -21,6 +21,7 @@ This is a the case where IP3 is transported through simple diffusive kinetics (l
 |``sbmodelr``               | run *sbmodelr*                         |
 |`` --output ex2case1.cps`` | name the output file                   |
 |`` -t IP3``                | transport the species IP3              |
+|`` -k 2``                  | value of rate constant for transport   |
 |`` -n row_of_11.gv``       | network file with the cell connections |
 |`` ChI_DePitta2009``       | COPASI file with the base unit         |
 |`` 11``                    | create 11 units                        |
