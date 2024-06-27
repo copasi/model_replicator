@@ -13,8 +13,6 @@ graph row_of_11 {
 
 These network files follow the syntax used by the Graphviz software ([DOT language](https://graphviz.org/doc/info/lang.html)), but with the limitation that the nodes have to be identified by numbers.
 
-Taking a COPASI file with the ChI model for one cell and invoking *sbmodelr* with appropriate options, creates a new model consisting of 11 cells connected in a row, where IP3 can permeate through passive gap junctions (passive diffusion). Editing the resulting file is required, such that we can add the source for IP3 perturbation.
-
 For each example there is a shell script that shows the complete command invoking *sbmodelr*, the base file,
 the resulting complex model file (*case[123].cps*), and an image file with results. The images were obtained
 by specifying an appropriate plot in the resulting files using the COPASI GUI, as *sbmodlr* does not copy plot settings
@@ -26,17 +24,22 @@ This is a the case where IP3 is transported through simple diffusive kinetics (l
 | command line options      | comment                                |
 | ------------------------- | -------------------------------------- |
 |``sbmodelr``               | run *sbmodelr*                         |
-|`` --output case1.cps``    | name the output file                   |
+|`` --output ex2case1.cps`` | name the output file                   |
 |`` -t IP3``                | transport the species IP3              |
 |`` -n row_of_11.gv``       | network file with the cell connections |
 |`` ChI_DePitta2009``       | COPASI file with the base unit         |
 |`` 11``                    | create 11 units                        |
 
-Running the command explained above (e.g. by running file *ex1case1.sh*) results in a new model file *case1.cps*.
-Loading that file into COPASI, creating a plot for Y_1, Y_2 and Y_medium, and adjusting its axes,
-reproduces Fig. 3 of reference 1.
+Running the command explained above (e.g. by running file *ex2case1.sh*) results in a new model file *ex2case1.cps*.
+We then have to load this model into COPASI in order to:
 
-![Reproduction of Fig.3 of reference 1, the two intracellular Y oscillate in phase and Y in the medium oscillates with lower amplitude and out of phase](case1.png)
+ # add a constant source IP3 connected to unit 1 (the first cell),
+ # create plots to display [Ca] and [IP3] in each cell,
+ # set up an event to add the perturbation.
+
+After doing these operations in the resulting file, we obtain a figure that reproduces the behavior displayed in Fig. 3A and 3B of reference 1.
+
+![Reproduction of behavior in Fig.3A and 3B of reference 1, constant IP3 is applied in cell 1 and this causes calcium waves in cells 2-6 at different times](ex2case1.png)
 
 ### Case 2
 
