@@ -11,5 +11,5 @@
  -t IP3 \
  -k 2 \
  -n row_of_12.gv \
- ChI_DePitta2009 \
+ ChI_DePitta2009.cps \
  12
