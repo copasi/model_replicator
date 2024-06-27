@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.42 (Build 284) (http://www.copasi.org) at 2024-06-27T17:00:42Z -->
+<!-- generated with COPASI 4.42 (Build 284) (http://www.copasi.org) at 2024-06-27T17:39:40Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="42" versionDevel="284" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -188,41 +188,32 @@ Reaction scheme where the products are created from the reactants and the change
     <ListOfMetabolites>
       <Metabolite key="Metabolite_0" name="Ca" simulationType="reactions" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_0">
-    <CopasiMT:is rdf:resource="urn:miriam:chebi:CHEBI:29108"/>
-    <CopasiMT:is rdf:resource="urn:miriam:kegg.compound:C00076"/>
+    <CopasiMT:is rdf:resource="urn:miriam:chebi:CHEBI:29108" />
+    <CopasiMT:is rdf:resource="urn:miriam:kegg.compound:C00076" />
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
       </Metabolite>
       <Metabolite key="Metabolite_1" name="IP3" simulationType="reactions" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_1">
-    <CopasiMT:is rdf:resource="urn:miriam:chebi:CHEBI:16595"/>
-    <CopasiMT:is rdf:resource="urn:miriam:kegg.compound:C01245"/>
+    <CopasiMT:is rdf:resource="urn:miriam:chebi:CHEBI:16595" />
+    <CopasiMT:is rdf:resource="urn:miriam:kegg.compound:C01245" />
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
       </Metabolite>
       <Metabolite key="Metabolite_2" name="C_ER" simulationType="assignment" compartment="Compartment_0" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-   xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <rdf:Description rdf:about="#Metabolite_2">
-    <CopasiMT:is rdf:resource="urn:miriam:chebi:CHEBI:29108"/>
-    <CopasiMT:is rdf:resource="urn:miriam:kegg.compound:C00076"/>
+    <CopasiMT:is rdf:resource="urn:miriam:chebi:CHEBI:29108" />
+    <CopasiMT:is rdf:resource="urn:miriam:kegg.compound:C00076" />
   </rdf:Description>
 </rdf:RDF>
-
         </MiriamAnnotation>
         <Expression>
           (&lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[C0],Reference=Value>-&lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Compartments[Cytoplasm],Vector=Metabolites[Ca],Reference=Concentration>)/&lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[c1],Reference=Value>
@@ -588,7 +579,7 @@ Reaction scheme where the products are created from the reactants and the change
         </ListOfModifiers>
         <ListOfConstants>
           <Constant key="Parameter_7500" name="K_delta" value="1.5"/>
-          <Constant key="Parameter_7628" name="Vmax" value="0.02"/>
+          <Constant key="Parameter_7628" name="Vmax" value="0.12"/>
           <Constant key="Parameter_7626" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=ChI model of calcium oscillations,Vector=Compartments[Cytoplasm]">
@@ -636,12 +627,6 @@ Reaction scheme where the products are created from the reactants and the change
         </KineticLaw>
       </Reaction>
       <Reaction key="Reaction_5" name="IP3-3K" reversible="false" fast="false" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#Reaction_5">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
         <ListOfSubstrates>
           <Substrate metabolite="Metabolite_1" stoichiometry="1"/>
         </ListOfSubstrates>
@@ -650,7 +635,7 @@ Reaction scheme where the products are created from the reactants and the change
         </ListOfModifiers>
         <ListOfConstants>
           <Constant key="Parameter_7507" name="K3" value="1"/>
-          <Constant key="Parameter_7505" name="Vmax" value="0.02"/>
+          <Constant key="Parameter_7505" name="Vmax" value="0.12"/>
           <Constant key="Parameter_7509" name="K_D" value="0.7"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=ChI model of calcium oscillations,Vector=Compartments[Cytoplasm]">
@@ -710,10 +695,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[a2]" value="0.20000000000000001" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[h]" value="0.80000000000000004" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[d5]" value="0.082339999999999997" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta]" value="0.02" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta]" value="0.12" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_delta]" value="1.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_PLC_delta]" value="0.10000000000000001" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v3K]" value="2" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v3K]" value="4.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_D]" value="0.69999999999999996" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K3]" value="1" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[r5P]" value="0.040000000000000001" type="ModelValue" simulationType="fixed"/>
@@ -787,7 +772,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_delta],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[PLC_delta],ParameterGroup=Parameters,Parameter=Vmax" value="0.02" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[PLC_delta],ParameterGroup=Parameters,Parameter=Vmax" value="0.12" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta],Reference=InitialValue>
               </InitialExpression>
@@ -811,7 +796,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K3],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP3-3K],ParameterGroup=Parameters,Parameter=Vmax" value="0.02" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP3-3K],ParameterGroup=Parameters,Parameter=Vmax" value="0.12" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta],Reference=InitialValue>
               </InitialExpression>
@@ -824,13 +809,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           </ModelParameterGroup>
         </ModelParameterGroup>
       </ModelParameterSet>
-      <ModelParameterSet key="ModelParameterSet_3" name="AM">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelParameterSet_3">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
+      <ModelParameterSet key="ModelParameterSet_4" name="AFM">
         <ModelParameterGroup cn="String=Initial Time" type="Group">
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations" value="0" type="Model" simulationType="time"/>
         </ModelParameterGroup>
@@ -857,10 +836,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[a2]" value="0.20000000000000001" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[h]" value="0.80000000000000004" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[d5]" value="0.082339999999999997" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta]" value="0.02" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta]" value="0.12" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_delta]" value="1.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_PLC_delta]" value="0.10000000000000001" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v3K]" value="2" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v3K]" value="4.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_D]" value="0.69999999999999996" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K3]" value="1" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[r5P]" value="0.040000000000000001" type="ModelValue" simulationType="fixed"/>
@@ -934,7 +913,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_delta],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[PLC_delta],ParameterGroup=Parameters,Parameter=Vmax" value="0.02" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[PLC_delta],ParameterGroup=Parameters,Parameter=Vmax" value="0.12" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta],Reference=InitialValue>
               </InitialExpression>
@@ -958,7 +937,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K3],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP3-3K],ParameterGroup=Parameters,Parameter=Vmax" value="0.02" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP3-3K],ParameterGroup=Parameters,Parameter=Vmax" value="0.12" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta],Reference=InitialValue>
               </InitialExpression>
@@ -971,10 +950,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           </ModelParameterGroup>
         </ModelParameterGroup>
       </ModelParameterSet>
-      <ModelParameterSet key="ModelParameterSet_4" name="FM">
+      <ModelParameterSet key="ModelParameterSet_3" name="FM">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelParameterSet_4">
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelParameterSet_3">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -1004,13 +985,13 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[a2]" value="0.20000000000000001" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[h]" value="0.80000000000000004" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[d5]" value="0.082339999999999997" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta]" value="0.050000000000000003" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta]" value="0.69999999999999996" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_delta]" value="1.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_PLC_delta]" value="0.10000000000000001" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v3K]" value="2" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v3K]" value="4.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_D]" value="0.69999999999999996" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K3]" value="1" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[r5P]" value="0.050000000000000003" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Values[r5P]" value="0.20999999999999999" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
           <ModelParameterGroup cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[leak]" type="Reaction">
@@ -1081,7 +1062,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K_delta],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[PLC_delta],ParameterGroup=Parameters,Parameter=Vmax" value="0.050000000000000003" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[PLC_delta],ParameterGroup=Parameters,Parameter=Vmax" value="0.69999999999999996" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta],Reference=InitialValue>
               </InitialExpression>
@@ -1093,7 +1074,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP-5P]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP-5P],ParameterGroup=Parameters,Parameter=k1" value="0.050000000000000003" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP-5P],ParameterGroup=Parameters,Parameter=k1" value="0.20999999999999999" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[r5P],Reference=InitialValue>
               </InitialExpression>
@@ -1105,7 +1086,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[K3],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP3-3K],ParameterGroup=Parameters,Parameter=Vmax" value="0.050000000000000003" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=ChI model of calcium oscillations,Vector=Reactions[IP3-3K],ParameterGroup=Parameters,Parameter=Vmax" value="0.69999999999999996" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=ChI model of calcium oscillations,Vector=Values[v_delta],Reference=InitialValue>
               </InitialExpression>
@@ -1148,7 +1129,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_19"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 0.80000000000000004 1.2044281519999998e+17 3.613284456e+17 5.8593801989189192e+18 0.49615783335493063 1 0.185 0.11 0.90000000000000002 0.10000000000000001 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.02 1.5 0.10000000000000001 2 0.69999999999999996 1 0.040000000000000001 
+      0 0.80000000000000004 1.2044281519999998e+17 3.613284456e+17 5.8593801989189192e+18 0.49615783335493063 1 0.185 0.11 0.90000000000000002 0.10000000000000001 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.12 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.040000000000000001 
     </InitialState>
   </Model>
   <ListOfTasks>
