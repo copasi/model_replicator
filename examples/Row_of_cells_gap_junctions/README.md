@@ -29,7 +29,7 @@ This is a the case where IP3 is transported through simple diffusive kinetics (l
 Running the command explained above (e.g. by running file *ex2case1.sh*) results in a new model file *ex2case1.cps*.
 We then have to load this model into COPASI in order to:
 
- 1. add a constant source IP3 connected to unit 1 (the first cell),
+ 1. add a constant source IP3 connected to unit 1, this is a fixed concentration being transported to IP3 in the first cell at the same rate of 2
  2. create plots to display [Ca] and [IP3] in each cell,
  3. set up an event to add the perturbation.
 
