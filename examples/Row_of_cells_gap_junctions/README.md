@@ -23,7 +23,7 @@ This is a the case where IP3 is transported through simple diffusive kinetics (l
 |`` -t IP3``                | transport the species IP3              |
 |`` -k 2``                  | value of rate constant for transport   |
 |`` -n row_of_12.gv``       | network file with the cell connections |
-|`` ChI_DePitta2009``       | COPASI file with the base unit         |
+|`` ChI_DePitta2009.cps``   | COPASI file with the base unit         |
 |`` 12``                    | create 12 units                        |
 
 Running the command explained above (e.g. by running file *ex2case1.sh*) results in a new model file *ex2case1.cps*.
@@ -33,7 +33,7 @@ We then have to load this model into COPASI in order to:
  2. create plots to display [Ca] and [IP3] in each cell,
  3. set up an event to add the perturbation.
 
-After doing these operations in the resulting file, we obtain a figure that reproduces the behavior displayed in Fig. 3A and 3B of reference 1.
+After doing these operations and saving the file as *ex2case1ready.cps* , we obtain a figure that reproduces the behavior displayed in Fig. 3A and 3B of reference 1.
 
 ![Reproduction of behavior in Fig.3A and 3B of reference 1, constant IP3 is applied in cell 1 and this causes calcium waves in cells 2-6 at different times](ex2case1.png)
 
