@@ -7,7 +7,7 @@
 
 
 ../../sbmodelr \
- --output case1.cps \
+ --output ex2case1.cps \
  -t IP3 \
  -n row_of_11.gv \
  ChI_DePitta2009 \
