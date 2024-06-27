@@ -1,13 +1,13 @@
 # Row of cells with gap junctions
 ## propagation of pulsating calcium waves in astrocyte networks
 
-This follows the work of Goldberg *et al.* (1), which uses a model of calcium oscillations induced by IP3 from De Pittà  *et al.* (2), named ChI model, which is an extension of the Li-Rinzel model (3) where IP3 is a variable of the model. They create a row of 11 cells (astrocytes) connected laterally by gap junctions that allow transport of IP3 between neighboring cells. They then trigger input of IP3 at one cell and check how the calcium waves propagate in the cell network. They examine two cases: one with gap junctions that operate like passive diffusion, and another where the kinetics of the gap junctions have a threshold.
+This follows the work of Goldberg *et al.* (1), which uses a model of calcium oscillations induced by IP3 from De Pittà  *et al.* (2), named ChI model, which is an extension of the Li-Rinzel model (3) where IP3 is a variable of the model. They create a row of 12 cells (astrocytes) connected laterally by gap junctions that allow transport of IP3 between neighboring cells. They then trigger input of IP3 at one cell and check how the calcium waves propagate in the cell network. They examine two cases: one with gap junctions that operate like passive diffusion, and another where the kinetics of the gap junctions have a threshold.
 
 Because this cell topology is a single row, we have to provide the actual specific connectivity in a network file. This is because *sbmodelr* allows any arbitratry connections when the user specifies simply a number of cells. In 2D or 3D, *sbmodelr* assumes a rectangular or cuboid grid of connections, but with just a number of cells (1D) the connectivity has to be provided explicitly (this allows for completely arbitrary ways of connecting units). In this case we have a line of cells, so the content of network file *row_of_11.gv* is:
 
 ```
-graph row_of_11 {
-1 -- 2 -- 3 -- 4 -- 5 -- 6 -- 7 -- 8 -- 9 -- 10 -- 11
+graph row_of_12 {
+1 -- 2 -- 3 -- 4 -- 5 -- 6 -- 7 -- 8 -- 9 -- 10 -- 11 -- 12
 }
 ```
 
@@ -22,9 +22,9 @@ This is a the case where IP3 is transported through simple diffusive kinetics (l
 |`` --output ex2case1.cps`` | name the output file                   |
 |`` -t IP3``                | transport the species IP3              |
 |`` -k 2``                  | value of rate constant for transport   |
-|`` -n row_of_11.gv``       | network file with the cell connections |
+|`` -n row_of_12.gv``       | network file with the cell connections |
 |`` ChI_DePitta2009``       | COPASI file with the base unit         |
-|`` 11``                    | create 11 units                        |
+|`` 12``                    | create 12 units                        |
 
 Running the command explained above (e.g. by running file *ex2case1.sh*) results in a new model file *ex2case1.cps*.
 We then have to load this model into COPASI in order to:
