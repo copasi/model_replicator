@@ -13,11 +13,6 @@ graph row_of_11 {
 
 These network files follow the syntax used by the Graphviz software ([DOT language](https://graphviz.org/doc/info/lang.html)), but with the limitation that the nodes have to be identified by numbers.
 
-For each example there is a shell script that shows the complete command invoking *sbmodelr*, the base file,
-the resulting complex model file (*case[123].cps*), and an image file with results. The images were obtained
-by specifying an appropriate plot in the resulting files using the COPASI GUI, as *sbmodlr* does not copy plot settings
-to the new models.
-
 ### Case 1
 This is a the case where IP3 is transported through simple diffusive kinetics (like mass action) (file *ex2case1.sh*). .
 
