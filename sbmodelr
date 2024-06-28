@@ -14,7 +14,7 @@
 #TODO: modification between units? (would need to select species and reaction)
 #TODO: gene regulation by adding corresponding protein?
 
-__version__ = "1.0a5"
+__version__ = "1.0a6"
 
 import os
 import re
@@ -797,7 +797,6 @@ for r in range(gridr):
                     nname = p + apdx
                     scheme = mreacts.loc[p].at['scheme']
                     tok = scheme.split(';')
-                    #tok2 = [sub.split() for sub in tok]
                     tok2 = [shlex.split(sub, posix=False) for sub in tok]
                     # build the reaction string
                     rs = ""
