@@ -11,7 +11,7 @@ graph row_of_12 {
 }
 ```
 
-These network files follow the syntax used by the Graphviz software ([DOT language](https://graphviz.org/doc/info/lang.html)), but with the limitation that the nodes have to be identified by numbers.
+These network files follow the syntax used by the Graphviz software ([DOT language](https://graphviz.org/doc/info/lang.html)), but with the limitation that the nodes must be identified by numbers.
 
 ### Case 1
 This is a the case where IP3 is transported through simple diffusive kinetics (like mass action) (file *ex2case1.sh*). .
