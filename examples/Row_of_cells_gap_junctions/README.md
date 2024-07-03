@@ -38,15 +38,17 @@ After doing these operations and saving the file as *ex2case1ready.cps* , we obt
 
 ![Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case1_Ca_1-4.png)
 
-**Fig. 1.** Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells
+**Fig. 1.** Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells.
 
 ![Reproduction of behavior in Fig.3A of reference 1 for cells 5-12, constant IP3 is applied in cell 1 and this causes very small amplitude calcium waves in distant cells](ex2case1_Ca_5-12.png)
 
-**Fig. 2.** Reproduction of behavior in Fig.3A of reference 1 for cells 5-12, constant IP3 is applied in cell 1 and this causes very small amplitude calcium waves in distant cells
+**Fig. 2.** Reproduction of behavior in Fig.3A of reference 1 for cells 5-12, constant IP3 is applied in cell 1 and this causes very small amplitude calcium waves in distant cells (c.f. scale in Fig. 1).
 
 ![Reproduction of behavior in Fig.3B of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells](ex2case1_IP3.png)
 
-**Fig. 3.** Reproduction of behavior in Fig.3B of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells
+**Fig. 3.** Reproduction of behavior in Fig.3B of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells.
+
+
 ### Case 2
 
 ### Case 3
