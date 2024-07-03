@@ -2,7 +2,7 @@
 
 # example 2, case 1
 
-# create 11 cells connected in a row (described in row_of_11.gv file)
+# create 12 cells connected in a row (described in row_of_12.gv file)
 # with transport on IP3
 
 
