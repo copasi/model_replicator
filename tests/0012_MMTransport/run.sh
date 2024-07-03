@@ -5,7 +5,7 @@ test=${PWD##*/}          # to assign to a variable
 test=${test:-/}          # to correct for the case where PWD=/
 
 # run sbmodelr
-../../sbmodelr --mm-transport C --transport-Km 0.15 --transport-Vmax 0.5 -o IRC_2x2.cps ../sources/IrreversibleReactionChain.cps 2 2 > output
+../../sbmodelr --Hill-transport C --transport-Km 0.15 --transport-Vmax 0.5 -o IRC_2x2.cps ../sources/IrreversibleReactionChain.cps 2 2 1> output
 
 fail=0
 
@@ -42,14 +42,14 @@ if ! grep -Pq "compartment_2,2" IRC_2x2.summary.txt; then
 fi
 
 # check that there are 4 transport reactions
-n=$(grep -Pc "t_C_[12]\,[12]-[12]\,[12]\s+C_[12]\,[12] = C_[12]\,[12]\s+MM Transport" IRC_2x2.summary.txt)
+n=$(grep -Pc "t_C_[12]\,[12]-[12]\,[12]\s+C_[12]\,[12] = C_[12]\,[12]\s+Hill Transport" IRC_2x2.summary.txt)
 if ((n != 4))  ; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 16"
 fi
 
 # check the rate law for transport is defined
-if ! grep -Pq "^MM Transport\s+V \* \( S - P \) \/ \( Km \+ S \+ P \)" IRC_2x2.summary.txt; then
+if ! grep -Pq "^Hill Transport\s+V \* \( S \^ h \- P \^ h \) \/ \( Km \^ h \+ S \^ h \+ P \^ h \)" IRC_2x2.summary.txt; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 32"
 fi
