@@ -34,7 +34,7 @@ We then have to load this model into COPASI in order to:
  1. set the IP3  concentration in unit 1 fixed at value 1.0 (as in Figure 3 of ref. 1)
  2. create plots to display [Ca] and [IP3] in each cell,
 
-After doing these operations and saving the file as *ex2case1ready.cps* , we obtain figures that reproduce the behavior displayed in Fig. 3A and 3B of reference 1. To make the small changes (1-2 above) explicit, the file *ex2case1ready.cps* includes these changes, while *ex2case1.cps* is the file produced by *sbmodelr* without any changes.
+After doing these operations and saving the modified file as *ex2case1ready.cps* , we obtain figures that reproduce the behavior displayed in Fig. 3A and 3B of reference 1.
 
 ![Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case1_Ca_1-4.png)
 
