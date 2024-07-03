@@ -32,9 +32,9 @@ Running the command explained above (e.g. by running file *ex2case1.sh*) results
 We then have to load this model into COPASI in order to:
 
  1. set the IP3  concentration in unit 1 fixed at value 1.0 (as in Figure 3 of ref. 1)
- 2. create plots to display [Ca] and [IP3] in each cell,
+ 2. create plots to display [Ca] and [IP3] in each cell
 
-After doing these operations and saving the modified file as *ex2case1ready.cps* , we obtain figures that reproduce the behavior displayed in Fig. 3A and 3B of reference 1.
+After doing these operations and saving the modified file as *ex2case1ready.cps*, we obtain figures that reproduce the behavior displayed in Fig. 3A and 3B of reference 1.
 
 ![Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case1_Ca_1-4.png)
 
@@ -50,8 +50,46 @@ After doing these operations and saving the modified file as *ex2case1ready.cps*
 
 
 ### Case 2
+This is very similar to the previous case except that transport of IP3 now follows a nonlinear sigmoidal function. Goldberg *et al.* use a sigmoidal function defined with a hyperbolic tangent (1) but *sbmodlr* has a Hill function to allow sigmoidal (and hyperbolic) transport kinetics. Here we will use Hill kinetics to approximate the behavior observed by Goldberg *et al.*. To run the example see file *ex2case2.sh*, explained in the table below.
+
+| command line options      | comment                                          |
+| ------------------------- | ------------------------------------------------ |
+|``sbmodelr``               | run *sbmodelr*                                   |
+|`` --output ex2case2.cps`` | name the output file                             |
+|`` --Hill-transport IP3``  | transport the species IP3 with Hill kinetics     |
+|`` --transport-Vmax 2``    | value of Vmax for transport rate law             |
+|`` --transport-Km 0.72``   | value of Km for transport rate law               |
+|`` --transport-h 4``       | value of Hill coefficient for transport rate law |
+|`` -n row_of_12.gv``       | network file with the cell connections           |
+|`` ChI_DePitta2009.cps``   | COPASI file with the base unit                   |
+|`` 12``                    | create 12 units                                  |
+
+Running the command explained above (e.g. by running file *ex2case2.sh*) results in a new model file *ex2case2.cps*.
+We then have to, again, load this model into COPASI in order to:
+
+ 1. set the IP3  concentration in unit 1 fixed at value 1.0 (as in Figure 3 of ref. 1)
+ 2. create plots to display [Ca] and [IP3] in each cell
+
+After doing these operations and saving the modified file as *ex2case2ready.cps*, we obtain figures that approximately reproduce the behavior displayed in Fig. 3C and 3D of reference 1 (despite the kinetics being different).
+
+ 1. define a new function to encode the desired rate law (*eg.* Eq. 5 of reference 1)
+ 2. identify the transport reactions (named *t_IP3_i-j*, where *i* and *j* are cell numbers) and change each one's kinetic rate law to the one defined in the previous step.
+
+ Thus, with a little effort, models created with *sbmodelr* can be changed to match any arbitrary kinetics.
+
+![Approximate reproduction of behavior in Fig.3C of reference 1; constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case2_Ca.png)
+
+**Fig. 4.** Approximate reproduction of behavior in Fig.3C of reference 1; constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells. Note that in this case there are oscillations in all cells, unlike in Fig. 1 with linear transport kinetics.
+
+![Approximate reproduction of behavior in Fig.3D of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells](ex2case2_IP3.png)
+
+**Fig. 5.** Approximate reproduction of behavior in Fig.3D of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells.
+
+
 
 ### Case 3
+If indeed we wanted to use an arbitrary kinetic rate law for the trasport, we can use the COPASI file produced above and modify it to include the said kinetics. This could be achieved by running the following steps:
+
 
 ## References
 
