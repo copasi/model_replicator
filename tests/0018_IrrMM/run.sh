@@ -5,7 +5,7 @@ test=${PWD##*/}          # to assign to a variable
 test=${test:-/}          # to correct for the case where PWD=/
 
 # run sbmodelr
-../../sbmodelr -n ../sources/1to2.gv -m c ../sources/BindingKa.cps 2 > output
+../../sbmodelr -n ../sources/1to2.gv --Hill-transport c ../sources/BindingKa.cps 2 1> output 2> /dev/null
 
 fail=0
 
@@ -26,13 +26,13 @@ fi
 #t_c_1-2       c_1 -> c_2  Henri-Michaelis-Menten (irreversible)           {'substrate': 'c_1', 'Km': 'Km_c_transport', 'V': 'Vmax_c_transport'}
 
 # check that transport reaction exists
-if ! grep -Pq "t_c_1-2\s+c_1 -\> c_2\s+Henri-Michaelis-Menten \(irreversible\)" BindingKa_2.summary.txt; then
+if ! grep -Pq "t_c_1-2\s+c_1 -\> c_2\s+Hill Cooperativity" BindingKa_2.summary.txt; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 2"
 fi
 
 # check that the Henri-Michaelis-Menten rate law is used
-if ! grep -Pq "^Henri-Michaelis-Menten \(irreversible\)\s+V\*substrate\/\(Km\+substrate\)" BindingKa_2.summary.txt; then
+if ! grep -Pq "^Hill Cooperativity\s+V\*\(substrate\/Shalve\)\^h\/\(1\+\(substrate\/Shalve\)\^h\)" BindingKa_2.summary.txt; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 4"
 fi
@@ -43,10 +43,16 @@ if ! grep -Pq "^Km_c_transport\s+fixed" BindingKa_2.summary.txt; then
   let "fail = $fail + 8"
 fi
 
-# check that the Vmaxconstant was created
+# check that the Vmax constant was created
 if ! grep -Pq "^Vmax_c_transport\s+fixed" BindingKa_2.summary.txt; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 16"
+fi
+
+# check that the Hill constant was created
+if ! grep -Pq "^h_c_transport\s+fixed" BindingKa_2.summary.txt; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 32"
 fi
 
 if [ "$fail" = 0 ] ; then
