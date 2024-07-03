@@ -3,7 +3,7 @@
 
 This follows the work of Goldberg *et al.* (1), which uses a model of calcium oscillations induced by IP3 from De Pittà  *et al.* (2), named ChI model, which is an extension of the Li-Rinzel model (3) where IP3 is a variable. They create a row of 12 cells (astrocytes) connected laterally by gap junctions that allow transport of IP3 between neighboring cells. They then trigger input of IP3 at one cell and check how the calcium waves propagate in the cell network. They examine two cases: one with gap junctions that operate like passive diffusion, and another where the kinetics of the gap junctions have a threshold.
 
-Here we will use a COPASI version of the model in De Pittà *et al.* (2), *ChI_DePitta2009.cps*, as the base file. This encodes a single cell with the ChI model that has as variables: the cytoplasmic calcium concentration, cytoplasmic IP3 concentration, and *h* representing the proportion of open calcium channels in the ER membrane, and which is dependent on IP3 and calcium in the cytoplasm).
+Here we will use a COPASI version of the model in De Pittà *et al.* (2), *ChI_DePitta2009.cps*, as the base file. This encodes a single cell with the ChI model that has as variables: the cytoplasmic calcium concentration, cytoplasmic IP3 concentration, and *h* representing the proportion of open calcium channels in the ER membrane, and which is dependent on IP3 and calcium in the cytoplasm.
 
 Because this cell topology is a single row, we have to provide the actual specific connectivity in a network file. This is because *sbmodelr* allows any arbitratry connections when the user specifies simply a number of cells. In 2D or 3D, *sbmodelr* assumes a rectangular or cuboid grid of connections, but with just a number of cells (1D) the connectivity has to be provided explicitly (this allows for completely arbitrary ways of connecting units). In this case we have a line of cells, so the content of network file *row_of_11.gv* is:
 
@@ -34,9 +34,13 @@ We then have to load this model into COPASI in order to:
  1. set the IP3  concentration in unit 1 fixed at value 1.0 (as in Figure 3 of ref. 1)
  2. create plots to display [Ca] and [IP3] in each cell,
 
-After doing these operations and saving the file as *ex2case1ready.cps* , we obtain a figure that reproduces the behavior displayed in Fig. 3A and 3B of reference 1.
+After doing these operations and saving the file as *ex2case1ready.cps* , we obtain figures that reproduce the behavior displayed in Fig. 3A and 3B of reference 1.
 
-![Reproduction of behavior in Fig.3A and 3B of reference 1, constant IP3 is applied in cell 1 and this causes calcium waves in cells 2-6 at different times](ex2case1.png)
+![Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case1_Ca_1-4.png)
+
+![Reproduction of behavior in Fig.3A of reference 1 for cells 5-12, constant IP3 is applied in cell 1 and this causes very small amplitude calcium waves in distant cells](ex2case1_Ca_5-12.png)
+
+![Reproduction of behavior in Fig.3B of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells](ex2case1_IP3.png)
 
 ### Case 2
 
