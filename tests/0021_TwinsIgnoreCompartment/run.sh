@@ -5,7 +5,9 @@ test=${PWD##*/}          # to assign to a variable
 test=${test:-/}          # to correct for the case where PWD=/
 
 # run sbmodelr
-../../sbmodelr -n ../sources/twins.gv -t c --ignore-compartments ../sources/BindingKa.cps 2 > output
+../../sbmodelr -n ../sources/twins.gv -t c --ignore-compartments ../sources/BindingKa.cps 2
+mendes@oxygen:~/Copasi/model_replicator/tests/0019_FitzHughCompartmentalNoise$  cd /home/mendes/Copasi/model_replicator
+
 
 fail=0
 
