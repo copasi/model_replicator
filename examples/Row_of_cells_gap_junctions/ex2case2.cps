@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.42.284 (Source) (http://www.copasi.org) at 2024-07-03T17:51:45Z -->
+<!-- generated with COPASI 4.42.284 (Source) (http://www.copasi.org) at 2024-07-04T00:04:34Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="42" versionDevel="284" copasiSourcesModified="0">
   <ListOfFunctions>
@@ -118,7 +118,7 @@ Reaction scheme where the products are created from the reactants and the change
         <ParameterDescription key="FunctionParameter_288" name="Vmax" order="4" role="constant"/>
       </ListOfParameterDescriptions>
     </Function>
-    <Function key="Function_45" name="MM Transport" type="Function" reversible="true">
+    <Function key="Function_45" name="Hill Transport" type="Function" reversible="true">
       <MiriamAnnotation>
 <rdf:RDF
 xmlns:dcterms="http://purl.org/dc/terms/"
@@ -128,13 +128,14 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 </rdf:RDF>
       </MiriamAnnotation>
       <Expression>
-        V * ( S - P ) / ( Km + S + P )
+        V * ( S ^ h - P ^ h ) / ( Km ^ h + S ^ h + P ^ h )
       </Expression>
       <ListOfParameterDescriptions>
         <ParameterDescription key="FunctionParameter_657" name="V" order="0" role="constant"/>
         <ParameterDescription key="FunctionParameter_659" name="S" order="1" role="substrate"/>
-        <ParameterDescription key="FunctionParameter_661" name="P" order="2" role="product"/>
-        <ParameterDescription key="FunctionParameter_663" name="Km" order="3" role="constant"/>
+        <ParameterDescription key="FunctionParameter_661" name="h" order="2" role="constant"/>
+        <ParameterDescription key="FunctionParameter_663" name="P" order="3" role="product"/>
+        <ParameterDescription key="FunctionParameter_665" name="Km" order="4" role="constant"/>
       </ListOfParameterDescriptions>
     </Function>
   </ListOfFunctions>
@@ -175,7 +176,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     </dcterms:creator>
     <dcterms:modified>
       <rdf:Description>
-        <dcterms:W3CDTF>2024-07-03T13:51:45.399107</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2024-07-03T20:04:33.630821</dcterms:W3CDTF>
       </rdf:Description>
     </dcterms:modified>
   </rdf:Description>
@@ -189,7 +190,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <h2>History</h2>
 <p>This model is an extension to a 2-variable model of calcium-induced calcium release by <a href="https://doi.org/10.1006/jtbi.1994.1041">Li and Rinzel</a>, where the active role of IP3 was added (it is constant in the Li-Rinzel model). The Li-Rinzel model was, in its turn, developed as a reduced version of a previous model by <a href="https://doi.org/10.1073/pnas.89.20.9895">De Young and Keizer</a>, which contained a detailed mechanism of the IP3R and has 9 variables. The reduction, based on time scale separation, follows a formalism similar to that used by Hodgkin and Huxley to develop a model of excitability of the neuronal plasma membrane.</p>
 
-<p style="font-size:small"><b>CC0 1.0 Universal</b>: To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. Please refer to <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a> for more information.</p><hr/><p>Processed with sbmodelr to produce a set of 12 replicas of ChI_DePitta2009.cps</p><pre style="font-size:small">../../sbmodelr --output ex2case2.cps -m IP3 -n row_of_12.gv ChI_DePitta2009.cps 12</pre></body>
+<p style="font-size:small"><b>CC0 1.0 Universal</b>: To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. Please refer to <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a> for more information.</p><hr/><p>Processed with sbmodelr to produce a set of 12 replicas of ChI_DePitta2009.cps</p><pre style="font-size:small">../../sbmodelr --output ex2case2.cps --Hill-transport IP3 --transport-Vmax 4 --transport-Km 0.72 --transport-h 4 -n row_of_12.gv ChI_DePitta2009.cps 12</pre></body>
     </Comment>
     <ListOfCompartments>
       <Compartment key="Compartment_2" name="Cytoplasm_1" simulationType="fixed" dimensionality="3" addNoise="false">
@@ -4116,6 +4117,16 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 </rdf:RDF>
         </MiriamAnnotation>
       </ModelValue>
+      <ModelValue key="ModelValue_262" name="h_IP3_transport" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_262">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
+      </ModelValue>
     </ListOfModelValues>
     <ListOfReactions>
       <Reaction key="Reaction_6" name="leak_1" reversible="true" fast="false" addNoise="false">
@@ -4134,9 +4145,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7241" name="v" value="0.1"/>
-          <Constant key="Parameter_7240" name="c0" value="0.1"/>
-          <Constant key="Parameter_7239" name="c1" value="0.1"/>
+          <Constant key="Parameter_7231" name="v" value="0.1"/>
+          <Constant key="Parameter_7230" name="c0" value="0.1"/>
+          <Constant key="Parameter_7229" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_1]">
           <ListOfCallParameters>
@@ -4168,9 +4179,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7238" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7236" name="V" value="0.9"/>
-          <Constant key="Parameter_7235" name="h" value="2"/>
+          <Constant key="Parameter_7225" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7226" name="V" value="0.9"/>
+          <Constant key="Parameter_7227" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_1]">
           <ListOfCallParameters>
@@ -4184,7 +4195,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_21"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7235"/>
+              <SourceParameter reference="Parameter_7227"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -4206,12 +4217,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7237" name="v" value="0.1"/>
-          <Constant key="Parameter_7234" name="k1" value="0.1"/>
-          <Constant key="Parameter_7243" name="k2" value="0.1"/>
-          <Constant key="Parameter_7231" name="h" value="0.1"/>
-          <Constant key="Parameter_7230" name="c0" value="0.1"/>
-          <Constant key="Parameter_7232" name="c1" value="0.1"/>
+          <Constant key="Parameter_7228" name="v" value="0.1"/>
+          <Constant key="Parameter_7224" name="k1" value="0.1"/>
+          <Constant key="Parameter_7233" name="k2" value="0.1"/>
+          <Constant key="Parameter_7221" name="h" value="0.1"/>
+          <Constant key="Parameter_7220" name="c0" value="0.1"/>
+          <Constant key="Parameter_7222" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_1]">
           <ListOfCallParameters>
@@ -4258,9 +4269,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7226" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7228" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7225" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7216" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7218" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7215" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_1]">
           <ListOfCallParameters>
@@ -4295,7 +4306,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_4" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7229" name="k1" value="0.21"/>
+          <Constant key="Parameter_7219" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_1]">
           <ListOfCallParameters>
@@ -4324,9 +4335,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_3" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7227" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7223" name="K3" value="0.1"/>
-          <Constant key="Parameter_7221" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7217" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7213" name="K3" value="0.1"/>
+          <Constant key="Parameter_7211" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_1]">
           <ListOfCallParameters>
@@ -4364,9 +4375,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7224" name="v" value="0.1"/>
-          <Constant key="Parameter_7233" name="c0" value="0.1"/>
-          <Constant key="Parameter_7220" name="c1" value="0.1"/>
+          <Constant key="Parameter_7214" name="v" value="0.1"/>
+          <Constant key="Parameter_7223" name="c0" value="0.1"/>
+          <Constant key="Parameter_7210" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_2]">
           <ListOfCallParameters>
@@ -4398,9 +4409,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7216" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7218" name="V" value="0.9"/>
-          <Constant key="Parameter_7215" name="h" value="2"/>
+          <Constant key="Parameter_7206" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7208" name="V" value="0.9"/>
+          <Constant key="Parameter_7205" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_2]">
           <ListOfCallParameters>
@@ -4414,7 +4425,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_41"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7215"/>
+              <SourceParameter reference="Parameter_7205"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -4436,12 +4447,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7219" name="v" value="0.1"/>
-          <Constant key="Parameter_7217" name="k1" value="0.1"/>
-          <Constant key="Parameter_7222" name="k2" value="0.1"/>
-          <Constant key="Parameter_7213" name="h" value="0.1"/>
-          <Constant key="Parameter_7211" name="c0" value="0.1"/>
-          <Constant key="Parameter_7210" name="c1" value="0.1"/>
+          <Constant key="Parameter_7209" name="v" value="0.1"/>
+          <Constant key="Parameter_7207" name="k1" value="0.1"/>
+          <Constant key="Parameter_7212" name="k2" value="0.1"/>
+          <Constant key="Parameter_7203" name="h" value="0.1"/>
+          <Constant key="Parameter_7201" name="c0" value="0.1"/>
+          <Constant key="Parameter_7200" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_2]">
           <ListOfCallParameters>
@@ -4488,9 +4499,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7208" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7209" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7206" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7198" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7199" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_8177" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_2]">
           <ListOfCallParameters>
@@ -4525,7 +4536,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_7" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7212" name="k1" value="0.21"/>
+          <Constant key="Parameter_7202" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_2]">
           <ListOfCallParameters>
@@ -4554,9 +4565,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_6" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7205" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7204" name="K3" value="0.1"/>
-          <Constant key="Parameter_7203" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_8178" name="K_D" value="0.1"/>
+          <Constant key="Parameter_8176" name="K3" value="0.1"/>
+          <Constant key="Parameter_8179" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_2]">
           <ListOfCallParameters>
@@ -4594,9 +4605,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7207" name="v" value="0.1"/>
-          <Constant key="Parameter_7214" name="c0" value="0.1"/>
-          <Constant key="Parameter_8182" name="c1" value="0.1"/>
+          <Constant key="Parameter_8180" name="v" value="0.1"/>
+          <Constant key="Parameter_7204" name="c0" value="0.1"/>
+          <Constant key="Parameter_7196" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_3]">
           <ListOfCallParameters>
@@ -4628,9 +4639,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_8184" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_8181" name="V" value="0.9"/>
-          <Constant key="Parameter_7201" name="h" value="2"/>
+          <Constant key="Parameter_7193" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7194" name="V" value="0.9"/>
+          <Constant key="Parameter_7191" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_3]">
           <ListOfCallParameters>
@@ -4644,7 +4655,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_61"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7201"/>
+              <SourceParameter reference="Parameter_7191"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -4666,12 +4677,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8185" name="v" value="0.1"/>
-          <Constant key="Parameter_7200" name="k1" value="0.1"/>
-          <Constant key="Parameter_8183" name="k2" value="0.1"/>
-          <Constant key="Parameter_7199" name="h" value="0.1"/>
-          <Constant key="Parameter_7198" name="c0" value="0.1"/>
-          <Constant key="Parameter_7196" name="c1" value="0.1"/>
+          <Constant key="Parameter_7197" name="v" value="0.1"/>
+          <Constant key="Parameter_7190" name="k1" value="0.1"/>
+          <Constant key="Parameter_7195" name="k2" value="0.1"/>
+          <Constant key="Parameter_7189" name="h" value="0.1"/>
+          <Constant key="Parameter_7188" name="c0" value="0.1"/>
+          <Constant key="Parameter_7186" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_3]">
           <ListOfCallParameters>
@@ -4718,9 +4729,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7194" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7197" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7193" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7184" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7187" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7183" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_3]">
           <ListOfCallParameters>
@@ -4755,7 +4766,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_10" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7195" name="k1" value="0.21"/>
+          <Constant key="Parameter_7185" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_3]">
           <ListOfCallParameters>
@@ -4784,9 +4795,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_9" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7191" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7192" name="K3" value="0.1"/>
-          <Constant key="Parameter_7189" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_8007" name="K_D" value="0.1"/>
+          <Constant key="Parameter_8010" name="K3" value="0.1"/>
+          <Constant key="Parameter_8006" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_3]">
           <ListOfCallParameters>
@@ -4824,9 +4835,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_12" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7190" name="v" value="0.1"/>
-          <Constant key="Parameter_7202" name="c0" value="0.1"/>
-          <Constant key="Parameter_7188" name="c1" value="0.1"/>
+          <Constant key="Parameter_8008" name="v" value="0.1"/>
+          <Constant key="Parameter_7192" name="c0" value="0.1"/>
+          <Constant key="Parameter_8009" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_4]">
           <ListOfCallParameters>
@@ -4858,9 +4869,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_12" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_8011" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_8015" name="V" value="0.9"/>
-          <Constant key="Parameter_8014" name="h" value="2"/>
+          <Constant key="Parameter_8681" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_8685" name="V" value="0.9"/>
+          <Constant key="Parameter_8684" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_4]">
           <ListOfCallParameters>
@@ -4874,7 +4885,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_81"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_8014"/>
+              <SourceParameter reference="Parameter_8684"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -4896,12 +4907,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_12" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8013" name="v" value="0.1"/>
-          <Constant key="Parameter_8687" name="k1" value="0.1"/>
-          <Constant key="Parameter_8012" name="k2" value="0.1"/>
-          <Constant key="Parameter_8690" name="h" value="0.1"/>
-          <Constant key="Parameter_8686" name="c0" value="0.1"/>
-          <Constant key="Parameter_8689" name="c1" value="0.1"/>
+          <Constant key="Parameter_8683" name="v" value="0.1"/>
+          <Constant key="Parameter_8637" name="k1" value="0.1"/>
+          <Constant key="Parameter_8682" name="k2" value="0.1"/>
+          <Constant key="Parameter_8640" name="h" value="0.1"/>
+          <Constant key="Parameter_8636" name="c0" value="0.1"/>
+          <Constant key="Parameter_8639" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_4]">
           <ListOfCallParameters>
@@ -4948,9 +4959,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_12" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8645" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_8643" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_8641" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7182" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7180" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7179" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_4]">
           <ListOfCallParameters>
@@ -4985,7 +4996,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_13" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_8642" name="k1" value="0.21"/>
+          <Constant key="Parameter_7181" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_4]">
           <ListOfCallParameters>
@@ -5014,9 +5025,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_12" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8644" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7185" name="K3" value="0.1"/>
-          <Constant key="Parameter_7187" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7178" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7175" name="K3" value="0.1"/>
+          <Constant key="Parameter_7177" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_4]">
           <ListOfCallParameters>
@@ -5054,9 +5065,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7186" name="v" value="0.1"/>
-          <Constant key="Parameter_8688" name="c0" value="0.1"/>
-          <Constant key="Parameter_7184" name="c1" value="0.1"/>
+          <Constant key="Parameter_7176" name="v" value="0.1"/>
+          <Constant key="Parameter_8638" name="c0" value="0.1"/>
+          <Constant key="Parameter_7174" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_5]">
           <ListOfCallParameters>
@@ -5088,9 +5099,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7182" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7180" name="V" value="0.9"/>
-          <Constant key="Parameter_7179" name="h" value="2"/>
+          <Constant key="Parameter_7170" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7171" name="V" value="0.9"/>
+          <Constant key="Parameter_7169" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_5]">
           <ListOfCallParameters>
@@ -5104,7 +5115,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_101"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7179"/>
+              <SourceParameter reference="Parameter_7169"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -5126,12 +5137,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7181" name="v" value="0.1"/>
-          <Constant key="Parameter_7178" name="k1" value="0.1"/>
-          <Constant key="Parameter_7183" name="k2" value="0.1"/>
-          <Constant key="Parameter_7176" name="h" value="0.1"/>
-          <Constant key="Parameter_7175" name="c0" value="0.1"/>
-          <Constant key="Parameter_7174" name="c1" value="0.1"/>
+          <Constant key="Parameter_7172" name="v" value="0.1"/>
+          <Constant key="Parameter_7168" name="k1" value="0.1"/>
+          <Constant key="Parameter_7173" name="k2" value="0.1"/>
+          <Constant key="Parameter_7165" name="h" value="0.1"/>
+          <Constant key="Parameter_7167" name="c0" value="0.1"/>
+          <Constant key="Parameter_7164" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_5]">
           <ListOfCallParameters>
@@ -5178,9 +5189,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7170" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7171" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7172" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7160" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7161" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7162" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_5]">
           <ListOfCallParameters>
@@ -5215,7 +5226,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_16" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7173" name="k1" value="0.21"/>
+          <Constant key="Parameter_7163" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_5]">
           <ListOfCallParameters>
@@ -5244,9 +5255,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_15" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7169" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7166" name="K3" value="0.1"/>
-          <Constant key="Parameter_7165" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7159" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7156" name="K3" value="0.1"/>
+          <Constant key="Parameter_7155" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_5]">
           <ListOfCallParameters>
@@ -5284,9 +5295,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_18" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7168" name="v" value="0.1"/>
-          <Constant key="Parameter_7177" name="c0" value="0.1"/>
-          <Constant key="Parameter_7167" name="c1" value="0.1"/>
+          <Constant key="Parameter_7158" name="v" value="0.1"/>
+          <Constant key="Parameter_7166" name="c0" value="0.1"/>
+          <Constant key="Parameter_7157" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_6]">
           <ListOfCallParameters>
@@ -5318,9 +5329,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_18" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7160" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7161" name="V" value="0.9"/>
-          <Constant key="Parameter_7162" name="h" value="2"/>
+          <Constant key="Parameter_7150" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7151" name="V" value="0.9"/>
+          <Constant key="Parameter_7152" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_6]">
           <ListOfCallParameters>
@@ -5334,7 +5345,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_121"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7162"/>
+              <SourceParameter reference="Parameter_7152"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -5356,12 +5367,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_18" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7163" name="v" value="0.1"/>
-          <Constant key="Parameter_7159" name="k1" value="0.1"/>
-          <Constant key="Parameter_7164" name="k2" value="0.1"/>
-          <Constant key="Parameter_7156" name="h" value="0.1"/>
-          <Constant key="Parameter_7155" name="c0" value="0.1"/>
-          <Constant key="Parameter_7157" name="c1" value="0.1"/>
+          <Constant key="Parameter_7153" name="v" value="0.1"/>
+          <Constant key="Parameter_7149" name="k1" value="0.1"/>
+          <Constant key="Parameter_7154" name="k2" value="0.1"/>
+          <Constant key="Parameter_7146" name="h" value="0.1"/>
+          <Constant key="Parameter_7145" name="c0" value="0.1"/>
+          <Constant key="Parameter_7147" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_6]">
           <ListOfCallParameters>
@@ -5408,9 +5419,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_18" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7151" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7153" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7150" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7141" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7143" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7140" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_6]">
           <ListOfCallParameters>
@@ -5445,7 +5456,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_19" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7154" name="k1" value="0.21"/>
+          <Constant key="Parameter_7144" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_6]">
           <ListOfCallParameters>
@@ -5474,9 +5485,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_18" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7152" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7148" name="K3" value="0.1"/>
-          <Constant key="Parameter_7146" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7142" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7138" name="K3" value="0.1"/>
+          <Constant key="Parameter_7137" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_6]">
           <ListOfCallParameters>
@@ -5514,9 +5525,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7149" name="v" value="0.1"/>
-          <Constant key="Parameter_7158" name="c0" value="0.1"/>
-          <Constant key="Parameter_7145" name="c1" value="0.1"/>
+          <Constant key="Parameter_7139" name="v" value="0.1"/>
+          <Constant key="Parameter_7148" name="c0" value="0.1"/>
+          <Constant key="Parameter_8752" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_7]">
           <ListOfCallParameters>
@@ -5548,9 +5559,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7142" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7143" name="V" value="0.9"/>
-          <Constant key="Parameter_8757" name="h" value="2"/>
+          <Constant key="Parameter_8754" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_8751" name="V" value="0.9"/>
+          <Constant key="Parameter_7135" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_7]">
           <ListOfCallParameters>
@@ -5564,7 +5575,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_141"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_8757"/>
+              <SourceParameter reference="Parameter_7135"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -5586,12 +5597,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7144" name="v" value="0.1"/>
-          <Constant key="Parameter_8758" name="k1" value="0.1"/>
-          <Constant key="Parameter_7147" name="k2" value="0.1"/>
-          <Constant key="Parameter_8756" name="h" value="0.1"/>
-          <Constant key="Parameter_8759" name="c0" value="0.1"/>
-          <Constant key="Parameter_7140" name="c1" value="0.1"/>
+          <Constant key="Parameter_8755" name="v" value="0.1"/>
+          <Constant key="Parameter_7134" name="k1" value="0.1"/>
+          <Constant key="Parameter_8753" name="k2" value="0.1"/>
+          <Constant key="Parameter_7133" name="h" value="0.1"/>
+          <Constant key="Parameter_7132" name="c0" value="0.1"/>
+          <Constant key="Parameter_7130" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_7]">
           <ListOfCallParameters>
@@ -5638,9 +5649,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7138" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7141" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7137" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7128" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7131" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7127" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_7]">
           <ListOfCallParameters>
@@ -5675,7 +5686,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_22" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7139" name="k1" value="0.21"/>
+          <Constant key="Parameter_7129" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_7]">
           <ListOfCallParameters>
@@ -5704,9 +5715,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_21" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7135" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7136" name="K3" value="0.1"/>
-          <Constant key="Parameter_7133" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7125" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7126" name="K3" value="0.1"/>
+          <Constant key="Parameter_7123" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_7]">
           <ListOfCallParameters>
@@ -5744,9 +5755,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_24" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7134" name="v" value="0.1"/>
-          <Constant key="Parameter_8760" name="c0" value="0.1"/>
-          <Constant key="Parameter_7132" name="c1" value="0.1"/>
+          <Constant key="Parameter_7124" name="v" value="0.1"/>
+          <Constant key="Parameter_7136" name="c0" value="0.1"/>
+          <Constant key="Parameter_7122" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_8]">
           <ListOfCallParameters>
@@ -5778,9 +5789,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_24" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7128" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7131" name="V" value="0.9"/>
-          <Constant key="Parameter_7127" name="h" value="2"/>
+          <Constant key="Parameter_7118" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7121" name="V" value="0.9"/>
+          <Constant key="Parameter_7117" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_8]">
           <ListOfCallParameters>
@@ -5794,7 +5805,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_161"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7127"/>
+              <SourceParameter reference="Parameter_7117"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -5816,12 +5827,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_24" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7129" name="v" value="0.1"/>
-          <Constant key="Parameter_7125" name="k1" value="0.1"/>
-          <Constant key="Parameter_7130" name="k2" value="0.1"/>
-          <Constant key="Parameter_7126" name="h" value="0.1"/>
-          <Constant key="Parameter_7123" name="c0" value="0.1"/>
-          <Constant key="Parameter_7122" name="c1" value="0.1"/>
+          <Constant key="Parameter_7119" name="v" value="0.1"/>
+          <Constant key="Parameter_7115" name="k1" value="0.1"/>
+          <Constant key="Parameter_7120" name="k2" value="0.1"/>
+          <Constant key="Parameter_7116" name="h" value="0.1"/>
+          <Constant key="Parameter_7113" name="c0" value="0.1"/>
+          <Constant key="Parameter_7112" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_8]">
           <ListOfCallParameters>
@@ -5868,9 +5879,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_24" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7121" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7119" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7118" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7109" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7110" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7108" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_8]">
           <ListOfCallParameters>
@@ -5905,7 +5916,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_25" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7120" name="k1" value="0.21"/>
+          <Constant key="Parameter_7111" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_8]">
           <ListOfCallParameters>
@@ -5934,9 +5945,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_24" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7117" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7115" name="K3" value="0.1"/>
-          <Constant key="Parameter_7114" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7771" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7774" name="K3" value="0.1"/>
+          <Constant key="Parameter_7770" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_8]">
           <ListOfCallParameters>
@@ -5974,9 +5985,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7116" name="v" value="0.1"/>
-          <Constant key="Parameter_7124" name="c0" value="0.1"/>
-          <Constant key="Parameter_7113" name="c1" value="0.1"/>
+          <Constant key="Parameter_7772" name="v" value="0.1"/>
+          <Constant key="Parameter_7114" name="c0" value="0.1"/>
+          <Constant key="Parameter_7773" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_9]">
           <ListOfCallParameters>
@@ -6008,9 +6019,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7775" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7779" name="V" value="0.9"/>
-          <Constant key="Parameter_7778" name="h" value="2"/>
+          <Constant key="Parameter_7104" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7107" name="V" value="0.9"/>
+          <Constant key="Parameter_7103" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_9]">
           <ListOfCallParameters>
@@ -6024,7 +6035,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_181"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7778"/>
+              <SourceParameter reference="Parameter_7103"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -6046,12 +6057,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7777" name="v" value="0.1"/>
-          <Constant key="Parameter_7111" name="k1" value="0.1"/>
-          <Constant key="Parameter_7776" name="k2" value="0.1"/>
-          <Constant key="Parameter_7112" name="h" value="0.1"/>
-          <Constant key="Parameter_7109" name="c0" value="0.1"/>
-          <Constant key="Parameter_7108" name="c1" value="0.1"/>
+          <Constant key="Parameter_7105" name="v" value="0.1"/>
+          <Constant key="Parameter_7756" name="k1" value="0.1"/>
+          <Constant key="Parameter_7106" name="k2" value="0.1"/>
+          <Constant key="Parameter_7759" name="h" value="0.1"/>
+          <Constant key="Parameter_7755" name="c0" value="0.1"/>
+          <Constant key="Parameter_7758" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_9]">
           <ListOfCallParameters>
@@ -6098,9 +6109,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7764" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7762" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7760" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7102" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7100" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7099" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_9]">
           <ListOfCallParameters>
@@ -6135,7 +6146,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_28" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7761" name="k1" value="0.21"/>
+          <Constant key="Parameter_7101" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_9]">
           <ListOfCallParameters>
@@ -6164,9 +6175,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_27" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7763" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7105" name="K3" value="0.1"/>
-          <Constant key="Parameter_7107" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7098" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7095" name="K3" value="0.1"/>
+          <Constant key="Parameter_7097" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_9]">
           <ListOfCallParameters>
@@ -6204,9 +6215,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_30" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7106" name="v" value="0.1"/>
-          <Constant key="Parameter_7110" name="c0" value="0.1"/>
-          <Constant key="Parameter_7104" name="c1" value="0.1"/>
+          <Constant key="Parameter_7096" name="v" value="0.1"/>
+          <Constant key="Parameter_7757" name="c0" value="0.1"/>
+          <Constant key="Parameter_7094" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_10]">
           <ListOfCallParameters>
@@ -6238,9 +6249,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_30" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7102" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7100" name="V" value="0.9"/>
-          <Constant key="Parameter_7099" name="h" value="2"/>
+          <Constant key="Parameter_7092" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7090" name="V" value="0.9"/>
+          <Constant key="Parameter_7089" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_10]">
           <ListOfCallParameters>
@@ -6254,7 +6265,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_201"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7099"/>
+              <SourceParameter reference="Parameter_7089"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -6276,12 +6287,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_30" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7101" name="v" value="0.1"/>
-          <Constant key="Parameter_7098" name="k1" value="0.1"/>
-          <Constant key="Parameter_7103" name="k2" value="0.1"/>
-          <Constant key="Parameter_7095" name="h" value="0.1"/>
-          <Constant key="Parameter_7097" name="c0" value="0.1"/>
-          <Constant key="Parameter_7094" name="c1" value="0.1"/>
+          <Constant key="Parameter_7091" name="v" value="0.1"/>
+          <Constant key="Parameter_7088" name="k1" value="0.1"/>
+          <Constant key="Parameter_7093" name="k2" value="0.1"/>
+          <Constant key="Parameter_8738" name="h" value="0.1"/>
+          <Constant key="Parameter_8740" name="c0" value="0.1"/>
+          <Constant key="Parameter_8736" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_10]">
           <ListOfCallParameters>
@@ -6328,9 +6339,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_30" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8743" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_8742" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_8745" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7085" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7086" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7087" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_10]">
           <ListOfCallParameters>
@@ -6365,7 +6376,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_31" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7093" name="k1" value="0.21"/>
+          <Constant key="Parameter_8739" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_10]">
           <ListOfCallParameters>
@@ -6394,9 +6405,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_30" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8741" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7091" name="K3" value="0.1"/>
-          <Constant key="Parameter_7090" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7084" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7081" name="K3" value="0.1"/>
+          <Constant key="Parameter_7080" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_10]">
           <ListOfCallParameters>
@@ -6434,9 +6445,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8744" name="v" value="0.1"/>
-          <Constant key="Parameter_7096" name="c0" value="0.1"/>
-          <Constant key="Parameter_7092" name="c1" value="0.1"/>
+          <Constant key="Parameter_7083" name="v" value="0.1"/>
+          <Constant key="Parameter_8737" name="c0" value="0.1"/>
+          <Constant key="Parameter_7082" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_11]">
           <ListOfCallParameters>
@@ -6468,9 +6479,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7085" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7086" name="V" value="0.9"/>
-          <Constant key="Parameter_7087" name="h" value="2"/>
+          <Constant key="Parameter_7075" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7076" name="V" value="0.9"/>
+          <Constant key="Parameter_7077" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_11]">
           <ListOfCallParameters>
@@ -6484,7 +6495,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_221"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7087"/>
+              <SourceParameter reference="Parameter_7077"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -6506,12 +6517,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7088" name="v" value="0.1"/>
-          <Constant key="Parameter_7084" name="k1" value="0.1"/>
-          <Constant key="Parameter_7089" name="k2" value="0.1"/>
-          <Constant key="Parameter_7081" name="h" value="0.1"/>
-          <Constant key="Parameter_7080" name="c0" value="0.1"/>
-          <Constant key="Parameter_7082" name="c1" value="0.1"/>
+          <Constant key="Parameter_7078" name="v" value="0.1"/>
+          <Constant key="Parameter_7074" name="k1" value="0.1"/>
+          <Constant key="Parameter_7079" name="k2" value="0.1"/>
+          <Constant key="Parameter_7887" name="h" value="0.1"/>
+          <Constant key="Parameter_7888" name="c0" value="0.1"/>
+          <Constant key="Parameter_7890" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_11]">
           <ListOfCallParameters>
@@ -6558,9 +6569,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7892" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_7078" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7893" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7071" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7889" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7070" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_11]">
           <ListOfCallParameters>
@@ -6595,7 +6606,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_34" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7079" name="k1" value="0.21"/>
+          <Constant key="Parameter_7886" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_11]">
           <ListOfCallParameters>
@@ -6624,9 +6635,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_33" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7895" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7894" name="K3" value="0.1"/>
-          <Constant key="Parameter_7076" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7072" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7068" name="K3" value="0.1"/>
+          <Constant key="Parameter_7066" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_11]">
           <ListOfCallParameters>
@@ -6664,9 +6675,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_36" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7891" name="v" value="0.1"/>
-          <Constant key="Parameter_7083" name="c0" value="0.1"/>
-          <Constant key="Parameter_7075" name="c1" value="0.1"/>
+          <Constant key="Parameter_7069" name="v" value="0.1"/>
+          <Constant key="Parameter_7073" name="c0" value="0.1"/>
+          <Constant key="Parameter_7065" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_42" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_12]">
           <ListOfCallParameters>
@@ -6698,9 +6709,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_36" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_7071" name="Shalve" value="0.05"/>
-          <Constant key="Parameter_7073" name="V" value="0.9"/>
-          <Constant key="Parameter_7070" name="h" value="2"/>
+          <Constant key="Parameter_8157" name="Shalve" value="0.05"/>
+          <Constant key="Parameter_7063" name="V" value="0.9"/>
+          <Constant key="Parameter_8158" name="h" value="2"/>
         </ListOfConstants>
         <KineticLaw function="Function_9" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_12]">
           <ListOfCallParameters>
@@ -6714,7 +6725,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="ModelValue_241"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_50">
-              <SourceParameter reference="Parameter_7070"/>
+              <SourceParameter reference="Parameter_8158"/>
             </CallParameter>
           </ListOfCallParameters>
         </KineticLaw>
@@ -6736,12 +6747,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_36" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7074" name="v" value="0.1"/>
-          <Constant key="Parameter_7072" name="k1" value="0.1"/>
-          <Constant key="Parameter_7077" name="k2" value="0.1"/>
-          <Constant key="Parameter_7068" name="h" value="0.1"/>
-          <Constant key="Parameter_8162" name="c0" value="0.1"/>
-          <Constant key="Parameter_8163" name="c1" value="0.1"/>
+          <Constant key="Parameter_7064" name="v" value="0.1"/>
+          <Constant key="Parameter_8160" name="k1" value="0.1"/>
+          <Constant key="Parameter_7067" name="k2" value="0.1"/>
+          <Constant key="Parameter_8159" name="h" value="0.1"/>
+          <Constant key="Parameter_7061" name="c0" value="0.1"/>
+          <Constant key="Parameter_7060" name="c1" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_41" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_12]">
           <ListOfCallParameters>
@@ -6788,9 +6799,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_36" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_8164" name="Vmax" value="0.1"/>
-          <Constant key="Parameter_8161" name="K_delta" value="0.1"/>
-          <Constant key="Parameter_7066" name="K_PLC_delta" value="0.1"/>
+          <Constant key="Parameter_7058" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7059" name="K_delta" value="0.1"/>
+          <Constant key="Parameter_7056" name="K_PLC_delta" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_43" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_12]">
           <ListOfCallParameters>
@@ -6825,7 +6836,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Substrate metabolite="Metabolite_37" stoichiometry="1"/>
         </ListOfSubstrates>
         <ListOfConstants>
-          <Constant key="Parameter_8165" name="k1" value="0.21"/>
+          <Constant key="Parameter_7062" name="k1" value="0.21"/>
         </ListOfConstants>
         <KineticLaw function="Function_13" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_12]">
           <ListOfCallParameters>
@@ -6854,9 +6865,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Modifier metabolite="Metabolite_36" stoichiometry="1"/>
         </ListOfModifiers>
         <ListOfConstants>
-          <Constant key="Parameter_7065" name="K_D" value="0.1"/>
-          <Constant key="Parameter_7064" name="K3" value="0.1"/>
-          <Constant key="Parameter_7063" name="Vmax" value="0.1"/>
+          <Constant key="Parameter_7055" name="K_D" value="0.1"/>
+          <Constant key="Parameter_7054" name="K3" value="0.1"/>
+          <Constant key="Parameter_7053" name="Vmax" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_44" unitType="Default" scalingCompartment="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Compartments[Cytoplasm_12]">
           <ListOfCallParameters>
@@ -6894,8 +6905,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_7" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7062" name="V" value="0.1"/>
-          <Constant key="Parameter_7059" name="Km" value="0.1"/>
+          <Constant key="Parameter_7052" name="V" value="0.1"/>
+          <Constant key="Parameter_7049" name="h" value="0.1"/>
+          <Constant key="Parameter_7048" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -6906,9 +6918,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_4"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_7"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_7"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -6930,8 +6945,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_10" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7058" name="V" value="0.1"/>
-          <Constant key="Parameter_7056" name="Km" value="0.1"/>
+          <Constant key="Parameter_7047" name="V" value="0.1"/>
+          <Constant key="Parameter_7046" name="h" value="0.1"/>
+          <Constant key="Parameter_8447" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -6942,9 +6958,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_7"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_10"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_10"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -6966,8 +6985,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_13" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7055" name="V" value="0.1"/>
-          <Constant key="Parameter_7057" name="Km" value="0.1"/>
+          <Constant key="Parameter_8448" name="V" value="0.1"/>
+          <Constant key="Parameter_8450" name="h" value="0.1"/>
+          <Constant key="Parameter_8446" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -6978,9 +6998,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_10"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_13"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_13"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7002,8 +7025,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_16" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7054" name="V" value="0.1"/>
-          <Constant key="Parameter_7053" name="Km" value="0.1"/>
+          <Constant key="Parameter_8449" name="V" value="0.1"/>
+          <Constant key="Parameter_8747" name="h" value="0.1"/>
+          <Constant key="Parameter_8748" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7014,9 +7038,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_13"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_16"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_16"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7038,8 +7065,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_19" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7052" name="V" value="0.1"/>
-          <Constant key="Parameter_7051" name="Km" value="0.1"/>
+          <Constant key="Parameter_8750" name="V" value="0.1"/>
+          <Constant key="Parameter_8746" name="h" value="0.1"/>
+          <Constant key="Parameter_8749" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7050,9 +7078,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_16"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_19"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_19"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7074,8 +7105,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_22" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_8452" name="V" value="0.1"/>
-          <Constant key="Parameter_8453" name="Km" value="0.1"/>
+          <Constant key="Parameter_7044" name="V" value="0.1"/>
+          <Constant key="Parameter_7043" name="h" value="0.1"/>
+          <Constant key="Parameter_7045" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7086,9 +7118,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_19"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_22"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_22"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7110,8 +7145,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_25" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_8455" name="V" value="0.1"/>
-          <Constant key="Parameter_8451" name="Km" value="0.1"/>
+          <Constant key="Parameter_7042" name="V" value="0.1"/>
+          <Constant key="Parameter_7041" name="h" value="0.1"/>
+          <Constant key="Parameter_7039" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7122,9 +7158,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_22"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_25"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_25"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7146,8 +7185,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_28" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_8454" name="V" value="0.1"/>
-          <Constant key="Parameter_8752" name="Km" value="0.1"/>
+          <Constant key="Parameter_7038" name="V" value="0.1"/>
+          <Constant key="Parameter_7040" name="h" value="0.1"/>
+          <Constant key="Parameter_7037" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7158,9 +7198,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_25"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_28"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_28"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7182,8 +7225,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_31" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_8753" name="V" value="0.1"/>
-          <Constant key="Parameter_8755" name="Km" value="0.1"/>
+          <Constant key="Parameter_7036" name="V" value="0.1"/>
+          <Constant key="Parameter_7034" name="h" value="0.1"/>
+          <Constant key="Parameter_7033" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7194,9 +7238,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_28"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_31"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_31"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7218,8 +7265,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_34" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_8751" name="V" value="0.1"/>
-          <Constant key="Parameter_8754" name="Km" value="0.1"/>
+          <Constant key="Parameter_7035" name="V" value="0.1"/>
+          <Constant key="Parameter_7032" name="h" value="0.1"/>
+          <Constant key="Parameter_7031" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7230,9 +7278,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_31"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_34"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_34"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7254,8 +7305,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Product metabolite="Metabolite_37" stoichiometry="1"/>
         </ListOfProducts>
         <ListOfConstants>
-          <Constant key="Parameter_7049" name="V" value="0.1"/>
-          <Constant key="Parameter_7048" name="Km" value="0.1"/>
+          <Constant key="Parameter_7029" name="V" value="0.1"/>
+          <Constant key="Parameter_7028" name="h" value="0.1"/>
+          <Constant key="Parameter_7030" name="Km" value="0.1"/>
         </ListOfConstants>
         <KineticLaw function="Function_45" unitType="Default">
           <ListOfCallParameters>
@@ -7266,9 +7318,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
               <SourceParameter reference="Metabolite_34"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_661">
-              <SourceParameter reference="Metabolite_37"/>
+              <SourceParameter reference="ModelValue_262"/>
             </CallParameter>
             <CallParameter functionParameter="FunctionParameter_663">
+              <SourceParameter reference="Metabolite_37"/>
+            </CallParameter>
+            <CallParameter functionParameter="FunctionParameter_665">
               <SourceParameter reference="ModelValue_261"/>
             </CallParameter>
           </ListOfCallParameters>
@@ -7593,8 +7648,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[K_D_12]" value="0.69999999999999996" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[K3_12]" value="1" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[r5P_12]" value="0.20999999999999999" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport]" value="1" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport]" value="1" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport]" value="4" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport]" value="0.71999999999999997" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport]" value="4" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[leak_1]" type="Reaction">
@@ -8834,132 +8890,187 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_1-2]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_1-2],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_1-2],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_1-2],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_1-2],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_1-2],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_2-3]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_2-3],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_2-3],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_2-3],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_2-3],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_2-3],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_3-4]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_3-4],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_3-4],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_3-4],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_3-4],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_3-4],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_4-5]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_4-5],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_4-5],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_4-5],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_4-5],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_4-5],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_5-6]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_5-6],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_5-6],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_5-6],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_5-6],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_5-6],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_6-7]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_6-7],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_6-7],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_6-7],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_6-7],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_6-7],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_7-8]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_7-8],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_7-8],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_7-8],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_7-8],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_7-8],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_8-9]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_8-9],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_8-9],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_8-9],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_8-9],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_8-9],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_9-10]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_9-10],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_9-10],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_9-10],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_9-10],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_9-10],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_10-11]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_10-11],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_10-11],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_10-11],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_10-11],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_10-11],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
           </ModelParameterGroup>
           <ModelParameterGroup cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_11-12]" type="Reaction">
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_11-12],ParameterGroup=Parameters,Parameter=V" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_11-12],ParameterGroup=Parameters,Parameter=V" value="4" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Vmax_IP3_transport],Reference=InitialValue>
               </InitialExpression>
             </ModelParameter>
-            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_11-12],ParameterGroup=Parameters,Parameter=Km" value="1" type="ReactionParameter" simulationType="assignment">
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_11-12],ParameterGroup=Parameters,Parameter=h" value="4" type="ReactionParameter" simulationType="assignment">
+              <InitialExpression>
+                &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[h_IP3_transport],Reference=InitialValue>
+              </InitialExpression>
+            </ModelParameter>
+            <ModelParameter cn="CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Reactions[t_IP3_11-12],ParameterGroup=Parameters,Parameter=Km" value="0.71999999999999997" type="ReactionParameter" simulationType="assignment">
               <InitialExpression>
                 &lt;CN=Root,Model=a set of 12 replicas of ChI model of calcium oscillations,Vector=Values[Km_IP3_transport],Reference=InitialValue>
               </InitialExpression>
@@ -9272,9 +9383,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_259"/>
       <StateTemplateVariable objectReference="ModelValue_260"/>
       <StateTemplateVariable objectReference="ModelValue_261"/>
+      <StateTemplateVariable objectReference="ModelValue_262"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 1 1 
+      0 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 0.85684708911839735 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 15540543414550456 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 16966434410934114 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 1.187461717589066e+18 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 0.16863309947686161 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 1 0.185 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 0.11 0.90000000000000002 0.050000000000000003 6 0.13 1.0489999999999999 0.94340000000000002 2 0.185 0.20000000000000001 0.082339999999999997 0.69999999999999996 1.5 0.10000000000000001 4.5 0.69999999999999996 1 0.20999999999999999 4 0.71999999999999997 4 
     </InitialState>
   </Model>
   <ListOfTasks>
