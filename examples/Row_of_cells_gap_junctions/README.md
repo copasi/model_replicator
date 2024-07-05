@@ -81,7 +81,7 @@ After doing these operations and saving the modified file as *ex2case2ready.cps*
 **Fig. 5.** Approximate reproduction of behavior in Fig.3D of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells.
 
 
-## References
+## References and notes
 
 1. Goldberg M, Pittà MD, Volman V, Berry H, Ben-Jacob E (2010) Nonlinear Gap Junctions Enable Long-Distance Propagation of Pulsating Calcium Waves in Astrocyte Networks. [PLOS Computational Biology 6:e1000909](https://doi.org/10.1371/journal.pcbi.1000909)
 2. De Pittà M, Goldberg M, Volman V, Berry H, Ben-Jacob E (2009) Glutamate regulation of calcium and IP3 oscillating and pulsating dynamics in astrocytes. [Journal of Biological Physics 35:383–411](https://doi.org/10.1007/s10867-009-9155-y)
