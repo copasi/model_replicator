@@ -50,7 +50,7 @@ After doing these operations and saving the modified file as *ex2case1ready.cps*
 
 
 ### Case 2
-This is very similar to the previous case except that transport of IP3 now follows a nonlinear sigmoidal function. Goldberg *et al.* use a sigmoidal function defined with a hyperbolic tangent (1) but *sbmodlr* has a Hill function to allow sigmoidal (and hyperbolic) transport kinetics. Here we will use Hill kinetics to approximate the behavior observed by Goldberg *et al.*. To run the example see file *ex2case2.sh*, explained in the table below.
+This is very similar to the previous case except that transport of IP3 now follows a nonlinear sigmoidal function. Goldberg *et al.* use a sigmoidal function defined with a hyperbolic tangent (1) but *sbmodlr* has a Hill function to allow sigmoidal (or hyperbolic) transport kinetics. Here we will use Hill kinetics to approximate the behavior observed by Goldberg *et al.* (but see note 4 at the bottom!). To run the example see file *ex2case2.sh*, explained in the table below.
 
 | command line options      | comment                                          |
 | ------------------------- | ------------------------------------------------ |
@@ -81,19 +81,10 @@ After doing these operations and saving the modified file as *ex2case2ready.cps*
 **Fig. 5.** Approximate reproduction of behavior in Fig.3D of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells.
 
 
-### Case 3
-If indeed we wanted to use an arbitrary kinetic rate law for the trasport, we can use the COPASI file produced above and modify it to include the said kinetics. This could be achieved by running the following steps:
-
- 1. define a new function to encode the desired rate law (*eg.* Eq. 5 of reference 1)
- 2. identify the transport reactions (named *t_IP3_i-j*, where *i* and *j* are cell numbers) and change each one's kinetic rate law to the one defined in the previous step.
-
- Thus, with a little effort, models created with *sbmodelr* can be changed to match any arbitrary kinetics.
-
-
 ## References
 
 1. Goldberg M, Pittà MD, Volman V, Berry H, Ben-Jacob E (2010) Nonlinear Gap Junctions Enable Long-Distance Propagation of Pulsating Calcium Waves in Astrocyte Networks. [PLOS Computational Biology 6:e1000909](https://doi.org/10.1371/journal.pcbi.1000909)
 2. De Pittà M, Goldberg M, Volman V, Berry H, Ben-Jacob E (2009) Glutamate regulation of calcium and IP3 oscillating and pulsating dynamics in astrocytes. [Journal of Biological Physics 35:383–411](https://doi.org/10.1007/s10867-009-9155-y)
 3. Li Y-X, Rinzel J (1994) Equations for InsP3 Receptor-mediated [Ca2+]i Oscillations Derived from a Detailed Kinetic Model: A Hodgkin-Huxley Like Formalism. [Journal of Theoretical Biology 166:461–473](https://doi.org/10.1006/jtbi.1994.1041)
-
+4. Note that the equation given by Goldberg *et al.* for sigmoidal transport kinetics has a big problem that it is not defined for the case where the trasnported molecule has the same concentration on both sides and will generate a division by zero
 
