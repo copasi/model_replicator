@@ -3,10 +3,10 @@
 
 This follows the work of Schütze and Wolf (1) that used a core model of glycolysis with autocatalysis replicated in a 49x49 array. Each unit represents a cell and the medium in its vicinity, with transport of its two metabolites to and from the medium. The pathway roughly represents glycolysis with only two metabolites, *X* and *Y*, representing upper and lower glycolysis. Conversion of *X* to *Y* includes product activation (autocatalysis), *Y* is used for other processes and can also move to the medium. *X* is imported from the medium through an irreversible Michaelis-Menten process (active transport). The medium volume is set to be 10x larger than the cell volume. In this case the base model, *glycolysis-autocatalytic.cps*, contains the cell and the medium around it. The array of 49x49 units then connects the external metabolites (ie *X* and *Y* in the medium, named *Xex* and *Yex*) through reversible transport (akin to diffusion).
 
-Here we will use a COPASI version of the single cell and its surrounding medium, *glycolysis-autocatalytic.cps*, as the base unit and make the larger models of 49x49 units. Because this is a square array of units, we do not have to provide a network file with the specific connectivity, *sbmodelr* will create it automatically since we provide the 2D dimensions (i.e. 49 49)
+Here we will use a COPASI version of the single cell and its surrounding medium, *glycolysis-autocatalytic.cps*, as the base unit and make the larger models of 49x49 units. Because this is a square array of units, we do not have to provide a network file with the specific connectivity; *sbmodelr* will connect all neighboring cells in a square array topology automatically since we provide 2D dimensions (i.e. 49 49)
 
 ### Case 1
-This replicates the results of Figure 4 of Reference 1. In this case only *Xex* diffuses between neighboring spaces (*Yex* is immobile). The *alpha* parameter (basal rate of the reaction converting X to Y) is allowed to vary between cells by +/- 10%. Parameter *Jin* is zero for all the units, except that it is set at 720.3 in the central unit (coordinates 25,25). The large model can be created with the command in file *ex3case1.sh*.
+This replicates the results of Figure 4 of Reference 1. In this case only *Xex* diffuses between neighboring spaces (*Yex* is immobile). The *alpha* parameter (basal rate of the reaction converting X to Y) is allowed to vary between cells by +/- 10%. Parameter *Jin* is zero for all the units, except that it is set at 720.3 in the central unit (coordinates 25,25). The large model can be created with the command in file *ex3case1.sh*:
 
 | command line options             | comment                                   |
 | -------------------------------- | ----------------------------------------- |
@@ -14,7 +14,7 @@ This replicates the results of Figure 4 of Reference 1. In this case only *Xex* 
 |`` --output ex3case1.cps``        | name the output file                      |
 |`` -t Xex``                       | transport the species Xex                 |
 |`` -k 5``                         | value of rate constant for transport      |
-|``  --pn alpha 0.1 uni \``        | add noise to parameter alpha in each unit |
+|`` --pn alpha 0.1 uni \``         | add noise to parameter alpha in each unit |
 |`` glycolysis-autocatalytic.cps`` | COPASI file with the base unit            |
 |`` 49 49``                        | create an array of 49x49 units            |
 
