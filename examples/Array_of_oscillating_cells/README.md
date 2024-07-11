@@ -30,7 +30,7 @@ We then have to load this model into COPASI (which also takes several minutes) i
  6. run the time course
  7. alternative to step 6. you can save the file and then run it on the command line using ``CopasiSE ex3case1ready.cps`` and the output file will be created with the data needed to plot a figure similar to Fig. 4
 
-Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs about 10 Gb of RAM to process this file, if your system has less than 16Gb of RAM do not attempt to load this file! CopasiSE, the command line version, only requires 3.3Gb of RAM to run the simulation, so if you have a smaller memory computer, you can still download the pre-made version of *ex3case1ready.cps* and run it on the command line (see step 7. above).
+Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs about 10 Gb of RAM to process this file, if your system has less than 16Gb of RAM do not attempt to load this file!
 
 After doing these operations and saving the modified file as *ex3case1ready.cps*, we obtain figures that reproduce the behavior displayed in Fig. 4 of reference 1.
 
@@ -48,35 +48,6 @@ After doing these operations and saving the modified file as *ex3case1ready.cps*
 
 
 ### Case 2
-
-
-| command line options      | comment                                          |
-| ------------------------- | ------------------------------------------------ |
-|``sbmodelr``               | run *sbmodelr*                                   |
-|`` --output ex2case2.cps`` | name the output file                             |
-|`` --Hill-transport IP3``  | transport the species IP3 with Hill kinetics     |
-|`` --transport-Vmax 4``    | value of Vmax for transport rate law             |
-|`` --transport-Km 0.72``   | value of Km for transport rate law               |
-|`` --transport-h 4``       | value of Hill coefficient for transport rate law |
-|`` -n row_of_12.gv``       | network file with the cell connections           |
-|`` ChI_DePitta2009.cps``   | COPASI file with the base unit                   |
-|`` 12``                    | create 12 units                                  |
-
-Running the command explained above (e.g. by running file *ex2case2.sh*) results in a new model file *ex2case2.cps*.
-We then have to, again, load this model into COPASI in order to:
-
- 1. set the IP3  concentration in unit 1 fixed at value 1.0 (as in Figure 3 of ref. 1)
- 2. create plots to display [Ca] and [IP3] in each cell
-
-After doing these operations and saving the modified file as *ex2case2ready.cps*, we obtain figures that approximately reproduce the behavior displayed in Fig. 3C and 3D of reference 1 (despite the kinetics being different).
-
-![Approximate reproduction of behavior in Fig.3C of reference 1; constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case2_Ca.png)
-
-**Fig. 4.** Approximate reproduction of behavior in Fig.3C of reference 1; constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells. Note that in this case there are oscillations in all cells, unlike in Fig. 1 with linear transport kinetics.
-
-![Approximate reproduction of behavior in Fig.3D of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells](ex2case2_IP3.png)
-
-**Fig. 5.** Approximate reproduction of behavior in Fig.3D of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells.
 
 
 ## References and notes
