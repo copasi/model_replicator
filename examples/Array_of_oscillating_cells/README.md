@@ -32,19 +32,11 @@ We then have to load this model into COPASI (which also takes several minutes) i
 
 Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs about 10 Gb of RAM to process this file, if your system has less than 16Gb of RAM do not attempt to load this file!
 
-After doing these operations and saving the modified file as *ex3case1ready.cps*, we obtain figures that reproduce the behavior displayed in Fig. 4 of reference 1.
+After doing these operations and running the modified (*ex3case1ready.cps*, note that it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 4 of reference 1. We use a small python program (*ex3case1_plot.py*) to plot the data for time 800 (Fig 1.)
 
-![Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells](ex2case1_Ca_1-4.png)
+![Reproduction of behavior in Fig.4 of reference 1 ](ex3case1.png)
 
-**Fig. 1.** Reproduction of behavior in Fig.3A of reference 1 for cells 1-4, constant IP3 is applied in cell 1 and this causes calcium waves of different frequencies in neighboring cells.
-
-![Reproduction of behavior in Fig.3A of reference 1 for cells 5-12, constant IP3 is applied in cell 1 and this causes very small amplitude calcium waves in distant cells](ex2case1_Ca_5-12.png)
-
-**Fig. 2.** Reproduction of behavior in Fig.3A of reference 1 for cells 5-12, constant IP3 is applied in cell 1 and this causes very small amplitude calcium waves in distant cells (c.f. scale in Fig. 1).
-
-![Reproduction of behavior in Fig.3B of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells](ex2case1_IP3.png)
-
-**Fig. 3.** Reproduction of behavior in Fig.3B of reference 1, constant IP3 is applied in cell 1 and this causes diminishing IP3 waves in distant cells.
+**Fig. 1.** Reproduction of behavior in Fig.4 of reference 1. Note the same type of (apparently) random values at a circle in the center. In this case there seems to be a wave pattern already forming, which is not seen on the original figure (the corners here are low values, where in their figure are high). (Note that Ref. 1 numbers the cells in a range [-24,24], where we use [1,50], so our center unit is 25,25 whcih corresponds to 0,0 in their figure.)
 
 
 ### Case 2
