@@ -36,7 +36,7 @@ After doing these operations and running the modified (*ex3case1ready.cps*, note
 
 ![Reproduction of behavior in Fig.4 of reference 1 ](ex3case1.png)
 
-**Fig. 1.** Reproduction of behavior in Fig.4 of reference 1. Note the same type of (apparently) random values at a circle in the center. In this case there seems to be a wave pattern already forming, which is not seen on the original figure (the corners here are low values, where in their figure are high). (Note that Ref. 1 numbers the cells in a range [-24,24], where we use [1,50], so our center unit is 25,25 whcih corresponds to 0,0 in their figure.)
+**Fig. 1.** Reproduction of behavior in Fig.4 of reference 1. Note the same type of (apparently) random values at a circle in the center. In this case the corners here still have low values, but in their figure they are already high, this is likely becasue the initial conditions were not described in reference 1 and are likely different from those used here. Note that Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24,24, which corresponds to 0,0 in the original.
 
 
 ### Case 2
