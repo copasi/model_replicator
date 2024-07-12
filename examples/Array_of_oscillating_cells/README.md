@@ -41,7 +41,7 @@ After doing these operations and running the modified (*ex3case1ready.cps*, note
 
 ### Case 2
 
-We replicate the results of Figures 5A and 6A. This case is similar to the previous however now *Yex* can also diffuse. The new model is created this way (file *ex3case2.sh*):
+We now replicate the results of Figures 5A and 6A. This case is similar to the previous however now *Yex* also diffuses across neighboring units. The new model is created this way (file *ex3case2.sh*):
 
 | command line options             | comment                                   |
 | -------------------------------- | ----------------------------------------- |
@@ -54,7 +54,7 @@ We replicate the results of Figures 5A and 6A. This case is similar to the previ
 |`` glycolysis-autocatalytic.cps`` | COPASI file with the base unit            |
 |`` 49 49``                        | create an array of 49x49 units            |
 
-Running the command explained above (e.g. by running file *ex3case2.sh*) results in a new model file *ex3case2.cps*. As previously, we have to load this new file into the COPASI GUI to change the parameter *Jin_25,25*; and now additionally also parameter *k_Yex_transport*, the rate of "diffusion" of *Yex*, which takes value 10 as described in Figure 5 of Reference 1. Note that *sbmodelr* has only one option to specify the rate of transport and then it sets all rates of transport the same (though it creates separate constants for each species trasnported). This is how we alter the new file in the COPASI GUI:
+Running the command explained above (e.g. by running file *ex3case2.sh*) results in a new model file *ex3case2.cps*. As previously, we have to load this new file into the COPASI GUI to change the parameter *Jin_25,25*; and now additionally change parameter *k_Yex_transport*, the rate of "diffusion" of *Yex*, which takes value 10 as described in Figure 5 of Reference 1. Note that *sbmodelr* has only one option to specify the rate of transport and then it sets all rates of transport the same (though it creates separate constants for each species trasnported). This is how we alter the new file in the COPASI GUI:
 
  1. set the *Jin_25,25* parameter to 720.3 (leave all other *Jin_i,j* at 0)
  2. set the *k_Yex_transport* to 10
