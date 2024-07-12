@@ -26,7 +26,7 @@ We then have to load this model into COPASI (which also takes several minutes) i
  2. create a report with time and all the [*X_i,j*] species
  3. in the time course task set the executable flag
  4. in the time course task set a report using the template created in 2.
- 5. in the time course task set to suppress output before 890 s
+ 5. in the time course task set to suppress output before 790 s
  6. run the time course
  7. alternative to step 6. you can save the file and then run it on the command line using ``CopasiSE ex3case1ready.cps`` and the output file will be created with the data needed to plot a figure similar to Fig. 4
 
@@ -41,6 +41,29 @@ After doing these operations and running the modified (*ex3case1ready.cps*, note
 
 ### Case 2
 
+We replicate the results of Figures 5A and 6A. This case is similar to the previous however now *Yex* can also diffuse. The new model is created this way (file *ex3case2.sh*):
+
+| command line options             | comment                                   |
+| -------------------------------- | ----------------------------------------- |
+|``sbmodelr``                      | run *sbmodelr*                            |
+|`` --output ex3case2.cps``        | name the output file                      |
+|`` -t Xex``                       | transport the species Xex                 |
+|`` -t Yex``                       | transport the species Yex                 |
+|`` -k 5``                         | value of rate constant for transport      |
+|`` --pn alpha 0.1 uni \``         | add noise to parameter alpha in each unit |
+|`` glycolysis-autocatalytic.cps`` | COPASI file with the base unit            |
+|`` 49 49``                        | create an array of 49x49 units            |
+
+Running the command explained above (e.g. by running file *ex3case2.sh*) results in a new model file *ex3case2.cps*. As previously, we have to load this new file into the COPASI GUI to change the parameter *Jin_25,25*; and now additionally also parameter *k_Yex_transport*, the rate of "diffusion" of *Yex*, which takes value 10 as described in Figure 5 of Reference 1. Note that *sbmodelr* has only one option to specify the rate of transport and then it sets all rates of transport the same (though it creates separate constants for each species trasnported). This is how we alter the new file in the COPASI GUI:
+
+ 1. set the *Jin_25,25* parameter to 720.3 (leave all other *Jin_i,j* at 0)
+ 2. set the *k_Yex_transport* to 10
+ 3. create a report with time and all the [*X_25,j*] species (for the middle line, as in Figs. 5A and 6A of ref. 1)
+ 4. in the time course task set the executable flag
+ 5. in the time course task set a report using the template created in 3.
+ 6. in the time course task set to suppress output before 700 s
+ 7. run the time course
+ 8. alternative to step 7. you can save the file and then run it on the command line using ``CopasiSE ex3case2ready.cps`` and the output file will be created with the data needed to plot a figure similar to Figs. 5A and 6A
 
 ## References and notes
 
