@@ -6,8 +6,8 @@ import numpy as np
 data = np.genfromtxt(fname="ex3case1_data.tsv", delimiter="\t", skip_header=21, usecols=range(1,2402)).reshape((49,49))
 
 # figure dimensions
-png_width = 1000
-png_height = 800
+png_width = 800
+png_height = 600
 png_dpi = 100
 
 # plot the data
