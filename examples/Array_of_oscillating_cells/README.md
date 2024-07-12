@@ -28,7 +28,7 @@ We then have to load this model into COPASI (which also takes several minutes) i
  4. in the time course task set a report using the template created in 2.
  5. in the time course task set to suppress output before 790 s
  6. run the time course
- 7. alternative to step 6. you can save the file and then run it on the command line using ``CopasiSE ex3case1ready.cps`` and the output file will be created with the data needed to plot a figure similar to Fig. 4
+ 7. alternative to step 6. you can save the file as *ex3case1ready.cps* and then run it on the command line using ``CopasiSE ex3case1ready.cps`` and the output file will be created with the data needed to plot a figure similar to Fig. 4
 
 Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs about 10 Gb of RAM to process this file, if your system has less than 16Gb of RAM do not attempt to load this file!
 
@@ -63,7 +63,7 @@ Running the command explained above (e.g. by running file *ex3case2.sh*) results
  5. in the time course task set a report using the template created in 3.
  6. in the time course task set to suppress output before 700 s
  7. run the time course
- 8. alternative to step 7. you can save the file and then run it on the command line using ``CopasiSE ex3case2ready.cps`` and the output file will be created with the data needed to plot a figure similar to Figs. 5A and 6A
+ 8. alternative to step 7. you can save the file as *ex3case2ready.cps* and then run it on the command line using ``CopasiSE ex3case2ready.cps`` and the output file will be created with the data needed to plot a figure similar to Figs. 5A and 6A
 
 ## References and notes
 
