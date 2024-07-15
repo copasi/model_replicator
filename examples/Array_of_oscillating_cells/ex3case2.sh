@@ -7,7 +7,7 @@
 
 
 ../../sbmodelr \
- --output ex3case1.cps \
+ --output ex3case2.cps \
  -t Xex \
  -t Yex \
  -k 5 \
