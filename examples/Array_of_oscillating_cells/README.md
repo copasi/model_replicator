@@ -3,6 +3,8 @@
 
 This follows the work of Schütze and Wolf (1) that used a core model of glycolysis with autocatalysis replicated in a 49x49 array. Each unit represents a cell and the medium in its vicinity, with transport of its two metabolites to and from the medium. The pathway roughly represents glycolysis with only two metabolites, *X* and *Y*, representing upper and lower glycolysis. Conversion of *X* to *Y* includes product activation (autocatalysis), *Y* is used for other processes and can also move to the medium. *X* is imported from the medium through an irreversible Michaelis-Menten process (active transport). The medium volume is set to be 10x larger than the cell volume. In this case the base model, *glycolysis-autocatalytic.cps*, contains the cell and the medium around it. The array of 49x49 units then connects the external metabolites (ie *X* and *Y* in the medium, named *Xex* and *Yex*) through reversible transport (akin to diffusion).
 
+*Note that this example requires a lot of computational resources creating the file with sbmodelr, editing the resulting file with COPASI, and running the simulation. All are operations that will take a long time and require a computer with at least 16 Gb RAM (32Gb would be better). If you want to try a similar approach with a smaller model then use a smaller grid, such as 21x21 where the central unit has coordinates of 11,11.*
+
 Here we will use a COPASI version of the single cell and its surrounding medium, *glycolysis-autocatalytic.cps*, as the base unit and make the larger models of 49x49 units. Because this is a square array of units, we do not have to provide a network file with the specific connectivity; *sbmodelr* will connect all neighboring cells in a square array topology automatically since we provide 2D dimensions (i.e. 49 49)
 
 ### Case 1
@@ -54,7 +56,7 @@ We now replicate the results of Figures 5A and 6A. This case is similar to the p
 |`` glycolysis-autocatalytic.cps`` | COPASI file with the base unit            |
 |`` 49 49``                        | create an array of 49x49 units            |
 
-Running the command explained above (e.g. by running file *ex3case2.sh*) results in a new model file *ex3case2.cps*. As previously, we have to load this new file into the COPASI GUI to change the parameter *Jin_25,25*; and now additionally change parameter *k_Yex_transport*, the rate of "diffusion" of *Yex*, which takes value 10 as described in Figure 5 of Reference 1. Note that *sbmodelr* has only one option to specify the rate of transport and then it sets all rates of transport the same (though it creates separate constants for each species trasnported). This is how we alter the new file in the COPASI GUI:
+Running the command explained above (e.g. by running file *ex3case2.sh*) results in a new model file *ex3case2.cps*. As previously, we have to load this new file into the COPASI GUI to change the parameter *Jin_25,25*; and now additionally change parameter *k_Yex_transport*, the rate of "diffusion" of *Yex*, which takes value 10 as described in Figure 5 of Reference 1. Note that *sbmodelr* has only one option to specify the rate of transport and then it sets all rates of transport to that value. This is how we alter the new file in the COPASI GUI:
 
  1. set the *Jin_25,25* parameter to 720.3 (leave all other *Jin_i,j* at 0)
  2. set the *k_Yex_transport* to 10
