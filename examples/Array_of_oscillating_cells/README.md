@@ -68,6 +68,11 @@ Running the command explained above (e.g. by running file *ex3case2.sh*) results
  7. run the time course
  8. alternative to step 7. you can save the file as *ex3case2ready.cps* and then run it on the command line using ``CopasiSE ex3case2ready.cps`` and the output file will be created with the data needed to plot a figure similar to Figs. 5A and 6A
 
+![Reproduction of behavior in Fig.5A of reference 1 ](ex3case2.png)
+
+**Fig. 1.** Reproduction of behavior in Fig.5A of reference 1. Note here we obtain a behavior similar to their Fig5B, where there are two types of waves, instead of just one. It is not clear why this is different from the paper, though it could be that the published paper does not describe the exact parameters obtained in their figure 1... Note that Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24, which corresponds to 0 in the original paper.
+
+
 ## References and notes
 
 1. Schütze J, Wolf J (2010) Spatio-temporal dynamics of glycolysis in cell layers. A mathematical model. [BioSystems 99:104–108](https://doi.org/10.1016/j.biosystems.2009.10.002)
