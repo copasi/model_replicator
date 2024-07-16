@@ -70,7 +70,7 @@ Running the command explained above (e.g. by running file *ex3case2.sh*) results
 
 ![Reproduction of behavior in Fig.5A of reference 1 ](ex3case2.png)
 
-**Fig. 2.** Reproduction of behavior in Fig.5A of reference 1. Note here we obtain a behavior similar to their Fig5B, where there are three types of waves interleaved, instead of just one. It is not clear why this is different from the paper, though it could be that the published paper does not describe the exact parameters obtained in their figure 1... Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24, which corresponds to 0 in the original paper.
+**Fig. 2.** Reproduction of behavior in Fig.5A of reference 1. Note here we obtain a behavior similar to their Fig5B, where there are three types of waves interleaved, instead of just one. It is not clear why this is different from the paper, though it could be that the published paper does not describe the exact parameters obtained in their figure 1. Another possibility is that the randomness of the alpha parameter may cause different results at different times. Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24, which corresponds to 0 in the original paper.
 
 
 ## References and notes
