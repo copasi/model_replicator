@@ -69,7 +69,7 @@ Running the command explained above (e.g. by running file *ex3case2.sh*) results
  7. run the time course
  8. alternative to step 7. you can save the file as *ex3case2ready.cps* and then run it on the command line using ``CopasiSE ex3case2ready.cps`` and the output file will be created with the data needed to plot a figure similar to Figs. 5A and 6A
 
-Because of Github limitations on file sizes, we uploaded here *ex3case1.omex* instead of *ex3case2.cps* and *ex3case2ready.omex* instead of *ex3case1ready.cps*. The *omex* files (COMBINE archive files, see reference 2) contain the COPASI files inside and are much smaller because they are compressed. You can load them into COPASI by using the file menu option "Import Combine Archive".
+Because of Github limitations on file sizes, we uploaded here *ex3case2.omex* instead of *ex3case2.cps* and *ex3case2ready.omex* instead of *ex3case2ready.cps*. The *omex* files (COMBINE archive files, see reference 2) contain the COPASI files inside and are much smaller because they are compressed. You can load them into COPASI by using the file menu option "Import Combine Archive".
 
 ![Reproduction of behavior in Fig.5A of reference 1 ](ex3case2.png)
 
