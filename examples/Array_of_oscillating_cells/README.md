@@ -40,7 +40,7 @@ After doing the operations 1-7 above, and running the modified *ex3case1ready.cp
 
 ![Reproduction of behavior in Fig.4 of reference 1 ](ex3case1.png)
 
-**Fig. 1.** Reproduction of behavior in Fig.4 of reference 1. Note the same type of (apparently) random values at a circle in the center. In this case the corners  still have low values, but in their figure they are already high, this is likely becasue the initial conditions were not described in reference 1 and are likely different from those used here. Note that Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24,24, which corresponds to 0,0 in the original.
+**Fig. 1.** Reproduction of behavior in Fig.4 of reference 1. Note the same type of (apparently) random values at a circle in the center. In this case the corners  still have low values, but in their figure they are already high, this is likely becasue the initial conditions were not described in reference 1 and may have been different from those used here. Note that Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24,24, which corresponds to 0,0 in the original.
 
 
 ### Case 2
