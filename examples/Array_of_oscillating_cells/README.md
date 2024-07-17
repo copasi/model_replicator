@@ -8,7 +8,7 @@ This follows the work of Schütze and Wolf (1) that used a core model of glycoly
 Here we will use a COPASI version of the single cell and its surrounding medium, *glycolysis-autocatalytic.cps*, as the base unit and make the larger models of 49x49 units. Because this is a square array of units, we do not have to provide a network file with the specific connectivity; *sbmodelr* will connect all neighboring cells in a square array topology automatically since we provide 2D dimensions (i.e. 49 49)
 
 ### Case 1
-This replicates the results of Figure 4 of Reference 1. In this case only *Xex* diffuses between neighboring spaces (*Yex* is immobile). The *alpha* parameter (basal rate of the reaction converting X to Y) is allowed to vary between cells by +/- 10%. Parameter *Jin* is zero for all the units, except that it is set at 720.3 in the central unit (coordinates 25,25). The large model can be created with the command in file *ex3case1.sh*:
+This replicates the results of Figure 4 of Reference 1. In this case only *Xex* diffuses between neighboring spaces (*Yex* is immobile). The *alpha* parameter (basal rate of the reaction converting *X* to *Y*) is allowed to vary between cells by +/- 10%. Parameter *Jin* is zero for all the units, except that it is set at 720.3 in the central unit (coordinates 25,25). The large model can be created with the command in file *ex3case1.sh*:
 
 | command line options             | comment                                   |
 | -------------------------------- | ----------------------------------------- |
@@ -34,7 +34,7 @@ We then have to load this model into COPASI (which also takes several minutes) i
 
 Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs a minimum of 16Gb of RAM to process this file, if your computer has less than that do not attempt to load this file!
 
-After doing these operations and running the modified (*ex3case1ready.cps*, note that it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 4 of reference 1. We use a small python program (*ex3case1_plot.py*) to plot the data for time 800 using the matplotlib library (Fig 1.)
+After doing these operations and running the modified *ex3case1ready.cps* (note that it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 4 of reference 1. We use a small python program (*ex3case1_plot.py*) to plot the data for time 800 using the matplotlib library (Fig 1.)
 
 ![Reproduction of behavior in Fig.4 of reference 1 ](ex3case1.png)
 
