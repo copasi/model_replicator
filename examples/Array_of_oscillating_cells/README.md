@@ -34,9 +34,9 @@ We then have to load this model into COPASI (which also takes several minutes) i
 
 Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs a minimum of 16Gb of RAM to process this file, if your computer has less than that do not attempt to load this file!
 
-Because of Github limitations on file sizes we uploaded here *ex3case1.omex* instead of *ex3case1.cps* and *ex3case1ready.omex* instead of *ex3case1ready.cps*. The *omex* files (COMBINE archive files, reference 2) contain the COPASI files inside and are much smaller because they are compressed. You can load them into COPASI by using the file menu option "Import Combine Archive".
+Because of Github limitations on file sizes, we uploaded here *ex3case1.omex* instead of *ex3case1.cps* and *ex3case1ready.omex* instead of *ex3case1ready.cps*. The *omex* files (COMBINE archive files, see reference 2) contain the COPASI files inside and are much smaller because they are compressed. You can load them into COPASI by using the file menu option "Import Combine Archive".
 
-After doing these operations and running the modified *ex3case1ready.cps* (note that it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 4 of reference 1. We use a small python program (*ex3case1_plot.py*) to plot the data for time 800 using the matplotlib library (Fig 1.)
+After doing the operations 1-7 above, and running the modified *ex3case1ready.cps* (warning: it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 4 of reference 1. We use a small python program (*ex3case1_plot.py*) to plot the data for time 800 using the matplotlib library (Fig 1.)
 
 ![Reproduction of behavior in Fig.4 of reference 1 ](ex3case1.png)
 
@@ -68,6 +68,8 @@ Running the command explained above (e.g. by running file *ex3case2.sh*) results
  6. in the time course task set to suppress output before 700 s
  7. run the time course
  8. alternative to step 7. you can save the file as *ex3case2ready.cps* and then run it on the command line using ``CopasiSE ex3case2ready.cps`` and the output file will be created with the data needed to plot a figure similar to Figs. 5A and 6A
+
+Because of Github limitations on file sizes, we uploaded here *ex3case1.omex* instead of *ex3case2.cps* and *ex3case2ready.omex* instead of *ex3case1ready.cps*. The *omex* files (COMBINE archive files, see reference 2) contain the COPASI files inside and are much smaller because they are compressed. You can load them into COPASI by using the file menu option "Import Combine Archive".
 
 ![Reproduction of behavior in Fig.5A of reference 1 ](ex3case2.png)
 
