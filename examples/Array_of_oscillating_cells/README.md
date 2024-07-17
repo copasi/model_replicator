@@ -1,8 +1,9 @@
 # Array of cells
 ## Spatio-temporal dynamics in cell layers with transport and diffusion through the medium
 
-
-**Warning**: *this example requires a lot of computational resources creating the file with sbmodelr, editing the resulting file with COPASI, and running the simulation. All these operations take a long time, as described below, and require a computer with at least 16 Gb RAM (32Gb would be better). If you want to try a similar approach with a smaller model then use a smaller grid, such as 21x21 where the central unit has coordinates of 11,11.*
+```diff
+- **Warning**: *this example requires a lot of computational resources creating the file with sbmodelr, editing the resulting file with COPASI, and running the simulation. All these operations take a long time, as described below, and require a computer with at least 16 Gb RAM (32Gb would be better). If you want to try a similar approach with a smaller model then use a smaller grid, such as 21x21 where the central unit has coordinates of 11,11.*
+```
 
 This follows the work of Schütze and Wolf (1) that used a core model of glycolysis with autocatalysis replicated in a 49x49 array. Each unit represents a cell and the medium in its vicinity, with transport of its two metabolites to and from the medium. The pathway roughly represents glycolysis with only two metabolites, *X* and *Y*, representing upper and lower glycolysis. Conversion of *X* to *Y* includes product activation (autocatalysis), *Y* is used for other processes and can also move to the medium. *X* is imported from the medium through an irreversible Michaelis-Menten process (active transport). The medium volume is set to be 10x larger than the cell volume. In this case the base model, *glycolysis-autocatalytic.cps*, contains the cell and the medium around it. The array of 49x49 units then connects the external metabolites (ie *X* and *Y* in the medium, named *Xex* and *Yex*) through reversible transport (akin to diffusion).
 
@@ -33,7 +34,7 @@ We then have to load this model into COPASI (which also takes several minutes) i
  6. run the time course
  7. alternative to step 6. you can save the file as *ex3case1ready.cps* and then run it on the command line using ``CopasiSE ex3case1ready.cps`` and the output file will be created with the data needed to plot a figure similar to Fig. 4
 
-Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs about 10 Gb of RAM to process this file, if your system has less than 16Gb of RAM do not attempt to load this file!
+Note that most operations on this model by the COPASI GUI (steps 1-6 above) are currently very slow (at least up to version 4.44); the COPASI team is actively profiling the software with large models such as this one to improve its performance. COPASI needs a minimum of 16Gb of RAM to process this file, if your computer has less than that do not attempt to load this file!
 
 After doing these operations and running the modified (*ex3case1ready.cps*, note that it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 4 of reference 1. We use a small python program (*ex3case1_plot.py*) to plot the data for time 800 using the matplotlib library (Fig 1.)
 
