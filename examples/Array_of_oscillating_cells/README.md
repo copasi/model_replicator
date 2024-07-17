@@ -77,7 +77,7 @@ After doing the operations 1-8 above, and running the modified *ex3case2ready.cp
 
 **Fig. 2.** Reproduction of behavior in Fig.5A of reference 1. Note here we obtain a behavior similar to their Fig5B, where there are three types of waves interleaved, instead of just one. It is not clear why this is different from the paper, though it could be that the published paper does not describe the exact parameters obtained in their figure 1. Another possibility is that the randomness of the alpha parameter may cause different results at different times. Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,48], so our center unit in this figure is 24, which corresponds to 0 in the original paper. This figure was created with matplotlib (file *ex3case2_plot.py*).
 
-The same data can be used to plot a figure similar to Fig 6A of reference 1. Here we use [gnuplot](https://gnuplot.info) to create the time course plot using the same output file as used for Fig. 2.
+The same data can be used to plot a figure similar to Fig 6A of reference 1. Here we use [gnuplot](http://gnuplot.info) to create the time course plot using the same output file as used for Fig. 2.
 
 ![Reproduction of behavior in Fig.6A of reference 1 ](ex3case2fig3.png)
 
