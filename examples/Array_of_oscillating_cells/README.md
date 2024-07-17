@@ -1,9 +1,7 @@
 # Array of cells
 ## Spatio-temporal dynamics in cell layers with transport and diffusion through the medium
 
-```diff
-- **Warning**: *this example requires a lot of computational resources creating the file with sbmodelr, editing the resulting file with COPASI, and running the simulation. All these operations take a long time, as described below, and require a computer with at least 16 Gb RAM (32Gb would be better). If you want to try a similar approach with a smaller model then use a smaller grid, such as 21x21 where the central unit has coordinates of 11,11.*
-```
+**Warning**: *this example requires a lot of computational resources creating the file with sbmodelr, editing the resulting file with COPASI, and running the simulation. All these operations take a long time, as described below, and require a computer with at least 16 Gb RAM (32Gb would be better). If you want to try a similar approach with a smaller model then use a smaller grid, such as 21x21 where the central unit has coordinates of 11,11.*
 
 This follows the work of Schütze and Wolf (1) that used a core model of glycolysis with autocatalysis replicated in a 49x49 array. Each unit represents a cell and the medium in its vicinity, with transport of its two metabolites to and from the medium. The pathway roughly represents glycolysis with only two metabolites, *X* and *Y*, representing upper and lower glycolysis. Conversion of *X* to *Y* includes product activation (autocatalysis), *Y* is used for other processes and can also move to the medium. *X* is imported from the medium through an irreversible Michaelis-Menten process (active transport). The medium volume is set to be 10x larger than the cell volume. In this case the base model, *glycolysis-autocatalytic.cps*, contains the cell and the medium around it. The array of 49x49 units then connects the external metabolites (ie *X* and *Y* in the medium, named *Xex* and *Yex*) through reversible transport (akin to diffusion).
 
