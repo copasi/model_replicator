@@ -9,5 +9,5 @@ set ylabel "[X]"
 set xlabel "time, t"
 set ytics (0,20,40,60,80)
 set xtics (770,780,790,800)
-plot 'ex3case2_data.tsv' u 1:26 lw 2 w lines t "unit 25", "" u 1:36 lw 2 w lines t "unit 35", "" u 1:48 lw 2 w lines t "unit 47"
+plot 'ex3case2_data.tsv' u 1:26 lw 2 w lines t "unit 25", "" u 1:36 lw 2 w lines t "unit 35", "" u 1:48 lt 4 lw 2 w lines t "unit 47"
 set output
