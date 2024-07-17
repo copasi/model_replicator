@@ -1,15 +1,8 @@
 # Neuron networks
 ## Networks of heterogeneous Hodgkin-Huxley neurons
 
-This example follows the work of Giannari and Astolfi (1), which used a generalized Hodgkin-Huxley neuron model from Posposchil *et al.* (2) to make neural network motifs. They connect the neurons using an approach from Destexhe *et al.* (3) for chemical synapses, in which one ODE is added to the model per synapse (representing the proportion of occupied post-synaptic nuerotransmitter receptor). This approach of connecting units by chemical synapses is available in *sbmodelr* with the option *--ode-synaptic* (or short option *-s*), which dentifies the global quantity of type ODE that represents voltage. It creates connections between units  that are assumed to be neuron models using the chemical synapse approach of Destexhe *et al.* (3).
+This example follows the work of Giannari and Astolfi (1), which used a generalized Hodgkin-Huxley neuron model from Posposchil *et al.* (2) to make neural network motifs. They connect the neurons using an approach from Destexhe *et al.* (3) for chemical synapses, in which one ODE is added to the model per synapse (representing the proportion of occupied post-synaptic neurotransmitter receptor). This approach of connecting units by chemical synapses is available in *sbmodelr* with the option *--ode-synaptic* (or short option *-s*), which dentifies the global quantity of type ODE that represents voltage. It creates connections between units  that are assumed to be neuron models using the chemical synapse approach of Destexhe *et al.* (3). This chemical synapse approach allows making the synapses excitatory or inhibitory through the parameter Vsyn of the synapse (the synaptic reversal potential). Other synapse parameters relate to the characteristic time for neurotransmitter release (tau_r) and degradation (tau_d) and a reverse potential.
 
-We create three examples following (1) using either Model I or II. Each example is codified in a shell script
-that calls *sbmodelr*, using a base COPASI file encoding the basic model for a single unit. We use
-a different base file for each case, however they only differ in the value of the constant *k* and the settings
-for the time course (this allows one to run the resulting file without first having to adjust parameters).
-
-Invoking *sbmodelr* with appropriate options, creates a new model consisting of several cells that export one species
-(Y for Model I, and X for Model II) to a medium with the appropriate volume (5-fold larger than the total volume of all cells, according to ref. 1). We also set slightly different initial conditions for each unit (variance of ~10%).
 
 For each example there is a shell script that shows the complete command invoking *sbmodelr*, the base file,
 the resulting complex model file (*case[123].cps*), and an image file with results. The images were obtained
