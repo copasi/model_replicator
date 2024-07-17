@@ -71,12 +71,20 @@ Running the command explained above (e.g. by running file *ex3case2.sh*) results
 
 Because of Github limitations on file sizes, we uploaded here *ex3case2.omex* instead of *ex3case2.cps* and *ex3case2ready.omex* instead of *ex3case2ready.cps*. The *omex* files (COMBINE archive files, see reference 2) contain the COPASI files inside and are much smaller because they are compressed. You can load them into COPASI by using the file menu option "Import Combine Archive".
 
+After doing the operations 1-8 above, and running the modified *ex3case2ready.cps* (warning: it took over 2 hours), we obtain data reproducing the behavior displayed in Fig. 5 of reference 1. We use a small python program (*ex3case2_plot.py*) to plot the kymograph in Fig 2. (equivalent to their Fig. 5A)
+
 ![Reproduction of behavior in Fig.5A of reference 1 ](ex3case2.png)
 
-**Fig. 2.** Reproduction of behavior in Fig.5A of reference 1. Note here we obtain a behavior similar to their Fig5B, where there are three types of waves interleaved, instead of just one. It is not clear why this is different from the paper, though it could be that the published paper does not describe the exact parameters obtained in their figure 1. Another possibility is that the randomness of the alpha parameter may cause different results at different times. Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,49], so our center unit in this figure is 24, which corresponds to 0 in the original paper. This figure was created with matplotlib (file *ex3case2_plot.py*).
+**Fig. 2.** Reproduction of behavior in Fig.5A of reference 1. Note here we obtain a behavior similar to their Fig5B, where there are three types of waves interleaved, instead of just one. It is not clear why this is different from the paper, though it could be that the published paper does not describe the exact parameters obtained in their figure 1. Another possibility is that the randomness of the alpha parameter may cause different results at different times. Ref. 1 indexes the units in a range [-24,24], where this figure shows [0,48], so our center unit in this figure is 24, which corresponds to 0 in the original paper. This figure was created with matplotlib (file *ex3case2_plot.py*).
+
+The same data can be used to plot a figure similar to Fig 6A of reference 1. Here we use gnuplot to create the time course plot using the same output file as used for Fig. 2.
+
+![Reproduction of behavior in Fig.6A of reference 1 ](ex3case2fig3.png)
+
+**Fig. 3.** Reproduction of behavior in Fig.6A of reference 1. Again, we obtain a behavior perhaps more similar to their Fig6B, and the difference could be due to differences in the initial conditions, the randomness of alpha parameter, or perhaps the actual parameter values for their Fig 6A not being what is stated in the text. Ref. 1 indexes the units in a range [-24,24], where we use  [1,49], so the units displayed here correspond to their numbers 0, 10, and 22 (here 25, 35, 37). This figure was created with gnuplot (file *ex3case2fig3.plt*).
 
 
-## References and notes
+## References
 
 1. Schütze J, Wolf J (2010) Spatio-temporal dynamics of glycolysis in cell layers. A mathematical model. [BioSystems 99:104–108](https://doi.org/10.1016/j.biosystems.2009.10.002)
 
