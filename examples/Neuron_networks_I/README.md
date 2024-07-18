@@ -8,7 +8,7 @@ The base model used here, defined by Pospischil *et al.* (1), is a Hodgkin-Huxle
 The base unit model also contains two events that set random values of an injected current into the neuron. When we create networks with this base unit, we will delete most of the new events such that only one unit has injected current (*sbmodelr* replicates the event to all the units but we will want it only on one of them).
 
 ### Case 1
-We create a simple feedforward network motif where one RSA neuron connects to another one. File *ex4case1.sh* contains the full *sbmodeler* command required to create the new model. The *ff2.dot* network file specifies the network and looks simply like this:
+We create a simple feedforward network motif where one RSA neuron connects to another one. The *ff2.dot* network file specifies the network and looks simply like this:
 
 ```
 digraph ff2{
@@ -16,6 +16,8 @@ digraph ff2{
 1 -> 2
 }
 ```
+
+File *ex4case1.sh* contains the full *sbmodeler* command required to create the new model.
 
 | command line options       | comment                                                                |
 | -------------------------- | ---------------------------------------------------------------------- |
