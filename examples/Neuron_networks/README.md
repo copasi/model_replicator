@@ -1,13 +1,9 @@
 # Neuron networks
-## Networks of heterogeneous Hodgkin-Huxley neurons
+## Networks of Hodgkin-Huxley-type neurons with chemical synapses
 
-This example follows the work of Giannari and Astolfi (1), which used a generalized Hodgkin-Huxley neuron model from Posposchil *et al.* (2) to make neuron network motifs. They connect the neurons using an approach from Destexhe *et al.* (3) for chemical synapses, in which one ODE is added to the model per synapse (representing the proportion of occupied post-synaptic neurotransmitter receptor). This approach of connecting units by chemical synapses is available in *sbmodelr* with the option *--ode-synaptic* (or short option *-s*), which dentifies the global quantity of type ODE that represents voltage. It creates connections between units that are assumed to be neuron models, using a variable that corresponds to membrane potential. This chemical synapse approach (3) allows making the synapses excitatory or inhibitory through the parameter *Vsyn* of the synapse (the synaptic reversal potential). Other synapse parameters relate to the characteristic time for neurotransmitter release (*tau_r*) and degradation (*tau_d*) and a reverse potential (*V0*).
+This example takes a base unit defining a neuron model (1) to make neuron network motifs. The neurons are connected by chemical synapses using the approach of Destexhe *et al.* (2). This approach adds one ODE for each synapse, representing the proportion of occupied post-synaptic neurotransmitter receptor. This approach for chemical synapses is available in *sbmodelr* with the option ``--ode-synaptic`` (or short option ``-s``), which identifies the global quantity of type ODE that represents voltage in the neuron unit. This chemical synapse approach (2) allows making the synapses excitatory or inhibitory through the parameter *Vsyn* of the synapse (the synaptic reversal potential). Other synapse parameters relate to the characteristic time for neurotransmitter release (*tau_r*) and degradation (*tau_d*) and a reverse potential (*V0*).
 
-
-For each example there is a shell script that shows the complete command invoking *sbmodelr*, the base file,
-the resulting complex model file (*case[123].cps*), and an image file with results. The images were obtained
-by specifying an appropriate plot in the resulting files using the COPASI GUI, as *sbmodlr* does not copy plot settings
-to the new models.
+The base model used here, defined by Pospischil *et al.* (1), is a Hodgkin-Huxley-type model that can replicate several types of neurons depending on the parameter values. The COPASI model includes the three parameter sets defined in (1), for fast spiking (FS) neurons, regular spiking with adaptation (RSA) neurons, and intrinsically bursting (IS) neurons. To create one specific neuron of the appropriate type you would load the *GenericNeuron.cps* model into COPASI, go to Model/Parameter Sets, chose the appropriate one click "Apply", and then save the new model. This repository already includes the RSA neuron model (file *RSA.cps*).
 
 ### Case 1
 This uses Model I, with 2 cells producing synchronous oscillations (file *ex1case1.sh*). We set the two cells to have
@@ -88,6 +84,5 @@ kappa_a).
 
 ## References
 
-1. Giannari AG, Astolfi A (2022) Model design for networks of heterogeneous Hodgkin–Huxley neurons. [Neurocomputing 496:147–157](https://doi.org/10.1016/j.neucom.2022.04.115)
-2. Pospischil M, Toledo-Rodriguez M, Monier C, Piwkowska Z, Bal T, Frégnac Y, Markram H, Destexhe A (2008) Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons. [Biological Cybernetics 99:427–441](https://doi.org/10.1007/s00422-008-0263-8)
-3. Destexhe A, Mainen ZF, Sejnowski TJ (1994) An Efficient Method for Computing Synaptic Conductances Based on a Kinetic Model of Receptor Binding. [Neural Computation 6:14–18](https://doi.org/10.1162/neco.1994.6.1.14)
+1. Pospischil M, Toledo-Rodriguez M, Monier C, Piwkowska Z, Bal T, Frégnac Y, Markram H, Destexhe A (2008) Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons. [Biological Cybernetics 99:427–441](https://doi.org/10.1007/s00422-008-0263-8)
+2. Destexhe A, Mainen ZF, Sejnowski TJ (1994) An Efficient Method for Computing Synaptic Conductances Based on a Kinetic Model of Receptor Binding. [Neural Computation 6:14–18](https://doi.org/10.1162/neco.1994.6.1.14)
