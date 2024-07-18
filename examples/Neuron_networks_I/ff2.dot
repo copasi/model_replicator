@@ -1,0 +1,4 @@
+digraph ff2{
+// feedforward motif with two nodes
+1 -> 2
+}
