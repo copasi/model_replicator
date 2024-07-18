@@ -8,22 +8,16 @@ The base model used here, defined by Pospischil *et al.* (1), is a Hodgkin-Huxle
 The base unit model also contains two events that set random values of an injected current into the neuron. When we create networks with this base unit, we will delete most of the new events such that only one unit has injected current (*sbmodelr* replicates the event to all the units but we will want it only on one of them).
 
 ### Case 1
-This uses Model I, with 2 cells producing synchronous oscillations (file *ex1case1.sh*). We set the two cells to have
-different initial conditions (options ``--pn``), set the transport rate constant for transport to be 3.2, as in
-Fig. 3 of ref. 1), and the medium volume to be 10 (to keep the ratio of volumes to 0.2 as in ref. 1).
+We create a simple feedforward network motif where one RSA neuron connects to another one. File *ex4case1.sh* contains the full *sbmodeler* command required to create the new model.
 
-| command line options         | comment                              |
-| ---------------------------- | ------------------------------------ |
-|``sbmodelr``                  | run *sbmodelr*                       |
-|`` --output case1.cps``       | name the output file                 |
-|`` --add-medium``             | include a medium unit                |
-|`` --medium-volume 10``       | set medium volume (5*N)              |
-|`` --transport Y``            | transport the species Y (Model I)    |
-|`` --transport-k 3.2``        | value of rate constant for transport |
-|`` --pn X 0.1 uni``           | initial values of X inside +/-10% interval around value of X in base |
-|`` --pn Y 0.1 uni``           | initial values of Y inside +/-10% interval around value of Y in base |
-|`` Selkov-Wolf-Heinrich.cps`` | COPASI file with the base unit       |
-|`` 2``                        | create 2 units                       |
+| command line options       | comment                                                                |
+| -------------------------- | ---------------------------------------------------------------------- |
+|``sbmodelr``                | run *sbmodelr*                                                         |
+|`` --output ex4case1.cps``  | name the output file                                                   |
+|`` -n ff2.dot``             | network file that has simple 2-neuron feedforward motif                |
+|`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
+|`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
+|`` 2``                      | create 2 units                                                         |
 
 Running the command explained above (e.g. by running file *ex1case1.sh*) results in a new model file *case1.cps*.
 Loading that file into COPASI, creating a plot for Y_1, Y_2 and Y_medium, and adjusting its axes,
