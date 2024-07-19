@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-07-18T19:32:34Z -->
+<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-07-19T20:08:42Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="44" versionDevel="295" copasiSourcesModified="0">
   <Model key="Model_1" name="RSA neuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
@@ -227,9 +227,7 @@
       </ModelValue>
       <ModelValue key="ModelValue_14" name="alpha_n" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_14">
 </rdf:Description>
 </rdf:RDF>
@@ -240,9 +238,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_15" name="alpha_m" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_15">
 </rdf:Description>
 </rdf:RDF>
@@ -253,9 +249,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_16" name="alpha_h" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_16">
 </rdf:Description>
 </rdf:RDF>
@@ -266,9 +260,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_17" name="p_inf" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_17">
 </rdf:Description>
 </rdf:RDF>
@@ -315,9 +307,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_21" name="beta_m" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_21">
 </rdf:Description>
 </rdf:RDF>
@@ -364,9 +354,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_25" name="n" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_25">
 </rdf:Description>
 </rdf:RDF>
@@ -380,9 +368,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_26" name="m" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_26">
 </rdf:Description>
 </rdf:RDF>
@@ -396,9 +382,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_27" name="h" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_27">
 </rdf:Description>
 </rdf:RDF>
@@ -412,9 +396,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_28" name="p" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_28">
 </rdf:Description>
 </rdf:RDF>
@@ -428,9 +410,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_29" name="q" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_29">
 </rdf:Description>
 </rdf:RDF>
@@ -444,9 +424,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_30" name="s" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_30">
 </rdf:Description>
 </rdf:RDF>
@@ -460,9 +438,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_31" name="tau_p" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_31">
 </rdf:Description>
 </rdf:RDF>
@@ -474,24 +450,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_32" name="pulse_start" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_32">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
+      <ModelValue key="ModelValue_32" name="pulse_on" simulationType="fixed" addNoise="false">
         <Unit>
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_33" name="pulse_end" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_33">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
+      <ModelValue key="ModelValue_33" name="pulse_off" simulationType="fixed" addNoise="false">
         <Unit>
           ms
         </Unit>
@@ -509,9 +473,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelValue>
       <ModelValue key="ModelValue_35" name="pulse_intensity" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_35">
 </rdf:Description>
 </rdf:RDF>
@@ -520,44 +482,43 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_36" name="pulse_length" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_36">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
+      <ModelValue key="ModelValue_36" name="pulse_Hz" simulationType="fixed" addNoise="false">
         <Unit>
           ms
         </Unit>
       </ModelValue>
     </ListOfModelValues>
     <ListOfEvents>
-      <Event key="Event_0" name="pulses_on" fireAtInitialTime="0" persistentTrigger="0">
+      <Event key="Event_0" name="pulse_on" fireAtInitialTime="0" persistentTrigger="0">
         <TriggerExpression>
-          &lt;CN=Root,Model=RSA neuron,Reference=Time> > &lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_start],Reference=Value>
+          &lt;CN=Root,Model=RSA neuron,Reference=Time> > &lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_on],Reference=Value>
         </TriggerExpression>
         <ListOfAssignments>
           <Assignment target="CN=Root,Model=RSA neuron,Vector=Values[I_inj]">
             <Expression>
-              uniform(0,1)*&lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity],Reference=Value>
+              &lt;CN=Root,Model=RSA neuron,Vector=Values[I_inj],Reference=InitialValue>+&lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity],Reference=Value>
             </Expression>
           </Assignment>
-          <Assignment target="CN=Root,Model=RSA neuron,Vector=Values[pulse_start]">
+          <Assignment target="CN=Root,Model=RSA neuron,Vector=Values[pulse_off]">
             <Expression>
-              if(&lt;CN=Root,Model=RSA neuron,Reference=Time> &lt; &lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_end],Reference=Value>-&lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_length],Reference=Value>,&lt;CN=Root,Model=RSA neuron,Reference=Time>+&lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_length],Reference=Value>,0)
+              &lt;CN=Root,Model=RSA neuron,Reference=Time>+poisson(&lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz],Reference=Value>)
             </Expression>
           </Assignment>
         </ListOfAssignments>
       </Event>
       <Event key="Event_1" name="pulses_off" fireAtInitialTime="0" persistentTrigger="0">
         <TriggerExpression>
-          &lt;CN=Root,Model=RSA neuron,Reference=Time> > &lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_end],Reference=Value>
+          &lt;CN=Root,Model=RSA neuron,Reference=Time> > &lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_off],Reference=Value>
         </TriggerExpression>
         <ListOfAssignments>
           <Assignment target="CN=Root,Model=RSA neuron,Vector=Values[I_inj]">
             <Expression>
               &lt;CN=Root,Model=RSA neuron,Vector=Values[I_inj],Reference=InitialValue>
+            </Expression>
+          </Assignment>
+          <Assignment target="CN=Root,Model=RSA neuron,Vector=Values[pulse_on]">
+            <Expression>
+              &lt;CN=Root,Model=RSA neuron,Reference=Time>+poisson(&lt;CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz],Reference=Value>)
             </Expression>
           </Assignment>
         </ListOfAssignments>
@@ -613,20 +574,18 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[q]" value="2.3214304254075944e-06" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[s]" value="0.66350877785683593" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[tau_p]" value="88.724338492363756" type="ModelValue" simulationType="assignment"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_start]" value="500" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_end]" value="2000" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_on]" value="5" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_off]" value="2500" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_lag]" value="0" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity]" value="1" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_length]" value="30" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity]" value="1.3599999999999994" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz]" value="3.1776410871502825" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
         </ModelParameterGroup>
       </ModelParameterSet>
       <ModelParameterSet key="ModelParameterSet_3" name="FS">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelParameterSet_3">
 </rdf:Description>
 </rdf:RDF>
@@ -671,16 +630,24 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[q]" value="4.1122109808166861e-06" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[s]" value="0.64121848183281871" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[tau_p]" value="0.15802738699255947" type="ModelValue" simulationType="assignment"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_start]" value="500" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_end]" value="2000" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_on]" value="500" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_off]" value="2000" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_lag]" value="0" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity]" value="1" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_length]" value="30" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz]" value="30" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
         </ModelParameterGroup>
       </ModelParameterSet>
       <ModelParameterSet key="ModelParameterSet_4" name="RSA">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelParameterSet_4">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <ModelParameterGroup cn="String=Initial Time" type="Group">
           <ModelParameter cn="CN=Root,Model=RSA neuron" value="0" type="Model" simulationType="time"/>
         </ModelParameterGroup>
@@ -721,20 +688,18 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[q]" value="2.3214304254075944e-06" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[s]" value="0.66350877785683593" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[tau_p]" value="88.724338492363756" type="ModelValue" simulationType="assignment"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_start]" value="500" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_end]" value="2000" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_on]" value="500" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_off]" value="2000" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_lag]" value="0" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity]" value="1" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_length]" value="30" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz]" value="30" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
         </ModelParameterGroup>
       </ModelParameterSet>
       <ModelParameterSet key="ModelParameterSet_5" name="IB">
         <MiriamAnnotation>
-<rdf:RDF
-xmlns:dcterms="http://purl.org/dc/terms/"
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelParameterSet_5">
 </rdf:Description>
 </rdf:RDF>
@@ -779,11 +744,11 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[q]" value="2.687052097323317e-06" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[s]" value="0.65786754803808833" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[tau_p]" value="90.57208370923459" type="ModelValue" simulationType="assignment"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_start]" value="500" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_end]" value="2000" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_on]" value="500" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_off]" value="2000" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_lag]" value="0" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity]" value="1" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_length]" value="30" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz]" value="30" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
         </ModelParameterGroup>
@@ -830,7 +795,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_36"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 500 2000 0 1 30 
+      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 0 1.3599999999999994 3.1776410871502825 
     </InitialState>
   </Model>
   <ListOfTasks>
@@ -862,7 +827,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Duration" type="float" value="2500"/>
         <Parameter name="TimeSeriesRequested" type="bool" value="1"/>
         <Parameter name="OutputStartTime" type="float" value="0"/>
-        <Parameter name="Output Event" type="bool" value="0"/>
+        <Parameter name="Output Event" type="bool" value="1"/>
         <Parameter name="Start in Steady State" type="bool" value="0"/>
         <Parameter name="Use Values" type="bool" value="0"/>
         <Parameter name="Values" type="string" value=""/>
@@ -1346,12 +1311,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   </ListOfPlots>
   <GUI>
     <ListOfSliders>
-      <Slider key="Slider_0" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity],Reference=InitialValue" objectType="float" objectValue="1" minValue="0" maxValue="10" tickNumber="1000" tickFactor="100" scaling="linear"/>
+      <Slider key="Slider_0" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity],Reference=InitialValue" objectType="float" objectValue="1.36" minValue="0" maxValue="10" tickNumber="1000" tickFactor="100" scaling="linear"/>
       <Slider key="Slider_1" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_lag],Reference=InitialValue" objectType="float" objectValue="0" minValue="0" maxValue="100000" tickNumber="1000" tickFactor="100" scaling="linear"/>
-      <Slider key="Slider_2" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_length],Reference=InitialValue" objectType="float" objectValue="30" minValue="0.01" maxValue="1000" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
-      <Slider key="Slider_3" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_start],Reference=InitialValue" objectType="float" objectValue="500" minValue="0.1" maxValue="500" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
-      <Slider key="Slider_4" associatedEntityKey="Task_18" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity],Reference=InitialValue" objectType="float" objectValue="1" minValue="-10" maxValue="10" tickNumber="1000" tickFactor="100" scaling="linear"/>
-      <Slider key="Slider_5" associatedEntityKey="Task_18" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_length],Reference=InitialValue" objectType="float" objectValue="30" minValue="25.4097" maxValue="2540.97" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
+      <Slider key="Slider_2" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz],Reference=InitialValue" objectType="float" objectValue="25.6764" minValue="0.01" maxValue="1000" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
+      <Slider key="Slider_3" associatedEntityKey="Task_19" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_on],Reference=InitialValue" objectType="float" objectValue="5" minValue="0.1" maxValue="500" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
+      <Slider key="Slider_4" associatedEntityKey="Task_18" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_intensity],Reference=InitialValue" objectType="float" objectValue="1.36" minValue="-10" maxValue="10" tickNumber="1000" tickFactor="100" scaling="linear"/>
+      <Slider key="Slider_5" associatedEntityKey="Task_18" objectCN="CN=Root,Model=RSA neuron,Vector=Values[pulse_Hz],Reference=InitialValue" objectType="float" objectValue="3.17764" minValue="0.1" maxValue="2540.97" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
     </ListOfSliders>
   </GUI>
   <ListOfUnitDefinitions>
