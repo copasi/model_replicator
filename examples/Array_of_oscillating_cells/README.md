@@ -16,7 +16,7 @@ This replicates the results of Figure 4 of Reference 1. In this case only *Xex* 
 |`` --output ex3case1.cps``        | name the output file                      |
 |`` -t Xex``                       | transport the species Xex                 |
 |`` -k 5``                         | value of rate constant for transport      |
-|`` --pn alpha 0.1 uni \``         | add noise to parameter alpha in each unit |
+|`` --pn alpha 0.1 uni``           | add noise to parameter alpha in each unit |
 |`` glycolysis-autocatalytic.cps`` | COPASI file with the base unit            |
 |`` 49 49``                        | create an array of 49x49 units            |
 
@@ -54,7 +54,7 @@ We now replicate the results of Figures 5A and 6A. This case is similar to the p
 |`` -t Xex``                       | transport the species Xex                 |
 |`` -t Yex``                       | transport the species Yex                 |
 |`` -k 5``                         | value of rate constant for transport      |
-|`` --pn alpha 0.1 uni \``         | add noise to parameter alpha in each unit |
+|`` --pn alpha 0.1 uni``           | add noise to parameter alpha in each unit |
 |`` glycolysis-autocatalytic.cps`` | COPASI file with the base unit            |
 |`` 49 49``                        | create an array of 49x49 units            |
 
