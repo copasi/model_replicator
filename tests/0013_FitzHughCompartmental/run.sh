@@ -23,8 +23,6 @@ if ! [[ $? = 0 ]]; then
   exit -1
 fi
 
-#event  Time > 2 && false        [{'target': 'Values[z_1]', 'expression': '- 0.4'}, {'target': 'Values[z_2]', 'expression': '- 0.4'}, {'target': 'Values[z_3]
-
 # check that there is exactly one event
 n=$(grep -Pc "event\s+Time > 2 && false" FitzHugh-Nagumo_3.summary.txt)
 if ((n != 1))  ; then
