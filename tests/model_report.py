@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
 #
 # model_report.py
 # produce a report file of SBML or COPASI model
@@ -39,7 +40,7 @@ if( model is None):
 
 # open report file
 try:
-    outf = open(report, "w")
+    outf = open(report, "w", encoding='utf-8')
 except:
     print(f'ERROR: cannot create file {report}')
     exit(2)
