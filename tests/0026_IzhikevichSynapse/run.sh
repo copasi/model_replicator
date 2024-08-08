@@ -30,7 +30,7 @@ if ((n != 3))  ; then
   let "fail = $fail + 2"
 fi
 
-# check that there are is only one event that is time-dependent
+# check that there is only one event that is time-dependent
 n=$(grep -Pc "Stimulus\s+Time gt10\s+" I-1-2-3.summary.txt)
 if ((n != 1))  ; then
   printf 'FAIL %s\n' "${test}"
@@ -71,27 +71,3 @@ if [ "$fail" = 0 ] ; then
 fi
 
 exit $fail
-
-# check that the tau_d constant has been defined with the default value
-if ! grep -Pq "^tau_d_x_synapse\s+fixed\s+10\.0" I-1-2-3.summary.txt; then
-  printf 'FAIL %s\n' "${test}"
-  let "fail = $fail + 8"
-fi
-
-# check that the tau_r constant has been defined with the default value
-if ! grep -Pq "^tau_r_x_synapse\s+fixed\s+0\.5" I-1-2-3.summary.txt; then
-  printf 'FAIL %s\n' "${test}"
-  let "fail = $fail + 8"
-fi
-
-# check that the V0 constant has been defined with the default value
-if ! grep -Pq "^V0_x_synapse\s+fixed\s+-20\.0" I-1-2-3.summary.txt; then
-  printf 'FAIL %s\n' "${test}"
-  let "fail = $fail + 8"
-fi
-
-# check that the Vsyn constant has been defined with the default value
-if ! grep -Pq "^Vsyn_x_synapse\s+fixed\s+20\.0" I-1-2-3.summary.txt; then
-  printf 'FAIL %s\n' "${test}"
-  let "fail = $fail + 8"
-fi
