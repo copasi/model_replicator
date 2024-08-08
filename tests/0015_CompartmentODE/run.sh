@@ -29,8 +29,6 @@ if ! grep -Pq "^k_vesicle_coupling\s+fixed\s+1" shrink_2.summary.txt; then
   let "fail = $fail + 2"
 fi
 
-#vesicle_1  ode    1.0    l  3  Values[sr_1] * ( Values[Osm_neutral_1] - [osmolite_1] ) + Values[k_vesicle_coupling] * ( Compartments[vesicle_2].Volume - Compartments[vesicle_1].Volume )
-
 # check that there are two ODEs connected correctly with diffusive term
 n=$(grep -Pc "vesicle_([12])\s+ode\s+.*\+ Values\[k_vesicle_coupling\] \* \( Compartments\[vesicle_[12]\]\.Volume - Compartments\[vesicle_\1\]\.Volume \)" shrink_2.summary.txt )
 if ((n != 2))  ; then
