@@ -6,7 +6,7 @@
 # This takes a SBML or COPASI file and replicates it as a set of sub-models
 # which can exist just side-by-side or can be connected in different ways.
 #
-# Written March-July 2024 by Pedro Mendes <pmendes@uchc.edu>
+# Written March-August 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
 #TODO: POSSIBLE IMPROVEMENTS
