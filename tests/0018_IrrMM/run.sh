@@ -23,8 +23,6 @@ if ! [[ $? = 0 ]]; then
   exit -1
 fi
 
-#t_c_1-2       c_1 -> c_2  Henri-Michaelis-Menten (irreversible)           {'substrate': 'c_1', 'Km': 'Km_c_transport', 'V': 'Vmax_c_transport'}
-
 # check that transport reaction exists
 if ! grep -Pq "t_c_1-2\s+c_1 -\> c_2\s+Hill Cooperativity" BindingKa_2.summary.txt; then
   printf 'FAIL %s\n' "${test}"
