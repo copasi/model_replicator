@@ -9,10 +9,11 @@
 # Written March-July 2024 by Pedro Mendes <pmendes@uchc.edu>
 # this code is released under the Artistic 2.0 License
 
-#TODO: hexagonal arrays? (please no!)
+#TODO: POSSIBLE IMPROVEMENTS
+#TODO: gene regulation by adding corresponding protein?
 #TODO: binding between units?  (would nedd to select A,B and bind each one on each side)
 #TODO: modification between units? (would need to select species and reaction)
-#TODO: gene regulation by adding corresponding protein?
+#TODO: hexagonal arrays? (please no!)
 
 __version__ = "1.0a6"
 
@@ -622,14 +623,22 @@ if not nnotes:
     nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p><pre style=\"font-size:small\">{cmd}</pre></body>"
 else:
     # check if the notes are in HTML
-    index = nnotes.find('</body>')
+    index = nnotes.find('<body')
     if( index == -1 ):
         # not HTML, so add a simple string
-        nnotes = nnotes + f"\n\nProcessed with sbmodelr to produce {desc} of {seedmodelfile}\n{cmd}"
+        nnotes = f"Processed with sbmodelr to produce {desc} of {seedmodelfile}\n{cmd}\n\n ----- \n" + nnotes
     else:
-        # add info at the end of the body section
-        nend = nnotes[index:]
-        nnotes = nnotes[:index] + f"<hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p><pre style=\"font-size:small\">{cmd}</pre>" + nend
+        # find end of body tag
+        eobt = nnotes.find('>')
+        if( eobt > -1):
+            eobt = eobt+1
+            # add info at the top of the body section
+            nend = nnotes[eobt:]
+            nnotes = nnotes[:eobt] + f"<p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p><pre style=\"font-size:small\">{cmd}</pre><p>notes of original file below:</p><hr/>" + nend
+        else:
+            # something went wrong, let's just write comments as if there was nothing
+            nnotes = f"<body xmlns=\"http://www.w3.org/1999/xhtml\"><p><br/></p><hr/><p>Processed with sbmodelr to produce {desc} of {seedmodelfile}</p><pre style=\"font-size:small\">{cmd}</pre></body>"
+
 
 # get original model units
 munits = get_model_units(model=seedmodel)
