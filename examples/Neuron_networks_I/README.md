@@ -25,6 +25,7 @@ File *ex4case1.sh* contains the full *sbmodeler* command required to create the 
 |`` --output ex4case1.cps``  | name the output file                                                   |
 |`` -n ff2.dot``             | network file that has simple 2-neuron feedforward motif                |
 |`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
+|`` --synapse-g 0.1``        | set the synaptic conductunce value                                     |
 |`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
 |`` 2``                      | create 2 units                                                         |
 
