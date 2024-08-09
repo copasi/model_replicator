@@ -17,6 +17,10 @@ digraph ff2{
 }
 ```
 
+This shows the behavior of a single neuron when it receives a sequence of current pulses of 10 µA/cm2 for 1ms, spaced according to a Poisson distribution with an average of 1 pulse per 25 ms, which eventually cause action potentials. At the bottom the current pulses are shown in red, and the action potentials generated are shown at the top in blue .
+
+![Behavior of membrane potential of a single RSA neuron (top in blue) when triggered by pulses of current with a Poisson distribution (bottom in red)](ex4case1_fig1.png)
+
 File *ex4case1.sh* contains the full *sbmodeler* command required to create the new model.
 
 | command line options       | comment                                                                |
@@ -25,7 +29,7 @@ File *ex4case1.sh* contains the full *sbmodeler* command required to create the 
 |`` --output ex4case1.cps``  | name the output file                                                   |
 |`` -n ff2.dot``             | network file that has simple 2-neuron feedforward motif                |
 |`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
-|`` --synapse-g 0.1``        | set the synaptic conductunce value                                     |
+|`` --synapse-g 0.1``        | set the synaptic conductance value                                     |
 |`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
 |`` 2``                      | create 2 units                                                         |
 
