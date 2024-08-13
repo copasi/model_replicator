@@ -8,7 +8,11 @@ The base model used here, defined by Pospischil *et al.* (1), is a Hodgkin-Huxle
 The base unit model also contains two events that set random values of an injected current into the neuron. When we create networks with this base unit, we will delete most of the new events such that only one unit has injected current (*sbmodelr* replicates the event to all the units, but in this example we want it for only one of them).
 
 ### Case 1
-We create a simple feedforward network motif where one RSA neuron connects to another one. The *ff2.dot* network file specifies the network and looks simply like this:
+We will use a base model *RSA_neuron.cps* that captures the behavior of a single neuron when it receives a sequence of current pulses of 10 µA/cm2 for 1ms, spaced according to a Poisson distribution with an average of 1 pulse per 25 ms. These inputs eventually cause action potentials, shown in the figure below in the top panel in blue; the bottom panel shows the input current pulses in red.
+
+![Behavior of membrane potential of a single RSA neuron (top in blue) when triggered by pulses of current with a Poisson distribution (bottom in red)](ex4case1_fig1.png)
+
+We now create a simple feedforward network motif where one such RSA neuron connects to another one. The *ff2.dot* network file specifies the network and looks simply like this:
 
 ```
 digraph ff2{
@@ -16,10 +20,6 @@ digraph ff2{
 1 -> 2
 }
 ```
-
-This shows the behavior of a single neuron when it receives a sequence of current pulses of 10 µA/cm2 for 1ms, spaced according to a Poisson distribution with an average of 1 pulse per 25 ms, which eventually cause action potentials. At the bottom the current pulses are shown in red, and the action potentials generated are shown at the top in blue .
-
-![Behavior of membrane potential of a single RSA neuron (top in blue) when triggered by pulses of current with a Poisson distribution (bottom in red)](ex4case1_fig1.png)
 
 File *ex4case1.sh* contains the full *sbmodeler* command required to create the new model.
 
