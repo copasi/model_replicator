@@ -37,8 +37,9 @@ Running the command explained above (e.g. by running file *ex1case1.sh*) results
 After loading that file into COPASI we make the following modifications:
  1. delete the events for unit 2 (*pulse_on_2* and *pulse_off_2*)
  2. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1* (neuron 1 membrane potential), *V_2* (neuron 1 membrane potential) and *br_V_1,2* (proportion of bound synaptic receptor)
+ 3. save the file (*ex4case1.cps*)
 
-Below is a representative time course (each time course is different, given the random spacing of the current inputs). At the top are the membrane potentials of the two neurons, with neuron 1 in blue and neuron 2 in yellow. The middle panel shows the proportion of bound receptor in the post-synaptic membrane, and the bottom panel shows the current inputs into neuron 1. Neuron 2 is responding to action potentials from neuron 1 with its own action potentials at a short delay.
+Below is a representative time course generated from *ex4case1.cps* after the modifications. Note that each time course is different, given the random spacing of the current inputs. At the top are the membrane potentials of the two neurons, with neuron 1 in blue and neuron 2 in yellow. The middle panel shows the proportion of bound receptor in the post-synaptic membrane, and the bottom panel shows the current inputs into neuron 1. Neuron 2 is responding to action potentials from neuron 1 with its own action potentials at a short delay.
 
 ![Two RSA neurons connected by a chemical synapse. Top: membrane potentials (neuron 1 in blue, neuron 2 in yellow), middle: proportion of postsynaptic bound receptor, bottom: current pulses into neuron 1.](ex4case1_fig2.png)
 
