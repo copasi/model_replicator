@@ -1456,7 +1456,7 @@ if( odelink ):
                             # add a new ODE to represent the proportion of bound post-synaptic receptor
                             brname = f'br_{ode}_{suffa},{suffb}'
                             brexp = f'( 1 / Values[{thissyntaur}] - 1 / Values[{thissyntaud}] ) * ( 1 - Values[{brname}] ) / ( 1 + exp( Values[{synv0}] - Values[{oaname}] ) ) -  Values[{brname}] / Values[{thissyntaud}]'
-                            add_parameter(brname, type='ode', expression=brexp, initial_value=0.5, model=newmodel)
+                            add_parameter(brname, type='ode', expression=brexp, initial_value=0, model=newmodel)
                             # add a synaptic maximum conductance parameter
                             syngc = f'g_c_{ode}_{suffa},{suffb}_synapse'
                             if( args.cnoise ):
