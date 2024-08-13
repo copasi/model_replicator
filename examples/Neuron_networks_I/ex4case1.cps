@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-08T19:59:25Z -->
+<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-13T15:40:34Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="44" versionDevel="295" copasiSourcesModified="0">
   <Model key="Model_1" name="a set of 2 replicas of RSA neuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
@@ -45,7 +45,7 @@
     </dcterms:creator>
     <dcterms:modified>
       <rdf:Description>
-        <dcterms:W3CDTF>2024-08-08T14:55:07.042339</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2024-08-13T11:16:08.075626</dcterms:W3CDTF>
       </rdf:Description>
     </dcterms:modified>
   </rdf:Description>
@@ -53,20 +53,16 @@
 
     </MiriamAnnotation>
     <Comment>
-      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 2 replicas of RSA_neuron.cps</p><pre style="font-size:small">../../sbmodelr --output ex4case1.cps -n ff2.dot --ode-synaptic V RSA_neuron.cps 2</pre><p>notes of original file below:</p><hr /><h1>Generic neuron model</h1>
-<p>This is a 9-ODE generic neuron model, inspired by the Hodgin-Huxley model, that includes three types of complex behaviour:</p>
+      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 2 replicas of RSA_neuron.cps</p><pre style="font-size:small">../../sbmodelr --output ex4case1.cps -n ff2.dot --ode-synaptic V --synapse-g 0.08 RSA_neuron.cps 2</pre><p>notes of original file below:</p><hr /><h1>RSA Neuron</h1>
+<p>This is a 9-ODE model of a regular spiking neuron with adaptation (RSA), inspired by the Hodgin-Huxley model, first proposed by Pospischil et al. (2008) and re-used in Giannari and Astolfi (2022).</p>
+
+<p>Since this model is based on voltages and intensities, all variables and differential equations are defined under Global Quantities (there are no reactions and no species here). The model includes a sequence of current pulses (10 &micro;A/cm<sup>2</sup> for 1ms), spaced according to a Poisson distribution with an average of 1 pulse per 25 ms, which eventually cause action potentials.</p>
+
+<p><b>References</b>:</p>
 <ul>
- <li>fast spiking (FS)</li>
- <li>regular spiking with adaptation (RSA)</li>
- <li>intrinsically bursting (IB)</li>
-</ul>
-<p>This is achieved by incorporating terms and differential equations for slow potassium conductance and calcium conductance (in addition to the leak, sodium and fast potassium conductances of the HH model). The parameter values were determined by Pospischil et al. (2008) and re-used in Giannari and Astolfi (2022). This model follows the symbols used in Giannari and Astolfi, but note that the equation for beta_m in that paper is wrong (Pospischil et al. contain the correct version).</p>
-<p>In order to model each type of neuron (FS, RSA or IB), various parameter values need to be adjusted, including setting some maximal conductances to zero (g_Ca and g_M), which make the voltage (V) independent from some of the ion channels (calcium and slow potassium). For convenience, there is a parameter set stored for each neuron type. The parameter scan feature can be used to compare each neuron type with the same perturbations on injected current.</p>
-<p>Since this model is based on voltages and intensities, all variables and differential equations are defined under Global Quantities (there are no reactions and no species here).</p>
-<p><b>References</b>:<br />
-- Pospischil M, Toledo-Rodriguez M, Monier C, Piwkowska Z, Bal T, Frégnac Y, Markram H, Destexhe A (2008) <a href="https://doi.org/10.1007/s00422-008-0263-8">Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons</a>. Biological Cybernetics 99:427–441<br />
-- Giannari AG, Astolfi A (2022) <a href="https://doi.org/10.1016/j.neucom.2022.04.115">Model design for networks of heterogeneous Hodgkin–Huxley neurons</a>. Neurocomputing 496:147–157
-</p> 
+<li>Pospischil M, Toledo-Rodriguez M, Monier C, Piwkowska Z, Bal T, Frégnac Y, Markram H, Destexhe A (2008) <a href="https://doi.org/10.1007/s00422-008-0263-8">Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons</a>. Biological Cybernetics 99:427–441</li>
+<li>Giannari AG, Astolfi A (2022) <a href="https://doi.org/10.1016/j.neucom.2022.04.115">Model design for networks of heterogeneous Hodgkin–Huxley neurons</a>. Neurocomputing 496:147–157</li>
+</ul> 
 
 <p style="font-size:small"><b>CC0 1.0 Universal</b>: To the extent possible under law, all copyright and related or neighbouring rights to this encoded model have been dedicated to the public domain worldwide. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. Please refer to <a href="http://creativecommons.org/publicdomain/zero/1.0/" title="Creative Commons CC0">CC0 Public Domain Dedication</a> for more information.</p>
 </body>
@@ -455,6 +451,12 @@
         </Unit>
       </ModelValue>
       <ModelValue key="ModelValue_32" name="pulse_on_1" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_32">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Unit>
           ms
         </Unit>
@@ -470,7 +472,7 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_34" name="pulse_lag_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_34" name="pulse_width_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_34">
@@ -492,9 +494,15 @@
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_36" name="pulse_Hz_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_36" name="pulse_rate_1" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_36">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Unit>
-          ms
+          1/ms
         </Unit>
       </ModelValue>
       <ModelValue key="ModelValue_37" name="V_K_2" simulationType="fixed" addNoise="false">
@@ -880,6 +888,12 @@
         </Unit>
       </ModelValue>
       <ModelValue key="ModelValue_69" name="pulse_on_2" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_69">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Unit>
           ms
         </Unit>
@@ -895,7 +909,7 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_71" name="pulse_lag_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_71" name="pulse_width_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <rdf:Description rdf:about="#ModelValue_71">
@@ -917,9 +931,15 @@
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_73" name="pulse_Hz_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_73" name="pulse_rate_2" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_73">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Unit>
-          ms
+          1/ms
         </Unit>
       </ModelValue>
       <ModelValue key="ModelValue_74" name="tau_r_V_synapse" simulationType="fixed" addNoise="false">
@@ -976,6 +996,12 @@
     </ListOfModelValues>
     <ListOfEvents>
       <Event key="Event_0" name="pulse_on_1" fireAtInitialTime="0" persistentTrigger="0">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#Event_0">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <TriggerExpression>
           &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time> > &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_on_1],Reference=Value>
         </TriggerExpression>
@@ -987,12 +1013,18 @@
           </Assignment>
           <Assignment target="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_off_1]">
             <Expression>
-              &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time>+poisson(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_Hz_1],Reference=Value>)
+              &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time>+&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_width_1],Reference=Value>
             </Expression>
           </Assignment>
         </ListOfAssignments>
       </Event>
       <Event key="Event_1" name="pulses_off_1" fireAtInitialTime="0" persistentTrigger="0">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#Event_1">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <TriggerExpression>
           &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time> > &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_off_1],Reference=Value>
         </TriggerExpression>
@@ -1004,7 +1036,7 @@
           </Assignment>
           <Assignment target="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_on_1]">
             <Expression>
-              &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time>+poisson(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_Hz_1],Reference=Value>)
+              &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time>-log(uniform(0,1))/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_rate_1],Reference=Value>
             </Expression>
           </Assignment>
         </ListOfAssignments>
@@ -1062,9 +1094,9 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_p_1]" value="88.724338492363756" type="ModelValue" simulationType="assignment"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_on_1]" value="5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_off_1]" value="2500" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_lag_1]" value="0" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_intensity_1]" value="1.3599999999999994" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_Hz_1]" value="10" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_width_1]" value="1" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_intensity_1]" value="10" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_rate_1]" value="0.040000000000000001" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_2]" value="-90" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Na_2]" value="56" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_L_2]" value="-70.299999999999997" type="ModelValue" simulationType="fixed"/>
@@ -1099,15 +1131,15 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_p_2]" value="88.724338492363756" type="ModelValue" simulationType="assignment"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_on_2]" value="5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_off_2]" value="2500" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_lag_2]" value="0" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_intensity_2]" value="1.3599999999999994" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_Hz_2]" value="3.1776410871502825" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_width_2]" value="1" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_intensity_2]" value="10" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_rate_2]" value="0.040000000000000001" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse]" value="0.5" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse]" value="10" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V0_V_synapse]" value="-20" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse]" value="20" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2]" value="0.5" type="ModelValue" simulationType="ode"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_1\,2_synapse]" value="1" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2]" value="0" type="ModelValue" simulationType="ode"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_1\,2_synapse]" value="0.080000000000000002" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
         <ModelParameterGroup cn="String=Kinetic Parameters" type="Group">
         </ModelParameterGroup>
@@ -1197,7 +1229,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_79"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0.5 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 0 1.3599999999999994 10 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 0 1.3599999999999994 3.1776410871502825 0.5 10 -20 20 1 
+      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 0.5 10 -20 20 0.080000000000000002 
     </InitialState>
   </Model>
   <ListOfTasks>
@@ -1224,12 +1256,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <Report reference="Report_12" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="1"/>
-        <Parameter name="StepNumber" type="unsignedInteger" value="2000"/>
-        <Parameter name="StepSize" type="float" value="0.14999999999999999"/>
-        <Parameter name="Duration" type="float" value="300"/>
-        <Parameter name="TimeSeriesRequested" type="bool" value="1"/>
+        <Parameter name="StepNumber" type="unsignedInteger" value="10000"/>
+        <Parameter name="StepSize" type="float" value="0.10000000000000001"/>
+        <Parameter name="Duration" type="float" value="1000"/>
+        <Parameter name="TimeSeriesRequested" type="bool" value="0"/>
         <Parameter name="OutputStartTime" type="float" value="0"/>
-        <Parameter name="Output Event" type="bool" value="1"/>
+        <Parameter name="Output Event" type="bool" value="0"/>
         <Parameter name="Start in Steady State" type="bool" value="0"/>
         <Parameter name="Use Values" type="bool" value="0"/>
         <Parameter name="Values" type="string" value=""/>
@@ -1604,11 +1636,11 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     </Report>
   </ListOfReports>
   <ListOfPlots>
-    <PlotSpecification name="Time course" type="Plot2D" active="1" taskTypes="">
+    <PlotSpecification name="membrane potential" type="Plot2D" active="1" taskTypes="">
       <Parameter name="log X" type="bool" value="0"/>
       <Parameter name="log Y" type="bool" value="0"/>
       <Parameter name="x axis" type="string" value="time (ms)"/>
-      <Parameter name="y axis" type="string" value="Voltage (mV)"/>
+      <Parameter name="y axis" type="string" value="potential (mV)"/>
       <Parameter name="z axis" type="string" value=""/>
       <Parameter name="plot engine" type="string" value="QWT"/>
       <ListOfPlotItems>
@@ -1617,7 +1649,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#0000FF"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
@@ -1629,31 +1661,51 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#F0C800"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value"/>
           </ListOfChannels>
         </PlotItem>
+      </ListOfPlotItems>
+    </PlotSpecification>
+    <PlotSpecification name="injected current" type="Plot2D" active="1" taskTypes="">
+      <Parameter name="log X" type="bool" value="0"/>
+      <Parameter name="log Y" type="bool" value="0"/>
+      <Parameter name="x axis" type="string" value="time (ms)"/>
+      <Parameter name="y axis" type="string" value="current dens. (uA/cm^2)"/>
+      <Parameter name="z axis" type="string" value=""/>
+      <Parameter name="plot engine" type="string" value="QWT"/>
+      <ListOfPlotItems>
         <PlotItem name="I_inj_1" type="Curve2D">
           <Parameter name="Line type" type="unsignedInteger" value="0"/>
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#FF0000"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_1],Reference=Value"/>
           </ListOfChannels>
         </PlotItem>
+      </ListOfPlotItems>
+    </PlotSpecification>
+    <PlotSpecification name="Bound receptor" type="Plot2D" active="1" taskTypes="">
+      <Parameter name="log X" type="bool" value="0"/>
+      <Parameter name="log Y" type="bool" value="0"/>
+      <Parameter name="x axis" type="string" value="time (ms)"/>
+      <Parameter name="y axis" type="string" value="bound fraction"/>
+      <Parameter name="z axis" type="string" value=""/>
+      <Parameter name="plot engine" type="string" value="QWT"/>
+      <ListOfPlotItems>
         <PlotItem name="br_V_1,2" type="Curve2D">
           <Parameter name="Line type" type="unsignedInteger" value="0"/>
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#F000FF"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
