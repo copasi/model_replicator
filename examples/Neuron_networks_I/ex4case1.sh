@@ -9,6 +9,6 @@
  --output ex4case1.cps \
  -n ff2.dot \
  --ode-synaptic V \
- --synapse-g 0.1 \
+ --synapse-g 0.08 \
  RSA_neuron.cps \
  2

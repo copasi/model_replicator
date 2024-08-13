@@ -29,12 +29,12 @@ File *ex4case1.sh* contains the full *sbmodeler* command required to create the 
 |`` --output ex4case1.cps``  | name the output file                                                   |
 |`` -n ff2.dot``             | network file that has simple 2-neuron feedforward motif                |
 |`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
-|`` --synapse-g 0.1``        | set the synaptic conductance value                                     |
+|`` --synapse-g 0.08``       | set the synaptic conductance value                                     |
 |`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
 |`` 2``                      | create 2 units                                                         |
 
-Running the command explained above (e.g. by running file *ex1case1.sh*) results in a new model file *case1.cps*.
-Loading that file into COPASI we make the following modifications:
+Running the command explained above (e.g. by running file *ex1case1.sh*) results in a new model file *ex4case1.cps*.
+After loading that file into COPASI we make the following modifications:
  1. delete the events for unit 2 (*pulse_on_2* and *pulse_off_2*)
  2. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1* (neuron 1 membrane potential), *V_2* (neuron 1 membrane potential) and *br_V_1,2* (proportion of bound synaptic receptor)
 
