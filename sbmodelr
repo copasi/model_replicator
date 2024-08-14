@@ -1042,7 +1042,7 @@ if( args.add_medium ):
 # 12. create unit connections
 #####
 
-# check if we need to add the Michaelis-Menten transport rate law
+# check if we need to add the Hill transport rate law
 if( args.Hill_transport ):
     # add Hill kinetics for molecule transport
     htmap = {'V': 'parameter', 'Km': 'parameter', 'h': 'parameter', 'S': 'substrate', 'P': 'product'}
@@ -1364,16 +1364,22 @@ if( odelink ):
             # add rate constants for the synaptic connections
             # tau_r is a time constant characteristic of pre-synaptic synthesis of neurotransmitter and its diffusion across the synapse
             syntaur = f'tau_r_{ode}_synapse'
-            add_parameter(syntaur, type='fixed', initial_value=taurinit, model=newmodel)
+            # only add it if we don't have noise in coupling parameters
+            if( not args.cnoise ):
+                add_parameter(syntaur, type='fixed', initial_value=taurinit, model=newmodel)
             # tau_d is a time constant characteristic of post-synaptic degradation of neurotransmitter
             syntaud = f'tau_d_{ode}_synapse'
-            add_parameter(syntaud, type='fixed', initial_value=taudinit, model=newmodel)
+            # only add it if we don't have noise in coupling parameters
+            if( not args.cnoise ):
+                add_parameter(syntaud, type='fixed', initial_value=taudinit, model=newmodel)
             # V_0 is the voltage at the pre-synaptic neuron that gives half maximal rate of release of neurotransmitter
             synv0 = f'V0_{ode}_synapse'
             add_parameter(synv0, type='fixed', initial_value=v0init, model=newmodel)
             # V_syn is the post-synaptic inversion potential characteristic
             synvsyn = f'Vsyn_{ode}_synapse'
-            add_parameter(synvsyn, type='fixed', initial_value=vsyninit, model=newmodel)
+            # only add it if we don't have noise in coupling parameters
+            if( not args.cnoise ):
+                add_parameter(synvsyn, type='fixed', initial_value=vsyninit, model=newmodel)
         else:
             print(f'ERROR: ODE link of type \'{linktype}\' is not allowed.')
             exit()
@@ -1444,15 +1450,19 @@ if( odelink ):
                         elif( linktype=='s' ):
                             thissyntaur = syntaur
                             thissyntaud = syntaud
+                            thissynvsyn = synvsyn
                             if( args.cnoise ):
-                                # if we add noise to couplings, then we need 1 tau parameter per reaction
+                                # if we add noise to couplings, then we need a few parameters per reaction
                                 (level, dist) = args.cnoise
                                 thissyntaur = f'tau_r_{ode}_synapse_{suffa}-{suffb}'
                                 thissyntaud = f'tau_d_{ode}_synapse_{suffa}-{suffb}'
+                                thissynvsyn = f'Vsyn_{ode}_synapse_{suffa}-{suffb}'
                                 r = addnoise(taurinit,float(level),dist)
                                 d = addnoise(taudinit,float(level),dist)
+                                v = addnoise(vsyninit,float(level),dist)
                                 add_parameter(name=thissyntaur, initial_value=r, model=newmodel)
                                 add_parameter(name=thissyntaud, initial_value=d, model=newmodel)
+                                add_parameter(name=thissynvsyn, initial_value=v, model=newmodel)
                             # add a new ODE to represent the proportion of bound post-synaptic receptor
                             brname = f'br_{ode}_{suffa},{suffb}'
                             brexp = f'( 1 / Values[{thissyntaur}] - 1 / Values[{thissyntaud}] ) * ( 1 - Values[{brname}] ) / ( 1 + exp( Values[{synv0}] - Values[{oaname}] ) ) -  Values[{brname}] / Values[{thissyntaud}]'
@@ -1465,7 +1475,7 @@ if( odelink ):
                                 gc = gcinit
                             add_parameter(syngc, type='fixed', initial_value=gc, model=newmodel)
                             # add a term to the postsynaptic ode corresponding to the voltage that is proportional to the bound receptor
-                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{syngc}] * Values[{brname}] * ( Values[{synvsyn}] - Values[{oaname}] )'
+                            odebexpr = bode.loc[obname].at['expression'] + f' + Values[{syngc}] * Values[{brname}] * ( Values[{thissynvsyn}] - Values[{oaname}] )'
                         # obname is affected by all types of connection so we can only update it here, after if/elif statements
                         set_parameters(obname, exact=True, expression=odebexpr, model=newmodel)
             elif( dim == 2 ):
