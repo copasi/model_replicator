@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-09T19:34:09Z -->
+<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-09T19:58:29Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="44" versionDevel="295" copasiSourcesModified="0">
   <Model key="Model_0" name="RSA neuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
@@ -1195,8 +1195,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <PlotSpecification name="time course" type="Plot2D" active="1" taskTypes="">
       <Parameter name="log X" type="bool" value="0"/>
       <Parameter name="log Y" type="bool" value="0"/>
-      <Parameter name="x axis" type="string" value="time"/>
-      <Parameter name="y axis" type="string" value=""/>
+      <Parameter name="x axis" type="string" value="time (ms)"/>
+      <Parameter name="y axis" type="string" value="Potential (mV)"/>
       <Parameter name="z axis" type="string" value=""/>
       <Parameter name="plot engine" type="string" value="QWT"/>
       <ListOfPlotItems>
@@ -1294,6 +1294,28 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=RSA neuron,Reference=Time"/>
             <ChannelSpec cn="CN=Root,Model=RSA neuron,Vector=Values[s],Reference=Value"/>
+          </ListOfChannels>
+        </PlotItem>
+      </ListOfPlotItems>
+    </PlotSpecification>
+    <PlotSpecification name="current injection" type="Plot2D" active="1" taskTypes="">
+      <Parameter name="log X" type="bool" value="0"/>
+      <Parameter name="log Y" type="bool" value="0"/>
+      <Parameter name="x axis" type="string" value="time (ms)"/>
+      <Parameter name="y axis" type="string" value="current (microA/cm^2)"/>
+      <Parameter name="z axis" type="string" value=""/>
+      <Parameter name="plot engine" type="string" value="QWT"/>
+      <ListOfPlotItems>
+        <PlotItem name="I_inj" type="Curve2D">
+          <Parameter name="Line type" type="unsignedInteger" value="0"/>
+          <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
+          <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
+          <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
+          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Recording Activity" type="string" value="during"/>
+          <ListOfChannels>
+            <ChannelSpec cn="CN=Root,Model=RSA neuron,Reference=Time"/>
+            <ChannelSpec cn="CN=Root,Model=RSA neuron,Vector=Values[I_inj],Reference=Value"/>
           </ListOfChannels>
         </PlotItem>
       </ListOfPlotItems>
