@@ -1,0 +1,5 @@
+digraph fb2{
+// feedback motif with two nodes
+1 -> 2
+2 -> 1
+}
