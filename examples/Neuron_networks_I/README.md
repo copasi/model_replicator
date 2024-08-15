@@ -33,7 +33,7 @@ File *ex4case1.sh* contains the full *sbmodeler* command required to create the 
 |`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
 |`` 2``                      | create 2 units                                                         |
 
-Running the command explained above (e.g. by running file *ex1case1.sh*) results in a new model file *ex4case1.cps*.
+Running the command explained above (e.g. by running file *ex4case1.sh*) results in a new model file *ex4case1.cps*.
 After loading that file into COPASI we make the following modifications:
  1. delete the events for unit 2 (*pulse_on_2* and *pulse_off_2*)
  2. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1* (neuron 1 membrane potential), *V_2* (neuron 1 membrane potential) and *br_V_1,2* (proportion of bound synaptic receptor)
@@ -72,6 +72,13 @@ File *ex4case2.sh* contains the full *sbmodeler* command required to create the 
 |`` --cn 0 uni``             | add noise to synapse parameters (but set noise magnitude to zero!)     |
 |`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
 |`` 2``                      | create 2 units                                                         |
+
+Running the command explained above (e.g. by running file *ex4case2.sh*) results in a new model file *ex4case2.cps*.
+After loading that file into COPASI we make the following modifications:
+ 1. switch off the events for unit 2 by adding ``and false`` to the trigger expression of event *pulse_on_2* (this will allow later turning it on again by removing this, and not having to delete and re-create the event). The Trigger Expression should read: ``{Time} > {Values[pulse_on_2]} and false``
+ 2. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1* (neuron 1 membrane potential), *V_2* (neuron 1 membrane potential), *br_V_1,2* (proportion of bound receptor in synapse 1->2), and *br_V_2,1* (proportion of bound receptor in synapse 2->1)
+ 3. save the file (*ex4case2.cps*)
+
 
 
 ## References
