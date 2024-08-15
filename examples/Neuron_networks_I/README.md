@@ -79,6 +79,7 @@ After loading that file into COPASI we make the following modifications:
  2. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1* (neuron 1 membrane potential), *V_2* (neuron 2 membrane potential), *br_V_1,2* (proportion of bound receptor in synapse 1->2), and *br_V_2,1* (proportion of bound receptor in synapse 2->1)
  3. save the file (*ex4case2.cps*)
 
+The file *ex4case2.cps* has now two neurons connected in a **positive** feedback motif, since both synapses are excitatory. The behavior is displayed in the figure below.  At the top are the membrane potentials of the two neurons, with neuron 1 in blue and neuron 2 in yellow. The middle panel shows the proportion of bound receptors in the post-synaptic membranes (blue for synapse from 1 to 2, yellow for synapse 2 to 1), and the bottom panel shows the current inputs into neuron 1. As in case 1, neuron 2 responds to action potentials from neuron 1 with its own action potentials at a short delay. However, here the positive feedback loop causes a train of action potentials that eventaully die out
 
 ![Two RSA neurons connected in a positive feedback motif through two chemical synapses. Top: membrane potentials (neuron 1 in blue, neuron 2 in yellow), middle: proportion of postsynaptic bound receptors (blue 1->2, yellow 2->1), bottom: current pulses into neuron 1.](ex4case2_fig3.png)
 
