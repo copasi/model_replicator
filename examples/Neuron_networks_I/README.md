@@ -45,7 +45,7 @@ Below is a representative time course generated from *ex4case1.cps* after the mo
 
 ### Case 2
 
-We now look at the case where nueron 2 feeds back to neuron 1. The network file used (*fb2.dot*) looks like this:
+We now look at the case where neuron 2 feeds back to neuron 1. The network file used (*fb2.dot*) looks like this:
 
 ```
 digraph fb2{
@@ -55,7 +55,7 @@ digraph fb2{
 }
 ```
 
-To produce the case where the feedback is positive we would only need to repeat the same *sbmodelr* command as in case 1, however if we want also to be able to represent a negative feedback we need to force *sbmodelr* to create separate parameters for the *Vsyn* of each synapse (*Vsyn* is the post-synaptic inversion potential characteristic). This is because what distinguishes inhibitory and excitatory synapses, using the Destexhe *et al.* approach (2), is the value of *Vsyn* (much more negative for inhibitory synapses).
+To produce the case where the feedback is positive we would only need to repeat the same *sbmodelr* command as in case 1, however if we want also to be able to represent a negative feedback we need to force *sbmodelr* to create separate parameters for each synapse's *Vsyn* parameter (*Vsyn* is the post-synaptic inversion potential characteristic). This is because what distinguishes inhibitory and excitatory synapses, using the Destexhe *et al.* approach (2), is the value of *Vsyn* (much more negative for inhibitory synapses).
 
 In normal usage, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). However, when requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model has one *Vsyn* global quantity for each synapse. Thus, in order to force creation of Vsyn for each synapse we will use this option. But since we do not really need noise in the parameter values, we specify it with a noise magnitude of zero. Thus we will use ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions)
 
