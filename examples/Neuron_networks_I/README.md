@@ -45,6 +45,34 @@ Below is a representative time course generated from *ex4case1.cps* after the mo
 
 ### Case 2
 
+We now look at the case where nueron 2 feeds back to neuron 1. The network file used (*fb2.dot*) looks like this:
+
+```
+digraph fb2{
+// feedback motif with two nodes
+1 -> 2
+2 -> 1
+}
+```
+
+To produce the case where the feedback is positive we would only need to repeat the same *sbmodelr* command as in case 1, however if we want also to be able to represent a negative feedback we need to force *sbmodelr* to create separate parameters for the *Vsyn* of each synapse (*Vsyn* is the post-synaptic inversion potential characteristic). This is because what distinguishes inhibitory and excitatory synapses, using the Destexhe *et al.* approach (2), is the value of *Vsyn* (much more negative for inhibitory synapses).
+
+In normal usage, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). However, when requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model has one *Vsyn* global quantity for each synapse. Thus, in order to force creation of Vsyn for each synapse we will use this option. But since we do not really need noise in the parameter values, we specify it with a noise magnitude of zero. Thus we will use ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions)
+
+
+File *ex4case2.sh* contains the full *sbmodeler* command required to create the new model.
+
+| command line options       | comment                                                                |
+| -------------------------- | ---------------------------------------------------------------------- |
+|``sbmodelr``                | run *sbmodelr*                                                         |
+|`` --output ex4case2.cps``  | name the output file                                                   |
+|`` -n fb2.dot``             | network file that has simple 2-neuron feedforward motif                |
+|`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
+|`` --synapse-g 0.08``       | set the synaptic conductance value                                     |
+|`` --cn 0 uni``             | add noise to synapse parameters (but set noise magnitude to zero!)     |
+|`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
+|`` 2``                      | create 2 units                                                         |
+
 
 ## References
 
