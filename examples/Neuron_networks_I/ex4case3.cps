@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-16T19:58:56Z -->
+<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-19T19:53:51Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="44" versionDevel="295" copasiSourcesModified="0">
   <Model key="Model_1" name="a set of 3 replicas of RSA neuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
@@ -212,6 +212,14 @@
         </Unit>
       </ModelValue>
       <ModelValue key="ModelValue_13" name="V_1" simulationType="ode" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_13">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Expression>
           (&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[I_inj_1],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_K_1],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[n_1],Reference=Value>^4*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_K_1],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_Na_1],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[m_1],Reference=Value>^3*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[h_1],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_Na_1],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_L_1],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_L_1],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_M_1],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[p_1],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_K_1],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_Ca_1],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[q_1],Reference=Value>^2*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[s_1],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_Ca_1],Reference=Value>))/&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[C_M_1],Reference=Value>
         </Expression>
@@ -1080,6 +1088,14 @@
         </Unit>
       </ModelValue>
       <ModelValue key="ModelValue_87" name="V_3" simulationType="ode" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_87">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
         <Expression>
           (&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[I_inj_3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_K_3],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[n_3],Reference=Value>^4*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_K_3],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_Na_3],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[m_3],Reference=Value>^3*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[h_3],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_Na_3],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_L_3],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_L_3],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_M_3],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[p_3],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_K_3],Reference=Value>)-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_Ca_3],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[q_3],Reference=Value>^2*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[s_3],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_Ca_3],Reference=Value>))/&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[C_M_3],Reference=Value>+&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_c_V_2\,3_synapse],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[br_V_2\,3],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_2-3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)+&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_c_V_1\,3_synapse],Reference=Value>*&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[br_V_1\,3],Reference=Value>*(&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_1-3],Reference=Value>-&lt;CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)
         </Expression>
@@ -1427,14 +1443,16 @@
         </MiriamAnnotation>
       </ModelValue>
       <ModelValue key="ModelValue_118" name="tau_d_V_synapse_2-3" simulationType="fixed" addNoise="false">
+      </ModelValue>
+      <ModelValue key="ModelValue_119" name="Vsyn_V_synapse_2-3" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_118">
+<rdf:RDF
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_119">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
-      </ModelValue>
-      <ModelValue key="ModelValue_119" name="Vsyn_V_synapse_2-3" simulationType="fixed" addNoise="false">
       </ModelValue>
       <ModelValue key="ModelValue_120" name="br_V_2,3" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
@@ -1683,7 +1701,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[br_V_1\,2]" value="0" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_c_V_1\,2_synapse]" value="0.080000000000000002" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[tau_r_V_synapse_2-3]" value="0.5" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-3]" value="75.59326837043578" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-3]" value="100" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_2-3]" value="-80" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[br_V_2\,3]" value="0" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_c_V_2\,3_synapse]" value="0.080000000000000002" type="ModelValue" simulationType="fixed"/>
@@ -1828,7 +1846,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <StateTemplateVariable objectReference="ModelValue_126"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0 0 0 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -20 0.5 10 20 0.080000000000000002 0.5 75.59326837043578 -80 0.080000000000000002 0.5 10 20 0.080000000000000002 
+      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0 0 0 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -20 0.5 10 20 0.080000000000000002 0.5 100 -80 0.080000000000000002 0.5 10 20 0.080000000000000002 
     </InitialState>
   </Model>
   <ListOfTasks>
@@ -2248,7 +2266,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#0000FF"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Reference=Time"/>
@@ -2260,7 +2278,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#F0C800"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Reference=Time"/>
@@ -2272,7 +2290,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#00E600"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Reference=Time"/>
@@ -2294,7 +2312,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#0000FF"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Reference=Time"/>
@@ -2306,7 +2324,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#F0C800"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Reference=Time"/>
@@ -2318,7 +2336,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
           <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
           <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="auto"/>
+          <Parameter name="Color" type="string" value="#00E600"/>
           <Parameter name="Recording Activity" type="string" value="during"/>
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 3 replicas of RSA neuron,Reference=Time"/>
@@ -2354,7 +2372,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <ListOfSliders>
       <Slider key="Slider_0" associatedEntityKey="Task_18" objectCN="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_2-3],Reference=InitialValue" objectType="float" objectValue="-80" minValue="-100" maxValue="100" tickNumber="1000" tickFactor="100" scaling="linear"/>
       <Slider key="Slider_1" associatedEntityKey="Task_18" objectCN="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[g_c_V_2\,3_synapse],Reference=InitialValue" objectType="float" objectValue="0.08" minValue="0" maxValue="0.8" tickNumber="1000" tickFactor="100" scaling="linear"/>
-      <Slider key="Slider_2" associatedEntityKey="Task_18" objectCN="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-3],Reference=InitialValue" objectType="float" objectValue="75.5933" minValue="1" maxValue="500" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
+      <Slider key="Slider_2" associatedEntityKey="Task_18" objectCN="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-3],Reference=InitialValue" objectType="float" objectValue="100" minValue="1" maxValue="500" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
       <Slider key="Slider_3" associatedEntityKey="Task_18" objectCN="CN=Root,Model=a set of 3 replicas of RSA neuron,Vector=Values[tau_r_V_synapse_2-3],Reference=InitialValue" objectType="float" objectValue="0.5" minValue="0.05" maxValue="5" tickNumber="1000" tickFactor="100" scaling="logarithmic"/>
     </ListOfSliders>
   </GUI>
