@@ -15,7 +15,7 @@ Below we construct several neuron network motifs inspired by the work of Giannar
 
 ### Case 1
 
-We now create a simple feedforward network motif where one such RSA neuron connects to another one. The *ff2.dot* network file specifies the network and looks simply like this:
+We create a simple feedforward network motif where one such RSA neuron connects to another one. The *ff2.dot* network file specifies the network and looks simply like this:
 
 ```
 digraph ff2{
