@@ -1,13 +1,13 @@
 # Neuron networks I
 ## Networks of Hodgkin-Huxley-type neurons with chemical synapses
 
-This example takes a base unit defining a generic neuron model (1) to make neuron network motifs. The neurons are connected by chemical synapses using the approach of Destexhe *et al.* (2). This approach adds one ODE for each synapse, representing the proportion of occupied post-synaptic neurotransmitter receptor. This approach for chemical synapses is available in *sbmodelr* with the option ``--ode-synaptic`` (or short option ``-s``), which identifies the global quantity of type ODE that represents membrane potential (voltage) in the neuron unit. This chemical synapse approach (2) allows making the synapses excitatory or inhibitory through the parameter *Vsyn* of the synapse (the synaptic reversal potential). Other synapse parameters relate to the characteristic time for neurotransmitter release (*tau_r*) and degradation (*tau_d*) and its reverse potential (*V0*).
+This example takes a base unit defining a generic neuron model (1) to make neuron network motifs. The neurons are connected by chemical synapses using the approach of Destexhe *et al.* (2). This approach adds one ODE for each synapse, representing the fraction of occupied post-synaptic neurotransmitter receptor. This approach for chemical synapses is available in *sbmodelr* with the option ``--ode-synaptic`` (or short option ``-s``), which identifies the global quantity of type ODE that represents membrane potential (voltage) in the neuron unit. This chemical synapse approach (2) allows making the synapses excitatory or inhibitory through the parameter *Vsyn* of the synapse (the synaptic reversal potential). Other synapse parameters relate to the characteristic time for neurotransmitter release (*tau_r*) and degradation (*tau_d*) and its reverse potential (*V0*).
 
 The base model used here, defined by Pospischil *et al.* (1), is a Hodgkin-Huxley-type model that can replicate several types of neurons depending on the parameter values. The COPASI model includes the three parameter sets defined in (1), for fast spiking (FS) neurons, regular spiking with adaptation (RSA) neurons, and intrinsically bursting (IS) neurons. To create one specific neuron of the appropriate type you would load the *GenericNeuron.cps* model into COPASI, go to Model/Parameter Sets, chose the appropriate one, click "Apply", and then save the new model. This repository already includes the RSA neuron model (file *RSA_neuron.cps*), which is used here as the base unit.
 
 The base unit model also contains two events that inject current pulses into the neuron spaced through a Poisson distribution. When we create networks with this base unit, *sbmodelr* will also replicate the events into every other neuron. If left unmodified, then each neuron receives its own independent Poisson stream of pulses. This is, generally, not what we want, instead we want only one or a few neurons to receive these pulses, so we will delete most of the newly created events.
 
-The behavior of the base unit model *RSA_neuron.cps* is useful to study before we use it to build network motifs of several neurons. As mentioned above, this neuron receives a sequence of 1ms current pulses of 10 µA/cm2, spaced according to a Poisson distribution with an average of 1 pulse per 25 ms. These pulses eventually cause action potentials. The figure below shows a typical time course of this single neuron model. The top panel displays the membrane potential of the neuron, in blue, while the bottom panel shows the input current pulses in red.
+It is useful to briefly study the behavior of the base unit model *RSA_neuron.cps* before we employ it to build network motifs of several neurons. As mentioned above, this neuron receives a sequence of 1ms current pulses of 10 µA/cm2, spaced according to a Poisson distribution with an average of 1 pulse per 25 ms. These pulses eventually cause action potentials. The figure below shows a typical time course of this single neuron model. The top panel displays the membrane potential of the neuron, in blue, while the bottom panel shows the input current pulses in red.
 
 ![Behavior of membrane potential of a single RSA neuron (top in blue) when triggered by pulses of current with a Poisson distribution (bottom in red)](ex4case1_fig1.png)
 
@@ -22,7 +22,7 @@ digraph ff2{
 }
 ```
 
-File *ex4case1.sh* contains the full *sbmodeler* command required to create the new model.
+File *ex4case1.sh* contains the full *sbmodelr* command required to create the new model.
 
 | command line options       | comment                                                                |
 | -------------------------- | ---------------------------------------------------------------------- |
