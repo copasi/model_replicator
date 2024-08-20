@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-15T17:08:46Z -->
+<!-- generated with COPASI 4.44 (Build 295) (http://www.copasi.org) at 2024-08-20T13:43:41Z -->
 <?oxygen RNGSchema="http://www.copasi.org/static/schema/CopasiML.rng" type="xml"?>
 <COPASI xmlns="http://www.copasi.org/static/schema" versionMajor="4" versionMinor="44" versionDevel="295" copasiSourcesModified="0">
-  <Model key="Model_1" name="a set of 2 replicas of RSA neuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
+  <Model key="Model_0" name="a set of 2 replicas of RSA neuron" simulationType="time" timeUnit="ms" volumeUnit="l" areaUnit="m²" lengthUnit="m" quantityUnit="mol" type="deterministic" avogadroConstant="6.0221407599999999e+23">
     <MiriamAnnotation>
 <rdf:RDF
    xmlns:CopasiMT="http://www.copasi.org/RDF/MiriamTerms#"
    xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#">
-  <rdf:Description rdf:about="#Model_1">
+  <rdf:Description rdf:about="#Model_0">
     <dcterms:bibliographicCitation>
       <rdf:Description>
         <dcterms:description>Pospischil et al. (2008) Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons. Biological Cybernetics 99:427–441</dcterms:description>
@@ -45,7 +45,7 @@
     </dcterms:creator>
     <dcterms:modified>
       <rdf:Description>
-        <dcterms:W3CDTF>2024-08-15T12:39:27.333315</dcterms:W3CDTF>
+        <dcterms:W3CDTF>2024-08-20T09:39:36.541897</dcterms:W3CDTF>
       </rdf:Description>
     </dcterms:modified>
   </rdf:Description>
@@ -53,7 +53,7 @@
 
     </MiriamAnnotation>
     <Comment>
-      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 2 replicas of RSA_neuron.cps</p><pre style="font-size:small">../../sbmodelr --output ex4case2.cps -n fb2.dot --ode-synaptic V --synapse-g 0.08 --cn 0 uni RSA_neuron.cps 2</pre><p>notes of original file below:</p><hr /><h1>RSA Neuron</h1>
+      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 2 replicas of RSA_neuron.cps</p><pre style="font-size:small">../../sbmodelr --output ex4case2.cps -n fb2.dot --ode-synaptic V --synapse-g 0.08 RSA_neuron.cps 2</pre><p>notes of original file below:</p><hr /><h1>RSA Neuron</h1>
 <p>This is a 9-ODE model of a regular spiking neuron with adaptation (RSA), inspired by the Hodgin-Huxley model, first proposed by Pospischil et al. (2008) and re-used in Giannari and Astolfi (2022).</p>
 
 <p>Since this model is based on voltages and intensities, all variables and differential equations are defined under Global Quantities (there are no reactions and no species here). The model includes a sequence of current pulses (10 &micro;A/cm<sup>2</sup> for 1ms), spaced according to a Poisson distribution with an average of 1 pulse per 25 ms, which eventually cause action potentials.</p>
@@ -68,10 +68,10 @@
 </body>
     </Comment>
     <ListOfModelValues>
-      <ModelValue key="ModelValue_0" name="V_K_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_127" name="V_K_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_0">
+<rdf:Description rdf:about="#ModelValue_127">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -79,10 +79,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_1" name="V_Na_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_128" name="V_Na_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_1">
+<rdf:Description rdf:about="#ModelValue_128">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -90,10 +90,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_2" name="V_L_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_129" name="V_L_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_2">
+<rdf:Description rdf:about="#ModelValue_129">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -101,10 +101,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_3" name="V_Ca_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_130" name="V_Ca_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_3">
+<rdf:Description rdf:about="#ModelValue_130">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -112,10 +112,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_4" name="V_T_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_131" name="V_T_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_4">
+<rdf:Description rdf:about="#ModelValue_131">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -123,10 +123,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_5" name="C_M_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_132" name="C_M_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_5">
+<rdf:Description rdf:about="#ModelValue_132">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -134,10 +134,10 @@
           uF/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_6" name="g_K_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_133" name="g_K_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_6">
+<rdf:Description rdf:about="#ModelValue_133">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -145,10 +145,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_7" name="g_M_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_134" name="g_M_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_7">
+<rdf:Description rdf:about="#ModelValue_134">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -156,10 +156,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_8" name="g_Ca_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_135" name="g_Ca_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_8">
+<rdf:Description rdf:about="#ModelValue_135">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -167,10 +167,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_9" name="g_Na_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_136" name="g_Na_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_9">
+<rdf:Description rdf:about="#ModelValue_136">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -178,10 +178,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_10" name="g_L_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_137" name="g_L_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_10">
+<rdf:Description rdf:about="#ModelValue_137">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -189,10 +189,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_11" name="tau_max_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_138" name="tau_max_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_11">
+<rdf:Description rdf:about="#ModelValue_138">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -200,10 +200,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_12" name="I_inj_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_139" name="I_inj_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_12">
+<rdf:Description rdf:about="#ModelValue_139">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -211,24 +211,24 @@
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_13" name="V_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_140" name="V_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_13">
+<rdf:Description rdf:about="#ModelValue_140">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
         <Expression>
-          (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_K_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[n_1],Reference=Value>^4*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Na_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[m_1],Reference=Value>^3*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[h_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Na_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_L_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_L_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_M_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[p_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Ca_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[q_1],Reference=Value>^2*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[s_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Ca_1],Reference=Value>))/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[C_M_1],Reference=Value>+&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_2\,1_synapse],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_2-1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)
+          (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_K_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[n_1],Reference=Value>^4*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Na_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[m_1],Reference=Value>^3*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[h_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Na_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_L_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_L_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_M_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[p_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_1],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Ca_1],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[q_1],Reference=Value>^2*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[s_1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Ca_1],Reference=Value>))/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[C_M_1],Reference=Value>+&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_2\,1_synapse],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)
         </Expression>
         <Unit>
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_14" name="alpha_n_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_141" name="alpha_n_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_14">
+<rdf:Description rdf:about="#ModelValue_141">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -236,10 +236,10 @@
           (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-15)*(-0.032/(exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-15)/5)-1))
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_15" name="alpha_m_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_142" name="alpha_m_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_15">
+<rdf:Description rdf:about="#ModelValue_142">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -247,10 +247,10 @@
           (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-13)*(-0.32/(exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-13)/4)-1))
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_16" name="alpha_h_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_143" name="alpha_h_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_16">
+<rdf:Description rdf:about="#ModelValue_143">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -258,10 +258,10 @@
           0.128*exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-17)/18)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_17" name="p_inf_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_144" name="p_inf_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_17">
+<rdf:Description rdf:about="#ModelValue_144">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -272,10 +272,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_18" name="alpha_q_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_145" name="alpha_q_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_18">
+<rdf:Description rdf:about="#ModelValue_145">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -283,10 +283,10 @@
           0.0055*(-27-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)/(exp((-27-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)/3.8)-1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_19" name="alpha_s_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_146" name="alpha_s_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_19">
+<rdf:Description rdf:about="#ModelValue_146">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -294,10 +294,10 @@
           0.000457*exp((-13-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)/50)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_20" name="beta_n_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_147" name="beta_n_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_20">
+<rdf:Description rdf:about="#ModelValue_147">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -305,10 +305,10 @@
           0.5*exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-10)/40)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_21" name="beta_m_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_148" name="beta_m_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_21">
+<rdf:Description rdf:about="#ModelValue_148">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -319,10 +319,10 @@
           0.28*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-40)/(exp((&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-40)/5)-1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_22" name="beta_h_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_149" name="beta_h_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_22">
+<rdf:Description rdf:about="#ModelValue_149">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -330,10 +330,10 @@
           4/(exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_1],Reference=Value>-40)/5)+1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_23" name="beta_s_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_150" name="beta_s_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_23">
+<rdf:Description rdf:about="#ModelValue_150">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -341,10 +341,10 @@
           0.0065/(exp((-15-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)/28)+1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_24" name="beta_q_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_151" name="beta_q_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_24">
+<rdf:Description rdf:about="#ModelValue_151">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -352,10 +352,10 @@
           0.94*exp((-75-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)/17)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_25" name="n_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_152" name="n_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_25">
+<rdf:Description rdf:about="#ModelValue_152">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -366,10 +366,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_26" name="m_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_153" name="m_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_26">
+<rdf:Description rdf:about="#ModelValue_153">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -380,10 +380,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_27" name="h_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_154" name="h_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_27">
+<rdf:Description rdf:about="#ModelValue_154">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -394,10 +394,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_28" name="p_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_155" name="p_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_28">
+<rdf:Description rdf:about="#ModelValue_155">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -408,10 +408,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_29" name="q_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_156" name="q_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_29">
+<rdf:Description rdf:about="#ModelValue_156">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -422,10 +422,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_30" name="s_1" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_157" name="s_1" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_30">
+<rdf:Description rdf:about="#ModelValue_157">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -436,10 +436,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_31" name="tau_p_1" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_158" name="tau_p_1" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_31">
+<rdf:Description rdf:about="#ModelValue_158">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -450,10 +450,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_32" name="pulse_on_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_159" name="pulse_on_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_32">
+<rdf:Description rdf:about="#ModelValue_159">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -461,10 +461,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_33" name="pulse_off_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_160" name="pulse_off_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_33">
+<rdf:Description rdf:about="#ModelValue_160">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -472,10 +472,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_34" name="pulse_width_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_161" name="pulse_width_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_34">
+<rdf:Description rdf:about="#ModelValue_161">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -483,10 +483,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_35" name="pulse_intensity_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_162" name="pulse_intensity_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_35">
+<rdf:Description rdf:about="#ModelValue_162">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -494,10 +494,10 @@
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_36" name="pulse_rate_1" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_163" name="pulse_rate_1" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_36">
+<rdf:Description rdf:about="#ModelValue_163">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -505,10 +505,10 @@
           1/ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_37" name="V_K_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_164" name="V_K_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_37">
+<rdf:Description rdf:about="#ModelValue_164">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -516,10 +516,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_38" name="V_Na_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_165" name="V_Na_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_38">
+<rdf:Description rdf:about="#ModelValue_165">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -527,10 +527,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_39" name="V_L_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_166" name="V_L_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_39">
+<rdf:Description rdf:about="#ModelValue_166">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -538,10 +538,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_40" name="V_Ca_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_167" name="V_Ca_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_40">
+<rdf:Description rdf:about="#ModelValue_167">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -549,10 +549,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_41" name="V_T_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_168" name="V_T_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_41">
+<rdf:Description rdf:about="#ModelValue_168">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -560,10 +560,10 @@
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_42" name="C_M_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_169" name="C_M_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_42">
+<rdf:Description rdf:about="#ModelValue_169">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -571,10 +571,10 @@
           uF/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_43" name="g_K_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_170" name="g_K_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_43">
+<rdf:Description rdf:about="#ModelValue_170">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -582,10 +582,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_44" name="g_M_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_171" name="g_M_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_44">
+<rdf:Description rdf:about="#ModelValue_171">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -593,10 +593,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_45" name="g_Ca_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_172" name="g_Ca_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_45">
+<rdf:Description rdf:about="#ModelValue_172">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -604,10 +604,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_46" name="g_Na_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_173" name="g_Na_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_46">
+<rdf:Description rdf:about="#ModelValue_173">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -615,10 +615,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_47" name="g_L_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_174" name="g_L_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_47">
+<rdf:Description rdf:about="#ModelValue_174">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -626,10 +626,10 @@
           mS/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_48" name="tau_max_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_175" name="tau_max_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_48">
+<rdf:Description rdf:about="#ModelValue_175">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -637,10 +637,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_49" name="I_inj_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_176" name="I_inj_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_49">
+<rdf:Description rdf:about="#ModelValue_176">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -648,24 +648,24 @@
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_50" name="V_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_177" name="V_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_50">
+<rdf:Description rdf:about="#ModelValue_177">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
         <Expression>
-          (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_K_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[n_2],Reference=Value>^4*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Na_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[m_2],Reference=Value>^3*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[h_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Na_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_L_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_L_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_M_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[p_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Ca_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[q_2],Reference=Value>^2*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[s_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Ca_2],Reference=Value>))/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[C_M_2],Reference=Value>+&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_1\,2_synapse],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_1-2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)
+          (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_K_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[n_2],Reference=Value>^4*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Na_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[m_2],Reference=Value>^3*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[h_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Na_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_L_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_L_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_M_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[p_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_K_2],Reference=Value>)-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_Ca_2],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[q_2],Reference=Value>^2*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[s_2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_Ca_2],Reference=Value>))/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[C_M_2],Reference=Value>+&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_1\,2_synapse],Reference=Value>*&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2],Reference=Value>*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>)
         </Expression>
         <Unit>
           mV
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_51" name="alpha_n_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_178" name="alpha_n_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_51">
+<rdf:Description rdf:about="#ModelValue_178">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -673,10 +673,10 @@
           (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-15)*(-0.032/(exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-15)/5)-1))
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_52" name="alpha_m_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_179" name="alpha_m_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_52">
+<rdf:Description rdf:about="#ModelValue_179">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -684,10 +684,10 @@
           (&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-13)*(-0.32/(exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-13)/4)-1))
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_53" name="alpha_h_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_180" name="alpha_h_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_53">
+<rdf:Description rdf:about="#ModelValue_180">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -695,10 +695,10 @@
           0.128*exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-17)/18)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_54" name="p_inf_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_181" name="p_inf_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_54">
+<rdf:Description rdf:about="#ModelValue_181">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -709,10 +709,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_55" name="alpha_q_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_182" name="alpha_q_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_55">
+<rdf:Description rdf:about="#ModelValue_182">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -720,10 +720,10 @@
           0.0055*(-27-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)/(exp((-27-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)/3.8)-1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_56" name="alpha_s_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_183" name="alpha_s_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_56">
+<rdf:Description rdf:about="#ModelValue_183">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -731,10 +731,10 @@
           0.000457*exp((-13-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)/50)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_57" name="beta_n_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_184" name="beta_n_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_57">
+<rdf:Description rdf:about="#ModelValue_184">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -742,10 +742,10 @@
           0.5*exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-10)/40)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_58" name="beta_m_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_185" name="beta_m_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_58">
+<rdf:Description rdf:about="#ModelValue_185">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -756,10 +756,10 @@
           0.28*(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-40)/(exp((&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-40)/5)-1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_59" name="beta_h_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_186" name="beta_h_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_59">
+<rdf:Description rdf:about="#ModelValue_186">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -767,10 +767,10 @@
           4/(exp(-(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_T_2],Reference=Value>-40)/5)+1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_60" name="beta_s_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_187" name="beta_s_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_60">
+<rdf:Description rdf:about="#ModelValue_187">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -778,10 +778,10 @@
           0.0065/(exp((-15-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)/28)+1)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_61" name="beta_q_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_188" name="beta_q_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_61">
+<rdf:Description rdf:about="#ModelValue_188">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -789,10 +789,10 @@
           0.94*exp((-75-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>)/17)
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_62" name="n_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_189" name="n_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_62">
+<rdf:Description rdf:about="#ModelValue_189">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -803,10 +803,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_63" name="m_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_190" name="m_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_63">
+<rdf:Description rdf:about="#ModelValue_190">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -817,10 +817,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_64" name="h_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_191" name="h_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_64">
+<rdf:Description rdf:about="#ModelValue_191">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -831,10 +831,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_65" name="p_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_192" name="p_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_65">
+<rdf:Description rdf:about="#ModelValue_192">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -845,10 +845,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_66" name="q_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_193" name="q_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_66">
+<rdf:Description rdf:about="#ModelValue_193">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -859,10 +859,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_67" name="s_2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_194" name="s_2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_67">
+<rdf:Description rdf:about="#ModelValue_194">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -873,10 +873,10 @@
           1
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_68" name="tau_p_2" simulationType="assignment" addNoise="false">
+      <ModelValue key="ModelValue_195" name="tau_p_2" simulationType="assignment" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_68">
+<rdf:Description rdf:about="#ModelValue_195">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -887,10 +887,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_69" name="pulse_on_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_196" name="pulse_on_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_69">
+<rdf:Description rdf:about="#ModelValue_196">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -898,10 +898,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_70" name="pulse_off_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_197" name="pulse_off_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_70">
+<rdf:Description rdf:about="#ModelValue_197">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -909,10 +909,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_71" name="pulse_width_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_198" name="pulse_width_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_71">
+<rdf:Description rdf:about="#ModelValue_198">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -920,10 +920,10 @@
           ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_72" name="pulse_intensity_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_199" name="pulse_intensity_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_72">
+<rdf:Description rdf:about="#ModelValue_199">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -931,10 +931,10 @@
           uA/cm^2
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_73" name="pulse_rate_2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_200" name="pulse_rate_2" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_73">
+<rdf:Description rdf:about="#ModelValue_200">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -942,106 +942,82 @@
           1/ms
         </Unit>
       </ModelValue>
-      <ModelValue key="ModelValue_74" name="V0_V_synapse" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_201" name="tau_r_V_synapse" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_74">
+<rdf:Description rdf:about="#ModelValue_201">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
       </ModelValue>
-      <ModelValue key="ModelValue_75" name="tau_r_V_synapse_1-2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_202" name="tau_d_V_synapse" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_75">
+<rdf:Description rdf:about="#ModelValue_202">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
       </ModelValue>
-      <ModelValue key="ModelValue_76" name="tau_d_V_synapse_1-2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_203" name="V0_V_synapse" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_76">
+<rdf:Description rdf:about="#ModelValue_203">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
       </ModelValue>
-      <ModelValue key="ModelValue_77" name="Vsyn_V_synapse_1-2" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_204" name="Vsyn_V_synapse" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_77">
+<rdf:Description rdf:about="#ModelValue_204">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
       </ModelValue>
-      <ModelValue key="ModelValue_78" name="br_V_1,2" simulationType="ode" addNoise="false">
+      <ModelValue key="ModelValue_205" name="br_V_1,2" simulationType="ode" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_78">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
-        <Expression>
-          (1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse_1-2],Reference=Value>-1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_1-2],Reference=Value>)*(1-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2],Reference=Value>)/(1+exp(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V0_V_synapse],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>))-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2],Reference=Value>/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_1-2],Reference=Value>
-        </Expression>
-      </ModelValue>
-      <ModelValue key="ModelValue_79" name="g_c_V_1,2_synapse" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_79">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
-      </ModelValue>
-      <ModelValue key="ModelValue_80" name="tau_r_V_synapse_2-1" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_80">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
-      </ModelValue>
-      <ModelValue key="ModelValue_81" name="tau_d_V_synapse_2-1" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_81">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
-      </ModelValue>
-      <ModelValue key="ModelValue_82" name="Vsyn_V_synapse_2-1" simulationType="fixed" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_82">
-</rdf:Description>
-</rdf:RDF>
-        </MiriamAnnotation>
-      </ModelValue>
-      <ModelValue key="ModelValue_83" name="br_V_2,1" simulationType="ode" addNoise="false">
-        <MiriamAnnotation>
-<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_83">
+<rdf:Description rdf:about="#ModelValue_205">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
         <Expression>
-          (1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse_2-1],Reference=Value>-1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-1],Reference=Value>)*(1-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value>)/(1+exp(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V0_V_synapse],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>))-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value>/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-1],Reference=Value>
+          (1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse],Reference=Value>-1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse],Reference=Value>)*(1-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2],Reference=Value>)/(1+exp(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V0_V_synapse],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_1],Reference=Value>))-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2],Reference=Value>/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse],Reference=Value>
         </Expression>
       </ModelValue>
-      <ModelValue key="ModelValue_84" name="g_c_V_2,1_synapse" simulationType="fixed" addNoise="false">
+      <ModelValue key="ModelValue_206" name="g_c_V_1,2_synapse" simulationType="fixed" addNoise="false">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelValue_84">
+<rdf:Description rdf:about="#ModelValue_206">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
+      </ModelValue>
+      <ModelValue key="ModelValue_207" name="br_V_2,1" simulationType="ode" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_207">
+</rdf:Description>
+</rdf:RDF>
+        </MiriamAnnotation>
+        <Expression>
+          (1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse],Reference=Value>-1/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse],Reference=Value>)*(1-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value>)/(1+exp(&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V0_V_synapse],Reference=Value>-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V_2],Reference=Value>))-&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value>/&lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse],Reference=Value>
+        </Expression>
+      </ModelValue>
+      <ModelValue key="ModelValue_208" name="g_c_V_2,1_synapse" simulationType="fixed" addNoise="false">
+        <MiriamAnnotation>
+<rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="#ModelValue_208">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
       </ModelValue>
     </ListOfModelValues>
     <ListOfEvents>
-      <Event key="Event_0" name="pulse_on_1" fireAtInitialTime="0" persistentTrigger="0">
+      <Event key="Event_2" name="pulse_on_1" fireAtInitialTime="0" persistentTrigger="0">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#Event_0">
+<rdf:Description rdf:about="#Event_2">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -1061,10 +1037,10 @@
           </Assignment>
         </ListOfAssignments>
       </Event>
-      <Event key="Event_1" name="pulses_off_1" fireAtInitialTime="0" persistentTrigger="0">
+      <Event key="Event_3" name="pulses_off_1" fireAtInitialTime="0" persistentTrigger="0">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#Event_1">
+<rdf:Description rdf:about="#Event_3">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -1084,7 +1060,7 @@
           </Assignment>
         </ListOfAssignments>
       </Event>
-      <Event key="Event_2" name="pulse_on_2" fireAtInitialTime="0" persistentTrigger="0">
+      <Event key="Event_4" name="pulse_on_2" fireAtInitialTime="0" persistentTrigger="0">
         <TriggerExpression>
           &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time> > &lt;CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_on_2],Reference=Value> and false
         </TriggerExpression>
@@ -1101,10 +1077,10 @@
           </Assignment>
         </ListOfAssignments>
       </Event>
-      <Event key="Event_3" name="pulses_off_2" fireAtInitialTime="0" persistentTrigger="0">
+      <Event key="Event_5" name="pulses_off_2" fireAtInitialTime="0" persistentTrigger="0">
         <MiriamAnnotation>
 <rdf:RDF xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#Event_3">
+<rdf:Description rdf:about="#Event_5">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -1125,13 +1101,13 @@
         </ListOfAssignments>
       </Event>
     </ListOfEvents>
-    <ListOfModelParameterSets activeSet="ModelParameterSet_1">
-      <ModelParameterSet key="ModelParameterSet_1" name="Initial State">
+    <ListOfModelParameterSets activeSet="ModelParameterSet_0">
+      <ModelParameterSet key="ModelParameterSet_0" name="Initial State">
         <MiriamAnnotation>
 <rdf:RDF
 xmlns:dcterms="http://purl.org/dc/terms/"
 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<rdf:Description rdf:about="#ModelParameterSet_1">
+<rdf:Description rdf:about="#ModelParameterSet_0">
 </rdf:Description>
 </rdf:RDF>
         </MiriamAnnotation>
@@ -1217,15 +1193,12 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_width_2]" value="1" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_intensity_2]" value="10" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[pulse_rate_2]" value="0.040000000000000001" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse]" value="0.5" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse]" value="10" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[V0_V_synapse]" value="-20" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse_1-2]" value="0.5" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_1-2]" value="10" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_1-2]" value="20" type="ModelValue" simulationType="fixed"/>
+          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse]" value="20" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_1\,2]" value="0" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_1\,2_synapse]" value="0.080000000000000002" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_r_V_synapse_2-1]" value="0.5" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[tau_d_V_synapse_2-1]" value="10" type="ModelValue" simulationType="fixed"/>
-          <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[Vsyn_V_synapse_2-1]" value="20" type="ModelValue" simulationType="fixed"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1]" value="0" type="ModelValue" simulationType="ode"/>
           <ModelParameter cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[g_c_V_2\,1_synapse]" value="0.080000000000000002" type="ModelValue" simulationType="fixed"/>
         </ModelParameterGroup>
@@ -1234,100 +1207,97 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       </ModelParameterSet>
     </ListOfModelParameterSets>
     <StateTemplate>
-      <StateTemplateVariable objectReference="Model_1"/>
-      <StateTemplateVariable objectReference="ModelValue_13"/>
-      <StateTemplateVariable objectReference="ModelValue_25"/>
-      <StateTemplateVariable objectReference="ModelValue_26"/>
-      <StateTemplateVariable objectReference="ModelValue_27"/>
-      <StateTemplateVariable objectReference="ModelValue_28"/>
-      <StateTemplateVariable objectReference="ModelValue_29"/>
-      <StateTemplateVariable objectReference="ModelValue_30"/>
-      <StateTemplateVariable objectReference="ModelValue_50"/>
-      <StateTemplateVariable objectReference="ModelValue_62"/>
-      <StateTemplateVariable objectReference="ModelValue_63"/>
-      <StateTemplateVariable objectReference="ModelValue_64"/>
-      <StateTemplateVariable objectReference="ModelValue_65"/>
-      <StateTemplateVariable objectReference="ModelValue_66"/>
-      <StateTemplateVariable objectReference="ModelValue_67"/>
-      <StateTemplateVariable objectReference="ModelValue_78"/>
-      <StateTemplateVariable objectReference="ModelValue_83"/>
-      <StateTemplateVariable objectReference="ModelValue_14"/>
-      <StateTemplateVariable objectReference="ModelValue_15"/>
-      <StateTemplateVariable objectReference="ModelValue_16"/>
-      <StateTemplateVariable objectReference="ModelValue_17"/>
-      <StateTemplateVariable objectReference="ModelValue_18"/>
-      <StateTemplateVariable objectReference="ModelValue_19"/>
-      <StateTemplateVariable objectReference="ModelValue_20"/>
-      <StateTemplateVariable objectReference="ModelValue_21"/>
-      <StateTemplateVariable objectReference="ModelValue_22"/>
-      <StateTemplateVariable objectReference="ModelValue_23"/>
-      <StateTemplateVariable objectReference="ModelValue_24"/>
-      <StateTemplateVariable objectReference="ModelValue_31"/>
-      <StateTemplateVariable objectReference="ModelValue_51"/>
-      <StateTemplateVariable objectReference="ModelValue_52"/>
-      <StateTemplateVariable objectReference="ModelValue_53"/>
-      <StateTemplateVariable objectReference="ModelValue_54"/>
-      <StateTemplateVariable objectReference="ModelValue_55"/>
-      <StateTemplateVariable objectReference="ModelValue_56"/>
-      <StateTemplateVariable objectReference="ModelValue_57"/>
-      <StateTemplateVariable objectReference="ModelValue_58"/>
-      <StateTemplateVariable objectReference="ModelValue_59"/>
-      <StateTemplateVariable objectReference="ModelValue_60"/>
-      <StateTemplateVariable objectReference="ModelValue_61"/>
-      <StateTemplateVariable objectReference="ModelValue_68"/>
-      <StateTemplateVariable objectReference="ModelValue_0"/>
-      <StateTemplateVariable objectReference="ModelValue_1"/>
-      <StateTemplateVariable objectReference="ModelValue_2"/>
-      <StateTemplateVariable objectReference="ModelValue_3"/>
-      <StateTemplateVariable objectReference="ModelValue_4"/>
-      <StateTemplateVariable objectReference="ModelValue_5"/>
-      <StateTemplateVariable objectReference="ModelValue_6"/>
-      <StateTemplateVariable objectReference="ModelValue_7"/>
-      <StateTemplateVariable objectReference="ModelValue_8"/>
-      <StateTemplateVariable objectReference="ModelValue_9"/>
-      <StateTemplateVariable objectReference="ModelValue_10"/>
-      <StateTemplateVariable objectReference="ModelValue_11"/>
-      <StateTemplateVariable objectReference="ModelValue_12"/>
-      <StateTemplateVariable objectReference="ModelValue_32"/>
-      <StateTemplateVariable objectReference="ModelValue_33"/>
-      <StateTemplateVariable objectReference="ModelValue_34"/>
-      <StateTemplateVariable objectReference="ModelValue_35"/>
-      <StateTemplateVariable objectReference="ModelValue_36"/>
-      <StateTemplateVariable objectReference="ModelValue_37"/>
-      <StateTemplateVariable objectReference="ModelValue_38"/>
-      <StateTemplateVariable objectReference="ModelValue_39"/>
-      <StateTemplateVariable objectReference="ModelValue_40"/>
-      <StateTemplateVariable objectReference="ModelValue_41"/>
-      <StateTemplateVariable objectReference="ModelValue_42"/>
-      <StateTemplateVariable objectReference="ModelValue_43"/>
-      <StateTemplateVariable objectReference="ModelValue_44"/>
-      <StateTemplateVariable objectReference="ModelValue_45"/>
-      <StateTemplateVariable objectReference="ModelValue_46"/>
-      <StateTemplateVariable objectReference="ModelValue_47"/>
-      <StateTemplateVariable objectReference="ModelValue_48"/>
-      <StateTemplateVariable objectReference="ModelValue_49"/>
-      <StateTemplateVariable objectReference="ModelValue_69"/>
-      <StateTemplateVariable objectReference="ModelValue_70"/>
-      <StateTemplateVariable objectReference="ModelValue_71"/>
-      <StateTemplateVariable objectReference="ModelValue_72"/>
-      <StateTemplateVariable objectReference="ModelValue_73"/>
-      <StateTemplateVariable objectReference="ModelValue_74"/>
-      <StateTemplateVariable objectReference="ModelValue_75"/>
-      <StateTemplateVariable objectReference="ModelValue_76"/>
-      <StateTemplateVariable objectReference="ModelValue_77"/>
-      <StateTemplateVariable objectReference="ModelValue_79"/>
-      <StateTemplateVariable objectReference="ModelValue_80"/>
-      <StateTemplateVariable objectReference="ModelValue_81"/>
-      <StateTemplateVariable objectReference="ModelValue_82"/>
-      <StateTemplateVariable objectReference="ModelValue_84"/>
+      <StateTemplateVariable objectReference="Model_0"/>
+      <StateTemplateVariable objectReference="ModelValue_140"/>
+      <StateTemplateVariable objectReference="ModelValue_152"/>
+      <StateTemplateVariable objectReference="ModelValue_153"/>
+      <StateTemplateVariable objectReference="ModelValue_154"/>
+      <StateTemplateVariable objectReference="ModelValue_155"/>
+      <StateTemplateVariable objectReference="ModelValue_156"/>
+      <StateTemplateVariable objectReference="ModelValue_157"/>
+      <StateTemplateVariable objectReference="ModelValue_177"/>
+      <StateTemplateVariable objectReference="ModelValue_189"/>
+      <StateTemplateVariable objectReference="ModelValue_190"/>
+      <StateTemplateVariable objectReference="ModelValue_191"/>
+      <StateTemplateVariable objectReference="ModelValue_192"/>
+      <StateTemplateVariable objectReference="ModelValue_193"/>
+      <StateTemplateVariable objectReference="ModelValue_194"/>
+      <StateTemplateVariable objectReference="ModelValue_205"/>
+      <StateTemplateVariable objectReference="ModelValue_207"/>
+      <StateTemplateVariable objectReference="ModelValue_141"/>
+      <StateTemplateVariable objectReference="ModelValue_142"/>
+      <StateTemplateVariable objectReference="ModelValue_143"/>
+      <StateTemplateVariable objectReference="ModelValue_144"/>
+      <StateTemplateVariable objectReference="ModelValue_145"/>
+      <StateTemplateVariable objectReference="ModelValue_146"/>
+      <StateTemplateVariable objectReference="ModelValue_147"/>
+      <StateTemplateVariable objectReference="ModelValue_148"/>
+      <StateTemplateVariable objectReference="ModelValue_149"/>
+      <StateTemplateVariable objectReference="ModelValue_150"/>
+      <StateTemplateVariable objectReference="ModelValue_151"/>
+      <StateTemplateVariable objectReference="ModelValue_158"/>
+      <StateTemplateVariable objectReference="ModelValue_178"/>
+      <StateTemplateVariable objectReference="ModelValue_179"/>
+      <StateTemplateVariable objectReference="ModelValue_180"/>
+      <StateTemplateVariable objectReference="ModelValue_181"/>
+      <StateTemplateVariable objectReference="ModelValue_182"/>
+      <StateTemplateVariable objectReference="ModelValue_183"/>
+      <StateTemplateVariable objectReference="ModelValue_184"/>
+      <StateTemplateVariable objectReference="ModelValue_185"/>
+      <StateTemplateVariable objectReference="ModelValue_186"/>
+      <StateTemplateVariable objectReference="ModelValue_187"/>
+      <StateTemplateVariable objectReference="ModelValue_188"/>
+      <StateTemplateVariable objectReference="ModelValue_195"/>
+      <StateTemplateVariable objectReference="ModelValue_127"/>
+      <StateTemplateVariable objectReference="ModelValue_128"/>
+      <StateTemplateVariable objectReference="ModelValue_129"/>
+      <StateTemplateVariable objectReference="ModelValue_130"/>
+      <StateTemplateVariable objectReference="ModelValue_131"/>
+      <StateTemplateVariable objectReference="ModelValue_132"/>
+      <StateTemplateVariable objectReference="ModelValue_133"/>
+      <StateTemplateVariable objectReference="ModelValue_134"/>
+      <StateTemplateVariable objectReference="ModelValue_135"/>
+      <StateTemplateVariable objectReference="ModelValue_136"/>
+      <StateTemplateVariable objectReference="ModelValue_137"/>
+      <StateTemplateVariable objectReference="ModelValue_138"/>
+      <StateTemplateVariable objectReference="ModelValue_139"/>
+      <StateTemplateVariable objectReference="ModelValue_159"/>
+      <StateTemplateVariable objectReference="ModelValue_160"/>
+      <StateTemplateVariable objectReference="ModelValue_161"/>
+      <StateTemplateVariable objectReference="ModelValue_162"/>
+      <StateTemplateVariable objectReference="ModelValue_163"/>
+      <StateTemplateVariable objectReference="ModelValue_164"/>
+      <StateTemplateVariable objectReference="ModelValue_165"/>
+      <StateTemplateVariable objectReference="ModelValue_166"/>
+      <StateTemplateVariable objectReference="ModelValue_167"/>
+      <StateTemplateVariable objectReference="ModelValue_168"/>
+      <StateTemplateVariable objectReference="ModelValue_169"/>
+      <StateTemplateVariable objectReference="ModelValue_170"/>
+      <StateTemplateVariable objectReference="ModelValue_171"/>
+      <StateTemplateVariable objectReference="ModelValue_172"/>
+      <StateTemplateVariable objectReference="ModelValue_173"/>
+      <StateTemplateVariable objectReference="ModelValue_174"/>
+      <StateTemplateVariable objectReference="ModelValue_175"/>
+      <StateTemplateVariable objectReference="ModelValue_176"/>
+      <StateTemplateVariable objectReference="ModelValue_196"/>
+      <StateTemplateVariable objectReference="ModelValue_197"/>
+      <StateTemplateVariable objectReference="ModelValue_198"/>
+      <StateTemplateVariable objectReference="ModelValue_199"/>
+      <StateTemplateVariable objectReference="ModelValue_200"/>
+      <StateTemplateVariable objectReference="ModelValue_201"/>
+      <StateTemplateVariable objectReference="ModelValue_202"/>
+      <StateTemplateVariable objectReference="ModelValue_203"/>
+      <StateTemplateVariable objectReference="ModelValue_204"/>
+      <StateTemplateVariable objectReference="ModelValue_206"/>
+      <StateTemplateVariable objectReference="ModelValue_208"/>
     </StateTemplate>
     <InitialState type="initialState">
-      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0 0 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -20 0.5 10 20 0.080000000000000002 0.5 10 20 0.080000000000000002 
+      0 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 -71.910681987541821 0.0022222453408539942 0.00044978431039494646 0.99992644412077247 0.024338216117071081 2.3214304254075944e-06 0.66350877785683593 0 0 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 0.0021177679639737155 0.007019440281679285 0.78783633716905699 0.024338216117071085 1.8195439396980193e-06 0.0014845946197623323 0.95086790154804823 15.599216970044985 5.7954257344224138e-05 0.000752895929432276 0.78380109773648854 88.724338492363756 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 -90 56 -70.299999999999997 0 -56.200000000000003 1 6 0.074999999999999997 0 56 0.020500000000000001 608 0 5 2500 1 10 0.040000000000000001 0.5 10 -20 20 0.080000000000000002 0.080000000000000002 
     </InitialState>
   </Model>
   <ListOfTasks>
-    <Task key="Task_17" name="Steady-State" type="steadyState" scheduled="false" updateModel="false">
-      <Report reference="Report_11" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_13" name="Steady-State" type="steadyState" scheduled="false" updateModel="false">
+      <Report reference="Report_10" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="JacobianRequested" type="bool" value="1"/>
         <Parameter name="StabilityAnalysisRequested" type="bool" value="1"/>
@@ -1345,8 +1315,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Target Criterion" type="string" value="Distance and Rate"/>
       </Method>
     </Task>
-    <Task key="Task_18" name="Time-Course" type="timeCourse" scheduled="false" updateModel="false">
-      <Report reference="Report_12" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_12" name="Time-Course" type="timeCourse" scheduled="false" updateModel="false">
+      <Report reference="Report_9" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="1"/>
         <Parameter name="StepNumber" type="unsignedInteger" value="10000"/>
@@ -1367,7 +1337,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Max Internal Step Size" type="unsignedFloat" value="0"/>
       </Method>
     </Task>
-    <Task key="Task_19" name="Scan" type="scan" scheduled="false" updateModel="false">
+    <Task key="Task_11" name="Scan" type="scan" scheduled="false" updateModel="false">
       <Problem>
         <Parameter name="Subtask" type="unsignedInteger" value="1"/>
         <ParameterGroup name="ScanItems">
@@ -1379,15 +1349,15 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
       <Method name="Scan Framework" type="ScanFramework">
       </Method>
     </Task>
-    <Task key="Task_20" name="Elementary Flux Modes" type="fluxMode" scheduled="false" updateModel="false">
-      <Report reference="Report_13" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_10" name="Elementary Flux Modes" type="fluxMode" scheduled="false" updateModel="false">
+      <Report reference="Report_8" target="" append="1" confirmOverwrite="1"/>
       <Problem>
       </Problem>
       <Method name="EFM Algorithm" type="EFMAlgorithm">
       </Method>
     </Task>
-    <Task key="Task_21" name="Optimization" type="optimization" scheduled="false" updateModel="false">
-      <Report reference="Report_14" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_9" name="Optimization" type="optimization" scheduled="false" updateModel="false">
+      <Report reference="Report_7" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="Subtask" type="cn" value="CN=Root,Vector=TaskList[Steady-State]"/>
         <ParameterText name="ObjectiveExpression" type="expression">
@@ -1408,8 +1378,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Seed" type="unsignedInteger" value="0"/>
       </Method>
     </Task>
-    <Task key="Task_22" name="Parameter Estimation" type="parameterFitting" scheduled="false" updateModel="false">
-      <Report reference="Report_15" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_8" name="Parameter Estimation" type="parameterFitting" scheduled="false" updateModel="false">
+      <Report reference="Report_6" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="Maximize" type="bool" value="0"/>
         <Parameter name="Randomize Start Values" type="bool" value="0"/>
@@ -1439,10 +1409,10 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Stop after # Stalled Generations" type="unsignedInteger" value="0"/>
       </Method>
     </Task>
-    <Task key="Task_23" name="Metabolic Control Analysis" type="metabolicControlAnalysis" scheduled="false" updateModel="false">
-      <Report reference="Report_16" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_7" name="Metabolic Control Analysis" type="metabolicControlAnalysis" scheduled="false" updateModel="false">
+      <Report reference="Report_5" target="" append="1" confirmOverwrite="1"/>
       <Problem>
-        <Parameter name="Steady-State" type="key" value="Task_17"/>
+        <Parameter name="Steady-State" type="key" value="Task_13"/>
       </Problem>
       <Method name="MCA Method (Reder)" type="MCAMethod(Reder)">
         <Parameter name="Modulation Factor" type="unsignedFloat" value="1.0000000000000001e-09"/>
@@ -1450,8 +1420,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Use Smallbone" type="bool" value="1"/>
       </Method>
     </Task>
-    <Task key="Task_24" name="Lyapunov Exponents" type="lyapunovExponents" scheduled="false" updateModel="false">
-      <Report reference="Report_17" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_6" name="Lyapunov Exponents" type="lyapunovExponents" scheduled="false" updateModel="false">
+      <Report reference="Report_4" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="ExponentNumber" type="unsignedInteger" value="3"/>
         <Parameter name="DivergenceRequested" type="bool" value="1"/>
@@ -1465,8 +1435,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Max Internal Steps" type="unsignedInteger" value="10000"/>
       </Method>
     </Task>
-    <Task key="Task_25" name="Time Scale Separation Analysis" type="timeScaleSeparationAnalysis" scheduled="false" updateModel="false">
-      <Report reference="Report_18" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_5" name="Time Scale Separation Analysis" type="timeScaleSeparationAnalysis" scheduled="false" updateModel="false">
+      <Report reference="Report_3" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="StepNumber" type="unsignedInteger" value="100"/>
         <Parameter name="StepSize" type="float" value="0.01"/>
@@ -1478,8 +1448,8 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Deuflhard Tolerance" type="unsignedFloat" value="0.0001"/>
       </Method>
     </Task>
-    <Task key="Task_26" name="Sensitivities" type="sensitivities" scheduled="false" updateModel="false">
-      <Report reference="Report_19" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_16" name="Sensitivities" type="sensitivities" scheduled="false" updateModel="false">
+      <Report reference="Report_2" target="" append="1" confirmOverwrite="1"/>
       <Problem>
         <Parameter name="SubtaskType" type="unsignedInteger" value="1"/>
         <ParameterGroup name="TargetFunctions">
@@ -1502,14 +1472,14 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Delta minimum" type="unsignedFloat" value="9.9999999999999998e-13"/>
       </Method>
     </Task>
-    <Task key="Task_27" name="Moieties" type="moieties" scheduled="false" updateModel="false">
-      <Report reference="Report_20" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_15" name="Moieties" type="moieties" scheduled="false" updateModel="false">
+      <Report reference="Report_1" target="" append="1" confirmOverwrite="1"/>
       <Problem>
       </Problem>
       <Method name="Householder Reduction" type="Householder">
       </Method>
     </Task>
-    <Task key="Task_28" name="Cross Section" type="crosssection" scheduled="false" updateModel="false">
+    <Task key="Task_4" name="Cross Section" type="crosssection" scheduled="false" updateModel="false">
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="0"/>
         <Parameter name="StepNumber" type="unsignedInteger" value="100"/>
@@ -1545,15 +1515,15 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Parameter name="Max Internal Step Size" type="unsignedFloat" value="0"/>
       </Method>
     </Task>
-    <Task key="Task_29" name="Linear Noise Approximation" type="linearNoiseApproximation" scheduled="false" updateModel="false">
-      <Report reference="Report_21" target="" append="1" confirmOverwrite="1"/>
+    <Task key="Task_3" name="Linear Noise Approximation" type="linearNoiseApproximation" scheduled="false" updateModel="false">
+      <Report reference="Report_0" target="" append="1" confirmOverwrite="1"/>
       <Problem>
-        <Parameter name="Steady-State" type="key" value="Task_17"/>
+        <Parameter name="Steady-State" type="key" value="Task_13"/>
       </Problem>
       <Method name="Linear Noise Approximation" type="LinearNoiseApproximation">
       </Method>
     </Task>
-    <Task key="Task_30" name="Time-Course Sensitivities" type="timeSensitivities" scheduled="false" updateModel="false">
+    <Task key="Task_2" name="Time-Course Sensitivities" type="timeSensitivities" scheduled="false" updateModel="false">
       <Problem>
         <Parameter name="AutomaticStepSize" type="bool" value="0"/>
         <Parameter name="StepNumber" type="unsignedInteger" value="100"/>
@@ -1580,7 +1550,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     </Task>
   </ListOfTasks>
   <ListOfReports>
-    <Report key="Report_11" name="Steady-State" taskType="steadyState" separator="&#x09;" precision="6">
+    <Report key="Report_10" name="Steady-State" taskType="steadyState" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1588,7 +1558,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Steady-State]"/>
       </Footer>
     </Report>
-    <Report key="Report_12" name="Time-Course" taskType="timeCourse" separator="&#x09;" precision="6">
+    <Report key="Report_9" name="Time-Course" taskType="timeCourse" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1599,7 +1569,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Time-Course],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_13" name="Elementary Flux Modes" taskType="fluxMode" separator="&#x09;" precision="6">
+    <Report key="Report_8" name="Elementary Flux Modes" taskType="fluxMode" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1607,7 +1577,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Elementary Flux Modes],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_14" name="Optimization" taskType="optimization" separator="&#x09;" precision="6">
+    <Report key="Report_7" name="Optimization" taskType="optimization" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1631,7 +1601,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Optimization],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_15" name="Parameter Estimation" taskType="parameterFitting" separator="&#x09;" precision="6">
+    <Report key="Report_6" name="Parameter Estimation" taskType="parameterFitting" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1655,7 +1625,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Parameter Estimation],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_16" name="Metabolic Control Analysis" taskType="metabolicControlAnalysis" separator="&#x09;" precision="6">
+    <Report key="Report_5" name="Metabolic Control Analysis" taskType="metabolicControlAnalysis" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1667,7 +1637,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Metabolic Control Analysis],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_17" name="Lyapunov Exponents" taskType="lyapunovExponents" separator="&#x09;" precision="6">
+    <Report key="Report_4" name="Lyapunov Exponents" taskType="lyapunovExponents" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1679,7 +1649,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Lyapunov Exponents],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_18" name="Time Scale Separation Analysis" taskType="timeScaleSeparationAnalysis" separator="&#x09;" precision="6">
+    <Report key="Report_3" name="Time Scale Separation Analysis" taskType="timeScaleSeparationAnalysis" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1691,7 +1661,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Time Scale Separation Analysis],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_19" name="Sensitivities" taskType="sensitivities" separator="&#x09;" precision="6">
+    <Report key="Report_2" name="Sensitivities" taskType="sensitivities" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1703,7 +1673,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Sensitivities],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_20" name="Moieties" taskType="moieties" separator="&#x09;" precision="6">
+    <Report key="Report_1" name="Moieties" taskType="moieties" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1715,7 +1685,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         <Object cn="CN=Root,Vector=TaskList[Moieties],Object=Result"/>
       </Footer>
     </Report>
-    <Report key="Report_21" name="Linear Noise Approximation" taskType="linearNoiseApproximation" separator="&#x09;" precision="6">
+    <Report key="Report_0" name="Linear Noise Approximation" taskType="linearNoiseApproximation" separator="&#x09;" precision="6">
       <Comment>
         Automatically generated report.
       </Comment>
@@ -1729,40 +1699,6 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     </Report>
   </ListOfReports>
   <ListOfPlots>
-    <PlotSpecification name="injected current" type="Plot2D" active="1" taskTypes="">
-      <Parameter name="log X" type="bool" value="0"/>
-      <Parameter name="log Y" type="bool" value="0"/>
-      <Parameter name="x axis" type="string" value="time (ms)"/>
-      <Parameter name="y axis" type="string" value="current dens. (uA/cm^2)"/>
-      <Parameter name="z axis" type="string" value=""/>
-      <Parameter name="plot engine" type="string" value="QWT"/>
-      <ListOfPlotItems>
-        <PlotItem name="I_inj_1" type="Curve2D">
-          <Parameter name="Line type" type="unsignedInteger" value="0"/>
-          <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
-          <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="#0000FF"/>
-          <Parameter name="Recording Activity" type="string" value="during"/>
-          <ListOfChannels>
-            <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
-            <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_1],Reference=Value"/>
-          </ListOfChannels>
-        </PlotItem>
-        <PlotItem name="I_inj_2" type="Curve2D">
-          <Parameter name="Line type" type="unsignedInteger" value="0"/>
-          <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
-          <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
-          <Parameter name="Color" type="string" value="#F0C800"/>
-          <Parameter name="Recording Activity" type="string" value="during"/>
-          <ListOfChannels>
-            <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
-            <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_2],Reference=Value"/>
-          </ListOfChannels>
-        </PlotItem>
-      </ListOfPlotItems>
-    </PlotSpecification>
     <PlotSpecification name="membrane potential" type="Plot2D" active="1" taskTypes="">
       <Parameter name="log X" type="bool" value="0"/>
       <Parameter name="log Y" type="bool" value="0"/>
@@ -1797,7 +1733,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
         </PlotItem>
       </ListOfPlotItems>
     </PlotSpecification>
-    <PlotSpecification name="bound receptors" type="Plot2D" active="1" taskTypes="">
+    <PlotSpecification name="bound receptor" type="Plot2D" active="1" taskTypes="">
       <Parameter name="log X" type="bool" value="0"/>
       <Parameter name="log Y" type="bool" value="0"/>
       <Parameter name="x axis" type="string" value="time (ms)"/>
@@ -1827,6 +1763,28 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
           <ListOfChannels>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
             <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[br_V_2\,1],Reference=Value"/>
+          </ListOfChannels>
+        </PlotItem>
+      </ListOfPlotItems>
+    </PlotSpecification>
+    <PlotSpecification name="current input" type="Plot2D" active="1" taskTypes="">
+      <Parameter name="log X" type="bool" value="0"/>
+      <Parameter name="log Y" type="bool" value="0"/>
+      <Parameter name="x axis" type="string" value="time (ms)"/>
+      <Parameter name="y axis" type="string" value="uA/cm2"/>
+      <Parameter name="z axis" type="string" value=""/>
+      <Parameter name="plot engine" type="string" value="QWT"/>
+      <ListOfPlotItems>
+        <PlotItem name="I_inj_1" type="Curve2D">
+          <Parameter name="Line type" type="unsignedInteger" value="0"/>
+          <Parameter name="Line subtype" type="unsignedInteger" value="0"/>
+          <Parameter name="Line width" type="unsignedFloat" value="1.2"/>
+          <Parameter name="Symbol subtype" type="unsignedInteger" value="0"/>
+          <Parameter name="Color" type="string" value="#FF0000"/>
+          <Parameter name="Recording Activity" type="string" value="during"/>
+          <ListOfChannels>
+            <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Reference=Time"/>
+            <ChannelSpec cn="CN=Root,Model=a set of 2 replicas of RSA neuron,Vector=Values[I_inj_1],Reference=Value"/>
           </ListOfChannels>
         </PlotItem>
       </ListOfPlotItems>
