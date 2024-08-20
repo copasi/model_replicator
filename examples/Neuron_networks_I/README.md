@@ -58,11 +58,6 @@ digraph fb2{
 }
 ```
 
-To produce the case where the feedback is positive we would only need to repeat the same *sbmodelr* command as in case 1 but instead using this new network file. However, if we want also to be able to represent a negative feedback we need to force *sbmodelr* to create separate parameters for each synapse's *Vsyn* parameter (*Vsyn* is the post-synaptic inversion potential characteristic). This is because what distinguishes inhibitory and excitatory synapses, using the Destexhe *et al.* approach (2), is the value of *Vsyn* (much more negative for inhibitory synapses).
-
-In normal usage, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). However, when requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model has one *Vsyn* global quantity for each synapse. Thus, in order to force creation of *Vsyn* for each synapse we will use this option, but since we do not really need noise in the parameter values, we specify it with a noise magnitude of zero. Thus we will use ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions...)
-
-
 File *ex4case2.sh* contains the full *sbmodeler* command required to create the new model.
 
 | command line options       | comment                                                                |
@@ -100,6 +95,12 @@ digraph ff3{
 1 -> 3
 }
 ```
+
+In order to make the synpse 2->3 inhibitory we will have to change its *Vsyn* parameter (*Vsyn* is the post-synaptic inversion potential). This is because what distinguishes inhibitory and excitatory synapses, using the Destexhe *et al.* approach (2), is the value of *Vsyn* (much more negative for inhibitory synapses).
+
+However, by default, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). But in this case we want *Vsyn* for synapse 2->3 to be different from the *Vsyn* from synapses 1->2 and 1>3, se we need to force *sbmodelr* to create separate parameters for each synapse. This can be achieved by requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model then has one *Vsyn* for each synapse (as well as other synapse parameters). Thus we will use this option, but becaue we do not really need noise in the parameter values, we specify the noise magnitude to be zero, by including ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions...)
+
+
 
 ## References
 
