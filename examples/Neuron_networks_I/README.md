@@ -86,6 +86,21 @@ The file *ex4case2.cps* has now two neurons connected in a **positive** feedback
 
 ![Two RSA neurons connected in a positive feedback motif through two chemical synapses. Top: membrane potentials (neuron 1 in blue, neuron 2 in yellow), middle: proportion of postsynaptic bound receptors (blue 1->2, yellow 2->1), bottom: current pulses into neuron 1.](ex4case2_fig3.png)
 
+### Case 3
+
+The next motif we examine is composed of 3 neurons: the feedforward loop. In this case neuron 1, which receives the input, has synapses leading to neuron 2 and neuron 3; neuron 2 also has a synapse leading to neuron 3. We will examine the interesting case where the synapse from neuron 2 to neuron 3 is inhibitory, while the other two are excitatory -- an incoherent feedforward loop.
+
+Remember that the network file does not distinguish whether synapses are excitatory or inhibitory, it simply indicates what are the synapses. The network file to specify the 3-unit feedforward loop (*ff3.dot*) looks like this:
+
+```
+digraph ff3{
+// feedforward motif with three nodes
+1 -> 2
+2 -> 3
+1 -> 3
+}
+```
+
 ## References
 
 1. Pospischil M, Toledo-Rodriguez M, Monier C, Piwkowska Z, Bal T, Frégnac Y, Markram H, Destexhe A (2008) Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons. [Biological Cybernetics 99:427–441](https://doi.org/10.1007/s00422-008-0263-8)
