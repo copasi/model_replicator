@@ -117,8 +117,13 @@ Running the command explained above (e.g. by running file *ex4case3.sh*) results
  1. delete events for units 2 and 3 (*pulse_on_2*, *pulse_off_2*, *pulse_on_3*, *pulse_off_3*).
  2. modify the value of global quantity *Vsyn_V_synapse_2-3* to -80 (inhibitory synapse)
  3. modify the value of global quantity *tau_d_V_synapse_2-3* to 100 (slower degradation of neurotransmitter)
- 4. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1*, *V_2*, *V_3* (neuron membrane potentials), *br_V_1,2*, *br_V_1,2*, *br_V_1,3*, *br_V_2,3* (proportion of synapse's bound receptors)
+ 4. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1*, *V_2*, *V_3* (neuron membrane potentials), *br_V_1,2*, *br_V_1,3*, *br_V_2,3* (proportion of synapse's bound receptors)
  5. save the file (*ex4case3.cps*)
+
+The file *ex4case3.cps* now fully represents the **incoherent** feedforward motif, where neuron 1 gives a direct excitatory signal to neuron 3 and an indirect inhibitory signal to neuron 3 (through neuron 2). The  inhibitory synapse is also slower at degrading the neurotransmitter (*e.g.* slower release from the receptor) than the other two synapses. A typical behavior is displayed in the figure below.  At the top are the membrane potentials of neurons 1 (blue) and 3 (green, we ommit neuron 2 as this is similar to case 2, it "copies" neuron 1 with a small delay). The middle panel shows the proportion of bound receptors in the post-synaptic membranes (blue for synapse from 1 to 2, green for synapse 2 to 3), and the bottom panel shows the current inputs into neuron 1. Here we see that neuron 3 also fires an action potential after neuron 1, however this only happens if there was a suffient delay since the previous action potential. If neuron 1 fires two short spaced action potentials, neuron 3 only responds to the first.
+
+![Three RSA neurons forming an incoherent feedforward motif through chemical synapses. Top: membrane potentials (neuron 1 in blue, neuron 3 in green), middle: proportion of postsynaptic bound receptors (blue 1->2, green 2->3), bottom: current pulses into neuron 1.](ex4case3_fig4.png)
+
 
 ## References
 
