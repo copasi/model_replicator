@@ -67,7 +67,6 @@ File *ex4case2.sh* contains the full *sbmodeler* command required to create the 
 |`` -n fb2.dot``             | network file that has simple 2-neuron feedback motif                   |
 |`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
 |`` --synapse-g 0.08``       | set the synaptic conductance value                                     |
-|`` --cn 0 uni``             | add noise to synapse parameters (but set noise magnitude to zero!)     |
 |`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
 |`` 2``                      | create 2 units                                                         |
 

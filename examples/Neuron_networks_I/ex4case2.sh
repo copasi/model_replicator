@@ -10,6 +10,5 @@
  -n fb2.dot \
  --ode-synaptic V \
  --synapse-g 0.08 \
- --cn 0 uni \
  RSA_neuron.cps \
  2
