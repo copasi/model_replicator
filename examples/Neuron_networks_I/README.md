@@ -98,9 +98,27 @@ digraph ff3{
 
 In order to make the synpse 2->3 inhibitory we will have to change its *Vsyn* parameter (*Vsyn* is the post-synaptic inversion potential). This is because what distinguishes inhibitory and excitatory synapses, using the Destexhe *et al.* approach (2), is the value of *Vsyn* (much more negative for inhibitory synapses).
 
-However, by default, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). But in this case we want *Vsyn* for synapse 2->3 to be different from the *Vsyn* from synapses 1->2 and 1>3, se we need to force *sbmodelr* to create separate parameters for each synapse. This can be achieved by requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model then has one *Vsyn* for each synapse (as well as other synapse parameters). Thus we will use this option, but becaue we do not really need noise in the parameter values, we specify the noise magnitude to be zero, by including ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions...)
+However, by default, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). But in this case we want *Vsyn* for synapse 2->3 to be different from the *Vsyn* from synapses 1->2 and 1>3, se we need to force *sbmodelr* to create separate parameters for each synapse. This can be achieved by requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model then has one *Vsyn* for each synapse (as well as other synapse parameters). Thus we will use this option, but because we do not really need noise in the parameter values, we specify the noise magnitude to be zero, by including ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions...)
 
+File *ex4case3.sh* contains the full *sbmodeler* command required to create the new model.
 
+| command line options       | comment                                                                |
+| -------------------------- | ---------------------------------------------------------------------- |
+|``sbmodelr``                | run *sbmodelr*                                                         |
+|`` --output ex4case3.cps``  | name the output file                                                   |
+|`` -n ff3.dot``             | network file that has the 3-neuron feedforward motif                   |
+|`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
+|`` --synapse-g 0.08``       | set the synaptic conductance value                                     |
+|`` --cn 0 uni``             | add noise to synapse parameters (but set noise magnitude to zero!)     |
+|`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
+|`` 3``                      | create 3 units                                                         |
+
+Running the command explained above (e.g. by running file *ex4case3.sh*) results in a new model file *ex4case3.cps*. After loading that file into COPASI we make the following modifications:
+ 1. delete events for units 2 and 3 (*pulse_on_2*, *pulse_off_2*, *pulse_on_3*, *pulse_off_3*).
+ 2. modify the value of global quantity *Vsyn_V_synapse_2-3* to -80 (inhibitory synapse)
+ 3. modify the value of global quantity *tau_d_V_synapse_2-3* to 100 (slower degradation of neurotransmitter)
+ 4. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1*, *V_2*, *V_3* (neuron membrane potentials), *br_V_1,2*, *br_V_1,2*, *br_V_1,3*, *br_V_2,3* (proportion of synapse's bound receptors)
+ 5. save the file (*ex4case3.cps*)
 
 ## References
 
