@@ -1671,7 +1671,7 @@ if( odelink ):
                 if( args.network ):
                     for link in links:
                         if( link[0] == link[1]):
-                            print(f' Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
+                            print(f' Warning: diffusive coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
                             continue
                         suffa = f'{link[0]}'
                         oaname = f'{ode}_{suffa}'
@@ -1898,7 +1898,7 @@ if( odelink ):
                     if( args.network ):
                         for link in links:
                             if( link[0] == link[1]):
-                                print(f' Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
+                                print(f' Warning: diffusive coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
                                 continue
                             suffa = f'{link[0]}'
                             oaname = f'{ode}_{suffa}'
