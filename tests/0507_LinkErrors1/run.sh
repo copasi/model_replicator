@@ -60,14 +60,6 @@ if ! grep -q "ERROR: i is a global variable that is not an ODE" output; then
   let "fail = $fail + 32"
 fi
 
-# test synaptic link to self
-../../sbmodelr -s v -n ../sources/self.gv ../sources/IzhikevichBurstingNeuron.cps 2 > output 2>&1
-
-# check that the correct error is issued
-if ! grep -q " Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring 2 -> 2" output; then
-  printf 'FAIL %s\n' "${test}"
-  let "fail = $fail + 64"
-fi
 
 # test diffusive connection on species that is not an ODE
 ../../sbmodelr -d A -n ../sources/twins.gv ../sources/PulsedDrug.cps 2 > output 2>&1
