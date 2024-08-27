@@ -1416,9 +1416,9 @@ if( odelink ):
                         set_parameters(oname, exact=True, type='ode', expression=odexpr, model=newmodel)
                 if( args.network ):
                     for link in links:
-                        # check if we have a self-connection and ignore it
-                        if( link[0] == link[1]):
-                            print(f' Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
+                        # check if we have a self-connection and ignore it for diffusive connections
+                        if( (link[0] == link[1]) and linktype=='d'):
+                            print(f' Warning: diffusive coupling onto the same unit not allowed, ignoring {link[0]} -> {link[1]}')
                             continue
                         suffa = f'{link[0]}'
                         oaname = f'{ode}_{suffa}'
