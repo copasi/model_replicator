@@ -37,7 +37,7 @@ fi
 ../../sbmodelr -d vesicle -n ../sources/self.gv ../sources/shrink.cps 2 > output 2>&1
 
 # check that the correct warning is issued
-if ! grep -q " Warning: diffusive or synaptic coupling onto the same unit not allowed, ignoring 2 -> 2" output; then
+if ! grep -q " Warning: diffusive coupling onto the same unit not allowed, ignoring 2 -> 2" output; then
   printf 'FAIL %s\n' "${test}"
   let "fail = $fail + 8"
 fi
