@@ -269,7 +269,7 @@ parser.add_argument('--Hill-transport', action='append', help='species to be tra
 parser.add_argument('-g', '--grn', action='append', help='species to be connected between units by regulation of synthesis (eg gene regulatory network)', metavar='species')
 parser.add_argument('-d', '--ode-diffusive', action='append', help='explicit ODE to be coupled between units by diffusive terms', metavar='ode')
 parser.add_argument('-s', '--ode-synaptic', action='append', help='explicit ODE to be coupled between units by chemical synaptic terms', metavar='ode')
-# options for transpoisrt and diffusive coupling
+# options for transport and diffusive coupling
 parser.add_argument('-k', '--transport-k', dest='transport_rate', type=positive_float, help='value of rate constant for transport between units', default='1.0', metavar='value')
 parser.add_argument('-c', '--coupling-constant', dest='coupling_constant', type=positive_float, default=1.0, help='value for strength of ODE coupling between units', metavar='value')
 # options for Michaelis-Menten transport
@@ -286,6 +286,7 @@ parser.add_argument('--synapse-V0', type=float, help='value of V0 for synaptic c
 parser.add_argument('--synapse-Vsyn', type=float, help='value of Vsyn for synaptic connections between units', default=20.0, metavar='value')
 parser.add_argument('--synapse-tau-r', type=positive_float, help='value of tau_r for synaptic connections between units', default=0.5, metavar='value')
 parser.add_argument('--synapse-tau-d', type=positive_float, help='value of tau_d for synaptic connections between units', default=10,  metavar='value')
+parser.add_argument('--synapse-link-g', action='store_true', help='link all synapse g to a single value')
 # options for noise
 parser.add_argument('--pn', dest='noisy', help='add noise to parameter with level magnitude, dist: {uni,norm}', nargs=3, metavar=('parameter', 'level', 'dist'), action='append')
 parser.add_argument('--cn', dest='cnoise', help='add noise to all coupling parameters with level magnitude, dist: {uni,norm}', nargs=2, metavar=('level', 'dist'))
@@ -322,6 +323,7 @@ taudinit = args.synapse_tau_d
 v0init = args.synapse_V0
 vsyninit = args.synapse_Vsyn
 gcinit = args.synapse_g
+linkg = args.synapse_link_g
 
 # values for GRN synthetic regulation
 grnV = args.grn_V
@@ -342,6 +344,10 @@ if( args.cnoise ):
         exit()
     if( (dist != 'uni') and (dist != 'norm') ):
         print( 'ERROR: dist must be \'uni\' or \'norm\'')
+        exit()
+    # check if user wanted g values to be linked...
+    if( linkg ):
+        print( 'ERROR: --cn and --synapse-link-g options cannot be used together, chose only one!')
         exit()
 
 # check if level for --pn are positive floats and distribution is allowed
@@ -699,6 +705,10 @@ if ignc:
         if( 'notes' in mcomps.loc[p] ):
             set_compartment(model=newmodel, name=p, notes=mcomps.loc[p].at['notes'])
 
+# if we want to have synapses with linked g, create the master g
+if( args.ode_synaptic and linkg ):
+    linkedsyng = f'g_c_{ode}_synapse'
+    add_parameter(linkedsyng, type='fixed', initial_value=gcinit, model=newmodel)
 
 #####
 #  MAIN LOOP FOR REPLICATION
@@ -1469,11 +1479,18 @@ if( odelink ):
                             add_parameter(brname, type='ode', expression=brexp, initial_value=0, model=newmodel)
                             # add a synaptic maximum conductance parameter
                             syngc = f'g_c_{ode}_{suffa},{suffb}_synapse'
-                            if( args.cnoise ):
-                                gc = addnoise(gcinit,float(level),dist)
+                            # link it the master g...
+                            if( linkg ):
+                                gexpr = f'Values[{linkedsyng}]'
+                                add_parameter(syngc, type='assignment', expression=gexpr, model=newmodel)
+                            # ...or otherwise set it to its own value
                             else:
-                                gc = gcinit
-                            add_parameter(syngc, type='fixed', initial_value=gc, model=newmodel)
+                                if( args.cnoise ):
+                                    gc = addnoise(gcinit,float(level),dist)
+                                else:
+                                    gc = gcinit
+                                add_parameter(syngc, type='fixed', initial_value=gc,
+                                model=newmodel)
                             # add a term to the postsynaptic ode corresponding to the voltage that is proportional to the bound receptor
                             odebexpr = bode.loc[obname].at['expression'] + f' + Values[{syngc}] * Values[{brname}] * ( Values[{thissynvsyn}] - Values[{oaname}] )'
                         # obname is affected by all types of connection so we can only update it here, after if/elif statements
@@ -2240,7 +2257,6 @@ if( not args.ignore_tasks):
     if( nopt['expression'] ):
         nopt['expression'] = fix_expression(nopt['expression'], apdx1, ignc)
         set_opt_settings(nopt,newmodel)
-        # deal with paramters
         ops = get_opt_parameters(model=seedmodel)
         for p in ops.index:
             # rename the CN
