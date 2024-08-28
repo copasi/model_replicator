@@ -60,6 +60,14 @@ if ! grep -q "ERROR: i is a global variable that is not an ODE" output; then
   let "fail = $fail + 32"
 fi
 
+# test synaptic link with noise and linked g
+../../sbmodelr -s i --cn 0.1 uni --synapse-link-g -n ../sources/1to2.gv ../sources/IzhikevichBurstingNeuron.cps 2 > output 2>&1
+
+# check that the correct error is issued
+if ! grep -q "ERROR: --cn and --synapse-link-g options cannot be used together, chose only one!" output; then
+  printf 'FAIL %s\n' "${test}"
+  let "fail = $fail + 64"
+fi
 
 # test diffusive connection on species that is not an ODE
 ../../sbmodelr -d A -n ../sources/twins.gv ../sources/PulsedDrug.cps 2 > output 2>&1
