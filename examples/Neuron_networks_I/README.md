@@ -124,9 +124,16 @@ The file *ex4case3.cps* now fully represents the **incoherent** feedforward moti
 ![Three RSA neurons forming an incoherent feedforward motif through chemical synapses. Top: membrane potentials (neuron 1 in blue, neuron 3 in green), middle: proportion of postsynaptic bound receptors (blue 1->2, green 2->3), bottom: current pulses into neuron 1.](ex4case3_fig4.png)
 
 
+### Case 4
+
+The final motif we examine here is composed of 6 neurons and is known as the spinal central pattern generator, and is a well conserved vertebrate motif that produces synchronized oscillations that control rhythmic locomotion (4). This is composed of three neurons on either side of the spine, with two top neurons (neurons 1 and 4) that activate all three on their side of the spine (i.e. neuron 1 activates itself, 2 and 3; neuron 4 activates itself, 5 and 6), two neurons (2 and 5) form inhibitory synapses to all three on the opposite side of the spine, and finally two neurons (3 and 6) provide signal to the muscle.
+
+
+
 ## References
 
 1. Pospischil M, Toledo-Rodriguez M, Monier C, Piwkowska Z, Bal T, Frégnac Y, Markram H, Destexhe A (2008) Minimal Hodgkin–Huxley type models for different classes of cortical and thalamic neurons. [Biological Cybernetics 99:427–441](https://doi.org/10.1007/s00422-008-0263-8)
 2. Destexhe A, Mainen ZF, Sejnowski TJ (1994) An Efficient Method for Computing Synaptic Conductances Based on a Kinetic Model of Receptor Binding. [Neural Computation 6:14–18](https://doi.org/10.1162/neco.1994.6.1.14)
 3. Giannari AG, Astolfi A (2022) Model design for networks of heterogeneous Hodgkin–Huxley neurons. [Neurocomputing 496:147–157](https://doi.org/10.1016/j.neucom.2022.04.115)
+4. Alford ST, Alpert MH (2014) A synaptic mechanism for network synchrony. [Frontiers in Cellular Neuroscience 8:290](https://doi.org/10.3389/fncel.2014.00290)
 
