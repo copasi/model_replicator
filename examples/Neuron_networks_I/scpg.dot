@@ -1,0 +1,19 @@
+digraph scpg{
+// network for spinal central pattern generator
+ nodesep=0.6;
+
+ 1 -> 1
+ 1 -> 2
+ 1 -> 3
+
+ 4 -> 4
+ 4 -> 5
+ 4 -> 6
+
+ 2 -> 4 [arrowhead="tee"]
+ 2 -> 5 [arrowhead="tee"]
+ 2 -> 6 [arrowhead="tee"]
+ 5 -> 1 [arrowhead="tee"]
+ 5 -> 2 [arrowhead="tee"]
+ 5 -> 3 [arrowhead="tee"]
+}
