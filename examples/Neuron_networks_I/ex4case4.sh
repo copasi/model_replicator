@@ -4,7 +4,7 @@
 # spinal central pattern generator
 
 ../../sbmodelr \
- --output scpg.cps \
+ --output ex4case4.cps \
  -n scpg.dot \
  --ode-synaptic V \
  --synapse-g 0.08 \
