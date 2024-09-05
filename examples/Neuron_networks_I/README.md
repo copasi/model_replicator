@@ -99,7 +99,7 @@ In order to make the synpse 2->3 inhibitory we will have to change its *Vsyn* pa
 
 However, by default, *sbmodelr* creates only one global quantity for *Vsyn* that is used in all synapses (*i.e.* all synapses would be equal). But in this case we want *Vsyn* for synapse 2->3 to be different from the *Vsyn* from synapses 1->2 and 1>3, se we need to force *sbmodelr* to create separate parameters for each synapse. This can be achieved by requesting noise in the connectivity parameters (command line option ``--cn``), the resulting model then has one *Vsyn* for each synapse (as well as other synapse parameters). Thus we will use this option, but because we do not really need noise in the parameter values, we specify the noise magnitude to be zero, by including ``--cn 0 uni`` (it really does not matter if we use the uniform or normal distributions...)
 
-File *ex4case3.sh* contains the full *sbmodeler* command required to create the new model.
+File *ex4case3.sh* contains the full *sbmodelr* command required to create the new model.
 
 | command line options       | comment                                                                |
 | -------------------------- | ---------------------------------------------------------------------- |
@@ -166,6 +166,20 @@ Note that this GraphViz file contains more information than is needed by *sbmode
 
 ![Network diagram of the spinal central pattern generator motif.](scpg.png)
 
+File *ex4case4.sh* contains the full *sbmodelr* command required to create the new model.
+
+| command line options       | comment                                                                |
+| -------------------------- | ---------------------------------------------------------------------- |
+|``sbmodelr``                | run *sbmodelr*                                                         |
+|`` --output ex4case4.cps``  | name the output file                                                   |
+|`` -n scpg.dot``            | network file that has the spinal central pattern generator motif       |
+|`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
+|`` --synapse-g 0.08``       | set the synaptic conductance value                                     |
+|`` --cn 0 uni``             | add noise to synapse parameters (but set noise magnitude to zero!)     |
+|`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
+|`` 6``                      | create 6 units                                                         |
+
+Running the command explained above (e.g. by running file *ex4case4.sh*) results in a new model file *ex4case4.cps*. After loading that file into COPASI we make the following modifications:
 
 
 
