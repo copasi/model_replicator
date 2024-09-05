@@ -188,7 +188,7 @@ Running the command explained above (e.g. by running file *ex4case4.sh*) results
 
 In step 2 we set the synapses from neurons 2 and 5 to be inhibitory; in step 3 we add some injected current to neurons 1 and 4 (the input neurons) -- their values are different in order to cause asymetry; alternatively this could have been done by adding random injected currents to each one (the asymetry is needed just to start off the oscillations)
 
-The file *ex4case4.cps* now fully represents the spinal central pattern generator, where neurons 1 and 4 excite all neurons on their side of the spine, neurons 2 and 5 inhibit neurons on the other side of the spine. We plot the membrane potentials at the motor neurons (3 and 6). This motif then generates bursts on the motor neurons, at alternate times (*i.e.* 180 degrees out of phase), which would generate alternate contractions on each side of the spine .
+The file *ex4case4.cps* now fully represents the spinal central pattern generator, where neurons 1 and 4 excite all neurons on their side of the spine, neurons 2 and 5 inhibit neurons on the other side of the spine. We plot the membrane potentials at the motor neurons (3 and 6). This motif then generates alternating bursts on the motor neurons on each side of the spine (*i.e.* 180 degrees out of phase), which would then generate alternate contractions on the muscles of each side of the spine.
 
 ![Membrane potential at the motor neurons on the spinal central pattern generator.](ex4case4_fig5.png)
 
