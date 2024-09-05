@@ -126,7 +126,46 @@ The file *ex4case3.cps* now fully represents the **incoherent** feedforward moti
 
 ### Case 4
 
-The final motif we examine here is composed of 6 neurons and is known as the spinal central pattern generator, and is a well conserved vertebrate motif that produces synchronized oscillations that control rhythmic locomotion (4). This is composed of three neurons on either side of the spine, with two top neurons (neurons 1 and 4) that activate all three on their side of the spine (i.e. neuron 1 activates itself, 2 and 3; neuron 4 activates itself, 5 and 6), two neurons (2 and 5) form inhibitory synapses to all three on the opposite side of the spine, and finally two neurons (3 and 6) provide signal to the muscle.
+The final motif we examine here is composed of 6 neurons and is known as the spinal central pattern generator, and is a well conserved vertebrate motif that produces synchronized oscillations that control rhythmic locomotion (4). This is composed of three neurons on either side of the spine, with two top neurons (neurons 1 and 4) that activate all three on their side of the spine (*i.e.* neuron 1 activates itself, 2 and 3; neuron 4 activates itself, 5 and 6), two neurons (2 and 5) form inhibitory synapses to all three on the opposite side of the spine, and finally two neurons (3 and 6) provide signal to the muscle. The connectivity of this network is included in file *scpg.dot*:
+
+```
+digraph scpg{
+// network for spinal central pattern generator
+
+ nodesep=0.5;
+ dpi=100
+ size="5.5,3"
+ node[ fontname="Arial Bold"; fontsize="17"; style="filled"]
+ edge[ penwidth="2.5"]
+
+ 1 [color="red"]
+ 2 [color="blue"; fontcolor="white"]
+ 3 [color="green"]
+ 4 [color="red"]
+ 5 [color="blue"; fontcolor="white"]
+ 6 [color="green"]
+
+ 1 -> 1 [color="red"]
+ 1 -> 2 [color="red"]
+ 4 -> 4 [color="red"]
+ 4 -> 5 [color="red"]
+
+ 2 -> 4 [arrowhead="tee"; color="blue"]
+ 2 -> 5 [arrowhead="tee"; color="blue"]
+ 2 -> 6 [arrowhead="tee"; color="blue"]
+ 5 -> 1 [arrowhead="tee"; color="blue"]
+ 5 -> 2 [arrowhead="tee"; color="blue"]
+ 5 -> 3 [arrowhead="tee"; color="blue"]
+
+ 1 -> 3 [color="red"]
+ 4 -> 6 [color="red"]
+}
+```
+
+Note that this GraphViz file contains more information than is needed by *sbmodelr* (node colors, arrowhead shapes, and other attributes) so as to produce a nice image of the network (using GraphViz itself: `sfdp -Tpng -o scpg.png scpg.dot`). Red arrows represent excitatory synapses, blue blunted arrows represent inhibitory synapses, the green nodes represent motor neurons.
+
+![Network diagram of the spinal central pattern generator motif.](scpg.png)
+
 
 
 
