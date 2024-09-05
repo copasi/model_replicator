@@ -180,7 +180,16 @@ File *ex4case4.sh* contains the full *sbmodelr* command required to create the n
 |`` 6``                      | create 6 units                                                         |
 
 Running the command explained above (e.g. by running file *ex4case4.sh*) results in a new model file *ex4case4.cps*. After loading that file into COPASI we make the following modifications:
+ 1. delete all events
+ 2. modify the value of global quantities *Vsyn_V_synapse_2-4*, *Vsyn_V_synapse_2-5*, *Vsyn_V_synapse_2-6*, *Vsyn_V_synapse_5-1*, *Vsyn_V_synapse_5-2*, *Vsyn_V_synapse_5-3* to -80 (inhibitory synapses)
+ 3. set the values of *I_inj_1* to 0.5 and *I_inj_4* to 0.519
+ 4. create a time course plot for *V_3*, and *V_6*
+ 5. save the file (*ex4case4.cps*)
+In step 2 we set the synapses from neurons 2 and 5 to be inhibitory; in step 3 we add some injected current to neurons 1 and 4 (the input neurons) -- their values are different in order to cause asymetry; alternatively this could have been done by adding random injected currents to each one (the asymetry is needed just to start off the oscillations)
 
+The file *ex4case4.cps* now fully represents the spinal central pattern generator, where neurons 1 and 4 excite all neurons on their side of the spine, neuros 2 and 5 inhibit neurons on the other side of the spine. We plot the membrane potentials at the motor neurons (3 and 6). This motif then generates bursts on the motor neurons, at alternate times (*i.e.* 180 degrees out of phase), which would generate alternate contractions on each side of the spine .
+
+![Membrane potential at the motor neurons on the spinal central pattern generator.](ex4case4_fig4.png)
 
 
 ## References
