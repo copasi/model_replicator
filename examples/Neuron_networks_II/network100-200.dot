@@ -8,11 +8,14 @@ digraph "netowrk100-200" {
 		splines="true"
 		epsilon=0.0000001
 		ratio="auto"
+		size=5
+		resolution=100
 	]
 
 	node
 	[
-		fontsize=9
+		fontsize=14
+		fontname="Arial"
 		shape="circle"
 	]
 
