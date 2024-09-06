@@ -6,30 +6,22 @@ This example takes a base unit defining a reduced model of a neuron and creates 
 
 ### Case 1
 
-We create a simple feedforward network motif where one such RSA neuron connects to another one. The *ff2.dot* network file specifies the network and looks simply like this:
+We create a network of 100 neurons with 200 chemical synapses connected randomly, encoded in the file *netwwork100-200.dot*. The neurons are based on the Izhikevich model and were tuned to be regular spiking neurons.
 
 
-File *ex4case1.sh* contains the full *sbmodelr* command required to create the new model.
+File *ex5case1.sh* contains the full *sbmodelr* command required to create the new model.
 
 | command line options       | comment                                                                |
 | -------------------------- | ---------------------------------------------------------------------- |
 |``sbmodelr``                | run *sbmodelr*                                                         |
-|`` --output ex4case1.cps``  | name the output file                                                   |
-|`` -n ff2.dot``             | network file that has simple 2-neuron feedforward motif                |
-|`` --ode-synaptic V``       | indicate global quantity that holds voltage (V) where the synapse acts |
-|`` --synapse-g 0.08``       | set the synaptic conductance value                                     |
-|`` RSA_neuron.cps``         | COPASI file with the RSA neuron base unit                              |
-|`` 2``                      | create 2 units                                                         |
+|`` --output ex5case1.cps``  | name the output file                                                   |
+|`` -n network100-200.dot``  | network file with 100 randomly connected neurons and 200 synapses      |
+|`` --ode-synaptic v``       | indicate global quantity that holds voltage (v) where the synapse acts |
+|`` --synapse-g 0.2``        | set the synaptic conductance value                                     |
+|``  --synapse-link-g``      | link all synapse conductances to one value                             |
+|`` Izhikevich.cps``         | COPASI file with the Izhikevich neuron base unit                       |
+|`` 100``                    | create 100 units                                                         |
 
-Running the command explained above (e.g. by running file *ex4case1.sh*) results in a new model file *ex4case1.cps*.
-After loading that file into COPASI we make the following modifications:
- 1. delete the events for unit 2 (*pulse_on_2* and *pulse_off_2*)
- 2. create a time course plot for *I_inj_1* (injected current into neuron 1), *V_1* (neuron 1 membrane potential), *V_2* (neuron 2 membrane potential) and *br_V_1,2* (proportion of bound synaptic receptor)
- 3. save the file (*ex4case1.cps*)
-
-Below is a representative time course generated from *ex4case1.cps* after the modifications. Note that each time course is different, given the random spacing of the current inputs. At the top are the membrane potentials of the two neurons, with neuron 1 in blue and neuron 2 in yellow. The middle panel shows the proportion of bound receptor in the post-synaptic membrane, and the bottom panel shows the current inputs into neuron 1. Neuron 2 is responding to action potentials from neuron 1 with its own action potentials at a short delay.
-
-![Two RSA neurons connected by a chemical synapse. Top: membrane potentials (neuron 1 in blue, neuron 2 in yellow), middle: proportion of postsynaptic bound receptor, bottom: current pulses into neuron 1.](ex4case1_fig2.png)
 
 
 ## References
