@@ -1,12 +1,12 @@
 # Neuron networks II
 ## Large Networks of reduced neuron models
 
-This example takes a base unit defining a reduced model of a neuron and creates larger neural networks. Because of the size of the network, it is useful to have a small a model as the base unit for each neuron, in order to reduce the the size of the resulting network model and its computation time. One of the earliest such models is the FitzHugh-Nagumo model (1,2), which represents spiking neurons but few other features. More recently, Izhikevich proposed a smaller model (3), which includes an intrinsic event, and which is faster to compute. In addition the Izhikevich neuron can replicate the behaviour of a large class of neurons by adjusting its parameter values, becoming an ideal base unit for larger spiking neural network models.
+This example takes a base unit defining a reduced model of a neuron and creates larger neural networks. Because of the size of the network, it is useful to have a small model as the base unit for each neuron, in order to reduce the the size of the resulting network model and its computation time. One of the earliest such models is the FitzHugh-Nagumo model (1,2), which represents spiking neurons but few other features and does not have easy biological interpretation. More recently, Izhikevich proposed a smaller model (3), and which is faster to compute, yet is easier to interpret biologically. The Izhikevich model includes an intrinsic event which allows it to have fewer differential equations. In addition the Izhikevich neuron can replicate the behaviour of a large class of neurons by adjusting its parameter values, becoming an ideal base unit for larger spiking neural network models.
 
 
 ### Case 1
 
-We create a network of 100 neurons with 200 chemical synapses connected randomly, encoded in the file *netwwork100-200.dot*. The neurons are based on the Izhikevich model and were tuned to be regular spiking neurons. The network is depicted below:
+We create a network of 100 neurons with 200 chemical synapses connected randomly, encoded in the file *network100-200.dot*. The neurons are based on the Izhikevich model and were tuned to be regular spiking neurons. The network is depicted below:
 
 ![network of 100 neurons with 200 synapses](network100-200.png)
 
