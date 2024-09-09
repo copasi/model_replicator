@@ -6,7 +6,7 @@ This example takes a base unit defining a reduced model of a neuron and creates 
 
 ### Case 1
 
-We create a network of 100 neurons with 200 chemical synapses connected randomly, encoded in the file *network100-200.dot*. The neurons are based on the Izhikevich model and were tuned to be regular spiking neurons. The network is depicted below:
+We create a network of 100 neurons, each one with two incoming chemical synapses connected randomly, for a total of 200 synapses. This network is encoded in the file *network100-200.dot*. The neurons are based on the Izhikevich model and were tuned to be regular spiking neurons. The network is depicted below:
 
 ![network of 100 neurons with 200 synapses](network100-200.png)
 
