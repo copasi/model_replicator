@@ -19,7 +19,7 @@ File *ex5case1.sh* contains the full *sbmodelr* command required to create the n
 |`` -n network100-200.dot``  | network file with 100 randomly connected neurons and 200 synapses      |
 |`` --ode-synaptic v``       | indicate global quantity that holds voltage (v) where the synapse acts |
 |`` --synapse-g 0.2``        | set the synaptic conductance value                                     |
-|``  --synapse-link-g``      | link all synapse conductances to a single global quantity              |
+|`` --synapse-link-g``       | link all synapse conductances to a single global quantity              |
 |`` Izhikevich.cps``         | COPASI file with the Izhikevich neuron base unit                       |
 |`` 100``                    | create 100 units                                                       |
 
