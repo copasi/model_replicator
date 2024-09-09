@@ -1,7 +1,7 @@
 # Neuron networks II
 ## Large Networks of reduced neuron models
 
-This example takes a base unit defining a reduced model of a neuron and creates larger neural networks. Because of the size of the network, it is useful to have as small a model for each unit neuron as possible to reduce the the size of the resulting network model and its computation time. One of the earliest such models is the FitzHugh-Nagumo model (1,2), which represents spiking neurons but few other features. Izhikevich proposed a smaller model (3), which includes an intrinsic event, and which is faster to compute. In addition the Izhikevich neuron can replicate the behaviour of a large class of neurons by adjusting its parameter values, becoming an ideal base unit for larger spiking neural network models.
+This example takes a base unit defining a reduced model of a neuron and creates larger neural networks. Because of the size of the network, it is useful to a small a model as the base unit for each neuron, in order to reduce the the size of the resulting network model and its computation time. One of the earliest such models is the FitzHugh-Nagumo model (1,2), which represents spiking neurons but few other features. Izhikevich proposed a smaller model (3), which includes an intrinsic event, and which is faster to compute. In addition the Izhikevich neuron can replicate the behaviour of a large class of neurons by adjusting its parameter values, becoming an ideal base unit for larger spiking neural network models.
 
 
 ### Case 1
