@@ -1,6 +1,6 @@
 # 0015_CompartmentODE
 
-set of 2 units of model with compartment ODEsand connected by diffusive connections of *vesicle*
+set of 2 units of model with compartment ODEs and connected by diffusive connections of *vesicle*
 
 ## tests
 
