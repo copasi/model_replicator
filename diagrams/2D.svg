@@ -1,0 +1,1832 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="159.64mm"
+   height="54.022999mm"
+   viewBox="0 0 159.64 54.022999"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   sodipodi:docname="2D.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="false"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="4.9633257"
+     inkscape:cx="192.61279"
+     inkscape:cy="103.35812"
+     inkscape:window-width="1440"
+     inkscape:window-height="1015"
+     inkscape:window-x="377"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     showborder="false" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="0.30000001"
+       markerHeight="0.30000001"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601"
+       id="gradient1">
+      <stop
+         offset="0"
+         stop-color="#ffffff"
+         stop-opacity="1"
+         id="stop1" />
+      <stop
+         offset="1"
+         stop-color="#c0c0c0"
+         stop-opacity="1"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698"
+       id="gradient2">
+      <stop
+         offset="0"
+         stop-color="#ffffff"
+         stop-opacity="1"
+         id="stop5" />
+      <stop
+         offset="1"
+         stop-color="#c0c0c0"
+         stop-opacity="1"
+         id="stop6" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient1"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient2"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110-1"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112-2"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient6"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient7"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110-1-8"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112-2-4"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient8"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient9"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110-1-8-6"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112-2-4-7"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient28"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient29"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110-1-8-6-3"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112-2-4-7-6"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient30"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient31"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110-1-8-6-32"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112-2-4-7-9"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient32"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient33"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient110-1-8-6-4"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient112-2-4-7-90"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient1"
+       id="linearGradient35"
+       gradientUnits="userSpaceOnUse"
+       x1="126.33"
+       y1="118.656"
+       x2="154.33"
+       y2="146.65601" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#gradient2"
+       id="linearGradient36"
+       gradientUnits="userSpaceOnUse"
+       x1="84.846703"
+       y1="268.59698"
+       x2="112.847"
+       y2="296.59698" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-38.593388,-87.686172)">
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1"
+       width="21"
+       height="21"
+       x="122.65887"
+       y="92.28141" />
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-5"
+       width="21"
+       height="21"
+       x="147.15726"
+       y="92.28141" />
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-2"
+       width="21"
+       height="21"
+       x="147.15726"
+       y="116.09392" />
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-7"
+       width="21"
+       height="21"
+       x="122.65887"
+       y="116.09392" />
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-6"
+       width="21"
+       height="21"
+       x="171.65555"
+       y="116.09392" />
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-61"
+       width="21"
+       height="21"
+       x="171.65555"
+       y="92.28141" />
+    <g
+       id="g6"
+       transform="matrix(0.71377314,0,0,0.71377314,73.814505,46.865065)">
+      <g
+         id="g5"
+         transform="translate(0.23583744,0.03369107)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07557801,0,0,0.07557801,143.65694,94.676065)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,136.03693,89.745367)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79"
+         style="fill:url(#linearGradient110);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78"
+           style="fill:url(#linearGradient1);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,138.34632,80.889846)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84"
+         style="fill:url(#linearGradient112);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83"
+           style="fill:url(#linearGradient2);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="153.26422"
+         y="107.43861"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.692036;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="150.29393"
+         y="117.88727"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.128566;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <g
+       id="g6-5"
+       transform="matrix(0.71377314,0,0,0.71377314,49.315846,47.297859)">
+      <g
+         id="g5-4"
+         transform="translate(0.23583744,0.03369107)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14-7"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13-6"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24-5"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23-6"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07557801,0,0,0.07557801,143.65694,94.676065)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50-9"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49-3"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71-7"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70-4"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74-5"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73-2" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,136.03693,89.745367)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79-5"
+         style="fill:url(#linearGradient110-1);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78-4"
+           style="fill:url(#linearGradient6);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,138.34632,80.889846)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84-7"
+         style="fill:url(#linearGradient112-2);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83-4"
+           style="fill:url(#linearGradient7);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="153.26422"
+         y="107.43861"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92-4"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.692036;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="150.29393"
+         y="117.88727"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101-3"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.128566;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <g
+       id="g6-5-2"
+       transform="matrix(0.71377314,0,0,0.71377314,24.817202,46.996823)">
+      <g
+         id="g5-4-0"
+         transform="translate(0.23583744,0.03369107)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14-7-6"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13-6-8"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24-5-9"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23-6-2"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07557801,0,0,0.07557801,143.65694,94.676065)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50-9-6"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49-3-6"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71-7-4"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70-4-9"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74-5-5"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73-2-0" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,136.03693,89.745367)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79-5-4"
+         style="fill:url(#linearGradient110-1-8);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78-4-8"
+           style="fill:url(#linearGradient8);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,138.34632,80.889846)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84-7-7"
+         style="fill:url(#linearGradient112-2-4);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83-4-1"
+           style="fill:url(#linearGradient9);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="153.26422"
+         y="107.43861"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92-4-7"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.692036;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="150.29393"
+         y="117.88727"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101-3-2"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.128566;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <g
+       id="g33"
+       transform="translate(56.062466,53.946005)">
+      <g
+         id="g5-4-0-9"
+         transform="matrix(0.71377314,0,0,0.71377314,-31.017559,-31.494943)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14-7-6-9"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13-6-8-0"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24-5-9-8"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23-6-2-1"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.05394555,0,0,0.05394555,71.352572,36.058241)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50-9-6-3"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49-3-6-1"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.05495287,-0.01319072,0.01319072,0.05495287,68.089772,34.804581)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71-7-4-1"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70-4-9-0"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.05495287,-0.01319072,0.01319072,0.05495287,68.089772,34.804581)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74-5-5-3"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73-2-0-4" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.09176696,0,0,0.09176696,65.913614,32.538841)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79-5-4-0"
+         style="fill:url(#linearGradient110-1-8-6);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78-4-8-3"
+           style="fill:url(#linearGradient28);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.09176696,0,0,0.09176696,67.561994,26.218008)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84-7-7-9"
+         style="fill:url(#linearGradient112-2-4-7);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83-4-1-1"
+           style="fill:url(#linearGradient29);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="78.209991"
+         y="45.167801"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92-4-7-9"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.41704px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.493957;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="76.089874"
+         y="52.625774"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101-3-2-6"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.41704px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.091767;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-3"
+       width="21"
+       height="21"
+       x="39.593327"
+       y="103.87997" />
+    <rect
+       style="fill:none;stroke:#414141;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1-3-3"
+       width="80.110611"
+       height="52.022709"
+       x="117.12284"
+       y="88.686317" />
+    <g
+       id="g33-3"
+       transform="translate(-27.003082,65.544608)">
+      <g
+         id="g5-4-0-9-3"
+         transform="matrix(0.71377314,0,0,0.71377314,-31.017559,-31.494943)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14-7-6-9-7"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13-6-8-0-3"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24-5-9-8-2"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23-6-2-1-65"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.05394555,0,0,0.05394555,71.352572,36.058241)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50-9-6-3-2"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49-3-6-1-6"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.05495287,-0.01319072,0.01319072,0.05495287,68.089772,34.804581)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71-7-4-1-5"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70-4-9-0-8"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.05495287,-0.01319072,0.01319072,0.05495287,68.089772,34.804581)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74-5-5-3-7"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73-2-0-4-9" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.09176696,0,0,0.09176696,65.913614,32.538841)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79-5-4-0-6"
+         style="fill:url(#linearGradient110-1-8-6-4);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78-4-8-3-0"
+           style="fill:url(#linearGradient35);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.09176696,0,0,0.09176696,67.561994,26.218008)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84-7-7-9-4"
+         style="fill:url(#linearGradient112-2-4-7-90);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83-4-1-1-1"
+           style="fill:url(#linearGradient36);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="78.209991"
+         y="45.167801"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92-4-7-9-0"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.41704px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.493957;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="76.089874"
+         y="52.625774"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101-3-2-6-4"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.41704px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.091767;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <g
+       id="g6-5-2-2-6"
+       transform="matrix(0.71377314,0,0,0.71377314,49.21825,22.427009)">
+      <g
+         id="g5-4-0-9-2"
+         transform="translate(0.23583744,0.03369107)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14-7-6-9-6"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13-6-8-0-7"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24-5-9-8-5"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23-6-2-1-6"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07557801,0,0,0.07557801,143.65694,94.676065)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50-9-6-3-9"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49-3-6-1-8"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71-7-4-1-7"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70-4-9-0-2"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74-5-5-3-8"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73-2-0-4-2" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,136.03693,89.745367)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79-5-4-0-9"
+         style="fill:url(#linearGradient110-1-8-6-3);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78-4-8-3-9"
+           style="fill:url(#linearGradient30);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,138.34632,80.889846)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84-7-7-9-6"
+         style="fill:url(#linearGradient112-2-4-7-6);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83-4-1-1-0"
+           style="fill:url(#linearGradient31);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="153.26422"
+         y="107.43861"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92-4-7-9-2"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.692036;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="150.29393"
+         y="117.88727"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101-3-2-6-7"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.128566;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <g
+       id="g6-5-2-2-7"
+       transform="matrix(0.71377314,0,0,0.71377314,73.559932,22.427009)">
+      <g
+         id="g5-4-0-9-5"
+         transform="translate(0.23583744,0.03369107)">
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g14-7-6-9-8"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 170.712,50.2659 -8.109,13.2157"
+             id="path13-6-8-0-70"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+        <g
+           fill="none"
+           stroke="#000000"
+           stroke-opacity="1"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           transform="matrix(0.07503677,0,0,0.07503677,143.61262,95.388804)"
+           font-family="'Atkinson Hyperlegible'"
+           font-size="11px"
+           font-weight="400"
+           font-style="normal"
+           id="g24-5-9-8-4"
+           style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+          <path
+             vector-effect="none"
+             fill-rule="evenodd"
+             d="m 162.603,63.4816 c -8.109,13.2156 -14.814,34.9991 -17.464,50.1744 m -3.846,-12.853 3.846,12.853 7.975,-10.789 -6.592,2.869 -5.229,-4.933"
+             id="path23-6-2-1-8"
+             style="stroke-width:4.66438;stroke-dasharray:none" />
+        </g>
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07557801,0,0,0.07557801,143.65694,94.676065)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g50-9-6-3-0"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="m 128.44856,197.44284 c -2.074,7.497 -16.15256,47.25616 -22.92956,66.15416 m -1.597,-13.321 1.597,13.321 9.698,-9.271 -6.984,1.703 -4.311,-5.753"
+           id="path49-3-6-1-4"
+           style="stroke-width:4.63098;stroke-dasharray:none"
+           sodipodi:nodetypes="ccccccc" />
+      </g>
+      <g
+         fill="none"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g71-7-4-1-2"
+         style="fill-rule:evenodd;stroke-width:3.31351;stroke-dasharray:none">
+        <path
+           vector-effect="none"
+           fill-rule="evenodd"
+           d="M 57.8123,360.112 C 47.9776,372.075 24.5301,388.395 6,398.733 M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path70-4-9-0-9"
+           style="stroke-width:4.42052;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="#000000"
+         fill-opacity="1"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="0.001"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.07698926,-0.01848027,0.01848027,0.07698926,139.08574,92.919681)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g74-5-5-3-6"
+         style="fill-rule:evenodd">
+        <path
+           vector-effect="none"
+           fill-rule="nonzero"
+           d="M 13.556,387.647 6,398.733 l 13.4027,-0.607 -6.3815,-3.31 0.5348,-7.169"
+           id="path73-2-0-4-1" />
+      </g>
+      <g
+         fill="url(#gradient1)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,136.03693,89.745367)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g79-5-4-0-0"
+         style="fill:url(#linearGradient110-1-8-6-32);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="140.33"
+           cy="132.65601"
+           r="14"
+           id="circle78-4-8-3-4"
+           style="fill:url(#linearGradient32);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <g
+         fill="url(#gradient2)"
+         stroke="#000000"
+         stroke-opacity="1"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         transform="matrix(0.12856601,0,0,0.12856601,138.34632,80.889846)"
+         font-family="'Atkinson Hyperlegible'"
+         font-size="11px"
+         font-weight="400"
+         font-style="normal"
+         id="g84-7-7-9-2"
+         style="fill:url(#linearGradient112-2-4-7-9);fill-rule:evenodd;stroke-width:2.43808;stroke-dasharray:none">
+        <circle
+           cx="98.846703"
+           cy="282.59698"
+           r="14"
+           id="circle83-4-1-1-2"
+           style="fill:url(#linearGradient33);stroke-width:2.43808;stroke-dasharray:none" />
+      </g>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="153.26422"
+         y="107.43861"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text92-4-7-9-20"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.692036;stroke-linecap:square;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1">X</text>
+      <text
+         fill="#000000"
+         fill-opacity="1"
+         stroke="none"
+         xml:space="preserve"
+         x="150.29393"
+         y="117.88727"
+         font-family="Verdana"
+         font-size="9.71964px"
+         font-weight="400"
+         font-style="normal"
+         id="text101-3-2-6-5"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:1.98528px;font-family:Verdana;-inkscape-font-specification:'Verdana, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.128566;stroke-linecap:square;stroke-linejoin:bevel;stroke-opacity:1">Y</text>
+    </g>
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 151.91361,98.382673 c 2.15884,0.02633 2.72915,0.0071 3.81217,0.0021 m -0.64884,-0.320663 0.64884,0.320663 -0.64587,0.326631 0.21216,-0.324617 -0.21513,-0.322677"
+       id="path49-3-6-1-83-0"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 142.01537,98.455083 c -2.15884,0.02633 -2.72914,0.0071 -3.81217,0.0021 m 0.64884,-0.320663 -0.64884,0.320663 0.64587,0.326631 -0.21216,-0.324617 0.21513,-0.322677"
+       id="path49-3-6-1-83-0-6"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 141.94575,98.457489 10.228,-0.06643"
+       id="path34"
+       sodipodi:nodetypes="cc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 151.93563,123.07722 c 2.15884,0.0263 2.72915,0.007 3.81217,0.002 m -0.64884,-0.32066 0.64884,0.32066 -0.64587,0.32664 0.21216,-0.32462 -0.21513,-0.32268"
+       id="path49-3-6-1-83-0-9"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 142.03739,123.14964 c -2.15884,0.0263 -2.72914,0.007 -3.81217,0.002 m 0.64884,-0.32067 -0.64884,0.32067 0.64587,0.32663 -0.21216,-0.32462 0.21513,-0.32268"
+       id="path49-3-6-1-83-0-6-9"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 141.96777,123.15204 10.228,-0.0664"
+       id="path34-3"
+       sodipodi:nodetypes="cc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 176.52511,123.44573 c 2.15883,0.0263 2.72913,0.007 3.81215,0.002 m -0.64884,-0.32066 0.64884,0.32066 -0.64587,0.32663 0.21216,-0.32462 -0.21513,-0.32267"
+       id="path49-3-6-1-83-0-2"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 166.62693,123.51814 c -2.15883,0.0263 -2.72913,0.007 -3.81215,0.002 m 0.64884,-0.32066 -0.64884,0.32066 0.64587,0.32663 -0.21216,-0.32462 0.21513,-0.32267"
+       id="path49-3-6-1-83-0-6-94"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 166.55731,123.52055 10.22795,-0.0664"
+       id="path34-35"
+       sodipodi:nodetypes="cc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 176.45773,98.310302 c 2.15883,0.02633 2.72913,0.0071 3.81215,0.0021 m -0.64884,-0.320663 0.64884,0.320663 -0.64587,0.326631 0.21216,-0.324617 -0.21513,-0.322677"
+       id="path49-3-6-1-83-0-1"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 166.55955,98.382712 c -2.15883,0.02633 -2.72913,0.0071 -3.81215,0.0021 m 0.64884,-0.320663 -0.64884,0.320663 0.64587,0.326631 -0.21216,-0.324617 0.21513,-0.322677"
+       id="path49-3-6-1-83-0-6-4"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 166.48993,98.385118 10.22794,-0.06643"
+       id="path34-6"
+       sodipodi:nodetypes="cc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 134.97182,115.14582 c -0.0263,2.15883 -0.007,2.72913 -0.002,3.81215 m 0.32067,-0.64884 -0.32067,0.64884 -0.32663,-0.64587 0.32462,0.21215 0.32268,-0.21512"
+       id="path49-3-6-1-83-0-64"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 134.89941,105.24763 c -0.0263,-2.15883 -0.007,-2.72913 -0.002,-3.81215 m 0.32067,0.64884 -0.32067,-0.64884 -0.32663,0.64587 0.32462,-0.21216 0.32268,0.21513"
+       id="path49-3-6-1-83-0-6-1"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 134.89701,105.17801 0.0664,10.22795"
+       id="path34-2"
+       sodipodi:nodetypes="cc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 159.41047,115.23447 c -0.0263,2.15883 -0.007,2.72913 -0.002,3.81215 m 0.32066,-0.64884 -0.32066,0.64884 -0.32663,-0.64587 0.32462,0.21216 0.32267,-0.21513"
+       id="path49-3-6-1-83-0-64-8"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:none;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 159.33806,105.33629 c -0.0263,-2.15883 -0.007,-2.72913 -0.002,-3.81215 m 0.32066,0.64884 -0.32066,-0.64884 -0.32663,0.64587 0.32462,-0.21216 0.32267,0.21513"
+       id="path49-3-6-1-83-0-6-1-8"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:none;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:none;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 159.33565,105.26667 0.0664,10.22794"
+       id="path34-2-8"
+       sodipodi:nodetypes="cc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 183.81937,115.46185 c -0.0263,2.15883 -0.007,2.72913 -0.002,3.81215 m 0.32067,-0.64884 -0.32067,0.64884 -0.32663,-0.64587 0.32462,0.21216 0.32268,-0.21513"
+       id="path49-3-6-1-83-0-64-8-3"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       vector-effect="none"
+       fill-rule="evenodd"
+       d="m 183.74696,105.56367 c -0.0263,-2.15883 -0.007,-2.72913 -0.002,-3.81215 m 0.32066,0.64884 -0.32066,-0.64884 -0.32663,0.64587 0.32462,-0.21216 0.32267,0.21513"
+       id="path49-3-6-1-83-0-6-1-8-3"
+       style="font-style:normal;font-weight:400;font-size:11px;font-family:'Atkinson Hyperlegible';fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#e4002b;stroke-width:0.65;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 183.74456,105.49405 0.0664,10.22794"
+       id="path34-2-8-3"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#000e2f;stroke:#000e2f;stroke-width:8.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle);fill-opacity:1"
+       d="m 69.893861,113.3493 30.221369,-0.002"
+       id="path36"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.5861px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.264583"
+       x="73.81839"
+       y="115.17667"
+       id="text36"><tspan
+         sodipodi:role="line"
+         id="tspan36"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;font-family:'Atkinson Hyperlegible';-inkscape-font-specification:'Atkinson Hyperlegible, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.264583;stroke-opacity:1"
+         x="73.81839"
+         y="115.17667">sbmodelr</tspan></text>
+  </g>
+</svg>
