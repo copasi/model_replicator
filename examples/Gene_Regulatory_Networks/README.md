@@ -4,7 +4,7 @@ This example takes a base unit defining a simple model for expression of one gen
 
 ![Generic equation for regulatory synthesis networks](Eq1.png)
 
-where *V* is a maximal rate parameter, *M* is the modifier species, *h_i* is a Hill coefficient that expresses a degree of cooperativity (can be any integer between 1-10), and *a_i* is a parameter that encodes the sign and strength of the interaction; *a_i* can be any value between -1 and +1, where -1 is full strength repression, +1 is full strength induction (a value of zero makes that modifier have no effect).
+where *V* is a maximal rate parameter, *M_i* is the modifier species, *h_i* is a Hill coefficient that expresses a degree of cooperativity (can be any integer between 1-10), and *a_i* is a parameter that encodes the sign and strength of the interaction; *a_i* can be any value between -1 and +1, where -1 is full strength repression, and +1 is full strength induction; a value of zero makes that modifier have no effect. Note that this equation makes the effect of all modifiers to be non-additive (*e.g.* if one term becomes zero, the rate will be zero irrespective of the concentrations of any other modifier).
 
 ### Case 1
 
