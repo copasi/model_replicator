@@ -51,7 +51,7 @@ We then have to load this model into COPASI in order to:
 
 ![Deterministic and stochastic time course of repressilator model](ex6_fig2.png)
 
-__Fig. 2.__ Rough reproduction of behavior in Fig.1c of reference 1.
+__Fig. 2.__ Behavior of the repressilator system, roughly similar to Fig.1c of reference 1.
 
 ## References
 
