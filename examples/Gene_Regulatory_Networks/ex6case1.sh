@@ -10,6 +10,7 @@
  -n 3circle.gv \
  -g G \
  --pn G 0.8 uni \
+ --grn-V 3 \
  --grn-a -1 \
  --grn-h 4 \
  GenExBase.cps \
