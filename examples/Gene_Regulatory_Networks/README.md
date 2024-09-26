@@ -7,7 +7,6 @@ This example takes a base unit defining a simple model for expression of one gen
 where *V* is a maximal rate parameter, *M_i* is the effector species, *h_i* is a Hill coefficient that expresses a degree of cooperativity (can be any integer between 1-10), and *a_i* is a parameter that encodes the sign and strength of the interaction; *a_i* can be any value between -1 and +1, where -1 is full strength repression, and +1 is full strength induction; a value of zero makes that effector have no effect. Note that this equation makes the effect of all effectors to be non-additive (*e.g.* if one term becomes zero, the rate will be zero irrespective of the concentrations of any other effector). The effect of each effector *M_1* (*i.e.* the value of their corresponding regulatory term) is represented graphically below, showing the effect of *a_i* and *h_i* parameters.
 
 ![Generic equation for regulatory synthesis networks](regfunction_400.png)
-
 __Fig. 1.__ Behavior of multiplicative term for each effector, depending on the effector concentration (X-axis), value of a_i (color) and h_i (shade).
 
 ### Case 1
