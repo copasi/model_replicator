@@ -8,6 +8,8 @@ where *V* is a maximal rate parameter, *M_i* is the effector species, *h_i* is a
 
 ![Generic equation for regulatory synthesis networks](regfunction_400.png)
 
+__Fig. 1.__ Behavior of multiplicative term for each effector, depending on the effector concentration (X-axis), value of a_i (color) and h_i (shade).
+
 ### Case 1
 
 We create a small network of inhibitory genes, known as the "repressilator", described by Elowitz and Leibler (1). This network consists of three genes inhibiting each other in a triangle. The network is expressed by the file *3circle.gv*:
@@ -31,15 +33,28 @@ File *ex6case1.sh* contains the full *sbmodelr* command required to create the n
 |`` -n 3circle.gv``          | network file with a triangle of interacting units                      |
 |`` -g G \``                 | indicate species interacting between units through regulatory synthesis|
 |`` --ignore-compartments \``| put everything inside a single compartment                             |
+|`` --grn-V 30``             | set max rate of synthesis                                              |
 |`` --grn-a -1``             | set interactions to be repressions                                     |
 |`` --grn-h 4``              | add some cooperativity (sigmoid repression curves)                     |
 |`` --pn G 0.8 uni``         | sample initial concentrations uniformly within +/-80% original value   |
 |`` GenExBase.cps``          | COPASI file with the base model for gene expression                    |
 |`` 3``                      | create 3 units                                                         |
 
+Running the command explained above (e.g. by running file *ex6case1.sh*) results in a new model file *ex6case1.cps*.
+We then have to load this model into COPASI in order to:
+
+ 1. Create a plot that includes the particle numbers of all three species (*G_1*, *G_2*, *G_3*)
+ 2. Run a deterministic time course
+ 3. Run a stochastic time course (using stochastic Direct Method)
+
+ After doing these operations figures that reproduce the behavior displayed in Fig. 1c reference 1 (see note 2).
+
+![Deterministic and stochastic time course of repressilator model](ex6_fig2.png)
+
+__Fig. 2.__ Rough reproduction of behavior in Fig.1c of reference 1.
 
 ## References
 
 1. Elowitz MB, Leibler S (2000) A synthetic oscillatory network of transcriptional regulators. [Nature 403:335–338](https://doi.org/10.1038/35002125)
 
-
+2. Note that the number of particles per cell is different, and in fact all the parameter values used here are also different; we are reproducing only the rough behavior of the repressilator system.
