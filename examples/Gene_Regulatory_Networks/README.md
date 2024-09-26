@@ -27,14 +27,15 @@ File *ex6case1.sh* contains the full *sbmodelr* command required to create the n
 | command line options       | comment                                                                |
 | -------------------------- | ---------------------------------------------------------------------- |
 |``sbmodelr``                | run *sbmodelr*                                                         |
-|`` --output ex5case1.cps``  | name the output file                                                   |
-|`` -n network100-200.dot``  | network file with 100 randomly connected neurons and 200 synapses      |
-|`` --ode-synaptic v``       | indicate global quantity that holds voltage (v) where the synapse acts |
-|`` --synapse-g 0.2``        | set the synaptic conductance value                                     |
-|`` --synapse-link-g``       | link all synapse conductances to a single global quantity              |
-|`` Izhikevich.cps``         | COPASI file with the Izhikevich neuron base unit                       |
-|`` 100``                    | create 100 units                                                       |
-
+|`` --output ex6case1.cps``  | name the output file                                                   |
+|`` -n 3circle.gv``          | network file with a triangle of interacting units                      |
+|`` -g G \``                 | indicate species interacting between units through regulatory synthesis|
+|`` --ignore-compartments \``| put everything inside a single compartment                             |
+|`` --grn-a -1``             | set interactions to be repressions                                     |
+|`` --grn-h 4``              | add some cooperativity (sigmoid repression curves)                     |
+|`` --pn G 0.8 uni ``        | sample initial concentrations uniformly within +/-80% original value   |
+|`` GenExBase.cps``          | COPASI file with the base model for gene expression                    |
+|`` 3``                      | create 3 units                                                         |
 
 
 ## References
