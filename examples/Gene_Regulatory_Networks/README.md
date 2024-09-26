@@ -33,7 +33,7 @@ File *ex6case1.sh* contains the full *sbmodelr* command required to create the n
 |`` --ignore-compartments \``| put everything inside a single compartment                             |
 |`` --grn-a -1``             | set interactions to be repressions                                     |
 |`` --grn-h 4``              | add some cooperativity (sigmoid repression curves)                     |
-|`` --pn G 0.8 uni ``        | sample initial concentrations uniformly within +/-80% original value   |
+|`` --pn G 0.8 uni``         | sample initial concentrations uniformly within +/-80% original value   |
 |`` GenExBase.cps``          | COPASI file with the base model for gene expression                    |
 |`` 3``                      | create 3 units                                                         |
 
