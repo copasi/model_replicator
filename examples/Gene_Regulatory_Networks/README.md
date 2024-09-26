@@ -10,7 +10,17 @@ where *V* is a maximal rate parameter, *M_i* is the effector species, *h_i* is a
 
 ### Case 1
 
-We create a small network of inhibitory genes, known as the "repressilator", described by Elowitz and Leibler (1)
+We create a small network of inhibitory genes, known as the "repressilator", described by Elowitz and Leibler (1). This network consists of three genes inhibiting each other in a triangle. The network is expressed by the file *3circle.gv*:
+
+```
+digraph _3circle{
+// three nodes affecting each other in a circle
+1 -> 2
+2 -> 3
+3 -> 1
+}
+```
+
 
 File *ex6case1.sh* contains the full *sbmodelr* command required to create the new model.
 
@@ -29,6 +39,6 @@ File *ex6case1.sh* contains the full *sbmodelr* command required to create the n
 
 ## References
 
-1.Elowitz MB, Leibler S (2000) A synthetic oscillatory network of transcriptional regulators. [Nature 403:335–338](https://doi.org/10.1038/35002125)
+1. Elowitz MB, Leibler S (2000) A synthetic oscillatory network of transcriptional regulators. [Nature 403:335–338](https://doi.org/10.1038/35002125)
 
 
