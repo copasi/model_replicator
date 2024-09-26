@@ -56,5 +56,4 @@ __Fig. 2.__ Rough reproduction of behavior in Fig.1c of reference 1.
 ## References
 
 1. Elowitz MB, Leibler S (2000) A synthetic oscillatory network of transcriptional regulators. [Nature 403:335–338](https://doi.org/10.1038/35002125)
-
-2. Note that the number of particles per cell is different, and in fact all the parameter values used here are also different; we are reproducing only the rough behavior of the repressilator system.
+2. Note that the number of particles per cell is different from Ref. 1, and in fact all the parameter values used here are also different. This is reproducing only the rough behavior of the repressilator system.
