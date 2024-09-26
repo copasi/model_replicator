@@ -47,7 +47,7 @@ We then have to load this model into COPASI in order to:
  2. Run a deterministic time course
  3. Run a stochastic time course (using stochastic Direct Method)
 
- After doing these operations figures that reproduce the behavior displayed in Fig. 1c reference 1 (see note 2).
+ After doing these operations we obtain figures reproducing the behavior displayed in Fig. 1c of Ref.1 (but see note 2):
 
 ![Deterministic and stochastic time course of repressilator model](ex6_fig2.png)
 
