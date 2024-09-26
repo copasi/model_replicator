@@ -1,7 +1,9 @@
 # Gene regulatory networks
 
 This example takes a base unit defining a simple model for expression of one gene and uses it to create gene regulatory networks. When creating this type of networks *sbmodelr* adds one synthesis reaction to each species where that reaction has a number of effectors (determined by the topology) and each effector can be an inducer or repressor, according to a kinetic function that multiplies one generic term per effector. The equation is expressed as:
+
 ![Generic equation for regulatory synthesis networks](Eq1.png)
+
 where *V* is a maximal rate parameter, *M* is the modifier species, *h_i* is a Hill coefficient that expresses a degree of cooperativity (can be any integer between 1-10), and *a_i* is a parameter that encodes the sign and strength of the interaction; *a_i* can be any value between -1 and +1, where -1 is full strength repression, +1 is full strength induction (a value of zero makes that modifier have no effect).
 
 ### Case 1
