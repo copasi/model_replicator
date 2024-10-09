@@ -23,7 +23,15 @@ File *ex5case1.sh* contains the full *sbmodelr* command required to create the n
 |`` Izhikevich.cps``         | COPASI file with the Izhikevich neuron base unit                       |
 |`` 100``                    | create 100 units                                                       |
 
+Running the command explained above (e.g. by running file ex5case1.sh) results in a new model file ex5case1.cps. After loading that file into COPASI we make the following modifications:
 
+1. for event "Stimulus" delete all targets except *Values[i_29]*, so that only one neuron (29) receives a stimulus
+2. create a time course plot for for all *v_i* (*v_1* to *v_100*)
+3. save the file as ex4case1ready.cps
+
+Below is a representative time course generated from ex5case1ready.cps. Note that there is a certain synchronization of action potentials time course is different, given the random spacing of the current inputs.
+
+![Membrane potential of 100 Izhikevich neurons connected in a Erdös-Renyi random network](ex5case1_fig1.png)
 
 ## References
 
