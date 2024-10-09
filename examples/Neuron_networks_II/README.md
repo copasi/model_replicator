@@ -29,7 +29,7 @@ Running the command explained above (e.g. by running file ex5case1.sh) results i
 2. create a time course plot for for all *v_i* (*v_1* to *v_100*)
 3. save the file as ex4case1ready.cps
 
-Below is a representative time course generated from ex5case1ready.cps. Note that there is a certain synchronization of action potentials time course is different, given the random spacing of the current inputs.
+Below is a representative time course generated from ex5case1ready.cps. Note that there is a certain synchronization of action potentials happening at periodic times.
 
 ![Membrane potential of 100 Izhikevich neurons connected in a Erdös-Renyi random network](ex5case1_fig1.png)
 
