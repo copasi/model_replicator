@@ -25,13 +25,43 @@ File *ex5case1.sh* contains the full *sbmodelr* command required to create the n
 
 Running the command explained above (e.g. by running file ex5case1.sh) results in a new model file ex5case1.cps. After loading that file into COPASI we make the following modifications:
 
-1. for event "Stimulus" delete all targets except *Values[i_29]*, so that only one neuron (29) receives a stimulus
+1. for event "Stimulus" delete all targets except *Values[i_29]*, so that only one neuron (29) receives a a current input
 2. create a time course plot for for all *v_i* (*v_1* to *v_100*)
 3. save the file as ex4case1ready.cps
 
 Below is a representative time course generated from ex5case1ready.cps. Note that there is a certain synchronization of action potentials happening at periodic times.
 
 ![Membrane potential of 100 Izhikevich neurons connected in a Erdös-Renyi random network](ex5case1_fig1.png)
+
+
+### Case 2
+
+We create another network of 100 neurons, each one with two incoming chemical synapses, for a total of 200 synapses. This time they network follows a scale-free topology. This network is encoded in the file *network100-200_sf.dot*. The neurons are based on the Izhikevich model and were tuned to be regular spiking neurons. The network is depicted below:
+
+![network of 100 neurons with 200 synapses organized in a scale-free topology](network100-200_sf.png)
+
+File *ex5case2.sh* contains the full *sbmodelr* command required to create the new model.
+
+| command line options        | comment                                                                |
+| --------------------------- | ---------------------------------------------------------------------- |
+|``sbmodelr``                 | run *sbmodelr*                                                         |
+|`` --output ex5case2.cps``   | name the output file                                                   |
+|`` -n network100-200_sf.dot``| network file with 100 randomly connected neurons in scale free network with 200 synapses  |
+|`` --ode-synaptic v``        | indicate global quantity that holds voltage (v) where the synapse acts |
+|`` --synapse-g 0.2``         | set the synaptic conductance value                                     |
+|`` --synapse-link-g``        | link all synapse conductances to a single global quantity              |
+|`` Izhikevich.cps``          | COPASI file with the Izhikevich neuron base unit                       |
+|`` 100``                     | create 100 units                                                       |
+
+Running the command explained above (e.g. by running file ex5case2.sh) results in a new model file ex5case2.cps. After loading that file into COPASI we make the following modifications:
+
+1. for event "Stimulus" delete all targets except *Values[i_58]*, so that only one neuron (58) receives a current input
+2. create a time course plot for for all *v_i* (*v_1* to *v_100*)
+3. save the file as ex4case2ready.cps
+
+Below is a representative time course generated from ex5case2ready.cps. As in case 1, this network also creates a certain synchronization of action potentials happening at periodic times.
+
+![Membrane potential of 100 Izhikevich neurons connected in a scale-free random network](ex5case2_fig2.png)
 
 ## References
 
