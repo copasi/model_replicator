@@ -35,19 +35,6 @@ from basico import *
 r = None
 c = None
 l = None
-coupleconst = None
-tVmax = None
-tKm = None
-th = None
-taurinit = None
-taudinit = None
-v0init = None
-vsyninit = None
-gcinit = None
-linkg = None
-grnV = None
-grna = None
-grnh = None
 mediumVol = None
 transported = None
 sp = None
@@ -369,7 +356,7 @@ def read_network(network_file):
 ############
 
 def main():
-    global r, c, l, coupleconst, tVmax, tKm, th, taurinit, taudinit, v0init, vsyninit, gcinit, linkg, grnV, grna, grnh, mediumVol, transported, sp, odelink, base, ext, sbmll, sbmlv, nmodels, dim, fsuff, desc, apdx1, gridr, gridc, gridl, links, digraph, link, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
+    global r, c, l, mediumVol, transported, sp, odelink, base, ext, sbmll, sbmlv, nmodels, dim, fsuff, desc, apdx1, gridr, gridc, gridl, links, digraph, link, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
     
     #####
     #  1. parsing the command line
