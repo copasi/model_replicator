@@ -32,84 +32,16 @@ from basico import *
 #######################
 # GLOBAL VARIABLES #
 
-r = None
-c = None
-l = None
 mparams = None
-seednparams = None
 mcomps = None
-seedncomps = None
 mspecs = None
-seednspecs = None
-
 mreacts = None
+seednparams = None
+seedncomps = None
+seednspecs = None
 seednreacts = None
-mevents = None
-seednevents = None
-base_model_summary = None
-scanitems = None
-noisy_species = None
-noisy_param = None
-noisy_comp = None
-seedname = None
-cmd = None
-nnotes = None
-index = None
-munits = None
-newfilename = None
 newname = None
 newmodel = None
-it = None
-miriam = None
-modf = None
-p = None
-i = None
-apdx = None
-nname = None
-iv = None
-nt = None
-an = None
-cp = None
-scheme = None
-tok = None
-tok2 = None
-rs = None
-t = None
-mapp = None
-key = None
-nmk = None
-k2 = None
-ex = None
-timeonlyevents = None
-etd = None
-entd = None
-netype = None
-ttype = None
-rateconst = None
-suffa = None
-rname = None
-rscheme = None
-thisrateconst = None
-rmap = None
-suffb = None
-tc = None
-ss = None
-mca = None
-le = None
-tsa = None
-cs = None
-lna = None
-sen = None
-seff = None
-scau = None
-ssec = None
-ps = None
-srw = None
-sit = None
-newit = None
-nopt = None
-exps = None
-tcs = None
 
 
 #######################
@@ -327,7 +259,7 @@ def read_network(network_file):
 ############
 
 def main():
-    global r, c, l, mparams, seednparams, mcomps, seedncomps, mspecs, seednspecs, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
+    global mparams, mcomps, mspecs, mreacts, seednparams, seedncomps, seednspecs, seednreacts, newname, newmodel
     
     #####
     #  1. parsing the command line
