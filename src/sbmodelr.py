@@ -65,6 +65,16 @@ def integer_range(astr, min=1, max=10):
     else:
         raise argparse.ArgumentTypeError('value not in range %s-%s'%(min,max))
 
+seednparams = 0
+seedncomps = 0
+seednspecs = 0
+seednreacts = 0
+
+mparams = None
+mcomps = None
+mspecs = None
+mreacts = None
+
 # function to check if a string is an element in the model, optionally ignore compartments
 def is_element(candidate, ignore_compartments):
     el=False
