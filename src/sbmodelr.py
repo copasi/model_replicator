@@ -35,25 +35,7 @@ from basico import *
 r = None
 c = None
 l = None
-mediumVol = None
-transported = None
-sp = None
-odelink = None
-base = None
-ext = None
-sbmll = None
-sbmlv = None
-nmodels = None
-dim = None
-fsuff = None
-desc = None
-apdx1 = None
-gridr = None
-gridc = None
-gridl = None
-links = None
-digraph = None
-link = None
+
 seedmodel = None
 mparams = None
 seednparams = None
@@ -356,7 +338,7 @@ def read_network(network_file):
 ############
 
 def main():
-    global r, c, l, mediumVol, transported, sp, odelink, base, ext, sbmll, sbmlv, nmodels, dim, fsuff, desc, apdx1, gridr, gridc, gridl, links, digraph, link, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
+    global r, c, l, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
     
     #####
     #  1. parsing the command line
