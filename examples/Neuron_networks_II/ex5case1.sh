@@ -5,7 +5,7 @@
 # create network of 100 Izhikevic neurons connected in an Erdos topology with chemical synapses
 
 
-../../sbmodelr \
+sbmodelr \
  --output ex5case1.cps \
  -n network100-200.dot \
  --ode-synaptic v \

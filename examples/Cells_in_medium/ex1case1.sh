@@ -8,7 +8,7 @@
 # that the ratio of volumes 2/10 = 0.2)
 
 
-../../sbmodelr \
+sbmodelr \
  --output case1.cps \
  --add-medium \
  --medium-volume 10 \

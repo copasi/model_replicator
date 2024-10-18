@@ -1,0 +1,60 @@
+==== Model Name ====
+a set of 2 replicas of Simple Binding Reaction
+
+
+==== Model Notes ====
+Processed with sbmodelr to produce a set of 2 replicas of
+../sources/BindingKa.cps
+/Users/frank/Development/model_replicator/venv/bin/sbmodelr -n
+../sources/twins.gv -t c --add-medium ../sources/BindingKa.cps 2 \----- The
+model includes a binding reaction, with mass action kinetics. Three global
+quantities are used here for: kon, koff and Ka koff is defined as and
+assignment (function) of kon and Ka: koff = kon/Ka Changing the value of kon
+automatically changes the value of koff, as seen in the parameter scan
+
+
+
+==== Compartments: 3 ====
+                type size_0 unit  D expression expression_0
+compartment_1  fixed    1.0    l  3                        
+compartment_2  fixed    1.0    l  3                        
+medium         fixed    1.0    l  3                        
+
+
+==== Species: 7 ====
+               type []_0   unit          comp. expression expression_0
+a_1       reactions  1.0  mol/l  compartment_1                        
+b_1       reactions  1.0  mol/l  compartment_1                        
+c_1       reactions  1.0  mol/l  compartment_1                        
+a_2       reactions  1.0  mol/l  compartment_2                        
+b_2       reactions  1.0  mol/l  compartment_2                        
+c_2       reactions  1.0  mol/l  compartment_2                        
+c_medium  reactions  1.0  mol/l         medium                        
+
+
+==== Reactions: 5 ====
+                       scheme                  function                                                                                    mapping
+R1_1          a_1 + b_1 = c_1  Mass action (reversible)             {'k1': 'kon_1', 'substrate': ['a_1', 'b_1'], 'k2': 'koff_1', 'product': 'c_1'}
+R1_2          a_2 + b_2 = c_2  Mass action (reversible)             {'k1': 'kon_2', 'substrate': ['a_2', 'b_2'], 'k2': 'koff_2', 'product': 'c_2'}
+t_c_1-medium   c_1 = c_medium  Mass action (reversible)  {'k1': 'k_c_transport', 'substrate': 'c_1', 'k2': 'k_c_transport', 'product': 'c_medium'}
+t_c_2-medium   c_2 = c_medium  Mass action (reversible)  {'k1': 'k_c_transport', 'substrate': 'c_2', 'k2': 'k_c_transport', 'product': 'c_medium'}
+t_c_1-2             c_1 = c_2  Mass action (reversible)       {'k1': 'k_c_transport', 'substrate': 'c_1', 'k2': 'k_c_transport', 'product': 'c_2'}
+
+
+==== Kinetic Functions: 1 ====
+Mass action (reversible)  k1*PRODUCT<substrate_i>-k2*PRODUCT<product_j>
+
+
+==== Global Quantities: 7 ====
+                     type  value_0 unit expression expression_0
+kon_1               fixed    10.00                             
+koff_1         assignment     0.01                             
+Ka_1                fixed  1000.00                             
+kon_2               fixed    10.00                             
+koff_2         assignment     0.01                             
+Ka_2                fixed  1000.00                             
+k_c_transport       fixed     1.00                             
+
+
+==== Events: 0 ====
+

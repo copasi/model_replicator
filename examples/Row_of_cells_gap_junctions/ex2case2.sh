@@ -5,7 +5,7 @@
 # create 12 cells connected in a row (described in row_of_12.gv file)
 # with transport on IP3 through Hill kinetics
 
-../../sbmodelr \
+sbmodelr \
  --output ex2case2.cps \
  --Hill-transport IP3 \
  --transport-Vmax 4 \

@@ -72,7 +72,7 @@
 
     </MiriamAnnotation>
     <Comment>
-      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 100 replicas of Izhikevich.cps</p><pre style="font-size:small">../../sbmodelr --output ex5case2.cps -n network100-200_sf.dot --ode-synaptic v --synapse-g 0.2 --synapse-link-g Izhikevich.cps 100</pre><p>notes of original file below:</p><hr />
+      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 100 replicas of Izhikevich.cps</p><pre style="font-size:small">sbmodelr --output ex5case2.cps -n network100-200_sf.dot --ode-synaptic v --synapse-g 0.2 --synapse-link-g Izhikevich.cps 100</pre><p>notes of original file below:</p><hr />
 <h1>Izhikevich neuron model</h1>
     <p>This neuron model, formulated by Izhikevich, is a minimal model that still has easy biological interpretation, yet is as computationally efficient as the integrate-and-fire model. Known types of neurons can be simulated with this model by using different values for the parameters <i>a</i>, <i>b</i>, <i>c</i>, and <i>d</i> in the model.</p>
 <ul>

@@ -6,7 +6,7 @@
 # with transport on IP3
 
 
-../../sbmodelr \
+sbmodelr \
  --output ex2case1.cps \
  -t IP3 \
  -k 2 \

@@ -9,7 +9,7 @@
 
 # total cell volume)
 
-../../sbmodelr \
+sbmodelr \
  --output case2.cps \
  --add-medium \
  --medium-volume 25 \
