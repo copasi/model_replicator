@@ -4,7 +4,7 @@
 
 # creates the repressilator network of 3 genes
 
-../../sbmodelr \
+sbmodelr \
  --output ex6case1.cps \
  --ignore-compartments \
  -n 3circle.gv \

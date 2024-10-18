@@ -53,7 +53,7 @@
 
     </MiriamAnnotation>
     <Comment>
-      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 2 replicas of RSA_neuron.cps</p><pre style="font-size:small">../../sbmodelr --output ex4case1.cps -n ff2.dot --ode-synaptic V --synapse-g 0.08 RSA_neuron.cps 2</pre><p>notes of original file below:</p><hr /><h1>RSA Neuron</h1>
+      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 2 replicas of RSA_neuron.cps</p><pre style="font-size:small">sbmodelr --output ex4case1.cps -n ff2.dot --ode-synaptic V --synapse-g 0.08 RSA_neuron.cps 2</pre><p>notes of original file below:</p><hr /><h1>RSA Neuron</h1>
 <p>This is a 9-ODE model of a regular spiking neuron with adaptation (RSA), inspired by the Hodgin-Huxley model, first proposed by Pospischil et al. (2008) and re-used in Giannari and Astolfi (2022).</p>
 
 <p>Since this model is based on voltages and intensities, all variables and differential equations are defined under Global Quantities (there are no reactions and no species here). The model includes a sequence of current pulses (10 &micro;A/cm<sup>2</sup> for 1ms), spaced according to a Poisson distribution with an average of 1 pulse per 25 ms, which eventually cause action potentials.</p>

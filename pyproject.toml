@@ -1,0 +1,27 @@
+[project]
+name = 'sbmodelr'
+dynamic = ["version"]
+readme = "README.md"
+authors = [
+    { name = "Pedro Mendes", email = "pmendes@uchc.edu" }
+]
+
+dependencies = [
+    "copasi-basico",
+]
+
+
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "copasi-basico"
+]
+
+
+[project.urls]
+Repository = "https://github.com/copasi/model_replicator"
+Issues = "https://github.com/copasi/model_replicator/issues"
+
+[project.scripts]
+sbmodelr="sbmodelr:main"

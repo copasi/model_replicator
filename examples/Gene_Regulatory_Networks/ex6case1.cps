@@ -104,7 +104,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
     </MiriamAnnotation>
     <Comment>
-      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 3 replicas of GenExBase.cps</p><pre style="font-size:small">../../sbmodelr --output ex6case1.cps --ignore-compartments -n 3circle.gv -g G --pn G 0.8 uni --grn-V 3 --grn-a -1 --grn-h 4 GenExBase.cps 3</pre><p>notes of original file below:</p><hr/><h1>Gene expression</h1>
+      <body xmlns="http://www.w3.org/1999/xhtml"><p>Processed with sbmodelr to produce a set of 3 replicas of GenExBase.cps</p><pre style="font-size:small">sbmodelr --output ex6case1.cps --ignore-compartments -n 3circle.gv -g G --pn G 0.8 uni --grn-V 3 --grn-a -1 --grn-h 4 GenExBase.cps 3</pre><p>notes of original file below:</p><hr/><h1>Gene expression</h1>
 <p>A basic model with one gene (<i>G</i>), representing a reaction for its basal rate of transcription (constant rate) and a degradation reaction (first order)</p>
 <pre>
  --> G -->

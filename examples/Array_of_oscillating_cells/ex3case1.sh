@@ -6,7 +6,7 @@
 # add 10% noise on parameter alpha
 
 
-../../sbmodelr \
+sbmodelr \
  --output ex3case1.cps \
  -t Xex \
  -k 5 \

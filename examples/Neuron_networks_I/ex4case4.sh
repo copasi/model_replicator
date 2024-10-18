@@ -3,7 +3,7 @@
 # example 4, case 4
 # spinal central pattern generator
 
-../../sbmodelr \
+sbmodelr \
  --output ex4case4.cps \
  -n scpg.dot \
  --ode-synaptic V \

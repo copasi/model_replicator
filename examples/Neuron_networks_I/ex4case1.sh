@@ -5,7 +5,7 @@
 # create a simple 2 neuron network where 1 feeds into 2
 
 
-../../sbmodelr \
+sbmodelr \
  --output ex4case1.cps \
  -n ff2.dot \
  --ode-synaptic V \
