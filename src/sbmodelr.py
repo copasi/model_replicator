@@ -15,7 +15,7 @@
 #TODO: modification between units? (would need to select species and reaction)
 #TODO: hexagonal arrays? (please no!)
 
-__version__ = "1.0a8"
+__version__ = "1.0b1"
 
 import os
 import re
@@ -32,14 +32,9 @@ from basico import *
 #######################
 # GLOBAL VARIABLES #
 
-parser = None
-args = None
-seedmodelfile = None
 r = None
 c = None
 l = None
-ignc = None
-trate = None
 coupleconst = None
 tVmax = None
 tKm = None
@@ -374,7 +369,7 @@ def read_network(network_file):
 ############
 
 def main():
-    global parser, args, seedmodelfile, r, c, l, ignc, trate, coupleconst, tVmax, tKm, th, taurinit, taudinit, v0init, vsyninit, gcinit, linkg, grnV, grna, grnh, mediumVol, transported, sp, odelink, base, ext, sbmll, sbmlv, nmodels, dim, fsuff, desc, apdx1, gridr, gridc, gridl, links, digraph, link, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs 
+    global r, c, l, coupleconst, tVmax, tKm, th, taurinit, taudinit, v0init, vsyninit, gcinit, linkg, grnV, grna, grnh, mediumVol, transported, sp, odelink, base, ext, sbmll, sbmlv, nmodels, dim, fsuff, desc, apdx1, gridr, gridc, gridl, links, digraph, link, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
     
     #####
     #  1. parsing the command line
@@ -2390,22 +2385,24 @@ def main():
             nopt['expression'] = fix_expression(nopt['expression'], apdx1, ignc)
             set_opt_settings(nopt,newmodel)
             ops = get_opt_parameters(model=seedmodel)
-            for p in ops.index:
-                # rename the CN
-                ops.loc[p, 'cn'] = fix_expression(ops.loc[p].at['cn'] ,apdx1, ignc)
-                # rename the index
-                newp = fix_expression(p,apdx1, ignc)
-                ops.rename(index={p: newp}, inplace=True)
-            set_opt_parameters(ops, model=newmodel)
+            if ops is not None:
+                for p in ops.index:
+                    # rename the CN
+                    ops.loc[p, 'cn'] = fix_expression(ops.loc[p].at['cn'] ,apdx1, ignc)
+                    # rename the index
+                    newp = fix_expression(p,apdx1, ignc)
+                    ops.rename(index={p: newp}, inplace=True)
+                set_opt_parameters(ops, model=newmodel)
             cst = get_opt_constraints(model=seedmodel)
-            # deal with constraints
-            for p in cst.index:
-                # rename the CN
-                cst.loc[p, 'cn'] = fix_expression(cst.loc[p].at['cn'] ,apdx1, ignc)
-                # rename the index
-                newp = fix_expression(p,apdx1, ignc)
-                cst.rename(index={p: newp}, inplace=True)
-            set_opt_constraints(cst, model=newmodel)
+            if cst is not None:
+                # deal with constraints
+                for p in cst.index:
+                    # rename the CN
+                    cst.loc[p, 'cn'] = fix_expression(cst.loc[p].at['cn'] ,apdx1, ignc)
+                    # rename the index
+                    newp = fix_expression(p,apdx1, ignc)
+                    cst.rename(index={p: newp}, inplace=True)
+                set_opt_constraints(cst, model=newmodel)
             print(' Warning: in Optimization task the objective function and the search parameters were converted to those of the first unit only.')
 
         # We won't do Parameter estimation but need to issue a warning if it was set
