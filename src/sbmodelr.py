@@ -35,24 +35,13 @@ from basico import *
 r = None
 c = None
 l = None
-
-seedmodel = None
 mparams = None
 seednparams = None
-pfixed = None
-passg = None
-pode = None
 mcomps = None
 seedncomps = None
-cfixed = None
-cassg = None
-code = None
 mspecs = None
 seednspecs = None
-sreact = None
-sfixed = None
-sassg = None
-sode = None
+
 mreacts = None
 seednreacts = None
 mevents = None
@@ -338,7 +327,7 @@ def read_network(network_file):
 ############
 
 def main():
-    global r, c, l, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
+    global r, c, l, mparams, seednparams, mcomps, seedncomps, mspecs, seednspecs, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs
     
     #####
     #  1. parsing the command line
