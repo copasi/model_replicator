@@ -30,6 +30,136 @@ import pandas as pd
 from basico import *
 
 #######################
+# GLOBAL VARIABLES #
+
+parser = None
+args = None
+seedmodelfile = None
+r = None
+c = None
+l = None
+ignc = None
+trate = None
+coupleconst = None
+tVmax = None
+tKm = None
+th = None
+taurinit = None
+taudinit = None
+v0init = None
+vsyninit = None
+gcinit = None
+linkg = None
+grnV = None
+grna = None
+grnh = None
+mediumVol = None
+transported = None
+sp = None
+odelink = None
+base = None
+ext = None
+sbmll = None
+sbmlv = None
+nmodels = None
+dim = None
+fsuff = None
+desc = None
+apdx1 = None
+gridr = None
+gridc = None
+gridl = None
+links = None
+digraph = None
+link = None
+seedmodel = None
+mparams = None
+seednparams = None
+pfixed = None
+passg = None
+pode = None
+mcomps = None
+seedncomps = None
+cfixed = None
+cassg = None
+code = None
+mspecs = None
+seednspecs = None
+sreact = None
+sfixed = None
+sassg = None
+sode = None
+mreacts = None
+seednreacts = None
+mevents = None
+seednevents = None
+base_model_summary = None
+scanitems = None
+noisy_species = None
+noisy_param = None
+noisy_comp = None
+seedname = None
+cmd = None
+nnotes = None
+index = None
+munits = None
+newfilename = None
+newname = None
+newmodel = None
+it = None
+miriam = None
+modf = None
+p = None
+i = None
+apdx = None
+nname = None
+iv = None
+nt = None
+an = None
+cp = None
+scheme = None
+tok = None
+tok2 = None
+rs = None
+t = None
+mapp = None
+key = None
+nmk = None
+k2 = None
+ex = None
+timeonlyevents = None
+etd = None
+entd = None
+netype = None
+ttype = None
+rateconst = None
+suffa = None
+rname = None
+rscheme = None
+thisrateconst = None
+rmap = None
+suffb = None
+tc = None
+ss = None
+mca = None
+le = None
+tsa = None
+cs = None
+lna = None
+sen = None
+seff = None
+scau = None
+ssec = None
+ps = None
+srw = None
+sit = None
+newit = None
+nopt = None
+exps = None
+tcs = None
+
+
+#######################
 # AUXILIARY FUNCTIONS #
 
 # function to test if string is a number, it's amazing this is not native to python...
@@ -64,16 +194,6 @@ def integer_range(astr, min=1, max=10):
         return value
     else:
         raise argparse.ArgumentTypeError('value not in range %s-%s'%(min,max))
-
-seednparams = 0
-seedncomps = 0
-seednspecs = 0
-seednreacts = 0
-
-mparams = None
-mcomps = None
-mspecs = None
-mreacts = None
 
 # function to check if a string is an element in the model, optionally ignore compartments
 def is_element(candidate, ignore_compartments):
@@ -254,7 +374,8 @@ def read_network(network_file):
 ############
 
 def main():
-
+    global parser, args, seedmodelfile, r, c, l, ignc, trate, coupleconst, tVmax, tKm, th, taurinit, taudinit, v0init, vsyninit, gcinit, linkg, grnV, grna, grnh, mediumVol, transported, sp, odelink, base, ext, sbmll, sbmlv, nmodels, dim, fsuff, desc, apdx1, gridr, gridc, gridl, links, digraph, link, seedmodel, mparams, seednparams, pfixed, passg, pode, mcomps, seedncomps, cfixed, cassg, code, mspecs, seednspecs, sreact, sfixed, sassg, sode, mreacts, seednreacts, mevents, seednevents, base_model_summary, scanitems, noisy_species, noisy_param, noisy_comp, seedname, cmd, nnotes, index, munits, newfilename, newname, newmodel, it, miriam, modf, p, i, apdx, nname, iv, nt, an, cp, scheme, tok, tok2, rs, t, mapp, key, nmk, k2, ex, timeonlyevents, etd, entd, netype, ttype, rateconst, suffa, rname, rscheme, thisrateconst, rmap, suffb, tc, ss, mca, le, tsa, cs, lna, sen, seff, scau, ssec, ps, srw, sit, newit, nopt, exps, tcs 
+    
     #####
     #  1. parsing the command line
     #####
