@@ -3,7 +3,7 @@
 # example 5, case 1
 
 # create network of 100 Izhikevic neurons connected in an Erdos topology with chemical synapses
-
+# the network topology is supplied in the file network100-200.dot
 
 sbmodelr \
  --output ex5case1.cps \
