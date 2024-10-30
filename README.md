@@ -38,7 +38,7 @@ from this git repo:
 
 ## Usage
 
-See User Manual for complete description of how to use *sbmodelr*. Detailed examples are also provided in the Examples folder.
+See User Manual for complete description of how to use *sbmodelr*. Detailed examples are also provided in the *examples* folder.
 
 ## Credits
 
