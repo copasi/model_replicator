@@ -43,7 +43,10 @@ While *sbmodelr* has special provisions to create 2D and 3D arrays, *any* kind o
 Currently there are four types of connections between units that can be added to the output model. They can be 1) transport of species, 2) diffusive connection of explicit ODEs, 3) regulatory interactions on the synthesis of species, and 4) chemical synapses through the method of Destexhe *et al.* (1994).
 
 **Transport of species**
-If the base model has species that one wants to allow being transported between units, this can be specified with the option `-t species` or `--transport species`, where `species` is the species name.
+If the base model has species that one wants to allow being transported between units, this can be specified with the option `-t species` or `--transport species`, where `species` is the species name. This will create transport steps that are governed by mass action kinetics, where the rate constant is the same in both directions. A more general way of specifying transport is to use the option `--Hill-transport species` which will create transport steps following Hill kinetics. More specifically the rate laws used are:
+ - `-t species` or `--transport species`: *v = k·(species_i - species_j)* where *k* is a transport rate constant, and *i* and *j* are the indices of the two units
+ - `--Hill-transport species`: *v = V · (species_i^h - species_j^h ) / ( Km^h + species_i^h + species_j^h )* where *V* is a maximal rate of trasport, *Km* is the concentration of *species_i* (and *species_j*) that leads to the rate to be half of *V*, *h* is a Hill coefficient, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units
+
 
 **Diffusive connection of explicit ODEs**
 
