@@ -32,7 +32,7 @@ To force the output file to be written in COPASI format you will need to explici
 
 **Number of replicates and connectivity**
 
-*sbmodelr* creates more than one copy of the base model, organized as arbitrary connections, a 2D rectangular matrix, or a 3D cuboid array. The number of units created is specified with 1, 2 or 3 numbers after the base model filename.
+*sbmodelr* creates more than one copy of the base model, organized as a 2D rectangular matrix, a 3D cuboid array, or a set of units with arbitrary connections. The number of units created is specified with 1, 2 or 3 numbers after the base model filename.
 
-*2D Rectangular matrices* are created with two numbers specifying the number of rows and columns of the matrix. The command
+- *2D Rectangular matrices* are created with two numbers specifying the number of rows and columns of the matrix. The command
 `sbmodelr basemodel.cps 3 5` creates 15 units organized as a matrix with 3 rows and 5 columns. If interactions are specified (see below) then they will be between neighboring units (left, right, top and bottom for the "bulk" units, while only 3 other units at the edges, and only 2 other units in the corners).  Note that this topology *is not* toroidal.
