@@ -26,13 +26,12 @@ The base model is either encoded in an [SBML](https:sbml.org) file (up to L3v2) 
 
 By default the output file will be named after the input file with an appendix to its name reflecting the number of replicate units. To specifically name the output file use the option `-o filename` or `--output filename`, for example `sbmodelr -o newmodel.cps basemodel.cps 2` would create `newmodel.cps` (without this option the output filename would be `basemodel_2.cps`).
 
-To force the output file to be written in SBML format add the option `--sbml`; this option can take an argument specifying the level and version of SBML required (one of `l1v2`,`l2v3`,`l2v4`,`l2v5`,`l3v1`,`l3v2`).
-
-To force the output file to be written in COPASI format you will need to explicitly name the output file with option `-o filename.cps` or `--output filename.cps`, ensuring that the filename ends with `.cps` extension.
+ - To force the output file to be written in SBML format add the option `--sbml`; this option can take an argument specifying the level and version of SBML required (one of `l1v2`,`l2v3`,`l2v4`,`l2v5`,`l3v1`,`l3v2`).
+ - To force the output file to be written in COPASI format you will need to explicitly name the output file with option `-o filename.cps` or `--output filename.cps`, ensuring that the filename ends with `.cps` extension.
 
 **Number of replicates and connectivity**
 
 *sbmodelr* creates more than one copy of the base model, organized as a 2D rectangular matrix, a 3D cuboid array, or a set of units with arbitrary connections. The number of units created is specified with 1, 2 or 3 numbers after the base model filename.
 
-- *2D Rectangular matrices* are created with two numbers specifying the number of rows and columns of the matrix. The command
+ - *2D Rectangular matrices* are created with two numbers specifying the number of rows and columns of the matrix. The command
 `sbmodelr basemodel.cps 3 5` creates 15 units organized as a matrix with 3 rows and 5 columns. If interactions are specified (see below) then they will be between neighboring units (left, right, top and bottom for the "bulk" units, while only 3 other units at the edges, and only 2 other units in the corners).  Note that this topology *is not* toroidal.
