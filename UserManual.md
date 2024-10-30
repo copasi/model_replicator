@@ -8,9 +8,9 @@ For a full set of options run `sbmodelr --help` on the command line.
 ## Examples
 The rest of this document describes the many options that are available in *sbmodelr*, but specific examples of usage are provided in the `examples` folder, which illustrate real-world usage of this tool, mostly replicating existing modeling papers. The examples are:
 
- - [Cells in a medium](examples/Cells_in_medium)
- - [Row of cells with gap junctions](examples/Row_of_cells_gap_junctions)
- - [Array of oscillating cells](examples/Array_of_oscillating_cells)
+ - [Cells in a medium](examples/Cells_in_medium): single cell organisms with species transported to the medium
+ - [Row of cells with gap junctions](examples/Row_of_cells_gap_junctions): cells connected end-to-end by gap junctions
+ - [Array of oscillating cells](examples/Array_of_oscillating_cells): a square array of cells in a medium with diffusion
  - [Neuron networks I](examples/Neuron_networks_I): small(ish) networks using a Hodgkin-Huxley-type model
  - [Neuron networks II](examples/Neuron_networks_II): large networks using the Izhikevich model
  - [Gene regulatory networks](examples/Gene_Regulatory_Networks): easy creation of large (or small) gene networks from a simple model file
