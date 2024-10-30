@@ -26,7 +26,7 @@ The base model is either encoded in an [SBML](https:sbml.org) file (up to L3v2) 
 
 Use option `--sbml` to force the output to be in SBML format. This option can take an argument specifying the level and version of SBML required (one of `l1v2`,`l2v3`,`l2v4`,`l2v5`,`l3v1`,`l3v2`)
 
-To force the output file to be in COPASI format you will need to use the option to name the output file (`-o filename` or `--ooutput filename`) and explicitly use a `.cps` extension: for example `sbmodelr -o filename.cps inputfile 2`.
+To force the output file to be in COPASI format you will need to explicitly name the output file with option `-o filename` or `--output filename`, and ensure the filename ends with extension `.cps` extension: for example `sbmodelr -o filename.cps inputfile 2`.
 
 
 ## Saved text
