@@ -39,7 +39,7 @@ By default the output file will be named after the input file with an appendix t
 
 While *sbmodelr* has special provisions to create 2D and 3D arrays, *any* kind of topology can be specified through the use of appropriate network files.
 
-## Connecting the units
+### Connecting the units
 Currently there are four types of connections between units that can be added to the output model. They can be 1) transport of species, 2) diffusive connection of explicit ODEs, 3) regulatory interactions on the synthesis of species, and 4) chemical synapses through the method of Destexhe *et al.* (1994).
 
 **Transport of species**
