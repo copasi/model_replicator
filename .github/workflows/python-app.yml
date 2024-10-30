@@ -5,10 +5,10 @@ name: Functional tests
 on:
   push:
     branches: [ "main" ]
-    paths-ignore: ['examples/**']
+    paths-ignore: ['examples/**', '**.md']
   pull_request:
     branches: [ "main" ]
-    paths-ignore: ['examples/**']
+    paths-ignore: ['examples/**', '**.md']
 
 permissions:
   contents: read
