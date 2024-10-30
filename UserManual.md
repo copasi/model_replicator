@@ -19,7 +19,7 @@ The rest of this document describes the many options that are available in *sbmo
 
 ### Required options
 
-*sbmodler* requires at least two command line arguments: 1) a base model file, and 2) the number of units to replicate. The most simple command that can be issued is: `sbmodelr mybasemodel.cps 2`; this would create a new file called `mybasemodel_2.cps` with two units that are exact copies of the model in `mybasemodel.cps`.
+*sbmodler* requires at least two command line arguments: 1) a base model file, and 2) the number of units to replicate. The simplest command that can be issued is: `sbmodelr mybasemodel.cps 2`; this would create a new file called `mybasemodel_2.cps` with two units that are exact copies of the model in `mybasemodel.cps`.
 
 **File formats and options**
 The base model is either encoded in an [SBML](https:sbml.org) file (up to L3v2) or a [COPASI](https://copasi.org) file (extension `.cps`). The output of *sbmodelr* will be in the same format as the supplied file.
