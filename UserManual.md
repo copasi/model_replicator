@@ -24,9 +24,11 @@ The rest of this document describes the many options that are available in *sbmo
 **File formats and options**
 The base model is either encoded in an [SBML](https:sbml.org) file (up to L3v2) or a [COPASI](https://copasi.org) file (extension `.cps`). The output of *sbmodelr* will be in the same format as the supplied file.
 
+By default the output file will be named after the input file with an appendix to its name reflecting the number of replicate units. To specifically name the output file use the option `-o filename` or `--output filename`, for example `sbmodelr -o newmodel.cps basemodel.cps 2` which would create `newmodel.cps` (without this option the default name would be `basemodel_2.cps`).
+
 To force the output file to be in SBML format use option `--sbml`; this option can take an argument specifying the level and version of SBML required (one of `l1v2`,`l2v3`,`l2v4`,`l2v5`,`l3v1`,`l3v2`).
 
-To force the output file to be in COPASI format you will need to explicitly name the output file with option `-o filename` or `--output filename`, and ensure the filename ends with extension `.cps` extension: for example `sbmodelr -o filename.cps inputfile 2`.
+To force the output file to be in COPASI format you will need to explicitly name the output file with option `-o filename` or `--output filename`, and ensure the filename ends with `.cps` extension.
 
 
 ## Saved text
