@@ -13,18 +13,18 @@ An additional unit can be added -- called 'medium' -- which only contains the tr
 
 It is also possible to add randomness to parameter values, such that each unit becomes slightly different from each other.
 
-Practical uses of **sbmodelr** include:
+Practical uses of *sbmodelr* include:
  - using a cell model to create a model of a tissue or organoid, 
  - use a gene transcription model to create a gene regulatory network
  - use a neuron model (e.g. the Hodgkin-Huxley) to create a network of neurons
 
-The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc, where the model will be used for simulations. (**sbmodelr** only creates models, it does not carry out any simulation)
+The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc, where the model will be used for simulations. (*sbmodelr* only creates models, it does not carry out any simulation)
 
 ## Installation
 
-The package works with python 3.7+, provided the package **copasi-basico**, that is freely available on pypi, is installed.
+The package works with python 3.7+, provided the package *copasi-basico*, that is freely available on pypi, is installed.
 
-You can then install **sbmodelr** and all its dependencies by running `setup.py`.
+You can then install *sbmodelr* and all its dependencies by running `setup.py`.
 
 Or you could directly install everything you need right from pypi
 
@@ -36,13 +36,13 @@ from this git repo:
 
 ## Usage
 
-See User Manual for complete description of how to use **sbmodelr**. Detailed examples are also provided in the Examples folder.
+See User Manual for complete description of how to use *sbmodelr*. Detailed examples are also provided in the Examples folder.
 
 ## Credits
 
 This program is inspired by [MEG](http://www.gepasi.org/meg.html) [1], a utility included in the old [Gepasi](http://www.gepasi.org) simulator. The COPASI GUI and the [BasiCO](https://github.com/copasi/basico) python API [2] both contain some functionality similar to that provided here, however they are limited to replicating compartments (with all their species and reactions) and connecting them by transport of species, but *do not* operate on global quantities, and can't add chemical synapse connections or regulatory interactions.
 
-Thanks to Frank Bergmann for making [BasiCO](https://github.com/copasi/basico) and the whole [COPASI](https://copasi.org) team for that simulator, which is ultimately the backend that is working behind **sbmodelr**.
+Thanks to Frank Bergmann for making [BasiCO](https://github.com/copasi/basico) and the whole [COPASI](https://copasi.org) team for that simulator, which is ultimately the backend that is working behind *sbmodelr*.
 
 **References**
  1. [Mendes P, Kell DB (2001) MEG (Model Extender for Gepasi): a program for the modelling of complex, heterogeneous, cellular systems. Bioinformatics 17:288–289](https://doi.org/10.1093/bioinformatics/17.3.288)
