@@ -21,7 +21,7 @@ The rest of this document describes the many options that are available in *sbmo
 
 *sbmodler* requires at least two command line arguments: 1) a base model file, and 2) the number of units to replicate. The simplest command that can be issued is: `sbmodelr mybasemodel.cps 2`; this would create a new file called `mybasemodel_2.cps` with two units that are exact copies of the model in `mybasemodel.cps`.
 
-**File formats and options**
+**File Input and Output**
 The base model is either encoded in an [SBML](https:sbml.org) file (up to L3v2) or a [COPASI](https://copasi.org) file (extension `.cps`). The output of *sbmodelr* will be in the same format as the supplied file.
 
 By default the output file will be named after the input file with an appendix to its name reflecting the number of replicate units. To specifically name the output file use the option `-o filename` or `--output filename`, for example `sbmodelr -o newmodel.cps basemodel.cps 2` would create `newmodel.cps` (without this option the output filename would be `basemodel_2.cps`).
@@ -30,6 +30,9 @@ To force the output file to be written in SBML format add the option `--sbml`; t
 
 To force the output file to be written in COPASI format you will need to explicitly name the output file with option `-o filename.cps` or `--output filename.cps`, ensuring that the filename ends with `.cps` extension.
 
+**Number of replicates and connectivity**
 
-## Saved text
-If the original was an SBML model the output will automatically be another SBML model, if it was a COPASI model then the output will be another COPASI model; note that in this case the script attempts to adapt the Tasks to use the new model. It is also possible to input one format and output the other through commmand line options.
+*sbmodelr* creates more than one copy of the base model, organized as arbitrary connections, a 2D rectangular matrix, or a 3D cuboid array. The number of units created is specified with 1, 2 or 3 numbers after the base model filename.
+
+*2D Rectangular matrices* are created with two numbers specifying the number of rows and columns of the matrix. The command
+`sbmodelr basemodel.cps 3 5` creates 15 units organized as a matrix with 3 rows and 5 columns. If interactions are specified (see below) then they will be between neighboring units (left, right, top and bottom for the "bulk" units, while only 3 other units at the edges, and only 2 other units in the corners).  Note that this topology *is not* toroidal.
