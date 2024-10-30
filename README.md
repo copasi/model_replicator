@@ -18,14 +18,15 @@ Practical uses of *sbmodelr* include:
  - use a gene transcription model to create a gene regulatory network
  - use a neuron model (e.g. the Hodgkin-Huxley) to create a network of neurons
 
-The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc, where the model will be used for simulations. (*sbmodelr* only creates models, it does not carry out any simulation)
+The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc, where the model will be used for simulations. (*sbmodelr* only creates models, it does not carry out simulations.)
 
 ## Installation
 
-The package works with python 3.7+, provided the package *copasi-basico*, that is freely available on pypi, is installed.
+The package works with python 3.7+, provided the package *copasi-basico* is installed (freely available on pypi).
 
 You can then install *sbmodelr* and all its dependencies by running `setup.py`.
 
+<!--
 Or you could directly install everything you need right from pypi
 
     pip install sbmodelr
@@ -33,6 +34,7 @@ Or you could directly install everything you need right from pypi
 from this git repo:
 
     pip install git+https://github.com/copasi/model_replicator.git
+-->
 
 ## Usage
 
