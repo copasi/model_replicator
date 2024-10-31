@@ -22,18 +22,22 @@ The output of this program is a new model file with the more complex model. It i
 
 ## Installation
 
-The package works with python 3.7+ and requires the package *copasi-basico* (freely available on pypi).
+The package works with python 3.8+ and requires the package *copasi-basico* (freely available on pypi).
 
-You can install *sbmodelr* and its dependency by running `setup.py`.
+You can install *sbmodelr* and its dependency by running:
+
+        pip install git+https://github.com/copasi/sbmodelr.git
+
+or optionally for development with:
+
+        git clone https://github.com/copasi/sbmodelr
+        pip install -e ./sbmodelr
 
 <!--
-Or you could directly install everything you need right from pypi
+You can install the package directly from pypi:
 
     pip install sbmodelr
 
-from this git repo:
-
-    pip install git+https://github.com/copasi/model_replicator.git
 -->
 
 ## Usage
