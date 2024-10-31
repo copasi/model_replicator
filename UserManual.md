@@ -50,8 +50,8 @@ If the base model has species that one wants to allow being transported between 
 | ----------------------------------- | ------------ | ------------------------------- | ------------------------- |
 |`-t species` or `--transport species`| graph        | *v = k·(species_i - species_j)* | 2D and 3D matrices        |
 |`-t species` or `--transport species`| digraph      | *v = k·species_i*               | not for 2D or 3D matrices |
-|`--Hill-transport species`           | graph        |*v = V·(species_i^h - species_j^h ) / (Km^h + species_i^h + species_j^h)* | 2D and 3D matrices        |
-|`--Hill-transport species`           | digraph      |*v = V·species_i^h / (Km^h + species_i^h)* | not for 2D or 3D matrices |
+|`--Hill-transport species`           | graph        |*v = V·(species_i<sup>h</sup> - species_j<sup>h</sup> ) / (Km<sup>h</sup> + species_i<sup>h</sup> + species_j<sup>h</sup>)* | 2D and 3D matrices        |
+|`--Hill-transport species`           | digraph      |*v = V·species_i<sup>h</sup> / (Km<sup>h</sup> + species_i<sup>h</sup>)* | not for 2D or 3D matrices |
 
 where *k* is a transport rate constant, *V* is a maximal rate of transport, *Km* is the concentration of *species_i* (and *species_j*) when the rate is half of *V*, *h* is a Hill exponent, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units
 
