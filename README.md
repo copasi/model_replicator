@@ -54,4 +54,10 @@ Thanks to Frank Bergmann for making [BasiCO](https://github.com/copasi/basico) a
  1. [Mendes P, Kell DB (2001) MEG (Model Extender for Gepasi): a program for the modelling of complex, heterogeneous, cellular systems. Bioinformatics 17:288–289](https://doi.org/10.1093/bioinformatics/17.3.288)
  2. [Bergmann FT (2023) BASICO: A simplified Python interface to COPASI. Journal of Open Source Software 8:5553](https://doi.org/10.21105/joss.05553)
 
+## Funding
 
+This package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number GM137787. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+
+## License
+
+This program is Copyright Pedro Mendes 2024 and is provided under the Artistic License 2.0, which is an OSI approved license. This license allows non-commercial and commercial use free of charge.
