@@ -72,7 +72,7 @@ where *c* is a diffusive rate constant.
 
 The option to indicate that a variable should be connected by a diffusive interaction is `--d variable` or `--ode-diffusive variable`. The `variable` must be defined as an explicit `ode` type in the base model, or this option will generate an error.
 
-If a network was specified as a (bi-directional) graph, or we are using 2D or 3D arrays, the interaction is symetric and acts like diffusion, where the unit with the highest value "flows" into the variable with the lowest value until they become equal. If a network is defined as a digraph (directed graph), then there is only flow from one unit to the other (whatever direction was defined in the network file).
+If a network was specified as a (bi-directional) graph, or we are creating 2D or 3D arrays, the interaction is symetric and acts like diffusion, where the unit with the highest value "flows" into the variable with the lowest value until they become equal. If a network is defined as a digraph (directed graph), then there is only flow from one unit to the other (whatever direction was defined in the network file).
 
 **Regulatory interactions on the synthesis of species**
 
