@@ -20,6 +20,10 @@ Practical uses of *sbmodelr* include:
 
 The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc, where the model will be used for simulations. (*sbmodelr* only creates models, it does not carry out simulations.)
 
+## Usage
+
+See [User Manual](UserManual.md) for complete description of how to use *sbmodelr*. Detailed examples are provided in the [examples](https://github.com/copasi/sbmodelr/tree/main/examples) folder.
+
 ## Installation
 
 The package works with python 3.8+ and requires the package *copasi-basico* (freely available on pypi).
@@ -39,10 +43,6 @@ You can install the package directly from pypi:
     pip install sbmodelr
 
 -->
-
-## Usage
-
-See [User Manual](UserManual.md) for complete description of how to use *sbmodelr*. Detailed examples are provided in the `examples` folder.
 
 ## Credits
 
