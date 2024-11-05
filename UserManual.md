@@ -53,10 +53,23 @@ If the base model has species that one wants to allow being transported between 
 |`--Hill-transport species`           | graph        |*v = V·(species_i<sup>h</sup> - species_j<sup>h</sup> ) / (Km<sup>h</sup> + species_i<sup>h</sup> + species_j<sup>h</sup>)* | 2D and 3D matrices        |
 |`--Hill-transport species`           | digraph      |*v = V·species_i<sup>h</sup> / (Km<sup>h</sup> + species_i<sup>h</sup>)* | not for 2D or 3D matrices |
 
-where *k* is a transport rate constant, *V* is a maximal rate of transport, *Km* is the concentration of *species_i* (and *species_j*) when the rate is half of *V*, *h* is a Hill exponent, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units
+where *k* is a transport rate constant, *V* is a maximal rate of transport, *Km* is the concentration of *species_i* (and *species_j*) when the rate is half of *V*, *h* is a Hill exponent, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units.
 
 
 **Diffusive connection of explicit ODEs**
+
+This type of connection allows connecting variables that are explicit ODEs, such as species, global quantities, or compartments of type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is effectively equal to a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
+
+| variable   | network type | new term on rhs of ODE          |
+| ---------- |------------- | ------------------------------- |
+| variable_i |  graph       | *+ c·(variable_j - variable_i)* |
+| variable_j |  graph       | *+ c·(variable_i - variable_j)* |
+| ---------- |------------- | ------------------------------- |
+| variable_i |  digraph     | *- c·variable_i *               |
+| variable_j |  digraph     | *+ c·variable_i *               |
+| ---------- |------------- | ------------------------------- |
+
+where *c* is a diffusive rate constant.
 
 **Regulatory interactions on the synthesis of species**
 
