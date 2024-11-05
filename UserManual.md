@@ -58,7 +58,9 @@ where *k* is a transport rate constant, *V* is a maximal rate of transport, *Km*
 
 **Diffusive connection of explicit ODEs**
 
-This type of connection allows connecting variables that are explicit ODEs, such as species, global quantities, or compartments of type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is effectively equal to a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
+The option to indicate that a variable should be connected by a diffusive interaction is `--d variable` or `--ode-diffusive variable`. The `variable` must be defined as an explicit `ode` type in the base model, or this option will generate an error.
+
+This type of connection allows connecting variables that are explicit ODEs, such as species, global quantities, or compartments of type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is mathematically the same as a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
 
 | variable   | network type | new term on rhs of ODE          |
 | ---------- |------------- | ------------------------------- |
@@ -70,9 +72,9 @@ This type of connection allows connecting variables that are explicit ODEs, such
 
 where *c* is a diffusive rate constant.
 
-The option to indicate that a variable should be connected by a diffusive interaction is `--d variable` or `--ode-diffusive variable`. The `variable` must be defined as an explicit `ode` type in the base model, or this option will generate an error.
+If a network was specified as a (bi-directional) graph, or we are creating 2D or 3D arrays, the interaction is symetric and acts like diffusion, where the unit with the highest value "flows" into the variable with the lowest value until they become equal. If a network is defined as a digraph (directed graph), then there is only "flow" from one unit to the other (whatever direction was defined in the network file). The table above describes the terms that are added to the end of the right-hand side of the ODEs in each case.
 
-If a network was specified as a (bi-directional) graph, or we are creating 2D or 3D arrays, the interaction is symetric and acts like diffusion, where the unit with the highest value "flows" into the variable with the lowest value until they become equal. If a network is defined as a digraph (directed graph), then there is only flow from one unit to the other (whatever direction was defined in the network file).
+Diffusive interactions can be used, for example, in connecting species that are transported, or diffuse between two compartments (*i.e.* formally the same as transport, but somehow these species were defined as explicit `ode` and so no reactions can be added). They also serve to connect two variables that represent electric potentials, where the constant *c* is interpreted as an conductivity between the two units.
 
 **Regulatory interactions on the synthesis of species**
 
