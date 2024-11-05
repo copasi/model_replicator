@@ -64,10 +64,9 @@ This type of connection allows connecting variables that are explicit ODEs, such
 | ---------- |------------- | ------------------------------- |
 | variable_i |  graph       | *+ c·(variable_j - variable_i)* |
 | variable_j |  graph       | *+ c·(variable_i - variable_j)* |
-| ---------- |------------- | ------------------------------- |
+|            |              |                                 |
 | variable_i |  digraph     | *- c·variable_i *               |
 | variable_j |  digraph     | *+ c·variable_i *               |
-| ---------- |------------- | ------------------------------- |
 
 where *c* is a diffusive rate constant.
 
