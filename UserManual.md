@@ -110,7 +110,7 @@ The three parameters of the rate law above will be assigned default values (whci
 
 This type of connection is intended for electrophysiological models of neurons where the membrane potential is an explicit variable and the neurons are connected through chemical synapses. Chemical synapses involve the release of a neurotransmitter by a presynaptic neuron (caused by an action potential), its diffusion across the synapse, binding to a receptor in the postsynaptic neuron, finally triggering an action potential in the postsynaptic neuron. Chemical synapses have the properties of being directional and depending on the diffusion, binding, and release or degradation of the neurotransmitter. [Destexhe *et al.* (1994)](https://doi.org/10.1162/neco.1994.6.1.14) published a simple kinetic model of chemical synapses that still provides a reallistic reproduction of the phenomenon. Under this approach, each synapse requires only one one extra variable: an ODE representing the proportion of bound postsynaptic neurotransmitter receptor. In a chemical synapse of neuron_i to neuron_j, where the membrane potential of neuron_i is *V_i* and of neuron_j is *V_j*, the proportion of bound receptor at neuron_j, *br_i,j* is governed by the following differential equation:
 
-$$\frac{d br\textunderscorei,j}{dt} = \frac{ \( \frac{1}{tau\_r} - \frac{1}{tau\_d} \) \cdot (1 - br_{i,j})}{1 + e^{V_0 - V\_i}} -\frac{br_{i,j}}{tau\_d}$$
+$$\frac{d \detokenize{br_i,j}}{dt} = \frac{ \( \frac{1}{tau\_r} - \frac{1}{tau\_d} \) \cdot (1 - br_{i,j})}{1 + e^{V_0 - V\_i}} -\frac{br_{i,j}}{tau\_d}$$
 
 
 | parameter | default | option to set value                       |
