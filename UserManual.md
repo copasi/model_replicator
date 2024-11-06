@@ -5,7 +5,7 @@
 
 For a full set of options run `sbmodelr --help` on the command line.
 
-## Examples
+### Examples
 The rest of this document describes the many options that are available in *sbmodelr*, but specific examples of usage are provided in the `examples` folder, which illustrate real-world usage of this tool, mostly replicating existing modeling papers. The examples are:
 
  - [Cells in a medium](examples/Cells_in_medium): single cell organisms with species transported to the medium
@@ -15,13 +15,11 @@ The rest of this document describes the many options that are available in *sbmo
  - [Neuron networks II](examples/Neuron_networks_II): large networks using the Izhikevich model
  - [Gene regulatory networks](examples/Gene_Regulatory_Networks): easy creation of large (or small) gene networks from a simple model file
 
-## Usage
-
-### Required options
+## Required options
 
 *sbmodler* requires at least two command line arguments: 1) a base model file, and 2) the number of units to replicate. The simplest command that can be issued is: `sbmodelr mybasemodel.cps 2`; this would create a new file called `mybasemodel_2.cps` with two units that are exact copies of the model in `mybasemodel.cps`.
 
-#### File Input and Output
+### File Input and Output
 The base model is either encoded in an [SBML](https:sbml.org) file (up to L3v2) or a [COPASI](https://copasi.org) file (extension `.cps`). The output of *sbmodelr* will be in the same format as the base model file unless forced to be in a specific format (explained below).
 
 By default the output file will be named after the input file with an appendix to its name reflecting the number of replicate units. To specifically name the output file use the option `-o filename` or `--output filename`, for example the command `sbmodelr -o newmodel.cps basemodel.cps 2` would create `newmodel.cps` (without this option the output filename would be `basemodel_2.cps`).
@@ -29,7 +27,7 @@ By default the output file will be named after the input file with an appendix t
  - To force the output file to be written in SBML format add the option `--sbml`; this option can take an argument specifying the level and version of SBML required (one of `l1v2`,`l2v3`,`l2v4`,`l2v5`,`l3v1`,`l3v2`).
  - To force the output file to be written in COPASI format you will need to explicitly name the output file with option `-o filename.cps` or `--output filename.cps`, ensuring that the filename ends with `.cps` extension.
 
-#### Number of replicates and their connectivity
+### Number of replicates and their connectivity
 
 *sbmodelr* creates more than one copy of the base model, organized as a 2D rectangular matrix, a 3D cuboid array, or a set of units with arbitrary connections. The number of units created is specified with 1, 2 or 3 numbers after the base model filename.
 
@@ -39,10 +37,10 @@ By default the output file will be named after the input file with an appendix t
 
 While *sbmodelr* has special provisions to create 2D and 3D arrays, *any* kind of topology can be specified through the use of appropriate network files.
 
-### Connecting the units
+## Connecting the units
 Currently there are four types of connections between units that can be added to the output model. They can be 1) transport of species, 2) diffusive connection of explicit ODEs, 3) regulatory interactions on the synthesis of species, and 4) chemical synapses through the method of Destexhe *et al.* (1994).
 
-#### Transport of species
+### Transport of species
 
 If the base model has species that one wants to allow being transported between units, this can be specified with the option `-t species` or `--transport species`, where `species` is the species name. This will create transport reactions that are governed by mass action kinetics, where the rate constant is the same in both directions. A more general way of specifying transport is to use the option `--Hill-transport species` which will create transport steps following Hill kinetics. If connectivity is specified through a network file (option `-n netfile`) then the transport reactions will be reversible if the file specifies a `graph` with edges represented with `--`, or irreversible if the file specifies a `digraph` with edges represented with `->`. More specifically the rate laws used are described in the table below.
 
@@ -56,7 +54,7 @@ If the base model has species that one wants to allow being transported between 
 where *k* is a transport rate constant, *V* is a maximal rate of transport, *Km* is the concentration of *species_i* (and *species_j*) when the rate is half of *V*, *h* is a Hill exponent, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units.
 
 
-#### Diffusive connection of explicit ODEs
+### Diffusive connection of explicit ODEs
 
 The option to indicate that a variable should be connected by a diffusive interaction is `--d variable` or `--ode-diffusive variable`. The `variable` must be defined as an explicit `ode` type in the base model, or this option will generate an error.
 
@@ -76,11 +74,11 @@ If a network was specified as a (bi-directional) graph, or we are creating 2D or
 
 Diffusive interactions can be used, for example, in connecting species that are transported, or diffuse between two compartments (*i.e.* formally the same as transport, but somehow these species were defined as explicit `ode` and so no reactions can be added). They also serve to connect two variables that represent electric potentials, where the constant *c* is interpreted as an conductivity between the two units.
 
-#### Regulatory interactions on the synthesis of species
+### Regulatory interactions on the synthesis of species
 
-#### Chemical synapses
+### Chemical synapses
 
-#### Parameters for connections
+### Parameters for connections
 
 Connecting units requires adding one or more parameters to the model. These parameters have built-in default values but it is possible to specify different values directly on the command line using the options listed below. Note that connection parameters will normally have the same value for *all* connections, however it is possible to have them randomized just like the parameters of the base model (see section on *Randomizing parameter values*). Of course, it is also possible to change them, one by one, by loading the resulting model into a modeling tool like COPASI.
 
@@ -101,4 +99,4 @@ Connecting units requires adding one or more parameters to the model. These para
 | chemical synapse (`-s`)        | *tau_d*   | 10      | `--synapse-tau-d value`                   |
 
 
-### Randomizing parameter values
+## Randomizing parameter values
