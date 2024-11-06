@@ -90,7 +90,9 @@ The new synthesis reaction uses a general type of rate law that is composed of a
 
 $$V \cdot \prod_i \frac{ 1 + ( 1 + a_i ) \cdot M_i^{h_i}}{1 + M_i^{h_i} }$$
 
-where the subscript *i* represents all the units affecting this one, *M<sub>i</sub>* is the concentration of the *i*-th modifier species, parameter *h<sup>i</sup>* is a Hill coefficient, and parameter *a<sub>i</sub>* is an activation/inhibition strength. *V* is a basal synthesis rate (the rate when all *M<sub>i</sub>*=0). Parameter *a* can take values from -1 to +1, where negative values make the corresponding modifier be an inhibitor (repressor), and positive values an activator (inducer); a value of zero makes the corresponding modifier have no effect. The Hill coefficient *h* can take integer values between 1 and 10, where 1 makes the rate hyperbolic, and larger values make it an increasingly steep sigmoidal.
+where the subscript *i* represents all the units affecting this one, *M<sub>i</sub>* is the concentration of the *i*-th modifier species, parameter *h<sup>i</sup>* is a Hill coefficient, and parameter *a<sub>i</sub>* is an activation/inhibition strength. *V* is a basal synthesis rate (the rate when all *M<sub>i</sub>*=0). Parameter *a* can take values from -1 to +1, where negative values make the corresponding modifier be an inhibitor (repressor), and positive values an activator (inducer); a value of zero makes the corresponding modifier have no effect. The Hill coefficient *h* can take integer values between 1 and 10, where 1 makes the rate hyperbolic, and larger values make it an increasingly steep sigmoidal. The figure below shows the behavior of a regulatory term at different values of *M<sub>i</sub>*, *a<sub>i</sub>* and *h<sup>i</sup>*.
+
+![regulatory term](diagrams\regfunction.png)
 
 This type of connection cannot be used with 2D or 3D arrays, only with an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
 
