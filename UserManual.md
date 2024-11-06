@@ -84,6 +84,9 @@ Diffusive interactions can be used, for example, in connecting species that are 
 
 ### Regulatory interactions on the synthesis of species
 
+This type of interaction is useful mainly to easily create gene regulatory networks. It takes a species in the base unit and adds to it a new synthesis reaction. That synthesis reaction is then affected by the same species in other units, through the use of a network file (see above, option `-n`).
+
+
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
 | *V*       | 1.0     | `--grn-V value`                           |
