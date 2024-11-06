@@ -86,7 +86,7 @@ Diffusive interactions can be used, for example, in connecting species that are 
 
 This type of connection is useful to create regulatory networks, particularly gene regulatory networks. It takes a species in the base unit and it will add a synthesis reaction for that species; that synthesis reaction is then modified (inhibited/activated) by the same species in other units.
 
-The new synthesis reaction uses a general type of rate law that is composed of a product of terms, each one for each modifier (*i.e.* the other units that affect this one). The general form of this equation is:
+The new synthesis reaction uses a general type of rate law that is composed of a product of regulatory terms, each one for each modifier (*i.e.* the other units that affect this one). The general form of this equation is:
 
 $$V \cdot \prod_i \frac{ 1 + ( 1 + a_i ) \cdot M_i^{h_i}}{1 + M_i^{h_i} }$$
 
