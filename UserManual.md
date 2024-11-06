@@ -84,8 +84,15 @@ Diffusive interactions can be used, for example, in connecting species that are 
 
 ### Regulatory interactions on the synthesis of species
 
-This type of interaction is useful mainly to easily create gene regulatory networks. It takes a species in the base unit and adds to it a new synthesis reaction. That synthesis reaction is then affected by the same species in other units, through the use of a network file (see above, option `-n`).
+This type of connection is useful to create regulatory networks, particularly gene regulatory networks. It takes a species in the base unit and it will add a synthesis reaction for that species; that synthesis reaction is then modified (inhibited/activated) by the same species in other units.
 
+The new synthesis reaction uses a general type of rate law that is composed of a product of terms, each one for each modifier (*i.e.* the other units that affect this one). The general form of this equation is:
+
+$$V \dot \prod_i \frac{ 1 + ( 1 + a ) \dot M_i^{h_i}}{1 + M_i^{h_i} }$$
+
+This type of connection cannot be used with 2D or 3D arrays, only by using an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
+
+In most uses of this type of connection, you want the resulting units to be contained inside the original compartment of the base unit, this can be achieved by not replicating the compartments through the use of the option `--ignore-compartments`.
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
