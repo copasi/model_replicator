@@ -94,7 +94,7 @@ where the subscript *i* represents all the units affecting this one, *M<sub>i</s
 
 This type of connection cannot be used with 2D or 3D arrays, only with an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
 
-In most uses of this type of connection, you want the resulting units to be contained inside the original compartment of the base unit, this can be achieved by not replicating the compartments through the use of the option `--ignore-compartments`.
+In most uses of this type of connection, you want the resulting units to be contained inside the original compartment of the base unit (*e.g.* the same cell), this can be achieved by not replicating the compartments through the use of the option `--ignore-compartments`.
 
 The three parameters of the rate law above will get default values and will be the same for all regulatory terms. To specify a value different from the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
