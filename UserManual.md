@@ -69,7 +69,7 @@ The option to indicate that a variable should be connected by a diffusive intera
 This type of connection allows connecting units by variables that are explicit ODEs, such as species, global quantities, or compartments of type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is mathematically the same as a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
 
 | variable   | network type | new term on rhs of ODE            |
-| ---------- |------------- | ----__--------------------------- |
+| ---------- |------------- | --------------------------------- |
 | variable_i |  graph       | $$+ c·(variable_j - variable_i)$$ |
 | variable_j |  graph       | $$+ c·(variable_i - variable_j)$$ |
 |            |              |                                   |
