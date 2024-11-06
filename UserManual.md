@@ -53,6 +53,14 @@ If the base model has species that one wants to allow being transported between 
 
 where *k* is a transport rate constant, *Vmax* is a maximal rate of transport, *Km* is the concentration of *species_i* (and *species_j*) when the rate is half of *Vmax*, *h* is a Hill exponent, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units.
 
+When adding transport steps the parameters indicated in the rate laws above will get default values and will be the same for all transport reactions. To specify a value different from the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
+
+| parameter | default | option to set value                       |
+| --------- | ------- | ----------------------------------------- |
+| *k*       | 1.0     | `-k value` or `--transport-k value`       |
+| *Km*      | 1.0     | `--transport-Km value`                    |
+| *Vmax*    | 1.0     | `--transport-Vmax value`                  |
+| *h*       | 1.0     | `--transport-h value`                     |
 
 ### Diffusive connection of explicit ODEs
 
