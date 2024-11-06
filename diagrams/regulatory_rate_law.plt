@@ -22,7 +22,7 @@ set style line 15 lt 1 lw 3 lc rgb '#FB6A4A' #
 set style line 16 lt 1 lw 3 lc rgb '#EF3B2C' # medium red
 set style line 17 lt 1 lw 3 lc rgb '#99000D' # dark red
 
-set term pngcairo font "Arial, 13" size 700,600
+set term pngcairo font "Arial, 13" size 480,420
 set output "regfunction.png"
 #set term qt font "Arial, 13" size 1024,720
 
@@ -34,16 +34,16 @@ unset key
 set xlabel "M_i" font "Arial, 14"
 set ylabel "regulatory term"  font "Arial, 14"
 
-set label 1 "a=-1" at 8,0.18 font "Arial, 14" textcolor rgb '#084594'
-set label 2 "a=-0.5" at 8,0.62 font "Arial, 14" textcolor rgb '#005824'
-set label 3 "a=0" at 8,1.07 font "Arial, 14" textcolor rgb '#8a8a8a'
-set label 4 "a=0.5" at 8,1.58 font "Arial, 14" textcolor rgb '#CE1256'
-set label 5 "a=1" at 8,2.07 font "Arial, 14" textcolor rgb '#99000D'
+set label 1 "a=-1" at 8,0.18 font "Arial, 12" textcolor rgb '#084594'
+set label 2 "a=-0.5" at 8,0.62 font "Arial, 12" textcolor rgb '#005824'
+set label 3 "a=0" at 8,1.07 font "Arial, 12" textcolor rgb '#8a8a8a'
+set label 4 "a=0.5" at 8,1.58 font "Arial, 12" textcolor rgb '#CE1256'
+set label 5 "a=1" at 8,2.07 font "Arial, 12" textcolor rgb '#99000D'
 
-set label 6 "h=1" at 2.5,1.68 font "Arial, 14" textcolor rgb '#FC9272'
-set label 7 "h=2" at 2.5,1.82 font "Arial, 14" textcolor rgb '#FB6A4A'
-set label 8 "h=4" at 2.5,1.94 font "Arial, 14" textcolor rgb '#EF3B2C'
-set label 9 "h=8" at 2.5,2.04 font "Arial, 14" textcolor rgb '#99000D'
+set label 6 "h=1" at 2.5,1.68 font "Arial, 12" textcolor rgb '#FC9272'
+set label 7 "h=2" at 2.5,1.82 font "Arial, 12" textcolor rgb '#FB6A4A'
+set label 8 "h=4" at 2.5,1.94 font "Arial, 12" textcolor rgb '#EF3B2C'
+set label 9 "h=8" at 2.5,2.04 font "Arial, 12" textcolor rgb '#99000D'
 
 plot (1+(1-1)*x)/(1+x) t "a=-1" ls 1, (1+(1-0.5)*x)/(1+x) t "a=-0.5" ls 5, (1+(1+0)*x)/(1+x) t "a=0" ls 9, (1+(1+0.5)*x)/(1+x) t "a=+0.5" ls 10, (1+(1+1)*x)/(1+x) t "a=+1" ls 14 , \
 (1+(1-1)*x**2)/(1+x**2) t "a=-1" ls 2, (1+(1-0.5)*x**2)/(1+x**2) t "a=-0.5" ls 6, (1+(1+0.5)*x**2)/(1+x**2) t "a=+0.5" ls 11, (1+(1+1)*x**2)/(1+x**2) t "a=+1" ls 15, \
