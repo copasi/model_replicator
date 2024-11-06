@@ -112,6 +112,11 @@ This type of connection is intended for electrophysiological models of neurons w
 
 $$\frac{d br_{i,j}}{dt} = \frac{ \( \frac{1}{tau\_r} - \frac{1}{tau\_d} \) \cdot (1 - br_{i,j})}{1 + e^{V_0 - V\_i}} -\frac{br_{i,j}}{tau\_d}$$
 
+then the differential equation for the membrane potential at the postsynaptic neuron (neuron_j) is expanded by one term to represent the potential caused by the bound receptor:
+
+$$\frac{d V_j}{dt} = ... + g_c \cdot br_{i,j} \cdot (V_{syn} - V_i)$$
+
+
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
