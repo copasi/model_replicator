@@ -76,7 +76,7 @@ This type of connection allows connecting units by variables that are explicit O
 | variable_i |  digraph     | *- c·variable_i*                |
 | variable_j |  digraph     | *+ c·variable_i*                |
 
-where *c* is a diffusive rate constant.
+where *c* is a diffusive rate constant with a default value of 1.0. To use a different value for *c* use the option `-c value` or `--coupling-constant value`. This parameter can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
 If a network was specified as a (bi-directional) graph, or we are creating 2D or 3D arrays, the interaction is symetric and acts like diffusion, where the unit with the highest value "flows" into the variable with the lowest value until they become equal. If a network is defined as a digraph (directed graph), then there is only "flow" from one unit to the other (whatever direction was defined in the network file). The table above describes the terms that are added to the end of the right-hand side of the ODEs in each case.
 
@@ -84,27 +84,21 @@ Diffusive interactions can be used, for example, in connecting species that are 
 
 ### Regulatory interactions on the synthesis of species
 
+| parameter | default | option to set value                       |
+| --------- | ------- | ----------------------------------------- |
+| *V*       | 1.0     | `--grn-V value`                           |
+| *a*       | 1.0     | `--grn-a value`                           |
+| *h*       | 2       | `--grn-h value`                           |
+
 ### Chemical synapses
 
-### Parameters for connections
-
-Connecting units requires adding one or more parameters to the model. These parameters have built-in default values but it is possible to specify different values directly on the command line using the options listed below. Note that connection parameters will normally have the same value for *all* connections, however it is possible to have them randomized just like the parameters of the base model (see section on *Randomizing parameter values*). Of course, it is also possible to change them, one by one, by loading the resulting model into a modeling tool like COPASI.
-
-| connection type                | parameter | default | option to set value                       |
-| ------------------------------ | --------- | ------- | ----------------------------------------- |
-| transport (`-t`)               | *k*       | 1.0     | `-k value` or `--transport-k value`       |
-| transport (`--Hill-transport`) | *Km*      | 1.0     | `--transport-Km value`                    |
-| transport (`--Hill-transport`) | *Vmax*    | 1.0     | `--transport-Vmax value`                  |
-| transport (`--Hill-transport`) | *h*       | 1.0     | `--transport-h value`                     |
-| diffusive (`-d`)               | *c*       | 1.0     | `-c value` or `--coupling-constant value` |
-| regulatory network (`-g`)      | *V*       | 1.0     | `--grn-V value`                           |
-| regulatory network (`-g`)      | *a*       | 1.0     | `--grn-a value`                           |
-| regulatory network (`-g`)      | *h*       | 2       | `--grn-h value`                           |
-| chemical synapse (`-s`)        | *g*       | 1.0     | `--synapse-g value`                       |
-| chemical synapse (`-s`)        | *V0*      | -20.0   | `--synapse-V0 value`                      |
-| chemical synapse (`-s`)        | *Vsyn*    | 20.0    | `--synapse-Vsyn value`                    |
-| chemical synapse (`-s`)        | *tau_r*   | 0.5     | `--synapse-tau-r value`                   |
-| chemical synapse (`-s`)        | *tau_d*   | 10      | `--synapse-tau-d value`                   |
+| parameter | default | option to set value                       |
+| --------- | ------- | ----------------------------------------- |
+| *g*       | 1.0     | `--synapse-g value`                       |
+| *V0*      | -20.0   | `--synapse-V0 value`                      |
+| *Vsyn*    | 20.0    | `--synapse-Vsyn value`                    |
+| *tau_r*   | 0.5     | `--synapse-tau-r value`                   |
+| *tau_d*   | 10      | `--synapse-tau-d value`                   |
 
 
 ## Randomizing parameter values
