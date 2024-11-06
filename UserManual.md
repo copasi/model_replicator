@@ -1,5 +1,5 @@
-# User Manual
-# *sbmodelr* - a tool to replicate one SBML/COPASI model into a set of replicas
+# *sbmodelr*  User Manual
+**a tool to replicate one SBML/COPASI model into a set of replicas**
 
 ## Summary
 *sbmodelr* takes as input an SBML or COPASI file describing a model. It then creates a new model that replicates the original in several copies ('units') where each one may interact with other ones. The topology of the connections can be arbitrary (described in a DOT network file), a 2D rectangular matrix, or a 3D cuboid array. Several options are available to randomize parameter values, supress creation of compartments, etc.
@@ -94,5 +94,6 @@ Connecting units requires adding one or more parameters to the model. These para
 | diffusive (`-d`)               | *c*       | 1.0     | `-c value` or `--coupling-constant value` |               | Regulatory network (`-g`)      | *V*       | 1.0     | `--grn-V value`                           |
 | Regulatory network (`-g`)      | *a*       | 1.0     | `--grn-a value`                           |
 | Regulatory network (`-g`)      | *h*       | 2       | `--grn-h value`                           |
+
 
 ### Randomizing parameter values
