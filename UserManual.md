@@ -1,4 +1,5 @@
-# User Manual for *sbmodelr* - a tool to replicate one SBML/COPASI model into a set of replicas
+# User Manual
+# *sbmodelr* - a tool to replicate one SBML/COPASI model into a set of replicas
 
 ## Summary
 *sbmodelr* takes as input an SBML or COPASI file describing a model. It then creates a new model that replicates the original in several copies ('units') where each one may interact with other ones. The topology of the connections can be arbitrary (described in a DOT network file), a 2D rectangular matrix, or a 3D cuboid array. Several options are available to randomize parameter values, supress creation of compartments, etc.
@@ -84,9 +85,11 @@ Diffusive interactions can be used, for example, in connecting species that are 
 
 Connecting units requires adding one or more parameters to the model. These parameters have built-in default values but it is possible to specify different values directly on the command line using the options listed below. Note that connection parameters will normally have the same value for *all* connections, however it is possible to have them randomized just like the parameters of the base model (see section on *Randomizing parameter values*). Of course, it is also possible to change them, one by one, by loading the resulting model into a modeling tool like COPASI.
 
-| connection type  | parameter | option to set value                 |
-| ---------------- | --------- | ----------------------------------- |
-| transport (`-t`) | *k*       | `-k value` or `--transport-k value` |
-
+| connection type                | parameter | option to set value                 |
+| ------------------------------ | --------- | ----------------------------------- |
+| transport (`-t`)               | *k*       | `-k value` or `--transport-k value` |
+| transport (`--Hill-transport`) | *Km*      | `--transport-Km value`              |
+| transport (`--Hill-transport`) | *Vmax*    | `--transport-Vmax value`            |
+| transport (`--Hill-transport`) | *h*       | `--transport-h value`               |
 
 ### Randomizing parameter values
