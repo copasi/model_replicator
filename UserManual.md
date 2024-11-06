@@ -66,15 +66,15 @@ When adding transport steps the parameters indicated in the rate laws above will
 
 The option to indicate that a variable should be connected by a diffusive interaction is `--d variable` or `--ode-diffusive variable`. The `variable` must be defined as an explicit `ode` type in the base model, or this option will generate an error.
 
-This type of connection allows connecting units by variables that are explicit ODEs, such as species, global quantities, or compartments of type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is mathematically the same as a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
+This type of connection allows connecting units by variables that are explicit ODEs, such as *species*, *global quantities*, or *compartments* that are defined as type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is mathematically the same as a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
 
-| variable   | network type | new term on rhs of ODE            |
-| ---------- |------------- | --------------------------------- |
-| variable_i |  graph       | $$+ c·(variable_j - variable_i)$$ |
-| variable_j |  graph       | $$+ c·(variable_i - variable_j)$$ |
-|            |              |                                   |
-| variable_i |  digraph     | $$- c·variable_i$$                |
-| variable_j |  digraph     | $$+ c·variable_i$$                |
+| variable             | network type | new term on rhs of ODE            |
+| -------------------- |------------- | --------------------------------- |
+| variable<sub>i</sub> |  graph       | $$+ c·(variable_j - variable_i)$$ |
+| variable<sub>j</sub> |  graph       | $$+ c·(variable_i - variable_j)$$ |
+|                      |              |                                   |
+| variable<sub>i</sub> |  digraph     | $$- c·variable_i$$                |
+| variable<sub>j</sub> |  digraph     | $$+ c·variable_i$$                |
 
 where *c* is a diffusive rate constant with a default value of 1.0. To use a different value for *c* use the option `-c value` or `--coupling-constant value`. This parameter can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
