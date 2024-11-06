@@ -88,7 +88,7 @@ This type of connection is useful to create regulatory networks, particularly ge
 
 The new synthesis reaction uses a general type of rate law that is composed of a product of terms, each one for each modifier (*i.e.* the other units that affect this one). The general form of this equation is:
 
-$$V \dot \prod_i \frac{ 1 + ( 1 + a ) \dot M_i^{h_i}}{1 + M_i^{h_i} }$$
+$$V \cdot \prod_i \frac{ 1 + ( 1 + a ) \cdot M_i^{h_i}}{1 + M_i^{h_i} }$$
 
 This type of connection cannot be used with 2D or 3D arrays, only by using an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
 
