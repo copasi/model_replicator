@@ -46,10 +46,10 @@ If the base model has species that one wants to allow being transported between 
 
 | transport option                    | network type | rate law                        | notes                     |
 | ----------------------------------- | ------------ | ------------------------------- | ------------------------- |
-|`-t species` or `--transport species`| graph        | *v = k·(species_i - species_j)* | 2D and 3D matrices        |
-|`-t species` or `--transport species`| digraph      | *v = k·species_i*               | not for 2D or 3D matrices |
-|`--Hill-transport species`           | graph        |*v = Vmax·(species_i<sup>h</sup> - species_j<sup>h</sup> ) / (Km<sup>h</sup> + species_i<sup>h</sup> + species_j<sup>h</sup>)* | 2D and 3D matrices        |
-|`--Hill-transport species`           | digraph      |*v = Vmax·species_i<sup>h</sup> / (Km<sup>h</sup> + species_i<sup>h</sup>)* | not for 2D or 3D matrices |
+|`-t species` or `--transport species`| graph        | $$k \cdot ( species_i - species_j )$$ | 2D and 3D matrices        |
+|`-t species` or `--transport species`| digraph      | $$k \cdot species_i$$               | not for 2D or 3D matrices |
+|`--Hill-transport species`           | graph        | $$\frac{Vmax \cdot (species_i^h - species_j^h )}{Km^h + species_i^h + species_j^h }$$ | 2D and 3D matrices        |
+|`--Hill-transport species`           | digraph      | $$\frac{Vmax \cdot species_i^h}{Km^h + species_i^h}$$ | not for 2D or 3D matrices |
 
 where *k* is a transport rate constant, *Vmax* is a maximal rate of transport, *Km* is the concentration of *species_i* (and *species_j*) when the rate is half of *Vmax*, *h* is a Hill exponent, where if it is 1 the rate is hyperbolic (essentially the Michaelis-Menten equation), or if larger than 1 the rate is sigmoidal; *i* and *j* are the indices of the two units.
 
@@ -68,13 +68,13 @@ The option to indicate that a variable should be connected by a diffusive intera
 
 This type of connection allows connecting units by variables that are explicit ODEs, such as species, global quantities, or compartments of type `ode` (not `fixed`, `assignment`  or `reactions`).  The "diffusive" interaction is mathematically the same as a mass-action transport reaction. If units *i* and *j* are connected then the diffusive interaction adds the following terms to the right-hand side (rhs) of the respective ODEs of these variables:
 
-| variable   | network type | new term on rhs of ODE          |
-| ---------- |------------- | ------------------------------- |
-| variable_i |  graph       | *+ c·(variable_j - variable_i)* |
-| variable_j |  graph       | *+ c·(variable_i - variable_j)* |
-|            |              |                                 |
-| variable_i |  digraph     | *- c·variable_i*                |
-| variable_j |  digraph     | *+ c·variable_i*                |
+| variable   | network type | new term on rhs of ODE            |
+| ---------- |------------- | ----__--------------------------- |
+| variable_i |  graph       | $$+ c·(variable_j - variable_i)$$ |
+| variable_j |  graph       | $$+ c·(variable_i - variable_j)$$ |
+|            |              |                                   |
+| variable_i |  digraph     | $$- c·variable_i$$                |
+| variable_j |  digraph     | $$+ c·variable_i$$                |
 
 where *c* is a diffusive rate constant with a default value of 1.0. To use a different value for *c* use the option `-c value` or `--coupling-constant value`. This parameter can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
@@ -90,11 +90,13 @@ The new synthesis reaction uses a general type of rate law that is composed of a
 
 $$V \cdot \prod_i \frac{ 1 + ( 1 + a_i ) \cdot M_i^{h_i}}{1 + M_i^{h_i} }$$
 
-where the subscript *i* represents all the units affecting this one, *M<sub>i</sub>* is the concentration of the *i*-th modifier species, parameter *h<sup>i</sup>* is a Hill coefficient, and parameter *a<sub>i</sub>* is an activation/inhibition strength. *V* is a basal rate (the rate when all *M<sub>i</sub>*=0).
+where the subscript *i* represents all the units affecting this one, *M<sub>i</sub>* is the concentration of the *i*-th modifier species, parameter *h<sup>i</sup>* is a Hill coefficient, and parameter *a<sub>i</sub>* is an activation/inhibition strength. *V* is a basal synthesis rate (the rate when all *M<sub>i</sub>*=0). Parameter *a* can take values from -1 to +1, where negative values make the corresponding modifier be an inhibitor (repressor), and positive values an activator (inducer); a value of zero makes the corresponding modifier have no effect. The Hill coefficient *h<sup>i</sup>* can take integer values between 1 and 10, where 1 makes the rate be hyperbolic, and larger values making it increasingly sigmoidal.
 
-This type of connection cannot be used with 2D or 3D arrays, only by using an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
+This type of connection cannot be used with 2D or 3D arrays, only with an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
 
 In most uses of this type of connection, you want the resulting units to be contained inside the original compartment of the base unit, this can be achieved by not replicating the compartments through the use of the option `--ignore-compartments`.
+
+The three parameters of the rate law above will get default values and will be the same for all regulatory terms. To specify a value different from the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
