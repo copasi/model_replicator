@@ -86,11 +86,11 @@ Diffusive interactions can be used, for example, in connecting species that are 
 
 This type of connection is useful to create regulatory networks, particularly gene regulatory networks. It takes a species in the base unit and it will add a synthesis reaction for that species; that synthesis reaction is then modified (inhibited/activated) by the same species in other units.
 
-The new synthesis reaction uses a general type of rate law that is composed of a product of regulatory terms, each one for each modifier (*i.e.* the other units that affect this one). The general form of this equation is:
+The new synthesis reaction uses a general type of rate law that is composed of a product of regulatory terms, one for each modifier (*i.e.* the other units that affect this one). The general form of this equation is:
 
 $$V \cdot \prod_i \frac{ 1 + ( 1 + a_i ) \cdot M_i^{h_i}}{1 + M_i^{h_i} }$$
 
-where *V* is a basal rate (the rate if all modifiers are zero), the subscript *i* represents all the units affecting this one, *M<sub>i</sub>* is the concentration of the *i*-th modifier species, parameter *h<sup>i</sup>* is a Hill coefficient, and parameter *a<sub>i</sub>* is an activation/inhibition strength.
+where *V* is a basal rate (the rate when all *M<sub>i</sub>*=0), the subscript *i* represents all the units affecting this one, *M<sub>i</sub>* is the concentration of the *i*-th modifier species, parameter *h<sup>i</sup>* is a Hill coefficient, and parameter *a<sub>i</sub>* is an activation/inhibition strength.
 
 This type of connection cannot be used with 2D or 3D arrays, only by using an explicit network file (see above, option `-n`), and it must be a `digraph` (directed graph, where the edges are unidirectional and specified with `->`).
 
