@@ -98,7 +98,7 @@ This type of connection cannot be used with 2D or 3D arrays, only with an explic
 
 In most uses of this type of connection, you want the resulting units to be contained inside the original compartment of the base unit (*e.g.* all genes in the same cell), this can be achieved by not replicating the compartments by using the option `--ignore-compartments`.
 
-The three parameters of the rate law above will be assigned default values (whcih will be the same for all regulatory terms). To specify a value different from the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
+The three parameters of the rate law above will be assigned default values (whcih will be the same for all regulatory terms). To specify different values than the default use the options in the table below.  These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
@@ -108,7 +108,9 @@ The three parameters of the rate law above will be assigned default values (whci
 
 ### Chemical synapses
 
-This type of connection is intended for electrophysiological models of neurons where the membrane potential is an explicit variable and the neurons are connected through chemical synapses.
+This type of connection is intended for electrophysiological models of neurons where the membrane potential is an explicit variable and the neurons are connected through chemical synapses. The base model should be of the Hodgkin-Huxley type where the variable to connect should be the one representing membrane potential. The connection is specified using `--s variable` or `--ode-synaptic variable`, where `variable` is the name of the variable representing the membrane potential (often called *V* in many such models).
+
+This type of connection can only be used with variables that are of type `ode` (*i.e.* explicit ODEs, called "rate rules" in SBML), and these can be either *species* or *global quantities*. The connections must be defined by a network file of type `digraph` (directed graph, where the edges are unidirectional and specified with `->`). This cannot be used with the 2D and 3D array topologies.
 
 Chemical synapses involve the release of a neurotransmitter by a presynaptic neuron (caused by an action potential), its diffusion across the synapse, binding to a receptor in the postsynaptic neuron, finally triggering an action potential in the postsynaptic neuron. Chemical synapses have the properties of being directional and depending on the diffusion, binding, and release or degradation of the neurotransmitter. [Destexhe *et al.* (1994)](https://doi.org/10.1162/neco.1994.6.1.14) published a simple kinetic model of chemical synapses that still provides a reallistic reproduction of the phenomenon. Under this approach, each synapse requires only one one extra variable: an ODE representing the proportion of bound postsynaptic neurotransmitter receptor. In a chemical synapse of neuron_i to neuron_j, where the membrane potential of neuron_i is *V<sub>i</sub>* and of neuron_j is *V<sub>j</sub>*, the proportion of bound receptor at neuron_j, *br<sub>i,j</sub>* is governed by the following differential equation:
 
@@ -120,8 +122,7 @@ $$\frac{d V_j}{dt} = ... + g \cdot br_{i,j} \cdot (V_{syn} - V_i)$$
 
 The parameters involved are: *tau<sub>r</sub>* a characteristic time for release of neurotransmitter from the presynaptic neuron, *tau<sub>d</sub>* a characteristic time for clearance of the neurotransmitter from the bound postsynaptic receptor, *V<sub>0</sub>* a reversal potential, *V<sub>syn</sub>* the reversal potential of the synapse, and *g* is a synaptic weight (because *sbmodler* simply adds a term to the membrane potential equation, this does not get divided by the membrace capacitance thus,parameter *g* here is effectively the conductance of the synapse divided by the capacitance of the postsynaptic neuron)
 
-listed below, with the options by which they can be set, and a description.
-
+The five parameters of the two differential equations above will be assigned default values. To specify different values than the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
