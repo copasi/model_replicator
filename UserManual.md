@@ -98,7 +98,7 @@ This type of connection cannot be used with 2D or 3D arrays, only with an explic
 
 In most uses of this type of connection, you want the resulting units to be contained inside the original compartment of the base unit (*e.g.* all genes in the same cell), this can be achieved by not replicating the compartments by using the option `--ignore-compartments`.
 
-The three parameters of the rate law above will get default values and will be the same for all regulatory terms. To specify a value different from the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
+The three parameters of the rate law above will be assigned default values (whcih will be the same for all regulatory terms). To specify a value different from the default use the options in the table below. These parameters can also be randomized like the parameters of the base model, see section on *Randomizing parameter values* for more information.
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
@@ -107,6 +107,11 @@ The three parameters of the rate law above will get default values and will be t
 | *h*       | 2       | `--grn-h value`                           |
 
 ### Chemical synapses
+
+This type of connection is intended for electrophysiological models of neurons where the membrane potential is an explicit variable and the neurons are connected through chemical synapses. Chemical synapses involve the release of a neurotransmitter by a presynaptic neuron (caused by an action potential), its diffusion across the synapse, binding to a receptor in the postsynaptic neuron, finally triggering an action potential in the postsynaptic neuron. Chemical synapses have the properties of being directional and depending on the diffusion, binding, and release or degradation of the neurotransmitter. [Destexhe *et al.* (1994)](https://doi.org/10.1162/neco.1994.6.1.14) published a simple kinetic model of chemical synapses that still provides a reallistic reproduction of the phenomenon. Under this approach, each synapse requires only one one extra variable: an ODE representing the proportion of bound postsynaptic neurotransmitter receptor. In a chemical synapse of neuron_i to neuron_j, where the membrane potential of neuron_i is *V_i* and of neuron_j is *V_j*, the proportion of bound receptor at neuron_j, *br_i,j* is governed by the following differential equation:
+
+$$\frac{d br\_i,j}{dt} = \frac{ \( \frac{1}{tau\_r} - \frac{1}{tau\_d} \) \cdot (1 - br\_i,j)}{1 + e^{V_0 - V\_i}} -\frac{br\_i,j}{tau\_d}$$
+
 
 | parameter | default | option to set value                       |
 | --------- | ------- | ----------------------------------------- |
