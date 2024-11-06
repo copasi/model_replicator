@@ -2083,11 +2083,12 @@ def main():
 
     # regulated synthesis (GRNs)
     if( args.grn ):
-        # if we are not ignoring compartments issue warning suggesting we should
+        # GRNs only work with dimension 1 and a network graph
         if (dim != 1) or (not args.network ):
             # error
             print( f'ERROR: regulatory synthesis reactions can only be created with dimension 1 and through a network (use option -n)' )
             exit()
+        # if we are not ignoring compartments issue warning suggesting we should
         if not args.ignore_compartments:
             print(f' Warning: option --ignore-compartments is often desirable for building regulatory networks')
         # create all rate-laws for regulatory synthesis
