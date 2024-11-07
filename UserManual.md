@@ -178,7 +178,7 @@ All *metadata* included in the base file (either SBML or COPASI format) are also
 
 ## Events
 
-When models contain events these are also taken into consideration in the replication process. Two types of events are dealt with in different ways:
+When models contain events these are also taken into consideration in the replication process. Events are dealt with in two different ways:
 
  - **Events that have a trigger only depending on function of time** (without including any other model element in the trigger) are not replicated. However their targets are replicated appropriately. For example if there is an event when *Time* passes 10 (trigger) that changes the concentration of *S* (target), then the new model will continue to have only one even also triggered when *Time* passes 10, but now it has many targets, all the *S_1* ... *S_n* (n being the number of replicates) that get set to the same functions. If any other elements appear in the function, they will correspond to the same unit as the *S_i*.
  - **Events that depend on model elements** are entirely replicated, thus one event becomes *n* different events (for *n* replicate units). However in this case the targets will be changed to the respective unit (not any other unit). For example if there is an event that happens when species *Signal* becomes larger than 10, which then changes a quantity *tick* to be incremented, in the new model there will be *n* events, each one happening when *Signal_i* becomes larger than 10, which then changes *tick_i* to increment by one.
