@@ -146,6 +146,6 @@ The table below describes in more detail how these options work. In all cases *v
 | option                     | meaning |
 | -------------------------- | ------- |
 | `--pn parameter level uni` | parameter is sampled from a uniform distribution between (*value* - *level* * *value*) and (*value* + *level* * *value*) |
-| `--cn level uni` | all connection parameters are sampled from a uniform distribution between (value -level * value) and (*value* + *level* * *value*) |
+| `--cn level uni` | all connection parameters are sampled from a uniform distribution between (*value* - *level* * *value*) and (*value* + *level* * *value*) |
 | `--pn parameter level uni` | parameter is sampled from a normal distribution with mean of *value* and standard deviation of (*level* * *value*) |
 | `--pn parameter level uni` | all connection parameters are sampled from a normal distribution with mean of *value* and standard deviation of (*level* * *value*) |
