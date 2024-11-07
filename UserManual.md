@@ -149,3 +149,5 @@ The table below describes in more detail how these options work. In all cases *v
 | `--cn level uni` | all connection parameters are sampled from a <ins>uniform</ins> distribution between (*value* - *level* * *value*) and (*value* + *level* * *value*) |
 | `--pn parameter level norm` | parameter is sampled from a <ins>normal</ins> distribution with mean of *value* and standard deviation of (*level* * *value*) |
 | `--pn parameter level norm` | all connection parameters are sampled from a <ins>normal</ins> distribution with mean of *value* and standard deviation of (*level* * *value*) |
+
+As an example, the command `--pn Km 0.5 uni` applied to a model that has a parameter Km with initial value 10 will result in the parameter Km in the replicas to have values that are sampled from a uniform distribution in the interval \[5,15\] (5=10-10\*0.5 and 15=10+10\*0.5). The command `--pn Km 0.5 norm` applied to the same model results in the parameter Km of the replicas to have values sampled from a normal distribution with mean of 10 and standard deviation of 5 (=10*0.5).
