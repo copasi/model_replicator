@@ -158,8 +158,24 @@ When randomizing connection parameters, *sbmodelr* will create one instance of t
 
 In some situations one may want to create several replicas of a model and add an extra unit called *medium* that only contains the species that are transported, such that the species can be transported between the *medium* and all other units. Importantly, the *medium* compartment will not contain any reactions contained in the base unit. This can be achieved using the option `--add-medium`. The *medium* volume is set to a default of 1.0, but other values can be specified with option `--medium-volume value`.
 
-A *medium* compartment mimics the situation in an experiment where cells are suspended in a medium and where some substances can move between the medium and the interior of the cell. A replica of a microbial culture where each microbe only interacts with the medium (*i.e.* not directly cell-cell) can be achieved by a command that does not connect the units like this one:
+A *medium* compartment mimics the situation in an experiment where cells are suspended in a medium and where some substances can move between the medium and the interior of the cell. A replica of a microbial culture where each microbe only interacts with the medium (*i.e.* not directly cell-cell) can be achieved by a command that does not connect the units, like this one:
 
         sbmodelr -t nutrient --add-medium mycell.cps 100
 
 this would create a new model (called *mycell_100.cps*, as no name was specified) that contains 100 replicas of the base model (*mycell.cps*) where the species called *nutrient* can move between each cell and the medium (in both directions). The new model will include a compartment called *medium* that only contains species *nutrient*. The user can then load that model into COPASI and change the initial concentration of *nutrient* in the medium and set it to fixed, creating a gradient of nutrient concentration such that it gets transported into the cells.
+
+## Task processing
+
+When *sbmodelr* reads a base file that is in COPASI format (*.cps) it normally copies the settings of the tasks to the new file. To prevent this, and just create a file with default values for the tasks, then add the option `--ignore-tasks`.
+
+## Metadata
+
+All *metadata* included in the base file (either SBML or COPASI format) is also copied to the new model. Each model element replicated will also get the same metadata as the original element in the base model.
+
+## Events
+
+When models contain events these are also taken into consideration in the replication process. Two types of events are dealt with in different ways:
+
+ - **Events that have a trigger only depending on function of time** (without including any other model element in the trigger) are not replicated. However their targets are replicated appropriately. For example if there is an event when *Time* passes 10 (trigger) that changes the concentration of *S* (target), then the new model will continue to have only one even also triggered when *Time* passes 10, but now it has many targets, all the *S_1* ... *S_n* (n being the number of replicates) that get set to the same functions. If any other elements appear in the function, they will correspond to the same unit as the *S_i*.
+ - **Events that depend on model elements** are entirely replicated, thus one event becomes *n* different events (for *n* replicate units). However in this case the targets will be changed to the respective unit (not any other unit). For example if there is an event that happens when species *Signal* becomes larger than 10, which then changes a quantity *tick* to be incremented, in the new model there will be *n* events, each one happening when *Signal_i* becomes larger than 10, which then changes *tick_i* to increment by one.
+
