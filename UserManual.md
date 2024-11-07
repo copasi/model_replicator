@@ -168,9 +168,13 @@ this would create a new model (called *mycell_100.cps*, as no name was specified
 
 When *sbmodelr* reads a base file that is in COPASI format (*.cps) it normally copies the settings of the tasks to the new file. To prevent this, and just create a file with default values for the tasks, then add the option `--ignore-tasks`.
 
+In the *Parameter Scan*, *Sensitivities*, *Cross Section* and *Optimization* tasks all the elements used will be translated to those of the first unit of the new model. In *Optimization* this includes both the objective function, the parameters and constraints. This is arbitrary and if the user requires that it reflects a different unit, it will have to be changed manually within COPASI.
+
 ## Metadata
 
-All *metadata* included in the base file (either SBML or COPASI format) is also copied to the new model. Each model element replicated will also get the same metadata as the original element in the base model.
+All *metadata* included in the base file (either SBML or COPASI format) is also copied to the new model. Each model element replicated will also get the same metadata as the original element in the base model. Additionally the model creation time will be a copy of the model creation time of the base model, but the current date/time is added to a new modified time.
+
+*Comments* (*i.e.* free text) attached to base model elements are copied to all the replicates in the new model.
 
 ## Events
 
