@@ -142,6 +142,7 @@ The main option to specify a parameter to be randomized is `--pn parameter level
 The option above (`--pn`) does not cover the additional parameters that are created to establish the unit connections. To randomize *all* those parameters use the option ``--cn level dist`, with `level` and `dist` having the same meaning as above.
 
 | option                     | meaning |
+| -------------------------- | ------- |
 | `--pn parameter level uni` | parameter is sampled from a uniform distribution between (value -level * value) and (value + level * value) |
 | `--cn level uni` | all connection parameters are sampled from a uniform distribution between (value -level * value) and (value + level * value) |
 | `--pn parameter level uni` | parameter is sampled from a normal distribution with mean of value and standard deviation of (level * value) |
