@@ -9,11 +9,11 @@ For a full set of options run `sbmodelr --help` on the command line.
 The rest of this document describes the many options that are available in *sbmodelr*, but specific examples of usage are provided in the `examples` folder, which illustrate real-world usage of this tool, mostly replicating existing modeling papers. The examples are:
 
  - [Cells in a medium](examples/Cells_in_medium#cells-in-medium): single cell organisms with species transported to the medium
- - [Row of cells with gap junctions](examples/Row_of_cells_gap_junctions): cells connected end-to-end by gap junctions
- - [Array of oscillating cells](examples/Array_of_oscillating_cells): a square array of cells in a medium with diffusion
- - [Neuron networks I](examples/Neuron_networks_I): small(ish) networks using a Hodgkin-Huxley-type model
- - [Neuron networks II](examples/Neuron_networks_II): large networks using the Izhikevich model
- - [Gene regulatory networks](examples/Gene_Regulatory_Networks): easy creation of large (or small) gene networks from a simple model file
+ - [Row of cells with gap junctions](examples/Row_of_cells_gap_junctions#row-of-cells-with-gap-junctions): cells connected end-to-end by gap junctions
+ - [Array of oscillating cells](examples/Array_of_oscillating_cells#array-of-cells): a square array of cells in a medium with diffusion
+ - [Neuron networks I](examples/Neuron_networks_I#neuron-networks-i): small(ish) networks using a Hodgkin-Huxley-type model
+ - [Neuron networks II](examples/Neuron_networks_II#neuron-networks-ii): large networks using the Izhikevich model
+ - [Gene regulatory networks](examples/Gene_Regulatory_Networks#gene-regulatory-networks): easy creation of large (or small) gene networks from a simple model file
 
 ## Required options
 
