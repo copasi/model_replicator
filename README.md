@@ -18,7 +18,7 @@ Practical uses of *sbmodelr* include:
  - use a gene transcription model to create a gene regulatory network
  - use a neuron model (e.g. the Hodgkin-Huxley) to create a network of neurons
 
-The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc, where the model will be used for simulations. (*sbmodelr* only creates models, it does not carry out simulations.)
+The output of this program is a new model file with the more complex model. It is expected that the user may still have to tune parts of the resulting model in a regular modeling tool, such as [COPASI](https://copasi.org), [VCell](https://vcell.org), etc., where the model will be used for simulations. (*sbmodelr* only creates models, it does not carry out simulations.)
 
 ## Usage
 
@@ -60,4 +60,4 @@ This package was supported by the National Institute of General Medical Sciences
 
 ## License
 
-This program is Copyright Pedro Mendes 2024 and is provided under the Artistic License 2.0, which is an OSI approved license. This license allows non-commercial and commercial use free of charge.
+The software *sbmodelr* is Copyright © 2024 Pedro Mendes, Center for Cell Analysis and Modeling, UConn Health. It is provided under the Artistic License 2.0, which is an OSI approved license. This license allows non-commercial and commercial use free of charge.
