@@ -186,3 +186,11 @@ When *sbmodelr* reads a base file that is in COPASI format (*.cps) it normally c
 
 In the *Parameter Scan*, *Sensitivities*, *Cross Section* and *Optimization* tasks all the elements used will be translated to those of the first unit of the new model. In *Optimization* this includes both the objective function, the parameters and constraints. This is arbitrary and if the user requires that it reflects a different unit, it will have to be changed manually within COPASI.
 
+## License
+
+The software *sbmodelr* is Copyright © 2024 Pedro Mendes, Center for Cell Analysis and Modeling, UConn Health. It is provided under the Artistic License 2.0, which is an OSI approved license. This license allows non-commercial and commercial use free of charge.
+
+## Funding
+
+This package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number GM137787. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+
