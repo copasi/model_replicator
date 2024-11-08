@@ -28,21 +28,18 @@ See [User Manual](UserManual.md#sbmodelr--user-manual) for complete description 
 
 The package works with python 3.8+ and requires the package *copasi-basico* (freely available on pypi).
 
-You can install *sbmodelr* and its dependency by running:
+You can install *sbmodelr* directly from pypi:
 
-        pip install git+https://github.com/copasi/sbmodelr.git
+    pip install sbmodelr
+
+You can also install it directly from this repository:
+
+    pip install git+https://github.com/copasi/sbmodelr.git
 
 or optionally for development with:
 
         git clone https://github.com/copasi/sbmodelr
         pip install -e ./sbmodelr
-
-<!--
-You can install the package directly from pypi:
-
-    pip install sbmodelr
-
--->
 
 ## Credits
 
