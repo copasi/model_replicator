@@ -181,7 +181,7 @@ All *metadata* included in the base file are also copied to the new model. Each 
 
 ## Task processing
 
-When *sbmodelr* reads a base file that is in COPASI format (*.cps) it normally copies the settings of the tasks to the new file. To prevent this, and just create a file with default values for the tasks, then add the option `--ignore-tasks`.
+When *sbmodelr* reads a base file that is in COPASI format (*.cps) it normally copies the settings of the tasks to the new file. To prevent this, and just create a file with default values for the tasks, add the option `--ignore-tasks`.
 
 In the *Parameter Scan*, *Sensitivities*, *Cross Section* and *Optimization* tasks all the elements used will be translated to those of the first unit of the new model. In *Optimization* this includes both the objective function, the parameters and constraints. This is arbitrary and if the user requires that it reflects a different unit, it will have to be changed manually within COPASI.
 
