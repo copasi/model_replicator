@@ -8,7 +8,7 @@ For a full set of options run `sbmodelr --help` on the command line.
 ### Examples
 The rest of this document describes the many options that are available in *sbmodelr*, but specific examples of usage are provided in the `examples` folder, which illustrate real-world usage of this tool, mostly replicating existing modeling papers. The examples are:
 
- - [Cells in a medium](examples/Cells_in_medium): single cell organisms with species transported to the medium
+ - [Cells in a medium](examples/Cells_in_medium#README.md): single cell organisms with species transported to the medium
  - [Row of cells with gap junctions](examples/Row_of_cells_gap_junctions): cells connected end-to-end by gap junctions
  - [Array of oscillating cells](examples/Array_of_oscillating_cells): a square array of cells in a medium with diffusion
  - [Neuron networks I](examples/Neuron_networks_I): small(ish) networks using a Hodgkin-Huxley-type model
@@ -192,5 +192,5 @@ The software *sbmodelr* is Copyright © 2024 Pedro Mendes, [Center for Cell Anal
 
 ## Funding
 
-This package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number GM137787. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+This package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number GM137787 as part of the [National Resource for Mechanistic Modeling of Cellular Systems](https://compcellbio.org/). The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
 
