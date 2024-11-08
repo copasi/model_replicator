@@ -176,7 +176,7 @@ All *units* used in the base model will also be used in the output model; model 
 
 All *metadata* included in the base file are also copied to the new model. Each model element replicated will also get the same metadata as the original element in the base model. Additionally the model creation time will be a copy of the model creation time of the base model; the current date/time is added to a new modified time.
 
-*Comments* (*i.e.* free text) attached to base model elements are copied to all the replicates in the new model.
+*Comments* (*i.e.* free text) attached to base model elements are copied to all the replicates in the new model. The model comments will include a statement that the model was created by *sbmodelr* and a copy of the full command line used.
 
 ## Events
 
