@@ -7,9 +7,9 @@ Connections between units in the new model can be:
  - species being transported between units
  - species acting as inhibitors/activators of the synthesis of other species (to make gene regulatory networks)
  - diffusive coupling of explicit ODEs ("rate rules" in SBML)
- - coupling of explicit ODEs through chemical synapse terms, appropriate for ODEs representing membrane potentials
+ - coupling of explicit ODEs through chemical synapse terms, appropriate for models representing membrane potentials
 
-An additional unit can be added -- called 'medium' -- which only contains the transported species, but is connected to all other units.
+An additional unit can be added — called *medium* — which only contains the transported species, but is connected to all other units.
 
 It is also possible to add randomness to parameter values, such that each unit becomes slightly different from each other.
 
