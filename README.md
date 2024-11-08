@@ -22,7 +22,7 @@ The output of this program is a new model file with the more complex model. It i
 
 ## Usage
 
-See [User Manual](UserManual.md) for complete description of how to use *sbmodelr*. Detailed examples are provided in the [examples](https://github.com/copasi/sbmodelr/tree/main/examples) folder.
+See [User Manual](UserManual.md#sbmodelr--user-manual) for complete description of how to use *sbmodelr*. Detailed examples are provided in the [examples](https://github.com/copasi/sbmodelr/tree/main/examples) folder.
 
 ## Installation
 
