@@ -56,7 +56,7 @@ Thanks to Frank Bergmann for making [BasiCO](https://github.com/copasi/basico) a
 
 ## Funding
 
-This package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number GM137787. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+This package was supported by the National Institute of General Medical Sciences of the National Institutes of Health under award number GM137787 as part of the [National Resource for Mechanistic Modeling of Cellular Systems](https://compcellbio.org/). The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
 
 ## License
 
