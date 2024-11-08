@@ -170,9 +170,11 @@ When *sbmodelr* reads a base file that is in COPASI format (*.cps) it normally c
 
 In the *Parameter Scan*, *Sensitivities*, *Cross Section* and *Optimization* tasks all the elements used will be translated to those of the first unit of the new model. In *Optimization* this includes both the objective function, the parameters and constraints. This is arbitrary and if the user requires that it reflects a different unit, it will have to be changed manually within COPASI.
 
-## Metadata
+## Units, metadata and comments
 
-All *metadata* included in the base file (either SBML or COPASI format) are also copied to the new model. Each model element replicated will also get the same metadata as the original element in the base model. Additionally the model creation time will be a copy of the model creation time of the base model; the current date/time is added to a new modified time.
+All *units* used in the base model will also be used in the output model; model elements that are replicated inherit the units of the base model.
+
+All *metadata* included in the base file are also copied to the new model. Each model element replicated will also get the same metadata as the original element in the base model. Additionally the model creation time will be a copy of the model creation time of the base model; the current date/time is added to a new modified time.
 
 *Comments* (*i.e.* free text) attached to base model elements are copied to all the replicates in the new model.
 
