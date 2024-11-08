@@ -15,7 +15,7 @@
 #TODO: modification between units? (would need to select species and reaction)
 #TODO: hexagonal arrays? (please no!)
 
-__version__ = "1.0b1"
+__version__ = "1.0"
 
 import os
 import re
