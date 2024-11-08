@@ -108,7 +108,7 @@ The three parameters of the rate law above will be assigned default values (whci
 
 ### Chemical synapses
 
-This type of connection is intended for electrophysiological models of neurons where the membrane potential is an explicit variable and the neurons are connected through chemical synapses. The base model should be of the Hodgkin-Huxley type where the variable to connect should be the one representing membrane potential. The connection is specified using `--s variable` or `--ode-synaptic variable`, where `variable` is the name of the variable representing the membrane potential.
+This type of connection is intended for electrophysiological models of neurons where the membrane potential is an explicit variable and the neurons are connected through chemical synapses. The base model should be of the Hodgkin-Huxley type where the variable to connect represent membrane potential. The connection is specified using `--s variable` or `--ode-synaptic variable`, where `variable` is the name of the variable representing the membrane potential.
 
 This type of connection can only be used with variables that are of type `ode` (*i.e.* explicit ODEs, called "rate rules" in SBML), and these can be either *species* or *global quantities*. The connections must be defined by a network file of type `digraph` (directed graph, where the edges are unidirectional and specified with `->`). This cannot be used with the 2D and 3D array topologies.
 
