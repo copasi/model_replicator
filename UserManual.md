@@ -132,6 +132,7 @@ The five parameters of the two differential equations above will be assigned def
 | *tau_r*   | 0.5     | `--synapse-tau-r value`                   |
 | *tau_d*   | 10      | `--synapse-tau-d value`                   |
 
+By default *sbmodelr* will create one instance of the *g* parameter per synapse, and each one can later be changed independently within a modeling program like COPASI. However, sometimes it may be useful to have all the *g* parameters linked to a single master parameter. This can be achieved with the option `--synapse-link-g` which will then create an extra parameter called `g_c_{ode}_synapse` (where *{ode}* is the name of the variable that represents membrane potential) and all other *g* parameters will be linked to that one.
 
 ## Randomizing parameter values
 
